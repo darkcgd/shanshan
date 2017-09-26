@@ -1,0 +1,49 @@
+<!DOCTYPE html public "-//W3C//dtd html 4.0 Transitional//en">  
+<html>  
+    <head>          
+        <meta http-equiv=Content-Type content="text/html;charset=utf-8">        
+        <title>加密</title>  
+        <script src="js/tripledes2.js"></script>  
+        <script src="js/cipher-core.js"></script>    
+        <script src="js/core.js"></script>  
+        <script src="js/mode-ecb.js"></script>  
+        <script src="js/md5.js"></script>  
+        <script type="text/javascript">         
+        function encryptByDES(message, key) {    
+     
+            var keyHex = CryptoJS.enc.Utf8.parse(key);  
+            var encrypted = CryptoJS.DES.encrypt(message, keyHex, {    
+            mode: CryptoJS.mode.ECB,    
+            padding: CryptoJS.pad.Pkcs7    
+            });   
+            return encrypted.toString();    
+        }    
+        function decryptByDES(ciphertext, key) {    
+            var keyHex = CryptoJS.enc.Utf8.parse(key);    
+             
+            // direct decrypt ciphertext  
+            var decrypted = CryptoJS.DES.decrypt({    
+                ciphertext: CryptoJS.enc.Base64.parse(ciphertext)    
+            }, keyHex, {    
+                mode: CryptoJS.mode.ECB,    
+                padding: CryptoJS.pad.Pkcs7    
+            });    
+             
+            return decrypted.toString(CryptoJS.enc.Utf8);    
+        }       
+        
+        window.onload=function(){
+		 	 var fun = encryptByDES; //引用abc函数
+      var a=fun("123456","abc123.*abc123.*abc123.*abc123.*");
+      alert(a);
+		};
+        
+        </script>       
+    </head>     
+      
+    <body>      
+    </body>  
+</html>   
+
+
+
