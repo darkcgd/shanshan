@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shanshan.dao.TechnologyUserBeanMapper">
+  <resultMap id="BaseResultMap" type="com.shanshan.bean.TechnologyUserBean">
+    <id column="technology_id" jdbcType="INTEGER" property="technologyId" />
+    <result column="technology_name" jdbcType="VARCHAR" property="technologyName" />
+    <result column="wx_union_id" jdbcType="VARCHAR" property="wxUnionId" />
+    <result column="wx_access_token" jdbcType="VARCHAR" property="wxAccessToken" />
+    <result column="pwd" jdbcType="VARCHAR" property="pwd" />
+    <result column="head_url" jdbcType="VARCHAR" property="headUrl" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="age" jdbcType="INTEGER" property="age" />
+    <result column="sex" jdbcType="INTEGER" property="sex" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="last_login_time" jdbcType="TIMESTAMP" property="lastLoginTime" />
+    <result column="user_type" jdbcType="INTEGER" property="userType" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="company_id" jdbcType="INTEGER" property="companyId" />
+    <result column="attributes" jdbcType="VARCHAR" property="attributes" />
+    <result column="experience_years" jdbcType="VARCHAR" property="experienceYears" />
+    <result column="expertise_areas" jdbcType="VARCHAR" property="expertiseAreas" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    technology_id, technology_name, wx_union_id, wx_access_token, pwd, head_url, phone, 
+    email, age, sex, create_time, update_time, last_login_time, user_type, remark, company_id, 
+    attributes, experience_years, expertise_areas
+  </sql>
+  <select id="selectByExample" parameterType="com.shanshan.bean.TechnologyUserBeanExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tbl_technology_user
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_technology_user
+    where technology_id = #{technologyId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tbl_technology_user
+    where technology_id = #{technologyId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.shanshan.bean.TechnologyUserBeanExample">
+    delete from tbl_technology_user
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.shanshan.bean.TechnologyUserBean">
+    insert into tbl_technology_user (technology_id, technology_name, wx_union_id, 
+      wx_access_token, pwd, head_url, 
+      phone, email, age, 
+      sex, create_time, update_time, 
+      last_login_time, user_type, remark, 
+      company_id, attributes, experience_years, 
+      expertise_areas)
+    values (#{technologyId,jdbcType=INTEGER}, #{technologyName,jdbcType=VARCHAR}, #{wxUnionId,jdbcType=VARCHAR}, 
+      #{wxAccessToken,jdbcType=VARCHAR}, #{pwd,jdbcType=VARCHAR}, #{headUrl,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER}, 
+      #{sex,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{lastLoginTime,jdbcType=TIMESTAMP}, #{userType,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, 
+      #{companyId,jdbcType=INTEGER}, #{attributes,jdbcType=VARCHAR}, #{experienceYears,jdbcType=VARCHAR}, 
+      #{expertiseAreas,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.shanshan.bean.TechnologyUserBean">
+    insert into tbl_technology_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="technologyId != null">
+        technology_id,
+      </if>
+      <if test="technologyName != null">
+        technology_name,
+      </if>
+      <if test="wxUnionId != null">
+        wx_union_id,
+      </if>
+      <if test="wxAccessToken != null">
+        wx_access_token,
+      </if>
+      <if test="pwd != null">
+        pwd,
+      </if>
+      <if test="headUrl != null">
+        head_url,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="age != null">
+        age,
+      </if>
+      <if test="sex != null">
+        sex,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="lastLoginTime != null">
+        last_login_time,
+      </if>
+      <if test="userType != null">
+        user_type,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="companyId != null">
+        company_id,
+      </if>
+      <if test="attributes != null">
+        attributes,
+      </if>
+      <if test="experienceYears != null">
+        experience_years,
+      </if>
+      <if test="expertiseAreas != null">
+        expertise_areas,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="technologyId != null">
+        #{technologyId,jdbcType=INTEGER},
+      </if>
+      <if test="technologyName != null">
+        #{technologyName,jdbcType=VARCHAR},
+      </if>
+      <if test="wxUnionId != null">
+        #{wxUnionId,jdbcType=VARCHAR},
+      </if>
+      <if test="wxAccessToken != null">
+        #{wxAccessToken,jdbcType=VARCHAR},
+      </if>
+      <if test="pwd != null">
+        #{pwd,jdbcType=VARCHAR},
+      </if>
+      <if test="headUrl != null">
+        #{headUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null">
+        #{age,jdbcType=INTEGER},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastLoginTime != null">
+        #{lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userType != null">
+        #{userType,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null">
+        #{companyId,jdbcType=INTEGER},
+      </if>
+      <if test="attributes != null">
+        #{attributes,jdbcType=VARCHAR},
+      </if>
+      <if test="experienceYears != null">
+        #{experienceYears,jdbcType=VARCHAR},
+      </if>
+      <if test="expertiseAreas != null">
+        #{expertiseAreas,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.shanshan.bean.TechnologyUserBeanExample" resultType="java.lang.Long">
+    select count(*) from tbl_technology_user
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tbl_technology_user
+    <set>
+      <if test="record.technologyId != null">
+        technology_id = #{record.technologyId,jdbcType=INTEGER},
+      </if>
+      <if test="record.technologyName != null">
+        technology_name = #{record.technologyName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wxUnionId != null">
+        wx_union_id = #{record.wxUnionId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wxAccessToken != null">
+        wx_access_token = #{record.wxAccessToken,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pwd != null">
+        pwd = #{record.pwd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.headUrl != null">
+        head_url = #{record.headUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phone != null">
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null">
+        email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.age != null">
+        age = #{record.age,jdbcType=INTEGER},
+      </if>
+      <if test="record.sex != null">
+        sex = #{record.sex,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lastLoginTime != null">
+        last_login_time = #{record.lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.userType != null">
+        user_type = #{record.userType,jdbcType=INTEGER},
+      </if>
+      <if test="record.remark != null">
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyId != null">
+        company_id = #{record.companyId,jdbcType=INTEGER},
+      </if>
+      <if test="record.attributes != null">
+        attributes = #{record.attributes,jdbcType=VARCHAR},
+      </if>
+      <if test="record.experienceYears != null">
+        experience_years = #{record.experienceYears,jdbcType=VARCHAR},
+      </if>
+      <if test="record.expertiseAreas != null">
+        expertise_areas = #{record.expertiseAreas,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tbl_technology_user
+    set technology_id = #{record.technologyId,jdbcType=INTEGER},
+      technology_name = #{record.technologyName,jdbcType=VARCHAR},
+      wx_union_id = #{record.wxUnionId,jdbcType=VARCHAR},
+      wx_access_token = #{record.wxAccessToken,jdbcType=VARCHAR},
+      pwd = #{record.pwd,jdbcType=VARCHAR},
+      head_url = #{record.headUrl,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      email = #{record.email,jdbcType=VARCHAR},
+      age = #{record.age,jdbcType=INTEGER},
+      sex = #{record.sex,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      last_login_time = #{record.lastLoginTime,jdbcType=TIMESTAMP},
+      user_type = #{record.userType,jdbcType=INTEGER},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      company_id = #{record.companyId,jdbcType=INTEGER},
+      attributes = #{record.attributes,jdbcType=VARCHAR},
+      experience_years = #{record.experienceYears,jdbcType=VARCHAR},
+      expertise_areas = #{record.expertiseAreas,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shanshan.bean.TechnologyUserBean">
+    update tbl_technology_user
+    <set>
+      <if test="technologyName != null">
+        technology_name = #{technologyName,jdbcType=VARCHAR},
+      </if>
+      <if test="wxUnionId != null">
+        wx_union_id = #{wxUnionId,jdbcType=VARCHAR},
+      </if>
+      <if test="wxAccessToken != null">
+        wx_access_token = #{wxAccessToken,jdbcType=VARCHAR},
+      </if>
+      <if test="pwd != null">
+        pwd = #{pwd,jdbcType=VARCHAR},
+      </if>
+      <if test="headUrl != null">
+        head_url = #{headUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null">
+        age = #{age,jdbcType=INTEGER},
+      </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastLoginTime != null">
+        last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userType != null">
+        user_type = #{userType,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null">
+        company_id = #{companyId,jdbcType=INTEGER},
+      </if>
+      <if test="attributes != null">
+        attributes = #{attributes,jdbcType=VARCHAR},
+      </if>
+      <if test="experienceYears != null">
+        experience_years = #{experienceYears,jdbcType=VARCHAR},
+      </if>
+      <if test="expertiseAreas != null">
+        expertise_areas = #{expertiseAreas,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where technology_id = #{technologyId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shanshan.bean.TechnologyUserBean">
+    update tbl_technology_user
+    set technology_name = #{technologyName,jdbcType=VARCHAR},
+      wx_union_id = #{wxUnionId,jdbcType=VARCHAR},
+      wx_access_token = #{wxAccessToken,jdbcType=VARCHAR},
+      pwd = #{pwd,jdbcType=VARCHAR},
+      head_url = #{headUrl,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      age = #{age,jdbcType=INTEGER},
+      sex = #{sex,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
+      user_type = #{userType,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR},
+      company_id = #{companyId,jdbcType=INTEGER},
+      attributes = #{attributes,jdbcType=VARCHAR},
+      experience_years = #{experienceYears,jdbcType=VARCHAR},
+      expertise_areas = #{expertiseAreas,jdbcType=VARCHAR}
+    where technology_id = #{technologyId,jdbcType=INTEGER}
+  </update>
+</mapper>

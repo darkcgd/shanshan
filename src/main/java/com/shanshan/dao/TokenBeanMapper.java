@@ -2,9 +2,8 @@ package com.shanshan.dao;
 
 import com.shanshan.bean.TokenBean;
 import com.shanshan.bean.TokenBeanExample;
-import org.apache.ibatis.annotations.Param;
-
 import java.util.List;
+import org.apache.ibatis.annotations.Param;
 
 public interface TokenBeanMapper {
     long countByExample(TokenBeanExample example);
