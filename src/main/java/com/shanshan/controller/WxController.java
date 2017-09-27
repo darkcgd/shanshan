@@ -1,15 +1,17 @@
 package com.shanshan.controller;
 
+import com.shanshan.service.WxService;
 import com.shanshan.util.AbSHA1;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -23,16 +25,46 @@ import java.util.List;
 public class WxController {
     private String Token = "shanshanToken";
 
+    @Resource
+    WxService wxService;
+
+    /**
+     * 微信接入
+     * @return
+     * @throws IOException
+     */
     @RequestMapping(value = "", method = { RequestMethod.GET, RequestMethod.POST })
     @ResponseBody
-    public void load(Model model, HttpServletRequest request, HttpServletResponse response) {
-        //判断访问方式
-        boolean isGet = request.getMethod().toLowerCase().equals("get");
-        if (isGet) {
-            //进行认证
-            access(request, response);
-        } else {
-            //处理微信post请求
+    public void connectWeixin(HttpServletRequest request, HttpServletResponse response) throws IOException{
+        // 将请求、响应的编码均设置为UTF-8（防止中文乱码）
+        request.setCharacterEncoding("UTF-8");  //微信服务器POST消息时用的是UTF-8编码，在接收时也要用同样的编码，否则中文会乱码；
+        response.setCharacterEncoding("UTF-8"); //在响应消息（回复消息给用户）时，也将编码方式设置为UTF-8，原理同上；boolean isGet = request.getMethod().toLowerCase().equals("get");
+
+        PrintWriter out = response.getWriter();
+
+        try {
+
+            //判断访问方式
+            boolean isGet = request.getMethod().toLowerCase().equals("get");
+            if (isGet) {
+                //进行认证
+                doGet(request, response);
+            } else {
+                //处理微信post请求
+                doPost(request,out);
+            }
+        } catch (Exception e) {
+        }finally{
+            out.close();
+        }
+    }
+
+    private void doPost(HttpServletRequest request, PrintWriter out) {
+        String respMessage = "异常消息！";
+        try {
+            respMessage = wxService.weixinPost(request);
+            out.write(respMessage);
+        } catch (Exception e) {
         }
     }
 
@@ -43,7 +75,7 @@ public class WxController {
      * @param response
      * @return String
      */
-    private String access(HttpServletRequest request, HttpServletResponse response) {
+    private String doGet(HttpServletRequest request, HttpServletResponse response) {
         // 验证URL真实性
         String signature = request.getParameter("signature");// 微信加密签名
         String timestamp = request.getParameter("timestamp");// 时间戳
@@ -72,4 +104,5 @@ public class WxController {
         }
         return null;
     }
+
 }
