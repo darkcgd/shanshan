@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shanshan.dao.FaultRepairBeanMapper">
+  <resultMap id="BaseResultMap" type="com.shanshan.bean.FaultRepairBean">
+    <id column="repair_id" jdbcType="INTEGER" property="repairId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="machine_tool_brand" jdbcType="VARCHAR" property="machineToolBrand" />
+    <result column="Machine tool_model" jdbcType="VARCHAR" property="machineToolModel" />
+    <result column="Machine tool_SN" jdbcType="VARCHAR" property="machineToolSn" />
+    <result column="contacts_name" jdbcType="VARCHAR" property="contactsName" />
+    <result column="contacts_phone" jdbcType="VARCHAR" property="contactsPhone" />
+    <result column="describe" jdbcType="VARCHAR" property="describe" />
+    <result column="photo1" jdbcType="VARCHAR" property="photo1" />
+    <result column="photo2" jdbcType="VARCHAR" property="photo2" />
+    <result column="photo3" jdbcType="VARCHAR" property="photo3" />
+    <result column="photo4" jdbcType="VARCHAR" property="photo4" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    repair_id, create_time, update_time, remark, machine_tool_brand, "Machine tool_model", 
+    "Machine tool_SN", contacts_name, contacts_phone, describe, photo1, photo2, photo3, 
+    photo4
+  </sql>
+  <select id="selectByExample" parameterType="com.shanshan.bean.FaultRepairBeanExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tbl_fault_repair
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_fault_repair
+    where repair_id = #{repairId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tbl_fault_repair
+    where repair_id = #{repairId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.shanshan.bean.FaultRepairBeanExample">
+    delete from tbl_fault_repair
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.shanshan.bean.FaultRepairBean">
+    insert into tbl_fault_repair (repair_id, create_time, update_time, 
+      remark, machine_tool_brand, "Machine tool_model", 
+      "Machine tool_SN", contacts_name, contacts_phone, 
+      describe, photo1, photo2, 
+      photo3, photo4)
+    values (#{repairId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{remark,jdbcType=VARCHAR}, #{machineToolBrand,jdbcType=VARCHAR}, #{machineToolModel,jdbcType=VARCHAR}, 
+      #{machineToolSn,jdbcType=VARCHAR}, #{contactsName,jdbcType=VARCHAR}, #{contactsPhone,jdbcType=VARCHAR}, 
+      #{describe,jdbcType=VARCHAR}, #{photo1,jdbcType=VARCHAR}, #{photo2,jdbcType=VARCHAR}, 
+      #{photo3,jdbcType=VARCHAR}, #{photo4,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.shanshan.bean.FaultRepairBean">
+    insert into tbl_fault_repair
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="repairId != null">
+        repair_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="machineToolBrand != null">
+        machine_tool_brand,
+      </if>
+      <if test="machineToolModel != null">
+        "Machine tool_model",
+      </if>
+      <if test="machineToolSn != null">
+        "Machine tool_SN",
+      </if>
+      <if test="contactsName != null">
+        contacts_name,
+      </if>
+      <if test="contactsPhone != null">
+        contacts_phone,
+      </if>
+      <if test="describe != null">
+        describe,
+      </if>
+      <if test="photo1 != null">
+        photo1,
+      </if>
+      <if test="photo2 != null">
+        photo2,
+      </if>
+      <if test="photo3 != null">
+        photo3,
+      </if>
+      <if test="photo4 != null">
+        photo4,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="repairId != null">
+        #{repairId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="machineToolBrand != null">
+        #{machineToolBrand,jdbcType=VARCHAR},
+      </if>
+      <if test="machineToolModel != null">
+        #{machineToolModel,jdbcType=VARCHAR},
+      </if>
+      <if test="machineToolSn != null">
+        #{machineToolSn,jdbcType=VARCHAR},
+      </if>
+      <if test="contactsName != null">
+        #{contactsName,jdbcType=VARCHAR},
+      </if>
+      <if test="contactsPhone != null">
+        #{contactsPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="describe != null">
+        #{describe,jdbcType=VARCHAR},
+      </if>
+      <if test="photo1 != null">
+        #{photo1,jdbcType=VARCHAR},
+      </if>
+      <if test="photo2 != null">
+        #{photo2,jdbcType=VARCHAR},
+      </if>
+      <if test="photo3 != null">
+        #{photo3,jdbcType=VARCHAR},
+      </if>
+      <if test="photo4 != null">
+        #{photo4,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.shanshan.bean.FaultRepairBeanExample" resultType="java.lang.Long">
+    select count(*) from tbl_fault_repair
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tbl_fault_repair
+    <set>
+      <if test="record.repairId != null">
+        repair_id = #{record.repairId,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.remark != null">
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.machineToolBrand != null">
+        machine_tool_brand = #{record.machineToolBrand,jdbcType=VARCHAR},
+      </if>
+      <if test="record.machineToolModel != null">
+        "Machine tool_model" = #{record.machineToolModel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.machineToolSn != null">
+        "Machine tool_SN" = #{record.machineToolSn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contactsName != null">
+        contacts_name = #{record.contactsName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contactsPhone != null">
+        contacts_phone = #{record.contactsPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.describe != null">
+        describe = #{record.describe,jdbcType=VARCHAR},
+      </if>
+      <if test="record.photo1 != null">
+        photo1 = #{record.photo1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.photo2 != null">
+        photo2 = #{record.photo2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.photo3 != null">
+        photo3 = #{record.photo3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.photo4 != null">
+        photo4 = #{record.photo4,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tbl_fault_repair
+    set repair_id = #{record.repairId,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      machine_tool_brand = #{record.machineToolBrand,jdbcType=VARCHAR},
+      "Machine tool_model" = #{record.machineToolModel,jdbcType=VARCHAR},
+      "Machine tool_SN" = #{record.machineToolSn,jdbcType=VARCHAR},
+      contacts_name = #{record.contactsName,jdbcType=VARCHAR},
+      contacts_phone = #{record.contactsPhone,jdbcType=VARCHAR},
+      describe = #{record.describe,jdbcType=VARCHAR},
+      photo1 = #{record.photo1,jdbcType=VARCHAR},
+      photo2 = #{record.photo2,jdbcType=VARCHAR},
+      photo3 = #{record.photo3,jdbcType=VARCHAR},
+      photo4 = #{record.photo4,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shanshan.bean.FaultRepairBean">
+    update tbl_fault_repair
+    <set>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="machineToolBrand != null">
+        machine_tool_brand = #{machineToolBrand,jdbcType=VARCHAR},
+      </if>
+      <if test="machineToolModel != null">
+        "Machine tool_model" = #{machineToolModel,jdbcType=VARCHAR},
+      </if>
+      <if test="machineToolSn != null">
+        "Machine tool_SN" = #{machineToolSn,jdbcType=VARCHAR},
+      </if>
+      <if test="contactsName != null">
+        contacts_name = #{contactsName,jdbcType=VARCHAR},
+      </if>
+      <if test="contactsPhone != null">
+        contacts_phone = #{contactsPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="describe != null">
+        describe = #{describe,jdbcType=VARCHAR},
+      </if>
+      <if test="photo1 != null">
+        photo1 = #{photo1,jdbcType=VARCHAR},
+      </if>
+      <if test="photo2 != null">
+        photo2 = #{photo2,jdbcType=VARCHAR},
+      </if>
+      <if test="photo3 != null">
+        photo3 = #{photo3,jdbcType=VARCHAR},
+      </if>
+      <if test="photo4 != null">
+        photo4 = #{photo4,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where repair_id = #{repairId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shanshan.bean.FaultRepairBean">
+    update tbl_fault_repair
+    set create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR},
+      machine_tool_brand = #{machineToolBrand,jdbcType=VARCHAR},
+      "Machine tool_model" = #{machineToolModel,jdbcType=VARCHAR},
+      "Machine tool_SN" = #{machineToolSn,jdbcType=VARCHAR},
+      contacts_name = #{contactsName,jdbcType=VARCHAR},
+      contacts_phone = #{contactsPhone,jdbcType=VARCHAR},
+      describe = #{describe,jdbcType=VARCHAR},
+      photo1 = #{photo1,jdbcType=VARCHAR},
+      photo2 = #{photo2,jdbcType=VARCHAR},
+      photo3 = #{photo3,jdbcType=VARCHAR},
+      photo4 = #{photo4,jdbcType=VARCHAR}
+    where repair_id = #{repairId,jdbcType=INTEGER}
+  </update>
+</mapper>
