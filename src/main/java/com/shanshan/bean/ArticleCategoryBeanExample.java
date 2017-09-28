@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class CompanyBeanExample {
+public class ArticleCategoryBeanExample {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public CompanyBeanExample() {
+    public ArticleCategoryBeanExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
@@ -105,383 +105,193 @@ public class CompanyBeanExample {
             criteria.add(new Criterion(condition, value1, value2));
         }
 
-        public Criteria andCompanyIdIsNull() {
-            addCriterion("company_id is null");
+        public Criteria andArticleCategoryIdIsNull() {
+            addCriterion("article_category_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andCompanyIdIsNotNull() {
-            addCriterion("company_id is not null");
+        public Criteria andArticleCategoryIdIsNotNull() {
+            addCriterion("article_category_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andCompanyIdEqualTo(Integer value) {
-            addCriterion("company_id =", value, "companyId");
+        public Criteria andArticleCategoryIdEqualTo(Integer value) {
+            addCriterion("article_category_id =", value, "articleCategoryId");
             return (Criteria) this;
         }
 
-        public Criteria andCompanyIdNotEqualTo(Integer value) {
-            addCriterion("company_id <>", value, "companyId");
+        public Criteria andArticleCategoryIdNotEqualTo(Integer value) {
+            addCriterion("article_category_id <>", value, "articleCategoryId");
             return (Criteria) this;
         }
 
-        public Criteria andCompanyIdGreaterThan(Integer value) {
-            addCriterion("company_id >", value, "companyId");
+        public Criteria andArticleCategoryIdGreaterThan(Integer value) {
+            addCriterion("article_category_id >", value, "articleCategoryId");
             return (Criteria) this;
         }
 
-        public Criteria andCompanyIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("company_id >=", value, "companyId");
+        public Criteria andArticleCategoryIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("article_category_id >=", value, "articleCategoryId");
             return (Criteria) this;
         }
 
-        public Criteria andCompanyIdLessThan(Integer value) {
-            addCriterion("company_id <", value, "companyId");
+        public Criteria andArticleCategoryIdLessThan(Integer value) {
+            addCriterion("article_category_id <", value, "articleCategoryId");
             return (Criteria) this;
         }
 
-        public Criteria andCompanyIdLessThanOrEqualTo(Integer value) {
-            addCriterion("company_id <=", value, "companyId");
+        public Criteria andArticleCategoryIdLessThanOrEqualTo(Integer value) {
+            addCriterion("article_category_id <=", value, "articleCategoryId");
             return (Criteria) this;
         }
 
-        public Criteria andCompanyIdIn(List<Integer> values) {
-            addCriterion("company_id in", values, "companyId");
+        public Criteria andArticleCategoryIdIn(List<Integer> values) {
+            addCriterion("article_category_id in", values, "articleCategoryId");
             return (Criteria) this;
         }
 
-        public Criteria andCompanyIdNotIn(List<Integer> values) {
-            addCriterion("company_id not in", values, "companyId");
+        public Criteria andArticleCategoryIdNotIn(List<Integer> values) {
+            addCriterion("article_category_id not in", values, "articleCategoryId");
             return (Criteria) this;
         }
 
-        public Criteria andCompanyIdBetween(Integer value1, Integer value2) {
-            addCriterion("company_id between", value1, value2, "companyId");
+        public Criteria andArticleCategoryIdBetween(Integer value1, Integer value2) {
+            addCriterion("article_category_id between", value1, value2, "articleCategoryId");
             return (Criteria) this;
         }
 
-        public Criteria andCompanyIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("company_id not between", value1, value2, "companyId");
+        public Criteria andArticleCategoryIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("article_category_id not between", value1, value2, "articleCategoryId");
             return (Criteria) this;
         }
 
-        public Criteria andCompanyNameIsNull() {
-            addCriterion("company_name is null");
+        public Criteria andArticleCategoryNameIsNull() {
+            addCriterion("article_category_name is null");
             return (Criteria) this;
         }
 
-        public Criteria andCompanyNameIsNotNull() {
-            addCriterion("company_name is not null");
+        public Criteria andArticleCategoryNameIsNotNull() {
+            addCriterion("article_category_name is not null");
             return (Criteria) this;
         }
 
-        public Criteria andCompanyNameEqualTo(String value) {
-            addCriterion("company_name =", value, "companyName");
+        public Criteria andArticleCategoryNameEqualTo(String value) {
+            addCriterion("article_category_name =", value, "articleCategoryName");
             return (Criteria) this;
         }
 
-        public Criteria andCompanyNameNotEqualTo(String value) {
-            addCriterion("company_name <>", value, "companyName");
+        public Criteria andArticleCategoryNameNotEqualTo(String value) {
+            addCriterion("article_category_name <>", value, "articleCategoryName");
             return (Criteria) this;
         }
 
-        public Criteria andCompanyNameGreaterThan(String value) {
-            addCriterion("company_name >", value, "companyName");
+        public Criteria andArticleCategoryNameGreaterThan(String value) {
+            addCriterion("article_category_name >", value, "articleCategoryName");
             return (Criteria) this;
         }
 
-        public Criteria andCompanyNameGreaterThanOrEqualTo(String value) {
-            addCriterion("company_name >=", value, "companyName");
+        public Criteria andArticleCategoryNameGreaterThanOrEqualTo(String value) {
+            addCriterion("article_category_name >=", value, "articleCategoryName");
             return (Criteria) this;
         }
 
-        public Criteria andCompanyNameLessThan(String value) {
-            addCriterion("company_name <", value, "companyName");
+        public Criteria andArticleCategoryNameLessThan(String value) {
+            addCriterion("article_category_name <", value, "articleCategoryName");
             return (Criteria) this;
         }
 
-        public Criteria andCompanyNameLessThanOrEqualTo(String value) {
-            addCriterion("company_name <=", value, "companyName");
+        public Criteria andArticleCategoryNameLessThanOrEqualTo(String value) {
+            addCriterion("article_category_name <=", value, "articleCategoryName");
             return (Criteria) this;
         }
 
-        public Criteria andCompanyNameLike(String value) {
-            addCriterion("company_name like", value, "companyName");
+        public Criteria andArticleCategoryNameLike(String value) {
+            addCriterion("article_category_name like", value, "articleCategoryName");
             return (Criteria) this;
         }
 
-        public Criteria andCompanyNameNotLike(String value) {
-            addCriterion("company_name not like", value, "companyName");
+        public Criteria andArticleCategoryNameNotLike(String value) {
+            addCriterion("article_category_name not like", value, "articleCategoryName");
             return (Criteria) this;
         }
 
-        public Criteria andCompanyNameIn(List<String> values) {
-            addCriterion("company_name in", values, "companyName");
+        public Criteria andArticleCategoryNameIn(List<String> values) {
+            addCriterion("article_category_name in", values, "articleCategoryName");
             return (Criteria) this;
         }
 
-        public Criteria andCompanyNameNotIn(List<String> values) {
-            addCriterion("company_name not in", values, "companyName");
+        public Criteria andArticleCategoryNameNotIn(List<String> values) {
+            addCriterion("article_category_name not in", values, "articleCategoryName");
             return (Criteria) this;
         }
 
-        public Criteria andCompanyNameBetween(String value1, String value2) {
-            addCriterion("company_name between", value1, value2, "companyName");
+        public Criteria andArticleCategoryNameBetween(String value1, String value2) {
+            addCriterion("article_category_name between", value1, value2, "articleCategoryName");
             return (Criteria) this;
         }
 
-        public Criteria andCompanyNameNotBetween(String value1, String value2) {
-            addCriterion("company_name not between", value1, value2, "companyName");
+        public Criteria andArticleCategoryNameNotBetween(String value1, String value2) {
+            addCriterion("article_category_name not between", value1, value2, "articleCategoryName");
             return (Criteria) this;
         }
 
-        public Criteria andCompanyEmailIsNull() {
-            addCriterion("company_email is null");
+        public Criteria andArticleCategoryParentIdIsNull() {
+            addCriterion("article_category_parent_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andCompanyEmailIsNotNull() {
-            addCriterion("company_email is not null");
+        public Criteria andArticleCategoryParentIdIsNotNull() {
+            addCriterion("article_category_parent_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andCompanyEmailEqualTo(String value) {
-            addCriterion("company_email =", value, "companyEmail");
+        public Criteria andArticleCategoryParentIdEqualTo(Integer value) {
+            addCriterion("article_category_parent_id =", value, "articleCategoryParentId");
             return (Criteria) this;
         }
 
-        public Criteria andCompanyEmailNotEqualTo(String value) {
-            addCriterion("company_email <>", value, "companyEmail");
+        public Criteria andArticleCategoryParentIdNotEqualTo(Integer value) {
+            addCriterion("article_category_parent_id <>", value, "articleCategoryParentId");
             return (Criteria) this;
         }
 
-        public Criteria andCompanyEmailGreaterThan(String value) {
-            addCriterion("company_email >", value, "companyEmail");
+        public Criteria andArticleCategoryParentIdGreaterThan(Integer value) {
+            addCriterion("article_category_parent_id >", value, "articleCategoryParentId");
             return (Criteria) this;
         }
 
-        public Criteria andCompanyEmailGreaterThanOrEqualTo(String value) {
-            addCriterion("company_email >=", value, "companyEmail");
+        public Criteria andArticleCategoryParentIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("article_category_parent_id >=", value, "articleCategoryParentId");
             return (Criteria) this;
         }
 
-        public Criteria andCompanyEmailLessThan(String value) {
-            addCriterion("company_email <", value, "companyEmail");
+        public Criteria andArticleCategoryParentIdLessThan(Integer value) {
+            addCriterion("article_category_parent_id <", value, "articleCategoryParentId");
             return (Criteria) this;
         }
 
-        public Criteria andCompanyEmailLessThanOrEqualTo(String value) {
-            addCriterion("company_email <=", value, "companyEmail");
+        public Criteria andArticleCategoryParentIdLessThanOrEqualTo(Integer value) {
+            addCriterion("article_category_parent_id <=", value, "articleCategoryParentId");
             return (Criteria) this;
         }
 
-        public Criteria andCompanyEmailLike(String value) {
-            addCriterion("company_email like", value, "companyEmail");
+        public Criteria andArticleCategoryParentIdIn(List<Integer> values) {
+            addCriterion("article_category_parent_id in", values, "articleCategoryParentId");
             return (Criteria) this;
         }
 
-        public Criteria andCompanyEmailNotLike(String value) {
-            addCriterion("company_email not like", value, "companyEmail");
+        public Criteria andArticleCategoryParentIdNotIn(List<Integer> values) {
+            addCriterion("article_category_parent_id not in", values, "articleCategoryParentId");
             return (Criteria) this;
         }
 
-        public Criteria andCompanyEmailIn(List<String> values) {
-            addCriterion("company_email in", values, "companyEmail");
+        public Criteria andArticleCategoryParentIdBetween(Integer value1, Integer value2) {
+            addCriterion("article_category_parent_id between", value1, value2, "articleCategoryParentId");
             return (Criteria) this;
         }
 
-        public Criteria andCompanyEmailNotIn(List<String> values) {
-            addCriterion("company_email not in", values, "companyEmail");
-            return (Criteria) this;
-        }
-
-        public Criteria andCompanyEmailBetween(String value1, String value2) {
-            addCriterion("company_email between", value1, value2, "companyEmail");
-            return (Criteria) this;
-        }
-
-        public Criteria andCompanyEmailNotBetween(String value1, String value2) {
-            addCriterion("company_email not between", value1, value2, "companyEmail");
-            return (Criteria) this;
-        }
-
-        public Criteria andBuyEquipmentChannelIdIsNull() {
-            addCriterion("buy_equipment_channel_id is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andBuyEquipmentChannelIdIsNotNull() {
-            addCriterion("buy_equipment_channel_id is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andBuyEquipmentChannelIdEqualTo(Integer value) {
-            addCriterion("buy_equipment_channel_id =", value, "buyEquipmentChannelId");
-            return (Criteria) this;
-        }
-
-        public Criteria andBuyEquipmentChannelIdNotEqualTo(Integer value) {
-            addCriterion("buy_equipment_channel_id <>", value, "buyEquipmentChannelId");
-            return (Criteria) this;
-        }
-
-        public Criteria andBuyEquipmentChannelIdGreaterThan(Integer value) {
-            addCriterion("buy_equipment_channel_id >", value, "buyEquipmentChannelId");
-            return (Criteria) this;
-        }
-
-        public Criteria andBuyEquipmentChannelIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("buy_equipment_channel_id >=", value, "buyEquipmentChannelId");
-            return (Criteria) this;
-        }
-
-        public Criteria andBuyEquipmentChannelIdLessThan(Integer value) {
-            addCriterion("buy_equipment_channel_id <", value, "buyEquipmentChannelId");
-            return (Criteria) this;
-        }
-
-        public Criteria andBuyEquipmentChannelIdLessThanOrEqualTo(Integer value) {
-            addCriterion("buy_equipment_channel_id <=", value, "buyEquipmentChannelId");
-            return (Criteria) this;
-        }
-
-        public Criteria andBuyEquipmentChannelIdIn(List<Integer> values) {
-            addCriterion("buy_equipment_channel_id in", values, "buyEquipmentChannelId");
-            return (Criteria) this;
-        }
-
-        public Criteria andBuyEquipmentChannelIdNotIn(List<Integer> values) {
-            addCriterion("buy_equipment_channel_id not in", values, "buyEquipmentChannelId");
-            return (Criteria) this;
-        }
-
-        public Criteria andBuyEquipmentChannelIdBetween(Integer value1, Integer value2) {
-            addCriterion("buy_equipment_channel_id between", value1, value2, "buyEquipmentChannelId");
-            return (Criteria) this;
-        }
-
-        public Criteria andBuyEquipmentChannelIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("buy_equipment_channel_id not between", value1, value2, "buyEquipmentChannelId");
-            return (Criteria) this;
-        }
-
-        public Criteria andEquipmentTypeIdIsNull() {
-            addCriterion("equipment_type_id is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andEquipmentTypeIdIsNotNull() {
-            addCriterion("equipment_type_id is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andEquipmentTypeIdEqualTo(Integer value) {
-            addCriterion("equipment_type_id =", value, "equipmentTypeId");
-            return (Criteria) this;
-        }
-
-        public Criteria andEquipmentTypeIdNotEqualTo(Integer value) {
-            addCriterion("equipment_type_id <>", value, "equipmentTypeId");
-            return (Criteria) this;
-        }
-
-        public Criteria andEquipmentTypeIdGreaterThan(Integer value) {
-            addCriterion("equipment_type_id >", value, "equipmentTypeId");
-            return (Criteria) this;
-        }
-
-        public Criteria andEquipmentTypeIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("equipment_type_id >=", value, "equipmentTypeId");
-            return (Criteria) this;
-        }
-
-        public Criteria andEquipmentTypeIdLessThan(Integer value) {
-            addCriterion("equipment_type_id <", value, "equipmentTypeId");
-            return (Criteria) this;
-        }
-
-        public Criteria andEquipmentTypeIdLessThanOrEqualTo(Integer value) {
-            addCriterion("equipment_type_id <=", value, "equipmentTypeId");
-            return (Criteria) this;
-        }
-
-        public Criteria andEquipmentTypeIdIn(List<Integer> values) {
-            addCriterion("equipment_type_id in", values, "equipmentTypeId");
-            return (Criteria) this;
-        }
-
-        public Criteria andEquipmentTypeIdNotIn(List<Integer> values) {
-            addCriterion("equipment_type_id not in", values, "equipmentTypeId");
-            return (Criteria) this;
-        }
-
-        public Criteria andEquipmentTypeIdBetween(Integer value1, Integer value2) {
-            addCriterion("equipment_type_id between", value1, value2, "equipmentTypeId");
-            return (Criteria) this;
-        }
-
-        public Criteria andEquipmentTypeIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("equipment_type_id not between", value1, value2, "equipmentTypeId");
-            return (Criteria) this;
-        }
-
-        public Criteria andIndustryIdIsNull() {
-            addCriterion("industry_id is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andIndustryIdIsNotNull() {
-            addCriterion("industry_id is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andIndustryIdEqualTo(Integer value) {
-            addCriterion("industry_id =", value, "industryId");
-            return (Criteria) this;
-        }
-
-        public Criteria andIndustryIdNotEqualTo(Integer value) {
-            addCriterion("industry_id <>", value, "industryId");
-            return (Criteria) this;
-        }
-
-        public Criteria andIndustryIdGreaterThan(Integer value) {
-            addCriterion("industry_id >", value, "industryId");
-            return (Criteria) this;
-        }
-
-        public Criteria andIndustryIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("industry_id >=", value, "industryId");
-            return (Criteria) this;
-        }
-
-        public Criteria andIndustryIdLessThan(Integer value) {
-            addCriterion("industry_id <", value, "industryId");
-            return (Criteria) this;
-        }
-
-        public Criteria andIndustryIdLessThanOrEqualTo(Integer value) {
-            addCriterion("industry_id <=", value, "industryId");
-            return (Criteria) this;
-        }
-
-        public Criteria andIndustryIdIn(List<Integer> values) {
-            addCriterion("industry_id in", values, "industryId");
-            return (Criteria) this;
-        }
-
-        public Criteria andIndustryIdNotIn(List<Integer> values) {
-            addCriterion("industry_id not in", values, "industryId");
-            return (Criteria) this;
-        }
-
-        public Criteria andIndustryIdBetween(Integer value1, Integer value2) {
-            addCriterion("industry_id between", value1, value2, "industryId");
-            return (Criteria) this;
-        }
-
-        public Criteria andIndustryIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("industry_id not between", value1, value2, "industryId");
+        public Criteria andArticleCategoryParentIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("article_category_parent_id not between", value1, value2, "articleCategoryParentId");
             return (Criteria) this;
         }
 

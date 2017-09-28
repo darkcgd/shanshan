@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shanshan.dao.EquipmentInfoBeanMapper">
+  <resultMap id="BaseResultMap" type="com.shanshan.bean.EquipmentInfoBean">
+    <id column="equipment_id" jdbcType="INTEGER" property="equipmentId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="equipment_name" jdbcType="VARCHAR" property="equipmentName" />
+    <result column="equipment_parent_id" jdbcType="INTEGER" property="equipmentParentId" />
+    <result column="equipment_category" jdbcType="INTEGER" property="equipmentCategory" />
+    <result column="logo" jdbcType="VARCHAR" property="logo" />
+    <result column="introduce" jdbcType="VARCHAR" property="introduce" />
+    <result column="params" jdbcType="VARCHAR" property="params" />
+    <result column="datas" jdbcType="VARCHAR" property="datas" />
+    <result column="relate_permission_user_type" jdbcType="INTEGER" property="relatePermissionUserType" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    equipment_id, create_time, update_time, remark, equipment_name, equipment_parent_id, 
+    equipment_category, logo, introduce, params, datas, relate_permission_user_type
+  </sql>
+  <select id="selectByExample" parameterType="com.shanshan.bean.EquipmentInfoBeanExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tbl_equipment_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_equipment_info
+    where equipment_id = #{equipmentId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tbl_equipment_info
+    where equipment_id = #{equipmentId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.shanshan.bean.EquipmentInfoBeanExample">
+    delete from tbl_equipment_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.shanshan.bean.EquipmentInfoBean">
+    insert into tbl_equipment_info (equipment_id, create_time, update_time, 
+      remark, equipment_name, equipment_parent_id, 
+      equipment_category, logo, introduce, 
+      params, datas, relate_permission_user_type
+      )
+    values (#{equipmentId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{remark,jdbcType=VARCHAR}, #{equipmentName,jdbcType=VARCHAR}, #{equipmentParentId,jdbcType=INTEGER}, 
+      #{equipmentCategory,jdbcType=INTEGER}, #{logo,jdbcType=VARCHAR}, #{introduce,jdbcType=VARCHAR}, 
+      #{params,jdbcType=VARCHAR}, #{datas,jdbcType=VARCHAR}, #{relatePermissionUserType,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.shanshan.bean.EquipmentInfoBean">
+    insert into tbl_equipment_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="equipmentId != null">
+        equipment_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="equipmentName != null">
+        equipment_name,
+      </if>
+      <if test="equipmentParentId != null">
+        equipment_parent_id,
+      </if>
+      <if test="equipmentCategory != null">
+        equipment_category,
+      </if>
+      <if test="logo != null">
+        logo,
+      </if>
+      <if test="introduce != null">
+        introduce,
+      </if>
+      <if test="params != null">
+        params,
+      </if>
+      <if test="datas != null">
+        datas,
+      </if>
+      <if test="relatePermissionUserType != null">
+        relate_permission_user_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="equipmentId != null">
+        #{equipmentId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="equipmentName != null">
+        #{equipmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="equipmentParentId != null">
+        #{equipmentParentId,jdbcType=INTEGER},
+      </if>
+      <if test="equipmentCategory != null">
+        #{equipmentCategory,jdbcType=INTEGER},
+      </if>
+      <if test="logo != null">
+        #{logo,jdbcType=VARCHAR},
+      </if>
+      <if test="introduce != null">
+        #{introduce,jdbcType=VARCHAR},
+      </if>
+      <if test="params != null">
+        #{params,jdbcType=VARCHAR},
+      </if>
+      <if test="datas != null">
+        #{datas,jdbcType=VARCHAR},
+      </if>
+      <if test="relatePermissionUserType != null">
+        #{relatePermissionUserType,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.shanshan.bean.EquipmentInfoBeanExample" resultType="java.lang.Long">
+    select count(*) from tbl_equipment_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tbl_equipment_info
+    <set>
+      <if test="record.equipmentId != null">
+        equipment_id = #{record.equipmentId,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.remark != null">
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.equipmentName != null">
+        equipment_name = #{record.equipmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.equipmentParentId != null">
+        equipment_parent_id = #{record.equipmentParentId,jdbcType=INTEGER},
+      </if>
+      <if test="record.equipmentCategory != null">
+        equipment_category = #{record.equipmentCategory,jdbcType=INTEGER},
+      </if>
+      <if test="record.logo != null">
+        logo = #{record.logo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.introduce != null">
+        introduce = #{record.introduce,jdbcType=VARCHAR},
+      </if>
+      <if test="record.params != null">
+        params = #{record.params,jdbcType=VARCHAR},
+      </if>
+      <if test="record.datas != null">
+        datas = #{record.datas,jdbcType=VARCHAR},
+      </if>
+      <if test="record.relatePermissionUserType != null">
+        relate_permission_user_type = #{record.relatePermissionUserType,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tbl_equipment_info
+    set equipment_id = #{record.equipmentId,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      equipment_name = #{record.equipmentName,jdbcType=VARCHAR},
+      equipment_parent_id = #{record.equipmentParentId,jdbcType=INTEGER},
+      equipment_category = #{record.equipmentCategory,jdbcType=INTEGER},
+      logo = #{record.logo,jdbcType=VARCHAR},
+      introduce = #{record.introduce,jdbcType=VARCHAR},
+      params = #{record.params,jdbcType=VARCHAR},
+      datas = #{record.datas,jdbcType=VARCHAR},
+      relate_permission_user_type = #{record.relatePermissionUserType,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shanshan.bean.EquipmentInfoBean">
+    update tbl_equipment_info
+    <set>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="equipmentName != null">
+        equipment_name = #{equipmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="equipmentParentId != null">
+        equipment_parent_id = #{equipmentParentId,jdbcType=INTEGER},
+      </if>
+      <if test="equipmentCategory != null">
+        equipment_category = #{equipmentCategory,jdbcType=INTEGER},
+      </if>
+      <if test="logo != null">
+        logo = #{logo,jdbcType=VARCHAR},
+      </if>
+      <if test="introduce != null">
+        introduce = #{introduce,jdbcType=VARCHAR},
+      </if>
+      <if test="params != null">
+        params = #{params,jdbcType=VARCHAR},
+      </if>
+      <if test="datas != null">
+        datas = #{datas,jdbcType=VARCHAR},
+      </if>
+      <if test="relatePermissionUserType != null">
+        relate_permission_user_type = #{relatePermissionUserType,jdbcType=INTEGER},
+      </if>
+    </set>
+    where equipment_id = #{equipmentId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shanshan.bean.EquipmentInfoBean">
+    update tbl_equipment_info
+    set create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR},
+      equipment_name = #{equipmentName,jdbcType=VARCHAR},
+      equipment_parent_id = #{equipmentParentId,jdbcType=INTEGER},
+      equipment_category = #{equipmentCategory,jdbcType=INTEGER},
+      logo = #{logo,jdbcType=VARCHAR},
+      introduce = #{introduce,jdbcType=VARCHAR},
+      params = #{params,jdbcType=VARCHAR},
+      datas = #{datas,jdbcType=VARCHAR},
+      relate_permission_user_type = #{relatePermissionUserType,jdbcType=INTEGER}
+    where equipment_id = #{equipmentId,jdbcType=INTEGER}
+  </update>
+</mapper>

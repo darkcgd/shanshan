@@ -18,12 +18,15 @@
     <result column="last_login_time" jdbcType="TIMESTAMP" property="lastLoginTime" />
     <result column="user_type" jdbcType="INTEGER" property="userType" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
-    <result column="company_id" jdbcType="INTEGER" property="companyId" />
     <result column="department_name" jdbcType="VARCHAR" property="departmentName" />
     <result column="position_name" jdbcType="VARCHAR" property="positionName" />
     <result column="provinces_cities" jdbcType="VARCHAR" property="provincesCities" />
     <result column="referrals_name" jdbcType="VARCHAR" property="referralsName" />
     <result column="referrals_phone" jdbcType="VARCHAR" property="referralsPhone" />
+    <result column="company" jdbcType="VARCHAR" property="company" />
+    <result column="attributes" jdbcType="VARCHAR" property="attributes" />
+    <result column="experience_years" jdbcType="INTEGER" property="experienceYears" />
+    <result column="expertise_areas" jdbcType="VARCHAR" property="expertiseAreas" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -86,7 +89,8 @@
   <sql id="Base_Column_List">
     user_id, user_name, user_nick_name, wx_union_id, wx_access_token, pwd, head_url, 
     phone, email, age, sex, create_time, update_time, last_login_time, user_type, remark, 
-    company_id, department_name, position_name, provinces_cities, referrals_name, referrals_phone
+    department_name, position_name, provinces_cities, referrals_name, referrals_phone, 
+    company, attributes, experience_years, expertise_areas
   </sql>
   <select id="selectByExample" parameterType="com.shanshan.bean.UserBeanExample" resultMap="BaseResultMap">
     select
@@ -124,17 +128,19 @@
       head_url, phone, email, 
       age, sex, create_time, 
       update_time, last_login_time, user_type, 
-      remark, company_id, department_name, 
-      position_name, provinces_cities, referrals_name, 
-      referrals_phone)
+      remark, department_name, position_name, 
+      provinces_cities, referrals_name, referrals_phone, 
+      company, attributes, experience_years, 
+      expertise_areas)
     values (#{userId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{userNickName,jdbcType=VARCHAR}, 
       #{wxUnionId,jdbcType=VARCHAR}, #{wxAccessToken,jdbcType=VARCHAR}, #{pwd,jdbcType=VARCHAR}, 
       #{headUrl,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
       #{age,jdbcType=INTEGER}, #{sex,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
       #{updateTime,jdbcType=TIMESTAMP}, #{lastLoginTime,jdbcType=TIMESTAMP}, #{userType,jdbcType=INTEGER}, 
-      #{remark,jdbcType=VARCHAR}, #{companyId,jdbcType=INTEGER}, #{departmentName,jdbcType=VARCHAR}, 
-      #{positionName,jdbcType=VARCHAR}, #{provincesCities,jdbcType=VARCHAR}, #{referralsName,jdbcType=VARCHAR}, 
-      #{referralsPhone,jdbcType=VARCHAR})
+      #{remark,jdbcType=VARCHAR}, #{departmentName,jdbcType=VARCHAR}, #{positionName,jdbcType=VARCHAR}, 
+      #{provincesCities,jdbcType=VARCHAR}, #{referralsName,jdbcType=VARCHAR}, #{referralsPhone,jdbcType=VARCHAR}, 
+      #{company,jdbcType=VARCHAR}, #{attributes,jdbcType=VARCHAR}, #{experienceYears,jdbcType=INTEGER}, 
+      #{expertiseAreas,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.shanshan.bean.UserBean">
     insert into tbl_user
@@ -187,9 +193,6 @@
       <if test="remark != null">
         remark,
       </if>
-      <if test="companyId != null">
-        company_id,
-      </if>
       <if test="departmentName != null">
         department_name,
       </if>
@@ -204,6 +207,18 @@
       </if>
       <if test="referralsPhone != null">
         referrals_phone,
+      </if>
+      <if test="company != null">
+        company,
+      </if>
+      <if test="attributes != null">
+        attributes,
+      </if>
+      <if test="experienceYears != null">
+        experience_years,
+      </if>
+      <if test="expertiseAreas != null">
+        expertise_areas,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -255,9 +270,6 @@
       <if test="remark != null">
         #{remark,jdbcType=VARCHAR},
       </if>
-      <if test="companyId != null">
-        #{companyId,jdbcType=INTEGER},
-      </if>
       <if test="departmentName != null">
         #{departmentName,jdbcType=VARCHAR},
       </if>
@@ -272,6 +284,18 @@
       </if>
       <if test="referralsPhone != null">
         #{referralsPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null">
+        #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="attributes != null">
+        #{attributes,jdbcType=VARCHAR},
+      </if>
+      <if test="experienceYears != null">
+        #{experienceYears,jdbcType=INTEGER},
+      </if>
+      <if test="expertiseAreas != null">
+        #{expertiseAreas,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -332,9 +356,6 @@
       <if test="record.remark != null">
         remark = #{record.remark,jdbcType=VARCHAR},
       </if>
-      <if test="record.companyId != null">
-        company_id = #{record.companyId,jdbcType=INTEGER},
-      </if>
       <if test="record.departmentName != null">
         department_name = #{record.departmentName,jdbcType=VARCHAR},
       </if>
@@ -349,6 +370,18 @@
       </if>
       <if test="record.referralsPhone != null">
         referrals_phone = #{record.referralsPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.company != null">
+        company = #{record.company,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attributes != null">
+        attributes = #{record.attributes,jdbcType=VARCHAR},
+      </if>
+      <if test="record.experienceYears != null">
+        experience_years = #{record.experienceYears,jdbcType=INTEGER},
+      </if>
+      <if test="record.expertiseAreas != null">
+        expertise_areas = #{record.expertiseAreas,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -373,12 +406,15 @@
       last_login_time = #{record.lastLoginTime,jdbcType=TIMESTAMP},
       user_type = #{record.userType,jdbcType=INTEGER},
       remark = #{record.remark,jdbcType=VARCHAR},
-      company_id = #{record.companyId,jdbcType=INTEGER},
       department_name = #{record.departmentName,jdbcType=VARCHAR},
       position_name = #{record.positionName,jdbcType=VARCHAR},
       provinces_cities = #{record.provincesCities,jdbcType=VARCHAR},
       referrals_name = #{record.referralsName,jdbcType=VARCHAR},
-      referrals_phone = #{record.referralsPhone,jdbcType=VARCHAR}
+      referrals_phone = #{record.referralsPhone,jdbcType=VARCHAR},
+      company = #{record.company,jdbcType=VARCHAR},
+      attributes = #{record.attributes,jdbcType=VARCHAR},
+      experience_years = #{record.experienceYears,jdbcType=INTEGER},
+      expertise_areas = #{record.expertiseAreas,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -431,9 +467,6 @@
       <if test="remark != null">
         remark = #{remark,jdbcType=VARCHAR},
       </if>
-      <if test="companyId != null">
-        company_id = #{companyId,jdbcType=INTEGER},
-      </if>
       <if test="departmentName != null">
         department_name = #{departmentName,jdbcType=VARCHAR},
       </if>
@@ -448,6 +481,18 @@
       </if>
       <if test="referralsPhone != null">
         referrals_phone = #{referralsPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null">
+        company = #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="attributes != null">
+        attributes = #{attributes,jdbcType=VARCHAR},
+      </if>
+      <if test="experienceYears != null">
+        experience_years = #{experienceYears,jdbcType=INTEGER},
+      </if>
+      <if test="expertiseAreas != null">
+        expertise_areas = #{expertiseAreas,jdbcType=VARCHAR},
       </if>
     </set>
     where user_id = #{userId,jdbcType=INTEGER}
@@ -469,12 +514,15 @@
       last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
       user_type = #{userType,jdbcType=INTEGER},
       remark = #{remark,jdbcType=VARCHAR},
-      company_id = #{companyId,jdbcType=INTEGER},
       department_name = #{departmentName,jdbcType=VARCHAR},
       position_name = #{positionName,jdbcType=VARCHAR},
       provinces_cities = #{provincesCities,jdbcType=VARCHAR},
       referrals_name = #{referralsName,jdbcType=VARCHAR},
-      referrals_phone = #{referralsPhone,jdbcType=VARCHAR}
+      referrals_phone = #{referralsPhone,jdbcType=VARCHAR},
+      company = #{company,jdbcType=VARCHAR},
+      attributes = #{attributes,jdbcType=VARCHAR},
+      experience_years = #{experienceYears,jdbcType=INTEGER},
+      expertise_areas = #{expertiseAreas,jdbcType=VARCHAR}
     where user_id = #{userId,jdbcType=INTEGER}
   </update>
 </mapper>
