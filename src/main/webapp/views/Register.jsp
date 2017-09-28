@@ -5,8 +5,6 @@
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
 %>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -111,11 +109,14 @@ for (var i = 0; i < codeLength; i++) {
 		url: 'sms', //目标地址
 		data:"phone="+phone,
 		//data: "dealType=" + dealType +"&uid=" + uid + "&code=" + code,
-		error: function (XMLHttpRequest, textStatus, errorThrown) {
-			alert(errorThrown);
-		},
+		//error: function (XMLHttpRequest, textStatus, errorThrown) {alert(errorThrown);},
 		success: function (msg){
-			alert(msg);
+			if(msg.code==200){
+				alert("验证码发送成功");
+			}
+			else{
+				alert("验证码发送失败");
+			}
 		}
 	});
 }
@@ -142,7 +143,7 @@ function register(){
 		type: "get", //GET方式传输
 		//dataType:"text", //数据格式:JSON
 		url:'userRegist', //目标地址
-		data: {phone:phone,companyId:companyId,userName:userName,smsCode:smsCode},
+		data:"phone=" + phone +"&companyId=" + companyId + "&userName=" + userName+ "&smsCode=" + smsCode,
 		error: function (XMLHttpRequest, textStatus, errorThrown) { 
 			alert(errorThrown);
 		},

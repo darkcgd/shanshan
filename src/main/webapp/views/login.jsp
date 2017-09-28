@@ -13,10 +13,10 @@
 <title>登录</title>
         <base href="<%=basePath%>">
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-		<link rel="stylesheet" type="text/css" href="../css/common.css"/>
-		<link rel="stylesheet" type="text/css" href="../css/header.css"/>
-		<link rel="stylesheet" type="text/css" href="../css/login2.css"/>
-		<script src="../js/jquery-1.7.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" type="text/css" href="css/common.css"/>
+		<link rel="stylesheet" type="text/css" href="css/header.css"/>
+		<link rel="stylesheet" type="text/css" href="css/login2.css"/>
+		<script src="js/jquery-1.7.1.min.js" type="text/javascript" charset="utf-8"></script>
 	</head>
 	<script type="text/javascript">
 		    (function (doc, win) {
@@ -48,25 +48,25 @@
 		</header>
 		<div class="hh">
 			<div class="logo">
-				<img src="../img/blog.png">
+				<img src="img/blog.png">
 			</div>
 		</div>
 		
 		<div class="phone">
 			<div class="oimg">
-				<img src="../img/sj.png"/>
+				<img src="img/sj.png"/>
 				<span>手机号码</span>
 			</div>
-			<input type="text" placeholder="请输入您的手机号码" class="inp" id="phonenum"/>
+			<input type="text" placeholder="请输入您的手机号码" class="inp" id="phone"/>
 			<input id="btnSendCode" type="button" value="获取验证码" onClick="sendMessage()" />
 		</div>
 		
 		<div class="phone">
 			<div class="oimg">
-				<img src="../img/yzm.png"/>
+				<img src="img/yzm.png"/>
 				<span>验证码</span>
 			</div>
-			<input type="text" placeholder="请输入验证码" name="smsCode"/>
+			<input type="text" placeholder="请输入验证码" name="smsCode" id="smsCode"/>
 		</div>
 		
 		<div class="to">
@@ -85,6 +85,7 @@ function sendMessage() {
 curCount = count;
 var dealType; //验证方式
 var uid=$("#uid").val();//用户uid
+var phone=$("#phone").val();
 if ($("#phone").attr("checked") == true) {
 	dealType = "phone";
 }
@@ -103,11 +104,17 @@ for (var i = 0; i < codeLength; i++) {
 	$.ajax({
 		type: "GET", //用GET方式传输
 		dataType: "json", //数据格式:JSON
-		url: '/sms', //目标地址
-		data: "dealType=" + dealType +"&uid=" + uid + "&code=" + code,
-		error: function (XMLHttpRequest, textStatus, errorThrown) { },
+		url: 'sms', //目标地址
+		data:"phone="+phone,
+		//data: "dealType=" + dealType +"&uid=" + uid + "&code=" + code,
+		//error: function (XMLHttpRequest, textStatus, errorThrown) { },
 		success: function (msg){ 
-			alert(msg)
+			if(msg.code==200){
+				alert("验证码发送成功");
+			}
+			else{
+				alert("验证码发送失败");
+			}
 		}
 	});
 }
@@ -129,13 +136,12 @@ function userLogin(){
 	var  smsCode=$("#smsCode").val();
 	 $.ajax({
 		type: "POST", //用POST方式传输
-		dataType: "text", //数据格式:JSON
-		url: '/userRegist', //目标地址
-		data: {phone:phone,smsCode:smsCode},
-		error: function (XMLHttpRequest, textStatus, errorThrown) { 
-		alert(errorThrown);
-		},
+		//dataType: "text", //数据格式:JSON
+		url: 'userLogin', //目标地址
+		data: "phone=" + phone +"&smsCode="+smsCode,
+		//error: function (XMLHttpRequest, textStatus, errorThrown) { alert(errorThrown);},
 		success: function (msg){
+			alert(msg.data.userType);
 		  if(msg.userType==4){
 		  window.location.href="";	 //客服页面
 		  }
