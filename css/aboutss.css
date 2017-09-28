@@ -1,0 +1,110 @@
+.section{
+	margin-top: 3rem;
+	width: 100%;
+	overflow: hidden;
+}
+
+.section .logo{
+	width: 100%;
+	height: 7rem;
+	text-align: center;
+	line-height: 5rem;
+	border-bottom: 1px solid #F8F8F8;
+	background-color: white;
+}
+
+.section .logo img{
+	width: 20%;
+	margin-top: 1rem;
+}
+
+.section .into{
+	width: 100%;
+	background-color: white;
+	overflow: hidden;
+}
+
+.section .into a.red{
+	padding-bottom: 0.5rem;
+	border-bottom: 1px solid #05A8E1;
+	color: #05A8E1;
+}
+
+.section .into .left{
+	width: 33.3%;
+	float: left;
+	height: 3rem;
+	line-height: 3rem;
+	text-align: center;
+}
+
+.section .into .center{
+	width: 33.3%;
+	float: left;
+	height: 3rem;
+	line-height: 3rem;
+	text-align: center;
+}
+
+.section .into .right{
+	width: 33.3%;
+	float: left;
+	height: 3rem;
+	line-height: 3rem;
+	text-align: center;
+}
+
+.zw{
+	margin-top: 1rem;
+	line-height: 1.5rem;
+}
+
+.otext,.otexb{
+	width: 90%;
+	margin-left: 5%;
+	margin-top: 0.5rem;
+}
+
+.otext .title,.otexb .title{
+	font-size: 1.1rem;
+	margin-top: 1rem;
+}
+
+.phone{
+	width: 100%;
+	overflow: hidden;
+	display: none;
+}
+.call{
+	width: 100%;
+	overflow: hidden;
+	margin-top: 0.5rem;
+}
+
+.call .big{
+	width: 100%;
+	overflow: hidden;
+	padding: 0.5rem 0;
+	background-color: white;
+	margin-bottom: 2px;
+}
+
+.call .big .left{
+	width: 25%;
+	float: left;
+}
+
+.call .big .left .oimg{
+	float: left;
+}
+
+.call .big .left span{
+	float: right;
+	color: #A0A0A0;
+}
+
+.call .big .right{
+	width: 70%;
+	float: left;
+	margin-left: 2%;
+}

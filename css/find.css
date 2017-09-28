@@ -1,0 +1,97 @@
+.hh{
+	height: 10.5rem;
+	overflow: hidden;
+	margin-top: 3rem;
+}
+
+.hh .login{
+	text-align: center;
+	color: whitesmoke;
+	line-height: 2rem;
+	font-size: 1.5rem;
+	margin-top: 0.3rem;
+}
+
+.hh .logo{
+	width: 100%;
+	height: 5rem;
+	margin: 0 auto;
+	border-radius: 4px;
+	margin-top: 3rem;
+	color: whitesmoke;
+	font-size: 1.5rem;
+	line-height: 5rem;
+	text-align: center;
+}
+.hh .logo img{
+	width: 20%;
+}
+
+.infor{
+	width: 100%;
+	overflow: hidden;
+}
+
+.infor li{
+	height: 2.5rem;
+	width: 100%;
+	margin-bottom: 2px;
+	background-color: white;
+}
+
+.infor li span{
+	display: inline-block;
+	width: 18%;
+	height: 100%;
+	line-height: 2.5rem;
+	margin-left: 0.5rem;
+	float: left;
+}
+
+.infor li .inp{
+	width: 55%;
+	float: left;
+	height: 100%;
+	text-indent: 0.5em;
+	border: none;
+	outline: none;
+}
+
+.infor li .inpo{
+	width: 70%;
+	float: left;
+	height: 100%;
+	text-indent: 0.5em;
+	border: none;
+	outline: none;
+}
+
+#btnSendCode{
+	border: 1px solid #D6D6D6;
+	text-align: center;
+	line-height: 1.5rem;
+	width: 22%;
+	float: left;
+	margin-top: 0.5rem;
+	background-color: transparent;
+}
+
+.to{
+	width: 90%;
+	margin-left: 5%;
+	border: 1px solid #008cee;
+	height: 2.5rem;
+	line-height: 2.5rem;
+	border-radius: 3px;
+	text-align: center;
+	margin-top: 3rem;
+	background-color: #008cee;
+}
+
+.to a{
+	display: block;
+	width: 100%;
+	height: 100%;
+	color: whitesmoke;
+	font-size: 1rem;
+}

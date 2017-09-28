@@ -1,0 +1,76 @@
+.section{
+	width: 100%;
+	margin-top: 3rem;
+	overflow: hidden;
+}
+
+.section .title{
+	margin-left: 1rem;
+	font-size: 1.2rem;
+	margin-top: 0.5rem;
+}
+
+.section .time{
+	margin-left: 1rem;
+	font-size: 0.9rem;
+	margin-top: 0.5rem;
+	color: #A5A5A5;
+}
+.zw{
+	margin-top: 1rem;
+	width: 90%;
+	margin-left: 5%;
+	overflow: hidden;
+}
+
+.zw p{
+	line-height: 1.5rem;
+	text-align: justify;
+	margin-bottom: 1.5rem;
+}
+
+.zw img{
+	width: 100%;
+	margin-bottom: 1rem;
+}
+
+.to{
+	margin-top: 1rem;
+	text-align: center;
+}
+
+.to a{
+	color: #05A8E1;
+	text-decoration: underline;
+}
+
+.join{
+	width: 90%;
+	margin-left: 5%;
+	height: 3rem;
+	text-align: center;
+	line-height: 3rem;
+	background-color: #05A8E1;
+	margin-bottom: 1.5rem;
+	border-radius: 4px;
+}
+
+.join a{
+	color: white;
+}
+
+.signup{
+	width: 90%;
+	margin-left: 5%;
+	height: 3rem;
+	text-align: center;
+	line-height: 3rem;
+	margin-bottom: 1.5rem;
+	border: 1px solid #05A8E1;
+	color: #05A8E1;
+	border-radius: 4px;
+}
+
+.signup a{
+	color:  #05A8E1;
+}

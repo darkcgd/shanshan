@@ -1,0 +1,111 @@
+@charset "utf-8";
+* {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	border: 0;
+}
+
+body {
+	width: 100%;
+	margin: 0 auto;
+	overflow: hidden
+}
+
+
+/* main_image */
+
+.main_visual {
+	height: 10rem;
+	overflow: hidden;
+	position: relative;
+	top: 0;
+	left: 0;
+	margin-top: 0.5rem;
+	width: 100%;
+}
+
+.main_image {
+	height: 10rem;
+	overflow: hidden;
+	position: relative;
+	top: 0;
+	left: 0;
+}
+
+.main_image ul {
+	width: 9999px;
+	height: 10rem;
+	overflow: hidden;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.main_image li {
+	float: left;
+	width: 100%;
+	height: 10rem;
+}
+
+.main_image li img {
+	display: block;
+	width: 100%;
+	height: 10rem;
+}
+
+.main_image li a {
+	display: block;
+	width: 100%;
+	height: 10rem;
+}
+
+
+div.flicking_con {
+	position: absolute;
+	bottom: 1rem;
+	z-index: 9;
+	/*width: 300px;
+	height: 21px;*/
+}
+
+div.flicking_con a {
+	float: left;
+	width: 0.5rem;
+	height: 0.5rem;
+	margin: 0;
+	padding: 0;
+	display: block;
+	text-indent: -1000px;
+	background-color: whitesmoke;
+	border-radius: 50%;
+	margin-left: 0.3rem;
+}
+
+div.flicking_con a.on {
+	background-color: #F99724;
+}
+
+#btn_prev,
+#btn_next {
+	z-index: 11111;
+	position: absolute;
+	display: block;
+	width: 73px!important;
+	height: 74px!important;
+	top: 50%;
+	margin-top: -37px;
+	display: none;
+}
+
+#btn_prev {
+	background: url(../images/hover_left.png) no-repeat left top;
+	left: 1rem;
+	background-size: 2rem;
+}
+
+#btn_next {
+	background: url(../images/hover_right.png) no-repeat right top;
+	right: 1rem;
+	background-size: 2rem;
+}
