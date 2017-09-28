@@ -1,0 +1,45 @@
+.section{
+	margin-top: 3rem;
+	width: 100%;
+	overflow: hidden;
+}
+
+.section li{
+	height: 4rem;
+	background-color: white;
+	margin-bottom: 2px;
+}
+
+.section li .left{
+	width: 65%;
+	margin-left: 0.5rem;
+	float: left;
+}
+
+.section li .left .name{
+	margin-top: 0.5rem;
+	margin-bottom: 0.8rem;
+	font-size: 1.1rem;
+}
+
+.section li .left .time{
+	color: #B6B6B6;
+}
+
+.section li .left .name[type=host]{
+	color: #FE8F55;
+}
+
+.section li .left .name[type=yy]{
+	color: #30AED2;
+}
+
+.section li .right{
+	width: 30%;
+	margin-right: 0.5rem;
+	float: right;
+}
+
+.section li .right p{
+	line-height: 4rem;
+}

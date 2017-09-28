@@ -1,0 +1,62 @@
+.section{
+	width: 100%;
+	margin-top: 3rem;
+	overflow: hidden;
+	position: relative;
+}
+
+.section .title{
+	width: 90%;
+	margin-left: 1rem;
+	font-size: 1.2rem;
+	margin-top: 0.5rem;
+}
+
+.section .time{
+	margin-left: 1rem;
+	font-size: 0.9rem;
+	margin-top: 0.5rem;
+	
+}
+
+.section .time span{
+	color: #A5A5A5;
+	margin-right: 1rem;
+}
+
+.cc{
+	padding: 0.1rem 0.5rem;
+	border: 1px solid #F45F5F;
+	color: #F45F5F;
+	position: absolute;
+	right: 1rem;
+	top: 2rem;
+}
+
+.zw{
+	margin-top: 1rem;
+	width: 90%;
+	margin-left: 5%;
+	overflow: hidden;
+}
+
+.zw p{
+	line-height: 1.5rem;
+	text-align: justify;
+	margin-bottom: 1.5rem;
+}
+
+.zw img{
+	width: 100%;
+	margin-bottom: 1rem;
+}
+
+.to{
+	margin-top: 1rem;
+	text-align: center;
+}
+
+.to a{
+	color: #05A8E1;
+	text-decoration: underline;
+}

@@ -1,0 +1,85 @@
+*{
+	margin: 0;
+	padding: 0;
+	word-wrap:break-word;
+	font-size:0.9rem;
+	color:#444444;
+}
+
+body{
+	width: 100%;
+	background-color: #F7F7F7;
+	padding-bottom: 3.5rem;
+}
+
+
+ul,li{
+	list-style: none;
+}
+
+a{
+	color: #333333;
+	text-decoration: none;
+	cursor: none;
+	-webkit-tap-highlight-color: transparent !important;
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+body{
+	font-family:Tahoma,Arial,Roboto,"Droid Sans","Helvetica Neue","Droid Sans Fallback","Heiti SC",sans-self;
+	width: 100%;
+	overflow-x: hidden;
+	-webkit-tap-highlight-color: transparent !important;
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+html{
+	-webkit-tap-highlight-color: transparent !important;
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+	-webkit-text-size-adjust: 100%;/*禁止文本缩放*/
+	overflow-x: hidden;
+	width: 100%;
+}
+
+input,textarea {
+	border: 0;
+	-webkit-appearance: none;
+	outline: none;
+}
+
+input,textarea {
+	border: 0;
+	-webkit-appearance: none;
+	outline: none;
+	appearance:button;
+   	-moz-appearance:button; /* Firefox */
+   	-webkit-appearance:button; /* Safari 和 Chrome */
+    	border-radius: 0;
+}
+
+img{
+	width: 100%;
+	height: auto;
+}
+
+@font-face { 
+ font-family:nun; /*这里是说明调用来的字体名字*/ 
+ src:url('../font/fan.TTF'); /*这里是字体文件路径*/ 
+}
+
+p{
+	font-size: 0.9rem;
+}
+
+p img{
+	width: 100%;
+	height: auto;
+}
+
+.MainIndex{background: #FFFFFF; position: fixed; width: 100%; bottom: 0%; left: 0%; border-top: 1px solid #d8d8d8;}
+.ZD{ font-size: 14px; line-height: 40px; color:#484848;}
+
+
+
+
+

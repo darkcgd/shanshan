@@ -1,0 +1,89 @@
+.section{
+	width: 100%;
+	overflow: hidden;
+	background-color: #F7F7F7;
+	margin-top: 3rem;
+}
+
+.section li{
+	height: 5rem;
+	width: 100%;
+	overflow: hidden;
+}
+
+.section li a{
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+
+.section li .left{
+	width: 4rem;
+	height: 4rem;
+	float: left;
+	margin-left: 1rem;
+	margin-top: 0.5rem;
+	position: relative;
+}
+
+.section li .left img{
+	width: 100%;
+	height: 100%;
+}
+
+.section li .right{
+	float: left;
+	margin-left: 0.5rem;
+	width: 72%;
+	height: 100%;
+	overflow: hidden;
+}
+
+.section li .right .title{
+	margin-top: 0.5rem;
+	position: relative;
+}
+
+.section li .right .title .size{
+	display: inline-block;
+	width: 70%;
+	font-size: 1.1rem;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.section li .right .title .time{
+	display: inline-block;
+	font-size: 0.8rem;
+	color: #A2A2A2;
+	position: absolute;
+	right: 0.5rem;
+	top: 0.2rem;
+}
+
+.tip{
+	width: 100%;
+	height: 1.5rem;
+	background-color: rgba(0,0,0,0.6);
+	text-align: center;
+	line-height: 1.5rem;
+	color: whitesmoke;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	font-size: 0.8rem;
+}
+
+.section li .right .zw{
+	margin-top: 0.8rem;
+	font-size: 0.9rem;
+	color: #A2A2A2;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.section li.now{
+	background-color: white;
+}

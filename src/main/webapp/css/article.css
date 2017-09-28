@@ -1,0 +1,257 @@
+.section{
+	width: 100%;
+	overflow: hidden;
+	margin-top: 3rem;
+}
+
+.section .search{
+	width: 100%;
+	padding: 0.5rem 0;
+}
+
+.section .search .left{
+	width: 80%;
+	height: 2.5rem;
+	position: relative;
+	background-color: white;
+	margin-left: 0.5rem;
+	float: left;
+}
+
+.oo{
+	width: 3rem;
+	height: 100%;
+	float: left;
+}
+
+.oo img{
+	width: 1rem;
+	position: absolute;
+	top: 0.8rem;
+	left: 0.7rem;
+}
+
+.section .search .left input{
+	line-height: 2.5rem;
+	width: 80%;
+}
+
+input:-ms-input-placeholder,textarea:-ms-input-placeholder{
+    color: #D4D4D4;
+}
+
+input::-webkit-input-placeholder,textarea::-webkit-input-placeholder{
+    color: #D4D4D4;
+}
+
+.section .search .right{
+	float: right;
+	margin-right: 1rem;
+	line-height: 2.5rem;
+	
+}
+
+.tip{
+	width: 100%;
+	height: 1.5rem;
+	background-color: rgba(0,0,0,0.6);
+	text-align: center;
+	line-height: 1.5rem;
+	color: whitesmoke;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	font-size: 0.8rem;
+}
+
+.section .search .right span{
+	color: #2EB2E4;
+}
+
+.oul{
+	width: 100%;
+	overflow: hidden;
+	background-color: #F7F7F7;
+	margin-top: 0.5rem;
+}
+
+.oul li{
+	height: 5rem;
+	width: 100%;
+	overflow: hidden;
+	border-bottom: 1px solid #F8F8F8;
+}
+
+.oul li .left{
+	width: 4rem;
+	height: 4rem;
+	float: left;
+	margin-left: 1rem;
+	margin-top: 0.5rem;
+	position: relative;
+}
+
+.oul li .left img{
+	width: 100%;
+	height: 100%;
+}
+
+.oul li .right{
+	float: left;
+	margin-left: 0.5rem;
+	width: 72%;
+	height: 100%;
+	overflow: hidden;
+	position: relative;
+}
+
+.oul li .right .title{
+	margin-top: 0.5rem;
+	position: relative;
+}
+
+.oul li .right .title .size{
+	display: inline-block;
+	width: 70%;
+	font-size: 1.2rem;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.oul li .right .title .time{
+	display: inline-block;
+	font-size: 0.8rem;
+	color: #A2A2A2;
+	position: absolute;
+	right: 0.5rem;
+	top: 0.2rem;
+}
+
+.oul li .right .zw{
+	width: 70%;
+	margin-top: 0.8rem;
+	font-size: 1rem;
+	color: #A2A2A2;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.oul li.now{
+	background-color: white;
+}
+
+.oul li a{
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+
+.cc{
+	padding: 0.1rem 0.5rem;
+	border: 1px solid #F45F5F;
+	color: #F45F5F;
+	position: absolute;
+	right: 0;
+	top: 2.2rem;
+}
+
+.ca{
+	padding: 0.1rem 0.5rem;
+	border: 1px solid #E4A22D;
+	color: #E4A22D;
+	position: absolute;
+	right: 0;
+	top: 2.2rem;
+}
+
+.mask{
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	background-color: rgba(0,0,0,0.6);
+	top: 0;
+	left: 0;
+	z-index: 99;
+	display: none;
+}
+
+.mask .bot{
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	background-color: white;
+	overflow: hidden;
+}
+
+.mask .bot .tt{
+	line-height: 2.5rem;
+	border-bottom: 1px solid #F6F6F6;
+	overflow: hidden;
+}
+
+.mask .bot .tt span{
+	display: inline-block;
+	width: 33%;
+	float: left;
+}
+
+.mask .bot .tt .tap{
+	text-align: center;
+}
+
+.mask .bot .tt .yes{
+	text-align: right;
+	text-indent: 1em;
+	margin-right: 1%;
+	color: #56BEE8;
+}
+
+.mask .bot .tt .no{
+	text-indent: 0.5em;
+	text-align: left;
+	color: #56BEE8;
+}
+
+.part{
+	width: 33%;
+	float: left;
+	overflow: hidden;
+}
+
+.part span{
+	display:block;
+	width: 80%;
+	text-align: center;
+	margin: 10% 2.5%;
+	border: 1px solid #E9E9E9;
+	line-height: 2rem;
+	height: 2rem;
+}
+
+.part .tat{
+	color: #333333;
+	border: 1px solid #333333 !important;
+	width: 80%;
+	height: 2rem;
+	line-height: 2rem;
+	text-align: center;
+	margin: 10% 2.5%;
+}
+
+.gray span{
+color: #9d9d9d;
+}
+
+.big{
+	clear: both;
+	width: 100%;
+	overflow: hidden;
+	position: relative;
+}
+
+.focus{
+	color: #56BEE8;
+	border: 1px solid #56BEE8 !important;
+}
