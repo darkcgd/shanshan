@@ -6,36 +6,36 @@ package com.shanshan.bean;
  * @author cgd
  * 
  */
-public class MsgSimple {
-	//状态码   100-成功    200-失败
+public class MsgSimpleBean {
+	//状态码   200-成功    100-失败
 	private int code;
 	//提示信息
 	private String msg;
 
-	public static MsgSimple success(){
-		MsgSimple result = new MsgSimple();
-		result.setCode(100);
+	public static MsgSimpleBean success(){
+		MsgSimpleBean result = new MsgSimpleBean();
+		result.setCode(200);
 		result.setMsg("请求成功");
 		return result;
 	}
 
-	public static MsgSimple success(String successMsg){
-		MsgSimple result = new MsgSimple();
-		result.setCode(100);
+	public static MsgSimpleBean success(String successMsg){
+		MsgSimpleBean result = new MsgSimpleBean();
+		result.setCode(200);
 		result.setMsg(successMsg);
 		return result;
 	}
 	
-	public static MsgSimple fail(){
-		MsgSimple result = new MsgSimple();
-		result.setCode(200);
+	public static MsgSimpleBean fail(){
+		MsgSimpleBean result = new MsgSimpleBean();
+		result.setCode(100);
 		result.setMsg("请求失败");
 		return result;
 	}
 
-	public static MsgSimple fail(String errorMsg){
-		MsgSimple result = new MsgSimple();
-		result.setCode(200);
+	public static MsgSimpleBean fail(String errorMsg){
+		MsgSimpleBean result = new MsgSimpleBean();
+		result.setCode(100);
 		result.setMsg(errorMsg);
 		return result;
 	}

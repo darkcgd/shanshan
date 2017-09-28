@@ -10,7 +10,7 @@ import java.util.Map;
  * 
  */
 public class MsgBean {
-	//状态码   100-成功    200-失败
+	//状态码   200-成功    100-失败
 	private int code;
 	//提示信息
 	private String msg;
@@ -20,28 +20,28 @@ public class MsgBean {
 
 	public static MsgBean success(){
 		MsgBean result = new MsgBean();
-		result.setCode(100);
+		result.setCode(200);
 		result.setMsg("请求成功");
 		return result;
 	}
 
 	public static MsgBean success(String successMsg){
 		MsgBean result = new MsgBean();
-		result.setCode(100);
+		result.setCode(200);
 		result.setMsg(successMsg);
 		return result;
 	}
 	
 	public static MsgBean fail(){
 		MsgBean result = new MsgBean();
-		result.setCode(200);
+		result.setCode(100);
 		result.setMsg("请求失败");
 		return result;
 	}
 
 	public static MsgBean fail(String errorMsg){
 		MsgBean result = new MsgBean();
-		result.setCode(200);
+		result.setCode(100);
 		result.setMsg(errorMsg);
 		return result;
 	}

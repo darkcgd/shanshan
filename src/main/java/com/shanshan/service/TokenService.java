@@ -48,7 +48,7 @@ public class TokenService {
 	/**
 	 *
 	 * @param userId
-	 * @param userType 0代表普通用户 1代表商家
+	 * @param userType 0代表普通用户 1代表客服 2代表技术专家
 	 * @return
 	 */
 	public String generateToken(Integer userId,Integer userType) {

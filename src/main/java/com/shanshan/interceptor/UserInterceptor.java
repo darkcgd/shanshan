@@ -1,10 +1,20 @@
 package com.shanshan.interceptor;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.shanshan.bean.MsgBean;
+import com.shanshan.bean.MsgSimpleBean;
+import com.shanshan.bean.TokenBean;
+import com.shanshan.service.TokenService;
+import com.shanshan.service.UserService;
+import com.shanshan.util.BaseUtil;
+import com.shanshan.util.Constant;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.PrintWriter;
 
 /**
  * 我们自己写的拦截器可以不直接实现HandlerInterceptor，而是扩展实现了HandlerInterceptor接口的具体类HandlerInterceptorAdapter，这样的话我们不需要把上面5个方法都实现，而只需要override我们需要的方法就可以了！
@@ -13,12 +23,10 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class UserInterceptor implements HandlerInterceptor{
 
-	/*@Autowired
+	@Autowired
 	TokenService tokenService;
 	@Autowired
 	UserService userService;
-	@Autowired
-	ShopService shopService;*/
 
 	/**
 	 * preHandle方法是进行处理器拦截用的，顾名思义，该方法将在Controller处理之前进行调用，SpringMVC中的Interceptor拦截器是链式的，可以同时存在 
@@ -29,75 +37,43 @@ public class UserInterceptor implements HandlerInterceptor{
 	 */
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)throws Exception {
-		/*String msgFail = "登录信息失效,请重新登录!";
-		String requestUrl = request.getServletPath();
+		String msgFail = "登录信息失效,请重新登录!";
 		String requestToken = request.getParameter(Constant.TOKEN);
-		String idStr=null;
-		if(requestUrl.contains("/user/")){
-			idStr = request.getParameter(Constant.USER_ID);
-		}else if(requestUrl.contains("/shop/")){
-			idStr = request.getParameter(Constant.SHOP_ID);
-		}
+		String idStr=request.getParameter(Constant.USER_ID);
 
 		if(BaseUtil.isEmpty(idStr)){
-			if(requestUrl.contains("/user/")){
-				msgFail="需要传userId参数";
-			}else if(requestUrl.contains("/shop/")){
-				msgFail="需要传shopId参数";
-			}
+			msgFail="需要传userId参数";
 		}else{
 			Integer id = Integer.parseInt(idStr);
-			if(requestUrl.contains("/user/")){
-				if(userService.getUserById(id)==null){
-					msgFail="该用户不存在";
-				}else{
-					if(BaseUtil.isNotEmpty(requestToken)){
-						TokenBean tokenBean = tokenService.getToken(id,0);
-						if(tokenBean!=null){
-							String saveToken = tokenBean.getToken();
-							if(BaseUtil.isNotEmpty(saveToken)&&requestToken.equals(saveToken)){
-								return true;
-							}else{
-								msgFail="登录信息失效,请重新登录";
-							}
+			if(userService.getUserById(id)==null){
+				msgFail="该用户不存在";
+			}else{
+				if(BaseUtil.isNotEmpty(requestToken)){
+					TokenBean tokenBean = tokenService.getToken(id,0);
+					if(tokenBean!=null){
+						String saveToken = tokenBean.getToken();
+						if(BaseUtil.isNotEmpty(saveToken)&&requestToken.equals(saveToken)){
+							return true;
 						}else{
 							msgFail="登录信息失效,请重新登录";
 						}
 					}else{
-						msgFail="需要传token参数";
+						msgFail="登录信息失效,请重新登录";
 					}
-				}
-			}else if(requestUrl.contains("/shop/")){
-				if(shopService.getShopById(id)==null){
-					msgFail="该商家不存在";
 				}else{
-					if(BaseUtil.isNotEmpty(requestToken)){
-						TokenBean tokenBean = tokenService.getToken(id,1);
-						if(tokenBean!=null){
-							String saveToken = tokenBean.getToken();
-							if(BaseUtil.isNotEmpty(saveToken)&&requestToken.equals(saveToken)){
-								return true;
-							}else{
-								msgFail="登录信息失效,请重新登录";
-							}
-						}else{
-							msgFail="登录信息失效,请重新登录";
-						}
-					}else{
-						msgFail="需要传token参数";
-					}
+					msgFail="需要传token参数";
 				}
 			}
 		}
 		ObjectMapper mapper = new ObjectMapper(); //转换器
 		//测试01：对象--json
-		String json=mapper.writeValueAsString(new MsgBean().fail(msgFail)); //将对象转换成json
-		System.out.println(json);
+		String json=mapper.writeValueAsString(new MsgSimpleBean().fail(msgFail)); //将对象转换成json
+		//System.out.println(json);
 		response.setCharacterEncoding("UTF-8"); //设置编码格式
 		//response.setContentType("text/html");   //设置数据格式
 		response.setContentType("application/json");   //设置数据格式
 		PrintWriter writer = response.getWriter();
-		writer.print(json);*/
+		writer.print(json);
 		return false;
 
 	}

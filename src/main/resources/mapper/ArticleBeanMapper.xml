@@ -1,0 +1,531 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shanshan.dao.ArticleBeanMapper">
+  <resultMap id="BaseResultMap" type="com.shanshan.bean.ArticleBean">
+    <id column="article_id" jdbcType="INTEGER" property="articleId" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="author" jdbcType="VARCHAR" property="author" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="category_name" jdbcType="VARCHAR" property="categoryName" />
+    <result column="tag_id" jdbcType="INTEGER" property="tagId" />
+    <result column="relate_activity_id" jdbcType="INTEGER" property="relateActivityId" />
+    <result column="relate_permission_user_type" jdbcType="INTEGER" property="relatePermissionUserType" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="read_count" jdbcType="INTEGER" property="readCount" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="is_need_company" jdbcType="INTEGER" property="isNeedCompany" />
+    <result column="is_need_user_name" jdbcType="INTEGER" property="isNeedUserName" />
+    <result column="is_need_phone" jdbcType="INTEGER" property="isNeedPhone" />
+    <result column="is_need_company_address" jdbcType="INTEGER" property="isNeedCompanyAddress" />
+    <result column="is_need_email" jdbcType="INTEGER" property="isNeedEmail" />
+    <result column="is_need_position_name" jdbcType="INTEGER" property="isNeedPositionName" />
+    <result column="is_need_department_name" jdbcType="INTEGER" property="isNeedDepartmentName" />
+    <result column="is_need_free_lunch" jdbcType="INTEGER" property="isNeedFreeLunch" />
+    <result column="is_need_provide_accommodation" jdbcType="INTEGER" property="isNeedProvideAccommodation" />
+    <result column="is_need_join_date" jdbcType="INTEGER" property="isNeedJoinDate" />
+    <result column="is_need_source" jdbcType="INTEGER" property="isNeedSource" />
+    <result column="is_need_photo" jdbcType="INTEGER" property="isNeedPhoto" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    article_id, title, author, content, category_name, tag_id, relate_activity_id, relate_permission_user_type, 
+    status, read_count, create_time, update_time, remark, is_need_company, is_need_user_name, 
+    is_need_phone, is_need_company_address, is_need_email, is_need_position_name, is_need_department_name, 
+    is_need_free_lunch, is_need_provide_accommodation, is_need_join_date, is_need_source, 
+    is_need_photo
+  </sql>
+  <select id="selectByExample" parameterType="com.shanshan.bean.ArticleBeanExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tbl_article
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_article
+    where article_id = #{articleId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tbl_article
+    where article_id = #{articleId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.shanshan.bean.ArticleBeanExample">
+    delete from tbl_article
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.shanshan.bean.ArticleBean">
+    insert into tbl_article (article_id, title, author, 
+      content, category_name, tag_id, 
+      relate_activity_id, relate_permission_user_type, 
+      status, read_count, create_time, 
+      update_time, remark, is_need_company, 
+      is_need_user_name, is_need_phone, is_need_company_address, 
+      is_need_email, is_need_position_name, is_need_department_name, 
+      is_need_free_lunch, is_need_provide_accommodation, 
+      is_need_join_date, is_need_source, is_need_photo
+      )
+    values (#{articleId,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{author,jdbcType=VARCHAR}, 
+      #{content,jdbcType=VARCHAR}, #{categoryName,jdbcType=VARCHAR}, #{tagId,jdbcType=INTEGER}, 
+      #{relateActivityId,jdbcType=INTEGER}, #{relatePermissionUserType,jdbcType=INTEGER}, 
+      #{status,jdbcType=INTEGER}, #{readCount,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}, #{isNeedCompany,jdbcType=INTEGER}, 
+      #{isNeedUserName,jdbcType=INTEGER}, #{isNeedPhone,jdbcType=INTEGER}, #{isNeedCompanyAddress,jdbcType=INTEGER}, 
+      #{isNeedEmail,jdbcType=INTEGER}, #{isNeedPositionName,jdbcType=INTEGER}, #{isNeedDepartmentName,jdbcType=INTEGER}, 
+      #{isNeedFreeLunch,jdbcType=INTEGER}, #{isNeedProvideAccommodation,jdbcType=INTEGER}, 
+      #{isNeedJoinDate,jdbcType=INTEGER}, #{isNeedSource,jdbcType=INTEGER}, #{isNeedPhoto,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.shanshan.bean.ArticleBean">
+    insert into tbl_article
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="articleId != null">
+        article_id,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="author != null">
+        author,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="categoryName != null">
+        category_name,
+      </if>
+      <if test="tagId != null">
+        tag_id,
+      </if>
+      <if test="relateActivityId != null">
+        relate_activity_id,
+      </if>
+      <if test="relatePermissionUserType != null">
+        relate_permission_user_type,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="readCount != null">
+        read_count,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="isNeedCompany != null">
+        is_need_company,
+      </if>
+      <if test="isNeedUserName != null">
+        is_need_user_name,
+      </if>
+      <if test="isNeedPhone != null">
+        is_need_phone,
+      </if>
+      <if test="isNeedCompanyAddress != null">
+        is_need_company_address,
+      </if>
+      <if test="isNeedEmail != null">
+        is_need_email,
+      </if>
+      <if test="isNeedPositionName != null">
+        is_need_position_name,
+      </if>
+      <if test="isNeedDepartmentName != null">
+        is_need_department_name,
+      </if>
+      <if test="isNeedFreeLunch != null">
+        is_need_free_lunch,
+      </if>
+      <if test="isNeedProvideAccommodation != null">
+        is_need_provide_accommodation,
+      </if>
+      <if test="isNeedJoinDate != null">
+        is_need_join_date,
+      </if>
+      <if test="isNeedSource != null">
+        is_need_source,
+      </if>
+      <if test="isNeedPhoto != null">
+        is_need_photo,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="articleId != null">
+        #{articleId,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null">
+        #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryName != null">
+        #{categoryName,jdbcType=VARCHAR},
+      </if>
+      <if test="tagId != null">
+        #{tagId,jdbcType=INTEGER},
+      </if>
+      <if test="relateActivityId != null">
+        #{relateActivityId,jdbcType=INTEGER},
+      </if>
+      <if test="relatePermissionUserType != null">
+        #{relatePermissionUserType,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="readCount != null">
+        #{readCount,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="isNeedCompany != null">
+        #{isNeedCompany,jdbcType=INTEGER},
+      </if>
+      <if test="isNeedUserName != null">
+        #{isNeedUserName,jdbcType=INTEGER},
+      </if>
+      <if test="isNeedPhone != null">
+        #{isNeedPhone,jdbcType=INTEGER},
+      </if>
+      <if test="isNeedCompanyAddress != null">
+        #{isNeedCompanyAddress,jdbcType=INTEGER},
+      </if>
+      <if test="isNeedEmail != null">
+        #{isNeedEmail,jdbcType=INTEGER},
+      </if>
+      <if test="isNeedPositionName != null">
+        #{isNeedPositionName,jdbcType=INTEGER},
+      </if>
+      <if test="isNeedDepartmentName != null">
+        #{isNeedDepartmentName,jdbcType=INTEGER},
+      </if>
+      <if test="isNeedFreeLunch != null">
+        #{isNeedFreeLunch,jdbcType=INTEGER},
+      </if>
+      <if test="isNeedProvideAccommodation != null">
+        #{isNeedProvideAccommodation,jdbcType=INTEGER},
+      </if>
+      <if test="isNeedJoinDate != null">
+        #{isNeedJoinDate,jdbcType=INTEGER},
+      </if>
+      <if test="isNeedSource != null">
+        #{isNeedSource,jdbcType=INTEGER},
+      </if>
+      <if test="isNeedPhoto != null">
+        #{isNeedPhoto,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.shanshan.bean.ArticleBeanExample" resultType="java.lang.Long">
+    select count(*) from tbl_article
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tbl_article
+    <set>
+      <if test="record.articleId != null">
+        article_id = #{record.articleId,jdbcType=INTEGER},
+      </if>
+      <if test="record.title != null">
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.author != null">
+        author = #{record.author,jdbcType=VARCHAR},
+      </if>
+      <if test="record.content != null">
+        content = #{record.content,jdbcType=VARCHAR},
+      </if>
+      <if test="record.categoryName != null">
+        category_name = #{record.categoryName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tagId != null">
+        tag_id = #{record.tagId,jdbcType=INTEGER},
+      </if>
+      <if test="record.relateActivityId != null">
+        relate_activity_id = #{record.relateActivityId,jdbcType=INTEGER},
+      </if>
+      <if test="record.relatePermissionUserType != null">
+        relate_permission_user_type = #{record.relatePermissionUserType,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.readCount != null">
+        read_count = #{record.readCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.remark != null">
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isNeedCompany != null">
+        is_need_company = #{record.isNeedCompany,jdbcType=INTEGER},
+      </if>
+      <if test="record.isNeedUserName != null">
+        is_need_user_name = #{record.isNeedUserName,jdbcType=INTEGER},
+      </if>
+      <if test="record.isNeedPhone != null">
+        is_need_phone = #{record.isNeedPhone,jdbcType=INTEGER},
+      </if>
+      <if test="record.isNeedCompanyAddress != null">
+        is_need_company_address = #{record.isNeedCompanyAddress,jdbcType=INTEGER},
+      </if>
+      <if test="record.isNeedEmail != null">
+        is_need_email = #{record.isNeedEmail,jdbcType=INTEGER},
+      </if>
+      <if test="record.isNeedPositionName != null">
+        is_need_position_name = #{record.isNeedPositionName,jdbcType=INTEGER},
+      </if>
+      <if test="record.isNeedDepartmentName != null">
+        is_need_department_name = #{record.isNeedDepartmentName,jdbcType=INTEGER},
+      </if>
+      <if test="record.isNeedFreeLunch != null">
+        is_need_free_lunch = #{record.isNeedFreeLunch,jdbcType=INTEGER},
+      </if>
+      <if test="record.isNeedProvideAccommodation != null">
+        is_need_provide_accommodation = #{record.isNeedProvideAccommodation,jdbcType=INTEGER},
+      </if>
+      <if test="record.isNeedJoinDate != null">
+        is_need_join_date = #{record.isNeedJoinDate,jdbcType=INTEGER},
+      </if>
+      <if test="record.isNeedSource != null">
+        is_need_source = #{record.isNeedSource,jdbcType=INTEGER},
+      </if>
+      <if test="record.isNeedPhoto != null">
+        is_need_photo = #{record.isNeedPhoto,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tbl_article
+    set article_id = #{record.articleId,jdbcType=INTEGER},
+      title = #{record.title,jdbcType=VARCHAR},
+      author = #{record.author,jdbcType=VARCHAR},
+      content = #{record.content,jdbcType=VARCHAR},
+      category_name = #{record.categoryName,jdbcType=VARCHAR},
+      tag_id = #{record.tagId,jdbcType=INTEGER},
+      relate_activity_id = #{record.relateActivityId,jdbcType=INTEGER},
+      relate_permission_user_type = #{record.relatePermissionUserType,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=INTEGER},
+      read_count = #{record.readCount,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      is_need_company = #{record.isNeedCompany,jdbcType=INTEGER},
+      is_need_user_name = #{record.isNeedUserName,jdbcType=INTEGER},
+      is_need_phone = #{record.isNeedPhone,jdbcType=INTEGER},
+      is_need_company_address = #{record.isNeedCompanyAddress,jdbcType=INTEGER},
+      is_need_email = #{record.isNeedEmail,jdbcType=INTEGER},
+      is_need_position_name = #{record.isNeedPositionName,jdbcType=INTEGER},
+      is_need_department_name = #{record.isNeedDepartmentName,jdbcType=INTEGER},
+      is_need_free_lunch = #{record.isNeedFreeLunch,jdbcType=INTEGER},
+      is_need_provide_accommodation = #{record.isNeedProvideAccommodation,jdbcType=INTEGER},
+      is_need_join_date = #{record.isNeedJoinDate,jdbcType=INTEGER},
+      is_need_source = #{record.isNeedSource,jdbcType=INTEGER},
+      is_need_photo = #{record.isNeedPhoto,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shanshan.bean.ArticleBean">
+    update tbl_article
+    <set>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null">
+        author = #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryName != null">
+        category_name = #{categoryName,jdbcType=VARCHAR},
+      </if>
+      <if test="tagId != null">
+        tag_id = #{tagId,jdbcType=INTEGER},
+      </if>
+      <if test="relateActivityId != null">
+        relate_activity_id = #{relateActivityId,jdbcType=INTEGER},
+      </if>
+      <if test="relatePermissionUserType != null">
+        relate_permission_user_type = #{relatePermissionUserType,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="readCount != null">
+        read_count = #{readCount,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="isNeedCompany != null">
+        is_need_company = #{isNeedCompany,jdbcType=INTEGER},
+      </if>
+      <if test="isNeedUserName != null">
+        is_need_user_name = #{isNeedUserName,jdbcType=INTEGER},
+      </if>
+      <if test="isNeedPhone != null">
+        is_need_phone = #{isNeedPhone,jdbcType=INTEGER},
+      </if>
+      <if test="isNeedCompanyAddress != null">
+        is_need_company_address = #{isNeedCompanyAddress,jdbcType=INTEGER},
+      </if>
+      <if test="isNeedEmail != null">
+        is_need_email = #{isNeedEmail,jdbcType=INTEGER},
+      </if>
+      <if test="isNeedPositionName != null">
+        is_need_position_name = #{isNeedPositionName,jdbcType=INTEGER},
+      </if>
+      <if test="isNeedDepartmentName != null">
+        is_need_department_name = #{isNeedDepartmentName,jdbcType=INTEGER},
+      </if>
+      <if test="isNeedFreeLunch != null">
+        is_need_free_lunch = #{isNeedFreeLunch,jdbcType=INTEGER},
+      </if>
+      <if test="isNeedProvideAccommodation != null">
+        is_need_provide_accommodation = #{isNeedProvideAccommodation,jdbcType=INTEGER},
+      </if>
+      <if test="isNeedJoinDate != null">
+        is_need_join_date = #{isNeedJoinDate,jdbcType=INTEGER},
+      </if>
+      <if test="isNeedSource != null">
+        is_need_source = #{isNeedSource,jdbcType=INTEGER},
+      </if>
+      <if test="isNeedPhoto != null">
+        is_need_photo = #{isNeedPhoto,jdbcType=INTEGER},
+      </if>
+    </set>
+    where article_id = #{articleId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shanshan.bean.ArticleBean">
+    update tbl_article
+    set title = #{title,jdbcType=VARCHAR},
+      author = #{author,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      category_name = #{categoryName,jdbcType=VARCHAR},
+      tag_id = #{tagId,jdbcType=INTEGER},
+      relate_activity_id = #{relateActivityId,jdbcType=INTEGER},
+      relate_permission_user_type = #{relatePermissionUserType,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      read_count = #{readCount,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR},
+      is_need_company = #{isNeedCompany,jdbcType=INTEGER},
+      is_need_user_name = #{isNeedUserName,jdbcType=INTEGER},
+      is_need_phone = #{isNeedPhone,jdbcType=INTEGER},
+      is_need_company_address = #{isNeedCompanyAddress,jdbcType=INTEGER},
+      is_need_email = #{isNeedEmail,jdbcType=INTEGER},
+      is_need_position_name = #{isNeedPositionName,jdbcType=INTEGER},
+      is_need_department_name = #{isNeedDepartmentName,jdbcType=INTEGER},
+      is_need_free_lunch = #{isNeedFreeLunch,jdbcType=INTEGER},
+      is_need_provide_accommodation = #{isNeedProvideAccommodation,jdbcType=INTEGER},
+      is_need_join_date = #{isNeedJoinDate,jdbcType=INTEGER},
+      is_need_source = #{isNeedSource,jdbcType=INTEGER},
+      is_need_photo = #{isNeedPhoto,jdbcType=INTEGER}
+    where article_id = #{articleId,jdbcType=INTEGER}
+  </update>
+</mapper>
