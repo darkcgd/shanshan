@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.shanshan.dao.CompanyBeanMapper">
-  <resultMap id="BaseResultMap" type="com.shanshan.bean.CompanyBean">
-    <id column="company_id" jdbcType="INTEGER" property="companyId" />
-    <result column="company_name" jdbcType="VARCHAR" property="companyName" />
-    <result column="company_email" jdbcType="VARCHAR" property="companyEmail" />
-    <result column="buy_equipment_channel_id" jdbcType="INTEGER" property="buyEquipmentChannelId" />
-    <result column="equipment_type_id" jdbcType="INTEGER" property="equipmentTypeId" />
-    <result column="industry_id" jdbcType="INTEGER" property="industryId" />
+<mapper namespace="com.shanshan.dao.TagBeanMapper">
+  <resultMap id="BaseResultMap" type="com.shanshan.bean.TagBean">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="logo" jdbcType="VARCHAR" property="logo" />
+    <result column="create_user_id" jdbcType="INTEGER" property="createUserId" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -71,16 +69,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    company_id, company_name, company_email, buy_equipment_channel_id, equipment_type_id, 
-    industry_id, create_time, update_time, remark
+    id, name, create_time, update_time, logo, create_user_id, remark
   </sql>
-  <select id="selectByExample" parameterType="com.shanshan.bean.CompanyBeanExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.shanshan.bean.TagBeanExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from tbl_company
+    from tbl_tag
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -91,49 +88,35 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from tbl_company
-    where company_id = #{companyId,jdbcType=INTEGER}
+    from tbl_tag
+    where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from tbl_company
-    where company_id = #{companyId,jdbcType=INTEGER}
+    delete from tbl_tag
+    where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.shanshan.bean.CompanyBeanExample">
-    delete from tbl_company
+  <delete id="deleteByExample" parameterType="com.shanshan.bean.TagBeanExample">
+    delete from tbl_tag
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.shanshan.bean.CompanyBean">
-    insert into tbl_company (company_id, company_name, company_email, 
-      buy_equipment_channel_id, equipment_type_id, 
-      industry_id, create_time, update_time, 
+  <insert id="insert" parameterType="com.shanshan.bean.TagBean">
+    insert into tbl_tag (id, name, create_time, 
+      update_time, logo, create_user_id, 
       remark)
-    values (#{companyId,jdbcType=INTEGER}, #{companyName,jdbcType=VARCHAR}, #{companyEmail,jdbcType=VARCHAR}, 
-      #{buyEquipmentChannelId,jdbcType=INTEGER}, #{equipmentTypeId,jdbcType=INTEGER}, 
-      #{industryId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{logo,jdbcType=VARCHAR}, #{createUserId,jdbcType=INTEGER}, 
       #{remark,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.shanshan.bean.CompanyBean">
-    insert into tbl_company
+  <insert id="insertSelective" parameterType="com.shanshan.bean.TagBean">
+    insert into tbl_tag
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="companyId != null">
-        company_id,
+      <if test="id != null">
+        id,
       </if>
-      <if test="companyName != null">
-        company_name,
-      </if>
-      <if test="companyEmail != null">
-        company_email,
-      </if>
-      <if test="buyEquipmentChannelId != null">
-        buy_equipment_channel_id,
-      </if>
-      <if test="equipmentTypeId != null">
-        equipment_type_id,
-      </if>
-      <if test="industryId != null">
-        industry_id,
+      <if test="name != null">
+        name,
       </if>
       <if test="createTime != null">
         create_time,
@@ -141,28 +124,22 @@
       <if test="updateTime != null">
         update_time,
       </if>
+      <if test="logo != null">
+        logo,
+      </if>
+      <if test="createUserId != null">
+        create_user_id,
+      </if>
       <if test="remark != null">
         remark,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="companyId != null">
-        #{companyId,jdbcType=INTEGER},
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
       </if>
-      <if test="companyName != null">
-        #{companyName,jdbcType=VARCHAR},
-      </if>
-      <if test="companyEmail != null">
-        #{companyEmail,jdbcType=VARCHAR},
-      </if>
-      <if test="buyEquipmentChannelId != null">
-        #{buyEquipmentChannelId,jdbcType=INTEGER},
-      </if>
-      <if test="equipmentTypeId != null">
-        #{equipmentTypeId,jdbcType=INTEGER},
-      </if>
-      <if test="industryId != null">
-        #{industryId,jdbcType=INTEGER},
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
@@ -170,43 +147,43 @@
       <if test="updateTime != null">
         #{updateTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="logo != null">
+        #{logo,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserId != null">
+        #{createUserId,jdbcType=INTEGER},
+      </if>
       <if test="remark != null">
         #{remark,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.shanshan.bean.CompanyBeanExample" resultType="java.lang.Long">
-    select count(*) from tbl_company
+  <select id="countByExample" parameterType="com.shanshan.bean.TagBeanExample" resultType="java.lang.Long">
+    select count(*) from tbl_tag
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update tbl_company
+    update tbl_tag
     <set>
-      <if test="record.companyId != null">
-        company_id = #{record.companyId,jdbcType=INTEGER},
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.companyName != null">
-        company_name = #{record.companyName,jdbcType=VARCHAR},
-      </if>
-      <if test="record.companyEmail != null">
-        company_email = #{record.companyEmail,jdbcType=VARCHAR},
-      </if>
-      <if test="record.buyEquipmentChannelId != null">
-        buy_equipment_channel_id = #{record.buyEquipmentChannelId,jdbcType=INTEGER},
-      </if>
-      <if test="record.equipmentTypeId != null">
-        equipment_type_id = #{record.equipmentTypeId,jdbcType=INTEGER},
-      </if>
-      <if test="record.industryId != null">
-        industry_id = #{record.industryId,jdbcType=INTEGER},
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
       </if>
       <if test="record.createTime != null">
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="record.updateTime != null">
         update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.logo != null">
+        logo = #{record.logo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createUserId != null">
+        create_user_id = #{record.createUserId,jdbcType=INTEGER},
       </if>
       <if test="record.remark != null">
         remark = #{record.remark,jdbcType=VARCHAR},
@@ -217,37 +194,23 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update tbl_company
-    set company_id = #{record.companyId,jdbcType=INTEGER},
-      company_name = #{record.companyName,jdbcType=VARCHAR},
-      company_email = #{record.companyEmail,jdbcType=VARCHAR},
-      buy_equipment_channel_id = #{record.buyEquipmentChannelId,jdbcType=INTEGER},
-      equipment_type_id = #{record.equipmentTypeId,jdbcType=INTEGER},
-      industry_id = #{record.industryId,jdbcType=INTEGER},
+    update tbl_tag
+    set id = #{record.id,jdbcType=INTEGER},
+      name = #{record.name,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      logo = #{record.logo,jdbcType=VARCHAR},
+      create_user_id = #{record.createUserId,jdbcType=INTEGER},
       remark = #{record.remark,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.shanshan.bean.CompanyBean">
-    update tbl_company
+  <update id="updateByPrimaryKeySelective" parameterType="com.shanshan.bean.TagBean">
+    update tbl_tag
     <set>
-      <if test="companyName != null">
-        company_name = #{companyName,jdbcType=VARCHAR},
-      </if>
-      <if test="companyEmail != null">
-        company_email = #{companyEmail,jdbcType=VARCHAR},
-      </if>
-      <if test="buyEquipmentChannelId != null">
-        buy_equipment_channel_id = #{buyEquipmentChannelId,jdbcType=INTEGER},
-      </if>
-      <if test="equipmentTypeId != null">
-        equipment_type_id = #{equipmentTypeId,jdbcType=INTEGER},
-      </if>
-      <if test="industryId != null">
-        industry_id = #{industryId,jdbcType=INTEGER},
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -255,22 +218,26 @@
       <if test="updateTime != null">
         update_time = #{updateTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="logo != null">
+        logo = #{logo,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserId != null">
+        create_user_id = #{createUserId,jdbcType=INTEGER},
+      </if>
       <if test="remark != null">
         remark = #{remark,jdbcType=VARCHAR},
       </if>
     </set>
-    where company_id = #{companyId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.shanshan.bean.CompanyBean">
-    update tbl_company
-    set company_name = #{companyName,jdbcType=VARCHAR},
-      company_email = #{companyEmail,jdbcType=VARCHAR},
-      buy_equipment_channel_id = #{buyEquipmentChannelId,jdbcType=INTEGER},
-      equipment_type_id = #{equipmentTypeId,jdbcType=INTEGER},
-      industry_id = #{industryId,jdbcType=INTEGER},
+  <update id="updateByPrimaryKey" parameterType="com.shanshan.bean.TagBean">
+    update tbl_tag
+    set name = #{name,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
+      logo = #{logo,jdbcType=VARCHAR},
+      create_user_id = #{createUserId,jdbcType=INTEGER},
       remark = #{remark,jdbcType=VARCHAR}
-    where company_id = #{companyId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

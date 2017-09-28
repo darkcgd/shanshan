@@ -1155,66 +1155,6 @@ public class UserBeanExample {
             return (Criteria) this;
         }
 
-        public Criteria andCompanyIdIsNull() {
-            addCriterion("company_id is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andCompanyIdIsNotNull() {
-            addCriterion("company_id is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andCompanyIdEqualTo(Integer value) {
-            addCriterion("company_id =", value, "companyId");
-            return (Criteria) this;
-        }
-
-        public Criteria andCompanyIdNotEqualTo(Integer value) {
-            addCriterion("company_id <>", value, "companyId");
-            return (Criteria) this;
-        }
-
-        public Criteria andCompanyIdGreaterThan(Integer value) {
-            addCriterion("company_id >", value, "companyId");
-            return (Criteria) this;
-        }
-
-        public Criteria andCompanyIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("company_id >=", value, "companyId");
-            return (Criteria) this;
-        }
-
-        public Criteria andCompanyIdLessThan(Integer value) {
-            addCriterion("company_id <", value, "companyId");
-            return (Criteria) this;
-        }
-
-        public Criteria andCompanyIdLessThanOrEqualTo(Integer value) {
-            addCriterion("company_id <=", value, "companyId");
-            return (Criteria) this;
-        }
-
-        public Criteria andCompanyIdIn(List<Integer> values) {
-            addCriterion("company_id in", values, "companyId");
-            return (Criteria) this;
-        }
-
-        public Criteria andCompanyIdNotIn(List<Integer> values) {
-            addCriterion("company_id not in", values, "companyId");
-            return (Criteria) this;
-        }
-
-        public Criteria andCompanyIdBetween(Integer value1, Integer value2) {
-            addCriterion("company_id between", value1, value2, "companyId");
-            return (Criteria) this;
-        }
-
-        public Criteria andCompanyIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("company_id not between", value1, value2, "companyId");
-            return (Criteria) this;
-        }
-
         public Criteria andDepartmentNameIsNull() {
             addCriterion("department_name is null");
             return (Criteria) this;
@@ -1562,6 +1502,276 @@ public class UserBeanExample {
 
         public Criteria andReferralsPhoneNotBetween(String value1, String value2) {
             addCriterion("referrals_phone not between", value1, value2, "referralsPhone");
+            return (Criteria) this;
+        }
+
+        public Criteria andCompanyIsNull() {
+            addCriterion("company is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCompanyIsNotNull() {
+            addCriterion("company is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCompanyEqualTo(String value) {
+            addCriterion("company =", value, "company");
+            return (Criteria) this;
+        }
+
+        public Criteria andCompanyNotEqualTo(String value) {
+            addCriterion("company <>", value, "company");
+            return (Criteria) this;
+        }
+
+        public Criteria andCompanyGreaterThan(String value) {
+            addCriterion("company >", value, "company");
+            return (Criteria) this;
+        }
+
+        public Criteria andCompanyGreaterThanOrEqualTo(String value) {
+            addCriterion("company >=", value, "company");
+            return (Criteria) this;
+        }
+
+        public Criteria andCompanyLessThan(String value) {
+            addCriterion("company <", value, "company");
+            return (Criteria) this;
+        }
+
+        public Criteria andCompanyLessThanOrEqualTo(String value) {
+            addCriterion("company <=", value, "company");
+            return (Criteria) this;
+        }
+
+        public Criteria andCompanyLike(String value) {
+            addCriterion("company like", value, "company");
+            return (Criteria) this;
+        }
+
+        public Criteria andCompanyNotLike(String value) {
+            addCriterion("company not like", value, "company");
+            return (Criteria) this;
+        }
+
+        public Criteria andCompanyIn(List<String> values) {
+            addCriterion("company in", values, "company");
+            return (Criteria) this;
+        }
+
+        public Criteria andCompanyNotIn(List<String> values) {
+            addCriterion("company not in", values, "company");
+            return (Criteria) this;
+        }
+
+        public Criteria andCompanyBetween(String value1, String value2) {
+            addCriterion("company between", value1, value2, "company");
+            return (Criteria) this;
+        }
+
+        public Criteria andCompanyNotBetween(String value1, String value2) {
+            addCriterion("company not between", value1, value2, "company");
+            return (Criteria) this;
+        }
+
+        public Criteria andAttributesIsNull() {
+            addCriterion("attributes is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAttributesIsNotNull() {
+            addCriterion("attributes is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAttributesEqualTo(String value) {
+            addCriterion("attributes =", value, "attributes");
+            return (Criteria) this;
+        }
+
+        public Criteria andAttributesNotEqualTo(String value) {
+            addCriterion("attributes <>", value, "attributes");
+            return (Criteria) this;
+        }
+
+        public Criteria andAttributesGreaterThan(String value) {
+            addCriterion("attributes >", value, "attributes");
+            return (Criteria) this;
+        }
+
+        public Criteria andAttributesGreaterThanOrEqualTo(String value) {
+            addCriterion("attributes >=", value, "attributes");
+            return (Criteria) this;
+        }
+
+        public Criteria andAttributesLessThan(String value) {
+            addCriterion("attributes <", value, "attributes");
+            return (Criteria) this;
+        }
+
+        public Criteria andAttributesLessThanOrEqualTo(String value) {
+            addCriterion("attributes <=", value, "attributes");
+            return (Criteria) this;
+        }
+
+        public Criteria andAttributesLike(String value) {
+            addCriterion("attributes like", value, "attributes");
+            return (Criteria) this;
+        }
+
+        public Criteria andAttributesNotLike(String value) {
+            addCriterion("attributes not like", value, "attributes");
+            return (Criteria) this;
+        }
+
+        public Criteria andAttributesIn(List<String> values) {
+            addCriterion("attributes in", values, "attributes");
+            return (Criteria) this;
+        }
+
+        public Criteria andAttributesNotIn(List<String> values) {
+            addCriterion("attributes not in", values, "attributes");
+            return (Criteria) this;
+        }
+
+        public Criteria andAttributesBetween(String value1, String value2) {
+            addCriterion("attributes between", value1, value2, "attributes");
+            return (Criteria) this;
+        }
+
+        public Criteria andAttributesNotBetween(String value1, String value2) {
+            addCriterion("attributes not between", value1, value2, "attributes");
+            return (Criteria) this;
+        }
+
+        public Criteria andExperienceYearsIsNull() {
+            addCriterion("experience_years is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andExperienceYearsIsNotNull() {
+            addCriterion("experience_years is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andExperienceYearsEqualTo(Integer value) {
+            addCriterion("experience_years =", value, "experienceYears");
+            return (Criteria) this;
+        }
+
+        public Criteria andExperienceYearsNotEqualTo(Integer value) {
+            addCriterion("experience_years <>", value, "experienceYears");
+            return (Criteria) this;
+        }
+
+        public Criteria andExperienceYearsGreaterThan(Integer value) {
+            addCriterion("experience_years >", value, "experienceYears");
+            return (Criteria) this;
+        }
+
+        public Criteria andExperienceYearsGreaterThanOrEqualTo(Integer value) {
+            addCriterion("experience_years >=", value, "experienceYears");
+            return (Criteria) this;
+        }
+
+        public Criteria andExperienceYearsLessThan(Integer value) {
+            addCriterion("experience_years <", value, "experienceYears");
+            return (Criteria) this;
+        }
+
+        public Criteria andExperienceYearsLessThanOrEqualTo(Integer value) {
+            addCriterion("experience_years <=", value, "experienceYears");
+            return (Criteria) this;
+        }
+
+        public Criteria andExperienceYearsIn(List<Integer> values) {
+            addCriterion("experience_years in", values, "experienceYears");
+            return (Criteria) this;
+        }
+
+        public Criteria andExperienceYearsNotIn(List<Integer> values) {
+            addCriterion("experience_years not in", values, "experienceYears");
+            return (Criteria) this;
+        }
+
+        public Criteria andExperienceYearsBetween(Integer value1, Integer value2) {
+            addCriterion("experience_years between", value1, value2, "experienceYears");
+            return (Criteria) this;
+        }
+
+        public Criteria andExperienceYearsNotBetween(Integer value1, Integer value2) {
+            addCriterion("experience_years not between", value1, value2, "experienceYears");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpertiseAreasIsNull() {
+            addCriterion("expertise_areas is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpertiseAreasIsNotNull() {
+            addCriterion("expertise_areas is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpertiseAreasEqualTo(String value) {
+            addCriterion("expertise_areas =", value, "expertiseAreas");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpertiseAreasNotEqualTo(String value) {
+            addCriterion("expertise_areas <>", value, "expertiseAreas");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpertiseAreasGreaterThan(String value) {
+            addCriterion("expertise_areas >", value, "expertiseAreas");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpertiseAreasGreaterThanOrEqualTo(String value) {
+            addCriterion("expertise_areas >=", value, "expertiseAreas");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpertiseAreasLessThan(String value) {
+            addCriterion("expertise_areas <", value, "expertiseAreas");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpertiseAreasLessThanOrEqualTo(String value) {
+            addCriterion("expertise_areas <=", value, "expertiseAreas");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpertiseAreasLike(String value) {
+            addCriterion("expertise_areas like", value, "expertiseAreas");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpertiseAreasNotLike(String value) {
+            addCriterion("expertise_areas not like", value, "expertiseAreas");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpertiseAreasIn(List<String> values) {
+            addCriterion("expertise_areas in", values, "expertiseAreas");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpertiseAreasNotIn(List<String> values) {
+            addCriterion("expertise_areas not in", values, "expertiseAreas");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpertiseAreasBetween(String value1, String value2) {
+            addCriterion("expertise_areas between", value1, value2, "expertiseAreas");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpertiseAreasNotBetween(String value1, String value2) {
+            addCriterion("expertise_areas not between", value1, value2, "expertiseAreas");
             return (Criteria) this;
         }
     }

@@ -35,8 +35,6 @@ public class UserBean {
 
     private String remark;
 
-    private Integer companyId;
-
     private String departmentName;
 
     private String positionName;
@@ -46,6 +44,14 @@ public class UserBean {
     private String referralsName;
 
     private String referralsPhone;
+
+    private String company;
+
+    private String attributes;
+
+    private Integer experienceYears;
+
+    private String expertiseAreas;
 
     public Integer getUserId() {
         return userId;
@@ -175,14 +181,6 @@ public class UserBean {
         this.remark = remark == null ? null : remark.trim();
     }
 
-    public Integer getCompanyId() {
-        return companyId;
-    }
-
-    public void setCompanyId(Integer companyId) {
-        this.companyId = companyId;
-    }
-
     public String getDepartmentName() {
         return departmentName;
     }
@@ -221,5 +219,37 @@ public class UserBean {
 
     public void setReferralsPhone(String referralsPhone) {
         this.referralsPhone = referralsPhone == null ? null : referralsPhone.trim();
+    }
+
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company == null ? null : company.trim();
+    }
+
+    public String getAttributes() {
+        return attributes;
+    }
+
+    public void setAttributes(String attributes) {
+        this.attributes = attributes == null ? null : attributes.trim();
+    }
+
+    public Integer getExperienceYears() {
+        return experienceYears;
+    }
+
+    public void setExperienceYears(Integer experienceYears) {
+        this.experienceYears = experienceYears;
+    }
+
+    public String getExpertiseAreas() {
+        return expertiseAreas;
+    }
+
+    public void setExpertiseAreas(String expertiseAreas) {
+        this.expertiseAreas = expertiseAreas == null ? null : expertiseAreas.trim();
     }
 }

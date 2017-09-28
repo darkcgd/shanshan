@@ -78,6 +78,9 @@ public class UserController {
 		if(BaseUtil.isNotEmpty(userName)){
 			user.setUserName(userName);
 		}
+		if(BaseUtil.isNotEmpty(company)){
+			user.setCompany(company);
+		}
 		userService.saveUser(user);
 		UserBean userByName = userService.isRegisted(phone);
 		if(userByName!=null){
@@ -88,7 +91,7 @@ public class UserController {
 			data.put("userId", userByName.getUserId());
 			data.put("userName", userByName.getUserName());
 			data.put("token", token);
-			data.put("company", userByName.getCompanyId());
+			data.put("company", userByName.getCompany());
 			data.put("phone", userByName.getPhone());
 			data.put("sex", userByName.getSex());
 			data.put("age", userByName.getAge());
@@ -150,7 +153,7 @@ public class UserController {
 		data.put("userId", userByName.getUserId());
 		data.put("name", userByName.getUserName());
 		data.put("token", token);
-		data.put("company", userByName.getCompanyId());
+		data.put("company", userByName.getCompany());
 		data.put("phone", userByName.getPhone());
 		data.put("sex", userByName.getSex());
 		data.put("age", userByName.getAge());
