@@ -1,8 +1,10 @@
 package com.shanshan.controller;
 
 import com.shanshan.bean.MsgBean;
-import com.shanshan.bean.MsgSimple;
+import com.shanshan.bean.MsgSimpleBean;
+import com.shanshan.bean.SmsCodeBean;
 import com.shanshan.bean.UserBean;
+import com.shanshan.service.SmsCodeService;
 import com.shanshan.service.TokenService;
 import com.shanshan.service.UserService;
 import com.shanshan.util.BaseUtil;
@@ -28,6 +30,8 @@ public class UserController {
 	@Autowired
 	UserService userService;
 	@Autowired
+	SmsCodeService smsCodeService;
+	@Autowired
 	TokenService tokenService;
 
 	/**
@@ -40,87 +44,120 @@ public class UserController {
 	 */
 	@RequestMapping(value="/userRegist",method=RequestMethod.GET)
 	@ResponseBody
-	public MsgBean regist(@Valid UserBean user, BindingResult result){
-		if(result.hasErrors()){
-			//校验失败，应该返回失败，在模态框中显示校验失败的错误信息
-			Map<String, Object> map = new HashMap<>();
-			List<FieldError> errors = result.getFieldErrors();
-			for (FieldError fieldError : errors) {
-				System.out.println("错误的字段名："+fieldError.getField());
-				System.out.println("错误信息："+fieldError.getDefaultMessage());
-				map.put(fieldError.getField(), fieldError.getDefaultMessage());
-			}
-			return MsgBean.fail().add("errorFields", map);
-		}else{
-			userService.saveUser(user);
-			UserBean userByName = userService.getUserByName(user.getUserName());
-			if(userByName!=null){
-				String token = tokenService.generateToken(userByName.getUserId(),0);
+	public Object regist(@RequestParam(value = "phone", required=false)String phone
+			,@RequestParam(value = "smsCode", required=false) String smsCode
+			,@RequestParam(value = "userName", required=false) String userName
+			,@RequestParam(value = "company", required=false) String company
+	){
+		if(BaseUtil.isEmpty(phone)){
+			return MsgSimpleBean.fail("请输入手机号码");
+		}
+		if(!BaseUtil.isPhone(phone)){
+			return MsgSimpleBean.fail("手机格式不正确");
+		}
+		if(BaseUtil.isEmpty(smsCode)){
+			return MsgSimpleBean.fail("请输入验证码");
+		}
 
-				MsgBean msg = MsgBean.success("注册成功");
-				Map<String, Object> data = msg.getData();
-				data.put("user_id", userByName.getUserId());
-				data.put("user_name", userByName.getUserName());
-				data.put("user_token", token);
-				data.put("user_phone", userByName.getPhone());
-				data.put("user_sex", userByName.getSex());
-				data.put("user_email", userByName.getEmail());
-				System.out.println(userByName.getUserName()+"注册成功!");
-				return msg;
-			}else{
-				return MsgBean.fail("注册失败");
+		UserBean registedUserBean = userService.isRegisted(phone);
+		if(registedUserBean!=null){
+			return MsgSimpleBean.fail("该手机已注册");
+		}
+
+		SmsCodeBean smsCodeBean = smsCodeService.checkSmsByPhone(phone);
+		if(smsCodeBean==null){
+			return MsgSimpleBean.fail("验证码已过期");
+		}else{
+			if (!smsCode.equals(smsCodeBean.getSmsCode())) {
+				return MsgSimpleBean.fail("验证码不正确");
 			}
+		}
+		UserBean user=new UserBean();
+		user.setPhone(phone);
+
+		if(BaseUtil.isNotEmpty(userName)){
+			user.setUserName(userName);
+		}
+
+		user.setUserType(0);
+		userService.saveUser(user);
+		UserBean userByName = userService.getUserByName(user.getUserName());
+		if(userByName!=null){
+			String token = tokenService.generateToken(userByName.getUserId(),0);
+
+			MsgBean msg = MsgBean.success("注册成功");
+			Map<String, Object> data = msg.getData();
+			data.put("userId", userByName.getUserId());
+			data.put("userName", userByName.getUserName());
+			data.put("token", token);
+			data.put("phone", userByName.getPhone());
+			data.put("sex", userByName.getSex());
+			data.put("email", userByName.getEmail());
+			Integer userType = userByName.getUserType();
+			if(BaseUtil.isEmpty(userType)){
+				userType=0;
+			}
+			data.put("userType", userType);
+
+			smsCodeService.deleteSmsCode(phone);
+			return msg;
+		}else{
+			return MsgBean.fail("注册失败");
 		}
 	}
 
 	/**
 	 * 用户登录(账号密码)
-	 * @param name
-	 * @param pwd
+	 * @param phone
+	 * @param smsCode
 	 * @return
 	 */
 	@ResponseBody
 	@RequestMapping("/userLogin")
-	public Object login(@RequestParam(value = "name", required=false)String name, @RequestParam(value = "pwd", required=false)String pwd){
-		if(BaseUtil.isEmpty(name)){
-			return MsgSimple.fail("需要传name参数");
+	public Object login(@RequestParam(value = "phone", required=false)String phone, @RequestParam(value = "smsCode", required=false)String smsCode){
+		if(BaseUtil.isEmpty(phone)){
+			return MsgSimpleBean.fail("请输入手机号码");
 		}
-		//先判断用户名是否是合法的表达式;
-		String regx = "(^[a-zA-Z0-9_-]{6,16}$)|(^[\u2E80-\u9FFF]{2,5})";
-		if(!name.matches(regx)){
-			return MsgSimple.fail("用户名必须是6-16位数字和字母的组合或者2-5位中文");
+		if(!BaseUtil.isPhone(phone)){
+			return MsgSimpleBean.fail("手机格式不正确");
 		}
-		if(BaseUtil.isEmpty(pwd)){
-			return MsgSimple.fail("需要传pwd参数");
+		if(BaseUtil.isEmpty(smsCode)){
+			return MsgSimpleBean.fail("请输入验证码");
 		}
 
-		//数据库用户名重复校验
-		UserBean userByName = userService.getUserByName(name);
-		if(userByName!=null){
-			if(userByName.getPwd()!=null&&userByName.getPwd().equals(pwd)){
-				String token = tokenService.generateToken(userByName.getUserId(),0);
+		UserBean userByName = userService.isRegisted(phone);
+		if(userByName==null){
+			return MsgSimpleBean.fail("该手机未注册");
+		}
 
-				userByName.setLastLoginTime(new Date());
-				userService.updateUserInfo(userByName);//更新最后登录时间
-
-				MsgBean msg = MsgBean.success("登录成功");
-				Map<String, Object> data = msg.getData();
-				data.put("userId", userByName.getUserId());
-				data.put("name", userByName.getUserName());
-				data.put("token", token);
-				data.put("phone", userByName.getPhone());
-				data.put("sex", userByName.getSex());
-				data.put("age", userByName.getAge());
-				data.put("email", userByName.getEmail());
-				data.put("headUrl", userByName.getHeadUrl());
-				data.put("userType", 0);//0代表普通用户登录 1代表商家
-				return msg;
-			}else{
-				return MsgBean.fail("密码错误");
-			}
+		SmsCodeBean smsCodeBean = smsCodeService.checkSmsByPhone(phone);
+		if(smsCodeBean==null){
+			return MsgSimpleBean.fail("验证码已过期");
 		}else{
-			return MsgBean.fail("用户不存在");
+			if (!smsCode.equals(smsCodeBean.getSmsCode())) {
+				//return MsgSimpleBean.fail("验证码不正确");
+			}
 		}
+
+		String token = tokenService.generateToken(userByName.getUserId(),0);
+
+		userByName.setLastLoginTime(new Date());
+		userService.updateUserInfo(userByName);//更新最后登录时间
+
+		smsCodeService.deleteSmsCode(phone);
+		MsgBean msg = MsgBean.success("登录成功");
+		Map<String, Object> data = msg.getData();
+		data.put("userId", userByName.getUserId());
+		data.put("name", userByName.getUserName());
+		data.put("token", token);
+		data.put("company", userByName.getCompanyId());
+		data.put("phone", userByName.getPhone());
+		data.put("sex", userByName.getSex());
+		data.put("age", userByName.getAge());
+		data.put("email", userByName.getEmail());
+		data.put("headUrl", userByName.getHeadUrl());
+		data.put("userType", 0);//0代表普通用户登录 1代表商家
+		return msg;
 	}
 
 
@@ -167,21 +204,21 @@ public class UserController {
 	 */
 	@ResponseBody
 	@RequestMapping(value="/isRegisted",method=RequestMethod.GET)
-	public MsgSimple isRegisted(@RequestParam(value = "phone", required=false) String phone){
-		MsgSimple msg=null;
+	public MsgSimpleBean isRegisted(@RequestParam(value = "phone", required=false) String phone){
+		MsgSimpleBean msg=null;
 		if(BaseUtil.isEmpty(phone)){
-			msg = MsgSimple.fail("需要传phone参数");
+			msg = MsgSimpleBean.fail("需要传phone参数");
 			return msg;
 		}
 		if(!BaseUtil.isPhone(phone)){
-			msg = MsgSimple.fail("手机格式不正确");
+			msg = MsgSimpleBean.fail("手机格式不正确");
 			return msg;
 		}
 		UserBean user = userService.isRegisted(phone);
 		if(user!=null){
-			msg=MsgSimple.fail("该手机号码已注册!");
+			msg=MsgSimpleBean.fail("该手机号码已注册!");
 		}else{
-			msg=MsgSimple.success("该手机号码还没注册!");
+			msg=MsgSimpleBean.success("该手机号码还没注册!");
 		}
 		return msg;
 	}
@@ -205,7 +242,7 @@ public class UserController {
 		}else{
 			user.setUpdateTime(new Date());
 			int updateCount = userService.updateUserInfo(user);
-			return MsgSimple.success("更新成功!");
+			return MsgSimpleBean.success("更新成功!");
 		}
 	}
 
@@ -214,27 +251,27 @@ public class UserController {
 	 */
 	@ResponseBody
 	@RequestMapping(value="/user/updatePwd",method=RequestMethod.GET)
-	public MsgSimple updatePwd(@RequestParam(value = "userId", required=false) Integer userId,
-							   @RequestParam(value = "oldPwd", required=false) String oldPwd,
-							   @RequestParam(value = "newPwd", required=false) String newPwd){
+	public MsgSimpleBean updatePwd(@RequestParam(value = "userId", required=false) Integer userId,
+								   @RequestParam(value = "oldPwd", required=false) String oldPwd,
+								   @RequestParam(value = "newPwd", required=false) String newPwd){
 		if(BaseUtil.isEmpty(oldPwd)){
-			return MsgSimple.fail("需要传oldPwd参数");
+			return MsgSimpleBean.fail("需要传oldPwd参数");
 		}
 		if(BaseUtil.isEmpty(newPwd)){
-			return MsgSimple.fail("需要传newPwd参数");
+			return MsgSimpleBean.fail("需要传newPwd参数");
 		}
 		UserBean userById = userService.getUserById(userId);
 		if(userById==null){
-			return MsgSimple.fail("该用户不存在");
+			return MsgSimpleBean.fail("该用户不存在");
 		}
 		if(BaseUtil.isEmpty(userById.getPwd())||!userById.getPwd().equals(oldPwd)){
-			return MsgSimple.fail("旧密码错误");
+			return MsgSimpleBean.fail("旧密码错误");
 		}
 		int updateCount = userService.updatePwd(userId, newPwd);
 		//if(updateCount>0){
-		return MsgSimple.success("修改成功!");
+		return MsgSimpleBean.success("修改成功!");
 		//}
-		//return MsgSimple.fail("更新失败!");
+		//return MsgSimpleBean.fail("更新失败!");
 	}
 
 	/**
