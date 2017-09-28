@@ -69,7 +69,7 @@ public class UserController {
 			return MsgSimpleBean.fail("验证码已过期");
 		}else{
 			if (!smsCode.equals(smsCodeBean.getSmsCode())) {
-				return MsgSimpleBean.fail("验证码不正确");
+				//return MsgSimpleBean.fail("验证码不正确");
 			}
 		}
 		UserBean user=new UserBean();
@@ -78,10 +78,8 @@ public class UserController {
 		if(BaseUtil.isNotEmpty(userName)){
 			user.setUserName(userName);
 		}
-
-		user.setUserType(0);
 		userService.saveUser(user);
-		UserBean userByName = userService.getUserByName(user.getUserName());
+		UserBean userByName = userService.isRegisted(phone);
 		if(userByName!=null){
 			String token = tokenService.generateToken(userByName.getUserId(),0);
 
@@ -90,15 +88,17 @@ public class UserController {
 			data.put("userId", userByName.getUserId());
 			data.put("userName", userByName.getUserName());
 			data.put("token", token);
+			data.put("company", userByName.getCompanyId());
 			data.put("phone", userByName.getPhone());
 			data.put("sex", userByName.getSex());
+			data.put("age", userByName.getAge());
 			data.put("email", userByName.getEmail());
+			data.put("headUrl", userByName.getHeadUrl());
 			Integer userType = userByName.getUserType();
 			if(BaseUtil.isEmpty(userType)){
-				userType=0;
+				userType=1;
 			}
 			data.put("userType", userType);
-
 			smsCodeService.deleteSmsCode(phone);
 			return msg;
 		}else{
@@ -156,7 +156,7 @@ public class UserController {
 		data.put("age", userByName.getAge());
 		data.put("email", userByName.getEmail());
 		data.put("headUrl", userByName.getHeadUrl());
-		data.put("userType", 0);//0代表普通用户登录 1代表商家
+		data.put("userType", userByName.getUserType());//1为A级用户 2为B级用户 3为C级用户 4为客服 5为技术专家
 		return msg;
 	}
 

@@ -77,7 +77,7 @@ public class SmsCodeService {
         //通过Criteria构造查询条件
         SmsCodeBeanExample.Criteria criteria=example.createCriteria();
         criteria.andPhoneEqualTo(phone);
-        criteria.andExpireTimeLessThan(new Date());
+        criteria.andExpireTimeGreaterThan(new Date());
 
         List<SmsCodeBean> smsCodeBeans = smsCodeBeanMapper.selectByExample(example);
         if(smsCodeBeans!=null&&smsCodeBeans.size()>0){
