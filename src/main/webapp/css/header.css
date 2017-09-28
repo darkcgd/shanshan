@@ -1,0 +1,61 @@
+header,.head{
+    width: 100%;
+    margin-bottom: 0;
+    height:3rem;
+    background:#05A8E1;
+    position: fixed;
+    top:0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+}
+body{-webkit-tap-highlight-color: transparent !important;}
+.head>*{
+    float: left;
+    line-height: 3rem;
+    height: 3rem;
+}
+.head .h-lt{
+    font-size: 1rem;
+    line-height:2.2rem;
+    color: #fff;
+    margin-left: -96%;
+}
+.head i{
+    display: inline-block;
+    width: 0.5rem;
+    border-left: 2px solid #fff;
+    height: 0.5rem;
+    border-bottom: 2px solid #fff;
+    margin-left: 0.2rem;
+    margin-top: 0.75rem;
+}
+.head i.h-dw{
+    transform: rotate(-45deg);
+}
+.head i.h-bk{
+    font-size: 2rem;
+    transform: rotate(45deg);
+    vertical-align: sub;
+}
+.head div{
+    width: 100%;
+    text-align: center;
+    color: #fff;
+    font-size: 1.1rem;
+}
+
+.head .h-rt{
+    display: inline-block;
+    height: 1.25rem;
+    width: 2.5rem;
+    text-align: right;
+    margin-left: -3rem;
+    margin-top: 0.6rem;
+    line-height: 1.25rem;
+}
+.head .h-rt img{
+    width: 1.25rem;
+    height: 1.25rem;
+}
+
