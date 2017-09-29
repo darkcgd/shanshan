@@ -1,0 +1,262 @@
+body{
+	color: #595959;
+	background-color: #F7F7F7;
+}
+
+.cont{
+	width: 100%;
+	margin-top:2.5rem;
+}
+
+
+.people,.replay{
+	width: 100%;
+	padding-bottom:0.5rem;
+	margin-bottom:0.3rem;
+	padding-top:0.3rem;
+	overflow: hidden;
+}
+
+
+.people nav{
+	float: left;
+	margin-top: 0.75rem;
+	margin-left: 0.5rem;
+	text-align: center;
+	line-height: 2.5rem;
+	border-radius: 50%;
+	border: 1px solid #E1E1E1;
+}
+
+.replay nav{
+	float: right;
+	margin-top: 0.75rem;
+	margin-right: 0.5rem;
+	text-align: center;
+	line-height: 2.5rem;
+	border-radius: 50%;
+	border: 1px solid #E1E1E1;
+}
+
+.people nav img,.replay nav img{
+	width: 100%;
+	height: 100%;
+	border-radius: 50%;
+}
+
+.cont{
+	margin-top: 3rem;
+	padding-bottom: 0.2rem;
+	margin-bottom: 0.5rem;
+	overflow: hidden;
+}
+
+.cont div nav{
+	width: 2.5rem;
+	height: 2.5rem;
+	border: 1px solid gainsboro;
+}
+
+.people p{
+	margin-left: 0.5rem;
+}
+
+.time{
+	margin-top: 2rem;
+	text-align: center;
+	color: #9F9F9F;
+}
+
+.people .name{
+	color: #7C7C7C;
+	margin-top: 0.5rem;
+}
+
+.replay .name{
+	color: #7C7C7C;
+	margin-top: 0.5rem;
+	text-align: right;
+	margin-right: 4rem;
+}
+
+.replay .pll{
+	text-align: right;
+	float: right;
+	margin-right: 0.5rem;
+	max-width: 70%;
+}
+
+.replay .pll img{
+	width: 5rem;
+	height: auto;
+}
+
+.replay .pll p{
+	color: white !important;
+}
+
+.replay span{
+	color: #595959 !important;
+}
+
+.people .name span{
+	color: #595959 !important;
+	font-size: 0.8rem;
+	margin-left: 0.8rem;
+}
+
+.people .name span a{
+	color: #1bbc9b;
+}
+
+
+.people .time{
+	font-size: 0.8rem;
+}
+
+.people h{
+	float: right;
+	margin-right: 0.5rem;
+	margin-top: -3rem;
+}
+
+.say .pl{
+	line-height: 1.5rem;
+	font-size: 0.9rem;
+	margin-top: 0.5rem;
+}
+
+.pll{
+	margin-top:0.7rem;
+	line-height:1.5rem;
+	font-size:0.9rem;
+	padding: 0.3rem 0.5rem;
+	background-color: #008CED;
+	border-radius: 5px;
+	color: white;
+	background: url(../img/rll.png)no-repeat;
+	background-size: 100% 100%;
+}
+
+
+.people .pll{
+	background-color: white;
+	text-align: left;
+	float: left;
+	margin-left: 0.5rem;
+	max-width: 70%;
+	color: #333333 !important;
+	background: url(../img/lbb.png)no-repeat;
+	background-size: 100% 100%;
+}
+
+.write{
+	width: 70%;
+	margin-left: 17%;
+	height: 2.5rem;
+	border: 1px solid #E1E1E1;
+	background-color: white;
+	border-radius: 3px;
+	margin-top: 1rem;
+	position: fixed;
+	bottom:0.2rem
+}
+
+.write .upWrite{
+	border: none;
+	text-indent: 1em;
+	outline: none;
+	background-color: transparent;
+	width: 84%;
+	height: 100%;
+	font-size: 1rem;
+}
+
+.send{
+	width: 7%;
+	position: absolute;
+	top: 1.2rem;
+	right: 0.8rem;
+	color: white;
+}
+
+.aa{
+	width: 100%;
+	height: 3rem;
+	border: 1px solid;
+}
+
+.say{
+	width:75%;
+	padding-right:0.2rem;
+	background:url(../img/say.png)no-repeat;
+	background-size:100% 100%;
+	margin-left:3.5rem;
+	padding-top:0.3rem;
+	margin-top:0.3rem;
+	overflow:hidden;
+}
+
+.say p{
+	margin-left:0.5rem !important;
+}
+
+.people .pic{
+	width:90%;
+	margin-left:5%;
+	padding-bottom:0.5rem;
+	padding-top:0.5rem;
+	clear:both;
+}
+
+.people .pic>img{
+	width:30%;
+	height:4rem;
+	margin-left:2.5%;
+	float:left;
+	border-radius:2px;
+}
+
+.upFile{
+	width:100%;
+	height:100%;
+	float:left;
+	opacity:0;
+	position:absolute;
+	left:-18%;
+	top:0;
+}
+
+.picc{
+	width:13%;
+	height:100%;
+	background: url(../img/pic.png)no-repeat center;
+	float: left;
+}
+
+.write .tp{
+	height:1.8rem;
+	width:auto;
+	position:absolute;
+	top:0;
+	left:-16%;
+}
+
+.pl{
+	margin-top:0.3rem;
+}
+.write span{
+	position:absolute;
+	bottom:-0.3rem;
+	color:#7b7b7b;
+	font-size:0.7rem;
+	left:-18%;
+}
+
+.kb{
+	width:100%;
+	height:3.5rem;
+	bottom: 0;
+	position: fixed;
+	background-color: #ededed;
+}

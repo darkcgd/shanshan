@@ -159,7 +159,19 @@ public class UserController {
 		data.put("age", userByName.getAge());
 		data.put("email", userByName.getEmail());
 		data.put("headUrl", userByName.getHeadUrl());
-		data.put("userType", userByName.getUserType());//1为A级用户 2为B级用户 3为C级用户 4为客服 5为技术专家
+
+		Integer userType = userByName.getUserType();
+		if(BaseUtil.isEmpty(userType)){
+			data.put("userType", 1);//1为A级用户 2为B级用户 3为C级用户 4为客服 5为技术专家
+		}else{
+			data.put("userType", userByName.getUserType());//1为A级用户 2为B级用户 3为C级用户 4为客服 5为技术专家
+			if(userType==5){
+				data.put("attributes", userByName.getAttributes());
+				data.put("experienceYears", userByName.getExperienceYears());
+				data.put("expertiseAreas", userByName.getExpertiseAreas());
+			}
+		}
+
 		return msg;
 	}
 
@@ -180,11 +192,14 @@ public class UserController {
 		if(userById!=null){
 			MsgBean msg = MsgBean.success("获取成功");
 			Map<String, Object> data = msg.getData();
-			data.put("user_id", userById.getUserId());
-			data.put("user_name", userById.getUserName());
-			data.put("user_phone", userById.getPhone());
-			data.put("user_sex", userById.getSex());
-			data.put("user_email", userById.getEmail());
+			data.put("userId", userById.getUserId());
+			data.put("name", userById.getUserName());
+			data.put("company", userById.getCompany());
+			data.put("phone", userById.getPhone());
+			data.put("sex", userById.getSex());
+			data.put("age", userById.getAge());
+			data.put("email", userById.getEmail());
+			data.put("headUrl", userById.getHeadUrl());
 			return msg;
 		}else{
 			return MsgBean.fail("查询不到该用户!");
