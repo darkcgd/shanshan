@@ -1,0 +1,52 @@
+.join{
+	width: 90%;
+	margin-left: 5%;
+	height: 3rem;
+	text-align: center;
+	line-height: 3rem;
+	background-color: #05A8E1;
+	margin-bottom: 1.5rem;
+	border-radius: 4px;
+	margin-top: 3rem;
+}
+
+.join a{
+	color: white;
+}
+
+.section{
+	width: 100%;
+	background-color: white;
+	overflow: hidden;
+	margin-top: 3rem;
+	padding-bottom: 1rem;
+}
+
+.section .omg{
+	width: 100%;
+	margin-top: 1.5rem;
+	text-align: center;
+	overflow: hidden;
+}
+
+.section .omg img{
+	width: 10%;
+}
+
+.state{
+	font-size: 1.2rem;
+	margin-top: 1rem;
+	text-align: center;
+}
+
+.one{
+	margin-top: 2rem;
+	color: #AAAAAA;
+	text-align: center;
+}
+
+.two{
+	color: #AAAAAA;
+	margin-top: 0.5rem;
+	text-align: center;
+}

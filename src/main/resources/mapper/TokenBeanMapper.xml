@@ -5,6 +5,7 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="user_id" jdbcType="INTEGER" property="userId" />
     <result column="user_type" jdbcType="INTEGER" property="userType" />
+    <result column="platform_type" jdbcType="INTEGER" property="platformType" />
     <result column="token" jdbcType="VARCHAR" property="token" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="expire_time" jdbcType="TIMESTAMP" property="expireTime" />
@@ -68,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, user_id, user_type, token, create_time, expire_time
+    id, user_id, user_type, platform_type, token, create_time, expire_time
   </sql>
   <select id="selectByExample" parameterType="com.shanshan.bean.TokenBeanExample" resultMap="BaseResultMap">
     select
@@ -102,11 +103,11 @@
   </delete>
   <insert id="insert" parameterType="com.shanshan.bean.TokenBean">
     insert into tbl_token (id, user_id, user_type, 
-      token, create_time, expire_time
-      )
+      platform_type, token, create_time, 
+      expire_time)
     values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{userType,jdbcType=INTEGER}, 
-      #{token,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{expireTime,jdbcType=TIMESTAMP}
-      )
+      #{platformType,jdbcType=INTEGER}, #{token,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{expireTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.shanshan.bean.TokenBean">
     insert into tbl_token
@@ -119,6 +120,9 @@
       </if>
       <if test="userType != null">
         user_type,
+      </if>
+      <if test="platformType != null">
+        platform_type,
       </if>
       <if test="token != null">
         token,
@@ -139,6 +143,9 @@
       </if>
       <if test="userType != null">
         #{userType,jdbcType=INTEGER},
+      </if>
+      <if test="platformType != null">
+        #{platformType,jdbcType=INTEGER},
       </if>
       <if test="token != null">
         #{token,jdbcType=VARCHAR},
@@ -169,6 +176,9 @@
       <if test="record.userType != null">
         user_type = #{record.userType,jdbcType=INTEGER},
       </if>
+      <if test="record.platformType != null">
+        platform_type = #{record.platformType,jdbcType=INTEGER},
+      </if>
       <if test="record.token != null">
         token = #{record.token,jdbcType=VARCHAR},
       </if>
@@ -188,6 +198,7 @@
     set id = #{record.id,jdbcType=INTEGER},
       user_id = #{record.userId,jdbcType=INTEGER},
       user_type = #{record.userType,jdbcType=INTEGER},
+      platform_type = #{record.platformType,jdbcType=INTEGER},
       token = #{record.token,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       expire_time = #{record.expireTime,jdbcType=TIMESTAMP}
@@ -203,6 +214,9 @@
       </if>
       <if test="userType != null">
         user_type = #{userType,jdbcType=INTEGER},
+      </if>
+      <if test="platformType != null">
+        platform_type = #{platformType,jdbcType=INTEGER},
       </if>
       <if test="token != null">
         token = #{token,jdbcType=VARCHAR},
@@ -220,6 +234,7 @@
     update tbl_token
     set user_id = #{userId,jdbcType=INTEGER},
       user_type = #{userType,jdbcType=INTEGER},
+      platform_type = #{platformType,jdbcType=INTEGER},
       token = #{token,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       expire_time = #{expireTime,jdbcType=TIMESTAMP}

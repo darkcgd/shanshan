@@ -1,0 +1,290 @@
+.section{
+	width: 100%;
+	overflow: hidden;
+	margin-top: 3rem;
+}
+
+.infor{
+	width: 100%;
+	overflow: hidden;
+}
+
+.infor li{
+	overflow: hidden;
+	width: 100%;
+	line-height: 2.5rem;
+	border-bottom: 2px solid #F7F7F7;
+	background-color: white;
+	position: relative;
+}
+
+.righter{
+	width: 0.5rem;
+	position: absolute;
+	right: 0.5rem;
+	top: 0.8rem;
+}
+
+.infor li .finish{
+	width:1rem;
+	position: absolute;
+	right: 0.5rem;
+	top: 0.8rem;
+}
+
+.infor li .left{
+	display: inline-block;
+	width: 35%;
+	float: left;
+	margin-left: 2%;
+	overflow: hidden;
+}
+
+.infor li .right,.cand .right{
+	color: #ACACAC;
+	display: inline-block;
+	width: 48%;
+	height: 2.5rem;
+	line-height: 2.5rem;
+	border: none;
+	outline: none;
+	float: right;
+	margin-right: 1.8rem;
+	text-align: right;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.slide{
+	width: 100%;
+	overflow: hidden;
+	display: none;
+}
+
+.slide .oss{
+	margin-left: 5%;
+	width: 90%;
+	height: 2.5rem;
+	text-align: center;
+	line-height: 2.5rem;
+}
+
+.redd{
+	color: #1296DB;
+}
+
+.date{
+	width: 100%;
+	overflow: hidden;
+}
+
+.date .na{
+	width: 100%;
+	height: 2.5rem;
+	line-height: 2.5rem;
+}
+
+.date .na span{
+	margin-left: 0.5rem;
+}
+
+.date .nb p{
+	width: 90%;
+	margin-left: 0.5rem;
+	color: #838383;
+	line-height: 1.5rem;
+}
+
+.date .cand{
+	width: 100%;
+	background-color: white;
+	position: relative;
+}
+
+.date .cand span{
+	margin-left: 0.5rem;
+	line-height: 2.5rem;
+}
+
+
+.date .can{
+	width: 100%;
+	background-color: white;
+}
+
+.date .can textarea{
+	width: 100%;
+	height: 7rem;
+	resize: none;
+	text-indent: 0.5em;
+	line-height: 1.5rem;
+}
+
+.date .can span{
+	margin-left: 0.5rem;
+	line-height: 2.5rem;
+}
+
+#dt{
+	width: 80%;
+	text-align: right;
+	text-indent: 0.5em;
+	height: 2.5rem;
+	line-height: 2.5rem;
+	color: #ACACAC;
+}
+
+.tj{
+	width: 90%;
+	height: 3rem;
+	background-color: #05A8E1;
+	border-radius: 5px;
+	text-align: center;
+	line-height: 3rem;
+	margin-left: 5%;
+	margin-top: 2rem;
+}
+
+.tj a{
+	display: block;
+	width: 100%;
+	height: 100%;
+	color: white;
+	font-size: 1rem;
+}
+
+.add{
+	width: 90%;
+	height: 3rem;
+	border-radius: 5px;
+	text-align: center;
+	line-height: 3rem;
+	margin-left: 5%;
+	margin-top: 1.5rem;
+	border: 1px dashed #BCBCBC;
+}
+
+.add a{
+	display: block;
+	width: 100%;
+	height: 100%;
+	color: #A6A6A6;
+	font-size: 1rem;
+}
+
+.oamg{
+	width: 90%;
+	margin-left: 5%;
+	overflow: hidden;
+	padding: 0.5rem 0;
+}
+
+.oamg .omg{
+	width: 5rem;
+	height: 5rem;
+	float: left;
+	margin-right: 0.5rem;
+	border: 1px solid #E5E5E5;
+	position: relative;
+	
+}
+
+.oamg .omg .ii{
+	width: 100%;
+	height: 100%;
+}
+
+.oamg .omg .shift{
+	width: 0.8rem;
+	position: absolute;
+	top: -0.4rem;
+	right: -0.3rem;
+}
+
+.hh{
+	width: 100%;
+	height: 100%;
+	position: relative;
+}
+
+.jj{
+	width: 0.8rem;
+	position: absolute;
+	right: -0.4rem;
+	top: -0.3rem;
+}
+
+.aimgs{
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	opacity: 0;
+}
+
+.pp{
+	width: 100%;
+	height: 100%;
+}
+
+.oimg{
+	width: 100%;
+	height: 100%;
+	background: url(../img/other.png)no-repeat;
+	background-size: 100% 100%;
+}
+
+.slide{
+	width: 100%;
+	overflow: hidden;
+	display: none;
+}
+
+.slide .oss{
+	margin-left: 5%;
+	width: 90%;
+	height: 2.5rem;
+	text-align: center;
+	line-height: 2.5rem;
+}
+
+.redd{
+	color: #1296DB;
+}
+
+.join{
+	width: 90%;
+	margin-left: 5%;
+	height: 3rem;
+	text-align: center;
+	line-height: 3rem;
+	background-color: #05A8E1;
+	margin-bottom: 1.5rem;
+	border-radius: 4px;
+	margin-top: 1rem;
+}
+
+.join a{
+	display: block;
+	width: 100%;
+	height: 100%;
+	color: white;
+}
+
+.signup{
+	width: 90%;
+	margin-left: 5%;
+	text-align: center;
+	line-height: 2rem;
+	margin-bottom: 1.5rem;
+	color: #05A8E1;
+	border-radius: 4px;
+}
+
+.signup a{
+	color:  #05A8E1;
+}
+
+.omg .sa{
+	width: 100%;
+	height: 100%;
+}

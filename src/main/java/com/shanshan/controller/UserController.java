@@ -10,18 +10,13 @@ import com.shanshan.service.UserService;
 import com.shanshan.util.BaseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -36,8 +31,6 @@ public class UserController {
 
 	/**
 	 * 用户保存(注册)
-	 * 1、支持JSR303校验
-	 * 2、导入Hibernate-Validator
 	 *
 	 *
 	 * @return
@@ -88,20 +81,7 @@ public class UserController {
 
 			MsgBean msg = MsgBean.success("注册成功");
 			Map<String, Object> data = msg.getData();
-			data.put("userId", userByName.getUserId());
-			data.put("userName", userByName.getUserName());
-			data.put("token", token);
-			data.put("company", userByName.getCompany());
-			data.put("phone", userByName.getPhone());
-			data.put("sex", userByName.getSex());
-			data.put("age", userByName.getAge());
-			data.put("email", userByName.getEmail());
-			data.put("headUrl", userByName.getHeadUrl());
-			Integer userType = userByName.getUserType();
-			if(BaseUtil.isEmpty(userType)){
-				userType=1;
-			}
-			data.put("userType", userType);
+			hanlderResponseData(data,userByName);
 			smsCodeService.deleteSmsCode(phone);
 			return msg;
 		}else{
@@ -150,29 +130,55 @@ public class UserController {
 		smsCodeService.deleteSmsCode(phone);
 		MsgBean msg = MsgBean.success("登录成功");
 		Map<String, Object> data = msg.getData();
-		data.put("userId", userByName.getUserId());
-		data.put("name", userByName.getUserName());
-		data.put("token", token);
-		data.put("company", userByName.getCompany());
-		data.put("phone", userByName.getPhone());
-		data.put("sex", userByName.getSex());
-		data.put("age", userByName.getAge());
-		data.put("email", userByName.getEmail());
-		data.put("headUrl", userByName.getHeadUrl());
+		hanlderResponseData(data,userByName);
+		return msg;
+	}
 
-		Integer userType = userByName.getUserType();
-		if(BaseUtil.isEmpty(userType)){
-			data.put("userType", 1);//1为A级用户 2为B级用户 3为C级用户 4为客服 5为技术专家
-		}else{
-			data.put("userType", userByName.getUserType());//1为A级用户 2为B级用户 3为C级用户 4为客服 5为技术专家
-			if(userType==5){
-				data.put("attributes", userByName.getAttributes());
-				data.put("experienceYears", userByName.getExperienceYears());
-				data.put("expertiseAreas", userByName.getExpertiseAreas());
-			}
+
+	/**
+	 * 用户登录(账号密码)
+	 * @param userName
+	 * @param pwd
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/adminLogin")
+	public Object adminLogin(@RequestParam(value = "userName", required=false)String userName, @RequestParam(value = "pwd", required=false)String pwd){
+		if(BaseUtil.isEmpty(userName)){
+			return MsgSimpleBean.fail("需要传userName参数");
+		}
+		//先判断用户名是否是合法的表达式;
+		/*String regx = "(^[a-zA-Z0-9_-]{6,16}$)|(^[\u2E80-\u9FFF]{2,5})";
+		if(!name.matches(regx)){
+			return MsgSimpleBean.fail("用户名必须是6-16位数字和字母的组合或者2-5位中文");
+		}*/
+		if(BaseUtil.isEmpty(pwd)){
+			return MsgSimpleBean.fail("需要传pwd参数");
 		}
 
-		return msg;
+		//数据库用户名重复校验
+		UserBean userByName = userService.getUserByName(userName);
+		if(userByName!=null){
+			if(userByName.getPwd()!=null&&userByName.getPwd().equals(pwd)){
+				Integer userType = userByName.getUserType();
+				if(BaseUtil.isEmpty(userType)||userType!=4){//不是客服人员
+					return MsgSimpleBean.fail("该账号不是客服账号,无法进行该操作");
+				}
+				String token = tokenService.generateToken(userByName.getUserId(),1);
+
+				userByName.setLastLoginTime(new Date());
+				userService.updateUserInfo(userByName);//更新最后登录时间
+
+				MsgBean msg = MsgBean.success("登录成功");
+				Map<String, Object> data = msg.getData();
+				hanlderResponseData(data,userByName);
+				return msg;
+			}else{
+				return MsgSimpleBean.fail("密码错误");
+			}
+		}else{
+			return MsgSimpleBean.fail("用户不存在");
+		}
 	}
 
 
@@ -192,19 +198,42 @@ public class UserController {
 		if(userById!=null){
 			MsgBean msg = MsgBean.success("获取成功");
 			Map<String, Object> data = msg.getData();
-			data.put("userId", userById.getUserId());
-			data.put("name", userById.getUserName());
-			data.put("company", userById.getCompany());
-			data.put("phone", userById.getPhone());
-			data.put("sex", userById.getSex());
-			data.put("age", userById.getAge());
-			data.put("email", userById.getEmail());
-			data.put("headUrl", userById.getHeadUrl());
+			hanlderResponseData(data,userById);
 			return msg;
 		}else{
 			return MsgBean.fail("查询不到该用户!");
 		}
 	}
+
+	/**
+	 * 处理响应数据
+	 * @param data
+	 * @param userBean
+	 */
+	private void hanlderResponseData(Map<String, Object> data,UserBean userBean){
+		data.put("userId", userBean.getUserId());
+		data.put("name", userBean.getUserName());
+		data.put("company", userBean.getCompany());
+		data.put("phone", userBean.getPhone());
+		data.put("sex", userBean.getSex());
+		data.put("age", userBean.getAge());
+		data.put("email", userBean.getEmail());
+		data.put("headUrl", userBean.getHeadUrl());
+
+
+		Integer userType = userBean.getUserType();
+		if(BaseUtil.isEmpty(userType)){
+			data.put("userType", 2);//1为A级用户 2为B级用户 3为C级用户 4为客服 5为技术专家
+		}else{
+			data.put("userType", userBean.getUserType());//1为A级用户 2为B级用户 3为C级用户 4为客服 5为技术专家
+			if(userType==5){
+				data.put("attributes", userBean.getAttributes());
+				data.put("experienceYears", userBean.getExperienceYears());
+				data.put("expertiseAreas", userBean.getExpertiseAreas());
+			}
+		}
+	}
+
 
 	/**
 	 注册(用户名或手机号码注册)
@@ -238,31 +267,83 @@ public class UserController {
 		}else{
 			msg=MsgSimpleBean.success("该手机号码还没注册!");
 		}
+		System.out.println(msg.toString());
 		return msg;
 	}
 
 	/**
+	 微信授权用户 即A级用户   type=0
+	 注册登录用户  即B级用户   type=1
+	 微信授权用户 提交完善信息 升为B级用户               type=2       待审核后  升为C级用户
+	 注册登录用户 提交完善信息 本来就是B级用户,不用升     type=3       待审核后  升为C级用户
+
 	 * 修改用户信息(头像,昵称,性别,年龄,生日,手机号码)
 	 */
 	@ResponseBody
 	@RequestMapping(value="/user/updateUserInfo",method=RequestMethod.GET)
-	public Object updateUserInfo(@Valid UserBean user, BindingResult result){
-		if(result.hasErrors()){
-			//校验失败，应该返回失败，在模态框中显示校验失败的错误信息
-			Map<String, Object> map = new HashMap<>();
-			List<FieldError> errors = result.getFieldErrors();
-			for (FieldError fieldError : errors) {
-				System.out.println("错误的字段名："+fieldError.getField());
-				System.out.println("错误信息："+fieldError.getDefaultMessage());
-				map.put(fieldError.getField(), fieldError.getDefaultMessage());
-			}
-			return MsgBean.fail().add("errorFields", map);
-		}else{
-			user.setUpdateTime(new Date());
-			int updateCount = userService.updateUserInfo(user);
-			return MsgSimpleBean.success("更新成功!");
+	public Object updateUserInfo(UserBean user){
+		if(user==null){
+			return MsgSimpleBean.fail("请输入更新参数");
 		}
+		/*String wxOpenId = user.getWxOpenId();
+		if(BaseUtil.isEmpty(wxOpenId)){
+			return MsgSimpleBean.fail("该用户不是公众号授权用户");
+		}*/
+
+		Integer userId = user.getUserId();
+		if(BaseUtil.isEmpty(userId)){
+			return MsgSimpleBean.fail("需要传userId参数");
+		}
+		UserBean userById = userService.getUserById(userId);
+		if(userById==null){
+			return MsgBean.fail("查询不到该用户");
+		}
+
+		if(userById.getUserType()==3){
+			return MsgBean.fail("您已经是C级用户,无需提交信息");
+		}
+
+		/*UserBean userByWxOpenId = userService.getUserByWxOpenId(wxOpenId);
+		String phone = userByWxOpenId.getPhone();
+		if(BaseUtil.isEmpty(phone)||!BaseUtil.isPhone(phone)){//说明当前用户没手机号  是A级用户  要升为B级用户
+			user.setUserType(2);
+		}else{//说明当前用户有手机号  是B用户或者C用户
+			Integer userType = user.getUserType();
+			if(BaseUtil.isEmpty(userType)||userType==1){
+				user.setUserType(2);
+			}
+		}*/
+
+		user.setUserType(2);
+		user.setStatus(1);//1待审核 2已审核  默认不用审核
+
+		user.setUpdateTime(new Date());
+		userService.updateUserInfo(user);
+		return MsgSimpleBean.success("提交成功");
 	}
+
+
+	/**
+	 微信授权用户 提交完善信息  待审核后  升为C级用户  //1为A级用户 2为B级用户 3为C级用户 4为客服 5为技术专家
+	 注册登录用户 提交完善信息  待审核后  升为C级用户  //1为A级用户 2为B级用户 3为C级用户 4为客服 5为技术专家
+	 * 审核用户
+	 */
+	@ResponseBody
+	@RequestMapping(value="/user/verifyUser",method=RequestMethod.GET)
+	public Object verifyUser(@RequestParam(value = "userId", required=false) Integer userId){
+		if(BaseUtil.isEmpty(userId)){
+			return MsgSimpleBean.fail("需要传userId参数");
+		}
+
+		UserBean user=new UserBean();
+		user.setUserId(userId);
+		user.setUserType(3);
+		user.setStatus(2);//1待审核 2已审核  默认不用审核
+		user.setUpdateTime(new Date());
+		userService.updateUserInfo(user);
+		return MsgSimpleBean.success("审核成功");
+	}
+
 
 	/**
 	 * 修改密码
@@ -286,10 +367,7 @@ public class UserController {
 			return MsgSimpleBean.fail("旧密码错误");
 		}
 		int updateCount = userService.updatePwd(userId, newPwd);
-		//if(updateCount>0){
 		return MsgSimpleBean.success("修改成功!");
-		//}
-		//return MsgSimpleBean.fail("更新失败!");
 	}
 
 	/**

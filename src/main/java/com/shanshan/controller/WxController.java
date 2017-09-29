@@ -1,15 +1,5 @@
 package com.shanshan.controller;
 
-import com.shanshan.service.WxService;
-import com.shanshan.util.AbSHA1;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -17,11 +7,25 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.shanshan.bean.SNSUserInfo;
+import com.shanshan.bean.WeixinOauth2Token;
+import com.shanshan.service.WxService;
+import com.shanshan.util.AbSHA1;
+import com.shanshan.util.AdvancedUtil;
+
 /**
  * Created by szmg on 17/9/27.
  */
 @Controller
-@RequestMapping( "/wx" )
 public class WxController {
     private String Token = "shanshanToken";
 
@@ -33,7 +37,7 @@ public class WxController {
      * @return
      * @throws IOException
      */
-    @RequestMapping(value = "", method = { RequestMethod.GET, RequestMethod.POST })
+    @RequestMapping(value = "/wx", method = { RequestMethod.GET, RequestMethod.POST })
     @ResponseBody
     public void connectWeixin(HttpServletRequest request, HttpServletResponse response) throws IOException{
         // 将请求、响应的编码均设置为UTF-8（防止中文乱码）
@@ -103,6 +107,44 @@ public class WxController {
             }
         }
         return null;
+    }
+
+
+    /**
+     * 微信接入
+     * @return
+     * @throws IOException
+     */
+    @RequestMapping(value = "/oauth", method = { RequestMethod.GET, RequestMethod.POST })
+    @ResponseBody
+    public void wxOauth(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        // 将请求、响应的编码均设置为UTF-8（防止中文乱码）
+        request.setCharacterEncoding("UTF-8");  //微信服务器POST消息时用的是UTF-8编码，在接收时也要用同样的编码，否则中文会乱码；
+        response.setCharacterEncoding("UTF-8"); //在响应消息（回复消息给用户）时，也将编码方式设置为UTF-8，原理同上；boolean isGet = request.getMethod().toLowerCase().equals("get");
+
+        // 用户同意授权后，能获取到code
+        String code = request.getParameter("code");
+
+        // 用户同意授权
+        if (!"authdeny".equals(code)) {
+            String APPID = "";
+            String SECRET = "";
+
+            // 获取网页授权access_token
+            WeixinOauth2Token weixinOauth2Token = AdvancedUtil.getOauth2AccessToken(APPID, SECRET, code);
+            // 网页授权接口访问凭证
+            String accessToken = weixinOauth2Token.getAccessToken();
+            // 用户标识
+            String openId = weixinOauth2Token.getOpenId();
+            // 获取用户信息
+            SNSUserInfo snsUserInfo = AdvancedUtil.getSNSUserInfo(accessToken, openId);
+
+            // 设置要传递的参数
+            request.setAttribute("snsUserInfo", snsUserInfo);
+        }
+        // 跳转到index.jsp
+        request.getRequestDispatcher("views/login.jsp").forward(request, response);
+
     }
 
 }

@@ -1,2 +1,8 @@
 .idea/
 target/
+/.settings/*
+.classpath
+.gitignore
+.project
+~$tabase.docx
+
