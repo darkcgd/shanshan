@@ -11,7 +11,7 @@
  Target Server Version : 50711
  File Encoding         : utf-8
 
- Date: 09/28/2017 17:43:01 PM
+ Date: 09/29/2017 09:31:18 AM
 */
 
 SET NAMES utf8;
@@ -101,23 +101,6 @@ CREATE TABLE `tbl_article_category` (
 BEGIN;
 INSERT INTO `tbl_article_category` VALUES ('2', '加工应用', '0', '2017-09-28 15:32:04', '2017-09-28 15:32:07', null), ('3', '维修保养', '0', '2017-09-28 15:32:27', '2017-09-28 15:32:29', null), ('4', '其他', '0', '2017-09-28 15:42:34', '2017-09-28 15:42:41', null), ('5', '加工中心', '2', '2017-09-28 15:42:37', '2017-09-28 15:42:43', null), ('6', '车削中心', '2', '2017-09-28 15:42:57', '2017-09-28 15:42:46', null), ('7', '其他机床', '2', '2017-09-28 15:42:49', '2017-09-28 15:43:03', null), ('8', '加工中心', '3', '2017-09-28 15:42:52', '2017-09-28 15:43:05', null), ('9', '车削中心', '3', '2017-09-28 15:43:00', '2017-09-28 15:42:54', null);
 COMMIT;
-
--- ----------------------------
---  Table structure for `tbl_company`
--- ----------------------------
-DROP TABLE IF EXISTS `tbl_company`;
-CREATE TABLE `tbl_company` (
-  `company_id` int(11) NOT NULL AUTO_INCREMENT,
-  `company_name` varchar(255) DEFAULT NULL,
-  `company_email` varchar(255) DEFAULT NULL,
-  `buy_equipment_channel_id` int(11) DEFAULT NULL,
-  `equipment_type_id` int(11) DEFAULT NULL,
-  `industry_id` int(11) DEFAULT NULL,
-  `create_time` datetime DEFAULT NULL,
-  `update_time` datetime DEFAULT NULL,
-  `remark` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`company_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `tbl_demo`
@@ -245,37 +228,25 @@ CREATE TABLE `tbl_sms_code` (
 ) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
---  Table structure for `tbl_technology_user`
+--  Table structure for `tbl_tag`
 -- ----------------------------
-DROP TABLE IF EXISTS `tbl_technology_user`;
-CREATE TABLE `tbl_technology_user` (
-  `technology_id` int(11) NOT NULL AUTO_INCREMENT,
-  `technology_name` varchar(255) DEFAULT NULL,
-  `wx_union_id` varchar(255) DEFAULT NULL,
-  `wx_access_token` varchar(255) DEFAULT NULL,
-  `pwd` varchar(255) DEFAULT NULL,
-  `head_url` varchar(255) DEFAULT NULL,
-  `phone` varchar(255) DEFAULT NULL,
-  `email` varchar(255) DEFAULT NULL,
-  `age` int(11) DEFAULT NULL,
-  `sex` int(1) DEFAULT NULL COMMENT '0代表女,1代表男',
+DROP TABLE IF EXISTS `tbl_tag`;
+CREATE TABLE `tbl_tag` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
   `create_time` datetime DEFAULT NULL,
   `update_time` datetime DEFAULT NULL,
-  `last_login_time` datetime DEFAULT NULL,
-  `user_type` int(1) DEFAULT NULL COMMENT '默认为0 0为A级用户 1为B级用户 2为C级用户 ',
+  `logo` varchar(255) DEFAULT NULL,
+  `create_user_id` int(11) DEFAULT NULL,
   `remark` varchar(255) DEFAULT NULL,
-  `company_id` int(11) DEFAULT NULL,
-  `attributes` varchar(11) DEFAULT NULL,
-  `experience_years` varchar(11) DEFAULT NULL,
-  `expertise_areas` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`technology_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=48 DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
---  Records of `tbl_technology_user`
+--  Records of `tbl_tag`
 -- ----------------------------
 BEGIN;
-INSERT INTO `tbl_technology_user` VALUES ('43', 'dark_cgd_zyy', null, null, 'WE2pongx7V/c0y4BXnYZtA==', 'http://img.blog.csdn.net/20160127143219936', '13600055457', null, '23', '1', '2017-08-13 16:30:04', '2017-08-13 16:30:24', '2017-08-13 16:30:14', null, null, null, null, null, null), ('46', '迷梦', null, null, 'bZMHZN5iofs=', null, null, null, '21', '1', '2017-08-13 16:30:06', '2017-08-13 16:30:28', '2017-08-13 16:30:16', null, null, null, null, null, null), ('45', '迷梦浪子', null, null, 'WE2pongx7V/c0y4BXnYZtA==', null, null, null, null, '1', '2017-08-13 16:30:08', '2017-08-13 16:30:32', '2017-08-13 16:30:20', null, null, null, null, null, null), ('47', 'cyx123', null, null, 'bZMHZN5iofs=', null, null, null, '22', '1', '2017-08-13 16:30:12', '2017-08-13 16:29:33', '2017-09-21 17:24:23', null, null, null, null, null, null);
+INSERT INTO `tbl_tag` VALUES ('1', '推荐', '2017-08-09 20:44:11', '2017-08-09 20:44:14', null, '43', null), ('2', '置顶', '2017-08-09 20:44:59', '2017-08-09 20:45:01', null, '43', null);
 COMMIT;
 
 -- ----------------------------
@@ -349,14 +320,17 @@ CREATE TABLE `tbl_user` (
   `create_time` datetime DEFAULT NULL,
   `update_time` datetime DEFAULT NULL,
   `last_login_time` datetime DEFAULT NULL,
-  `user_type` int(1) DEFAULT NULL COMMENT '1为A级用户 2为B级用户 3为C级用户 ',
+  `user_type` int(1) DEFAULT NULL COMMENT '1为A级用户 2为B级用户 3为C级用户 4为客服 5为技术专家',
   `remark` varchar(255) DEFAULT NULL,
-  `company_id` int(11) DEFAULT NULL,
   `department_name` varchar(11) DEFAULT NULL,
   `position_name` varchar(11) DEFAULT NULL,
   `provinces_cities` varchar(255) DEFAULT NULL,
   `referrals_name` varchar(255) DEFAULT NULL,
   `referrals_phone` varchar(255) DEFAULT NULL,
+  `company` varchar(11) DEFAULT NULL,
+  `attributes` varchar(255) DEFAULT NULL,
+  `experience_years` int(11) DEFAULT NULL,
+  `expertise_areas` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`user_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=62 DEFAULT CHARSET=utf8;
 
@@ -364,7 +338,7 @@ CREATE TABLE `tbl_user` (
 --  Records of `tbl_user`
 -- ----------------------------
 BEGIN;
-INSERT INTO `tbl_user` VALUES ('61', 'Dark_cgd', null, null, null, null, null, '13600055457', null, null, null, '2017-09-28 14:19:04', '2017-09-28 14:19:04', '2017-09-28 14:19:59', '1', null, null, null, null, null, null, null);
+INSERT INTO `tbl_user` VALUES ('61', 'Dark_cgd', null, null, null, null, null, '13600055457', null, null, null, '2017-09-28 14:19:04', '2017-09-28 14:19:04', '2017-09-28 14:19:59', '1', null, null, null, null, null, null, null, null, null, null);
 COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;
