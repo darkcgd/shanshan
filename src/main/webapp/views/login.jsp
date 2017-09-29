@@ -57,23 +57,23 @@
 				<img src="img/sj.png"/>
 				<span>手机号码</span>
 			</div>
-			<input type="text" placeholder="请输入您的手机号码" class="inp" id="phonenum"/>
+			<input type="text" placeholder="请输入您的手机号码" class="inp" id="phone"/>
 			<input id="btnSendCode" type="button" value="获取验证码" onClick="sendMessage()" />
 		</div>
 		
 		<div class="phone">
 			<div class="oimg">
-				<img src="../img/yzm.png"/>
+				<img src="img/yzm.png"/>
 				<span>验证码</span>
 			</div>
-			<input type="text" placeholder="请输入验证码" name="smsCode"/>
+			<input type="text" placeholder="请输入验证码" name="smsCode" id="smsCode"/>
 		</div>
 		
 		<div class="to">
 			<a href="javascript:void(0);" onClick="userLogin()">登&nbsp;录</a>
 		</div>
 		
-		<a href="Register" class="tolog">注册</a>
+		<a href="Register.jsp" class="tolog">注册</a>
 	</body>
 	<script type="text/javascript">
 var InterValObj; //timer变量，控制时间
@@ -103,11 +103,11 @@ for (var i = 0; i < codeLength; i++) {
 	$.ajax({
 		type: "GET", //用GET方式传输
 		dataType: "json", //数据格式:JSON
-		url: '/sms', //目标地址
+		url: 'sms', //目标地址
 		data: "dealType=" + dealType +"&uid=" + uid + "&code=" + code,
 		error: function (XMLHttpRequest, textStatus, errorThrown) { },
 		success: function (msg){ 
-			alert(msg)
+			//alert(msg)
 		}
 	});
 }
@@ -128,23 +128,30 @@ function userLogin(){
     var  phone=$("#phone").val();
 	var  smsCode=$("#smsCode").val();
 	 $.ajax({
-		type: "POST", //用POST方式传输
-		dataType: "text", //数据格式:JSON
-		url: '/userRegist', //目标地址
-		data: {phone:phone,smsCode:smsCode},
+		type: "GET", //用GET方式传输
+		//dataType:"json", //数据格式:JSON
+		url: 'userLogin', //目标地址
+		data: "phone="+phone+"&smsCode"+smsCode,
 		error: function (XMLHttpRequest, textStatus, errorThrown) { 
-		alert(errorThrown);
+		//alert(errorThrown);
 		},
 		success: function (msg){
-		  if(msg.userType==4){
-		  window.location.href="";	 //客服页面
-		  }
-		  if(msg.userType==5){
-		  window.location.href="";//专家页面
-		  }
-		  else{
-		  window.location.href==""//入口页面
-		  }
+			if(msg.code==100){
+				alert(msg.msg);
+			}
+		if(msg.code==200){
+			var data=msg.data;
+			alert(data.userType);
+		   if(data.userType==4){
+		    window.location.href="me2.jsp";	 //客服页面
+		    }
+		    if(data.userType==5){
+		    window.location.href="me2.jsp";//专家页面
+		    }
+		    else{
+		    window.location.href=="me2.jsp"//入口页面
+		    }
+		}
 		}
 	});  
 	

@@ -75,7 +75,7 @@
 			</li>
 			<li>
 				<span>公司</span>
-				<input type="text" id="companyId" placeholder="选填" class="inpo" value=""/>
+				<input type="text" id="company" placeholder="选填" class="inpo" value=""/>
 			</li>
 			<li>
 				<span>姓名</span>
@@ -125,7 +125,6 @@ $.ajax({
 				$('#MYalert').css("display","none");
 			});
 			}
-			alert(msg.code);
 			if(msg.code==200){
 				alert(msg.code);
 			//可以注册时
@@ -167,29 +166,35 @@ function SetRemainTime() {
 //注册提交
 function register(){
     var  phone=$("#phone").val();
-	var  companyId=$("#companyId").val();
+	var  company=$("#company").val();
 	var  userName=$("#userName").val();
 	var  smsCode=$("#smsCode").val();
 	   $.ajax({
 		type: "get", //GET方式传输
 		//dataType:"text", //数据格式:JSON
 		url:'userRegist', //目标地址
-		data: {phone:phone,companyId:companyId,userName:userName,smsCode:smsCode},
+		data: {phone:phone,company:company,userName:userName,smsCode:smsCode},
 		error: function (XMLHttpRequest, textStatus, errorThrown) { 
 		  // alert(errorThrown);
 		},
 		success: function (msg){
-	      var data=msg.data;
+	      if(msg.code==100){
+	    	  alert(msg.msg);
+	      }
+	      if(msg.code==200){ 
+	    	  alert(msg.code);
+		  var data=msg.data;
 		  if(data.userType==4){
-		  window.location.href="";	 //客服页面
-		  }
+		    window.location.href="me2.jsp";	 //客服页面
+		    }
 		  if(data.userType==5){
-		  window.location.href="";//专家页面
+		  window.location.href="me2.jsp";//专家页面
 		  }
 		  else{
-		  window.location.href==""//入口页面
+		  window.location.href=="me2.jsp"//个人中心页面
 		  }
 		}
+	 }
 	});  
 	
 }

@@ -78,7 +78,6 @@ public class UserController {
 		UserBean userByName = userService.isRegisted(phone);
 		if(userByName!=null){
 			String token = tokenService.generateToken(userByName.getUserId(),0);
-
 			MsgBean msg = MsgBean.success("注册成功");
 			Map<String, Object> data = msg.getData();
 			hanlderResponseData(data,userByName);
@@ -126,7 +125,6 @@ public class UserController {
 
 		userByName.setLastLoginTime(new Date());
 		userService.updateUserInfo(userByName);//更新最后登录时间
-
 		smsCodeService.deleteSmsCode(phone);
 		MsgBean msg = MsgBean.success("登录成功");
 		Map<String, Object> data = msg.getData();
