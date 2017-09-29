@@ -23,32 +23,41 @@
 
 		<!-- 指定javaBean生成的位置 -->
 		<javaModelGenerator targetPackage="com.shanshan.bean"
-			targetProject=".\src\main\java">
+			targetProject="./src/main/java">
 			<property name="enableSubPackages" value="true" />
 			<property name="trimStrings" value="true" />
 		</javaModelGenerator>
 
 		<!--指定sql映射文件生成的位置 -->
-		<sqlMapGenerator targetPackage="mapper" targetProject=".\src\main\resources">
+		<sqlMapGenerator targetPackage="mapper" targetProject="./src/main/resources">
 			<property name="enableSubPackages" value="true" />
 		</sqlMapGenerator>
 
 		<!-- 指定dao接口生成的位置，mapper接口 -->
 		<javaClientGenerator type="XMLMAPPER"
-			targetPackage="com.shanshan.dao" targetProject=".\src\main\java">
+			targetPackage="com.shanshan.dao" targetProject="./src/main/java">
 			<property name="enableSubPackages" value="true" />
 		</javaClientGenerator>
 
 
 		<!-- table指定每个表的生成策略 -->
-		<!--<table tableName="tbl_user" domainObjectName="UserBean"></table>
+		<!--
+		<table tableName="tbl_user" domainObjectName="UserBean"></table>
 		<table tableName="tbl_token" domainObjectName="TokenBean"></table>
 		<table tableName="tbl_company" domainObjectName="CompanyBean"></table>
 		<table tableName="tbl_equipment_type" domainObjectName="EquipmentTypeBean"></table>
 		<table tableName="tbl_industry" domainObjectName="IndustryBean"></table>
 		<table tableName="tbl_sms_code" domainObjectName="SmsCodeBean"></table>
-		<table tableName="tbl_technology_user" domainObjectName="TechnologyUserBean"></table>-->
-		<table tableName="tbl_industry" domainObjectName="IndustryBean"></table>
+		<table tableName="tbl_article_category" domainObjectName="ArticleCategoryBean"></table>
+		<table tableName="tbl_technology_user" domainObjectName="TechnologyUserBean"></table>
+		<table tableName="tbl_article" domainObjectName="ArticleBean"></table>
+		<table tableName="tbl_activity" domainObjectName="ActivityBean"></table>
+		<table tableName="tbl_training_course" domainObjectName="TrainingCourseBean"></table>
+		<table tableName="tbl_enroll" domainObjectName="EnrollBean"></table>
+		<table tableName="tbl_fault_repair" domainObjectName="FaultRepairBean"></table>
+		<table tableName="tbl_equipment_info" domainObjectName="EquipmentInfoBean"></table>
+		-->
+		<table tableName="tbl_tag" domainObjectName="TagBean"></table>
 
 	</context>
 </generatorConfiguration>

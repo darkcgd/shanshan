@@ -9,7 +9,7 @@ public class UserBean {
 
     private String userNickName;
 
-    private String wxUnionId;
+    private String wxOpenId;
 
     private String wxAccessToken;
 
@@ -53,6 +53,14 @@ public class UserBean {
 
     private String expertiseAreas;
 
+    private String buyEquipmentChannel;
+
+    private String equipmentType;
+
+    private String industry;
+
+    private Integer status;
+
     public Integer getUserId() {
         return userId;
     }
@@ -77,12 +85,12 @@ public class UserBean {
         this.userNickName = userNickName == null ? null : userNickName.trim();
     }
 
-    public String getWxUnionId() {
-        return wxUnionId;
+    public String getWxOpenId() {
+        return wxOpenId;
     }
 
-    public void setWxUnionId(String wxUnionId) {
-        this.wxUnionId = wxUnionId == null ? null : wxUnionId.trim();
+    public void setWxOpenId(String wxOpenId) {
+        this.wxOpenId = wxOpenId == null ? null : wxOpenId.trim();
     }
 
     public String getWxAccessToken() {
@@ -251,5 +259,37 @@ public class UserBean {
 
     public void setExpertiseAreas(String expertiseAreas) {
         this.expertiseAreas = expertiseAreas == null ? null : expertiseAreas.trim();
+    }
+
+    public String getBuyEquipmentChannel() {
+        return buyEquipmentChannel;
+    }
+
+    public void setBuyEquipmentChannel(String buyEquipmentChannel) {
+        this.buyEquipmentChannel = buyEquipmentChannel == null ? null : buyEquipmentChannel.trim();
+    }
+
+    public String getEquipmentType() {
+        return equipmentType;
+    }
+
+    public void setEquipmentType(String equipmentType) {
+        this.equipmentType = equipmentType == null ? null : equipmentType.trim();
+    }
+
+    public String getIndustry() {
+        return industry;
+    }
+
+    public void setIndustry(String industry) {
+        this.industry = industry == null ? null : industry.trim();
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 }

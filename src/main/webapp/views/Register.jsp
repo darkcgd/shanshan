@@ -18,6 +18,8 @@
 		<link rel="stylesheet" type="text/css" href="css/header.css"/>
 		<link rel="stylesheet" type="text/css" href="css/calendar.css"/>
 		<link rel="stylesheet" type="text/css" href="css/signup.css"/>
+		<link rel="stylesheet" href="static/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+	    <script src="static/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
 		<script src="js/jquery-1.7.1.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="js/uploadPreview.js" type="text/javascript" charset="utf-8"></script>
 	</head>
@@ -48,6 +50,7 @@
         		<span class="h-lt" style="cursor:pointer" onclick="window.history.go(-1)"><i class="h-bk"></i></span>
         		<a class="h-rt" href="#"></a>
     		</div>
+		    
 		</header>
 		<div class="hh">
 			<div class="logo">
@@ -59,6 +62,12 @@
 				<span>手机号码</span>
 				<input type="text" id="phone" name="phone" placeholder="请输入您的手机号码" class="inp" value=""/>
 				<input id="btnSendCode" type="button" value="获取验证码" onClick="sendMessage()" value=""/>
+				<div id="MYalert" class="alert alert-warning" style="display:none;">
+					<a href="javascript:void(0)" class="close" data-dismiss="alert">
+						&times;
+					</a>
+					<strong id="errmess"></strong>
+		        </div>
 			</li>
 			<li>
 				<span>验证码</span>
@@ -100,8 +109,23 @@ else {
 for (var i = 0; i < codeLength; i++) {
 	code += parseInt(Math.random() * 9).toString();
 }
+$.ajax({
+		type: "GET", //用GET方式传输
+		dataType:"json", //数据格式:JSON
+		url: 'isRegisted', //目标地址
+		data:"phone="+phone,
+		//data: "dealType=" + dealType +"&uid=" + uid + "&code=" + code,
+		//error: function (XMLHttpRequest, textStatus, errorThrown) {alert(errorThrown);},
+		success: function (msg){			
+			$(".alert").css({"display":"block","position":"absolute","margin-left":"150px","width":"500px"});
+			$("#errmess").html(msg);
+			$(".close").click(function(){
+				$('#MYalert').css("display","none");
+			});
+		}
+	});
 //设置button效果，开始计时
-	$("#btnSendCode").attr("disabled", "true");
+/*	$("#btnSendCode").attr("disabled", "true");
 	$("#btnSendCode").val( + curCount + "秒再获取");
 	InterValObj = window.setInterval(SetRemainTime, 1000); //启动计时器，1秒执行一次
 //向后台发送处理数据
@@ -115,9 +139,13 @@ for (var i = 0; i < codeLength; i++) {
 			alert(errorThrown);
 		},
 		success: function (msg){
-			alert(msg);
+			$(".alert").css({"display":"block","position":"absolute","margin-left":"200px","width":"600px"});
+			$("#errmess").html(msg.code);
+			$(".close").click(function(){
+				$('#MYalert').css("display","none");
+			});
 		}
-	});
+	});*/
 }
 //timer处理函数
 function SetRemainTime() {
@@ -144,7 +172,7 @@ function register(){
 		url:'userRegist', //目标地址
 		data: {phone:phone,companyId:companyId,userName:userName,smsCode:smsCode},
 		error: function (XMLHttpRequest, textStatus, errorThrown) { 
-			alert(errorThrown);
+		   alert(errorThrown);
 		},
 		success: function (msg){
 			alert(msg);
