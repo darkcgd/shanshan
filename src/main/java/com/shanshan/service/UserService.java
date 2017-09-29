@@ -21,7 +21,9 @@ public class UserService {
 	 * @param userBean
 	 */
 	public void saveUser(UserBean userBean) {
-		userBean.setUserType(1);
+		if(userBean.getUserType()==null){
+			userBean.setUserType(1);
+		}
 		userBean.setCreateTime(new Date());
 		userBean.setUpdateTime(new Date());
 		userBean.setLastLoginTime(new Date());
@@ -95,6 +97,25 @@ NOT IN - 指相关的列必须不在传入的方法参数的list中.
 		//通过Criteria构造查询条件
 		UserBeanExample.Criteria criteria=userExample.createCriteria();
 		criteria.andPhoneEqualTo(phone);
+		//可能返回多条记录
+		List<UserBean> list=userBeanMapper.selectByExample(userExample);
+		if(list.size()>0){
+			return list.get(0);
+		}else{
+			return null;
+		}
+	}
+
+	/***
+	 * 根据wxOpenId查询User
+	 * @param wxOpenId
+	 * @return
+	 */
+	public UserBean getUserByWxOpenId(String wxOpenId) {
+		UserBeanExample userExample=new UserBeanExample();
+		//通过Criteria构造查询条件
+		UserBeanExample.Criteria criteria=userExample.createCriteria();
+		criteria.andWxOpenIdEqualTo(wxOpenId);
 		//可能返回多条记录
 		List<UserBean> list=userBeanMapper.selectByExample(userExample);
 		if(list.size()>0){
