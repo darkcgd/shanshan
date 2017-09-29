@@ -36,8 +36,6 @@ public class UserController {
 
 	/**
 	 * 用户保存(注册)
-	 * 1、支持JSR303校验
-	 * 2、导入Hibernate-Validator
 	 *
 	 *
 	 * @return
@@ -183,7 +181,7 @@ public class UserController {
 
 		Integer userType = userBean.getUserType();
 		if(BaseUtil.isEmpty(userType)){
-			data.put("userType", 1);//1为A级用户 2为B级用户 3为C级用户 4为客服 5为技术专家
+			data.put("userType", 2);//1为A级用户 2为B级用户 3为C级用户 4为客服 5为技术专家
 		}else{
 			data.put("userType", userBean.getUserType());//1为A级用户 2为B级用户 3为C级用户 4为客服 5为技术专家
 			if(userType==5){
@@ -231,27 +229,78 @@ public class UserController {
 	}
 
 	/**
+	 微信授权用户 即A级用户   type=0
+	 注册登录用户  即B级用户   type=1
+	 微信授权用户 提交完善信息 升为B级用户               type=2       待审核后  升为C级用户
+	 注册登录用户 提交完善信息 本来就是B级用户,不用升     type=3       待审核后  升为C级用户
+
 	 * 修改用户信息(头像,昵称,性别,年龄,生日,手机号码)
 	 */
 	@ResponseBody
 	@RequestMapping(value="/user/updateUserInfo",method=RequestMethod.GET)
-	public Object updateUserInfo(@Valid UserBean user, BindingResult result){
-		if(result.hasErrors()){
-			//校验失败，应该返回失败，在模态框中显示校验失败的错误信息
-			Map<String, Object> map = new HashMap<>();
-			List<FieldError> errors = result.getFieldErrors();
-			for (FieldError fieldError : errors) {
-				System.out.println("错误的字段名："+fieldError.getField());
-				System.out.println("错误信息："+fieldError.getDefaultMessage());
-				map.put(fieldError.getField(), fieldError.getDefaultMessage());
-			}
-			return MsgBean.fail().add("errorFields", map);
-		}else{
-			user.setUpdateTime(new Date());
-			int updateCount = userService.updateUserInfo(user);
-			return MsgSimpleBean.success("更新成功");
+	public Object updateUserInfo(UserBean user){
+		if(user==null){
+			return MsgSimpleBean.fail("请输入更新参数");
 		}
+		/*String wxOpenId = user.getWxOpenId();
+		if(BaseUtil.isEmpty(wxOpenId)){
+			return MsgSimpleBean.fail("该用户不是公众号授权用户");
+		}*/
+
+		Integer userId = user.getUserId();
+		if(BaseUtil.isEmpty(userId)){
+			return MsgSimpleBean.fail("需要传userId参数");
+		}
+		UserBean userById = userService.getUserById(userId);
+		if(userById==null){
+			return MsgBean.fail("查询不到该用户");
+		}
+
+		if(userById.getUserType()==3){
+			return MsgBean.fail("您已经是C级用户,无需提交信息");
+		}
+
+		/*UserBean userByWxOpenId = userService.getUserByWxOpenId(wxOpenId);
+		String phone = userByWxOpenId.getPhone();
+		if(BaseUtil.isEmpty(phone)||!BaseUtil.isPhone(phone)){//说明当前用户没手机号  是A级用户  要升为B级用户
+			user.setUserType(2);
+		}else{//说明当前用户有手机号  是B用户或者C用户
+			Integer userType = user.getUserType();
+			if(BaseUtil.isEmpty(userType)||userType==1){
+				user.setUserType(2);
+			}
+		}*/
+
+		user.setUserType(2);
+		user.setStatus(1);//1待审核 2已审核  默认不用审核
+
+		user.setUpdateTime(new Date());
+		userService.updateUserInfo(user);
+		return MsgSimpleBean.success("提交成功");
 	}
+
+
+	/**
+	 微信授权用户 提交完善信息  待审核后  升为C级用户  //1为A级用户 2为B级用户 3为C级用户 4为客服 5为技术专家
+	 注册登录用户 提交完善信息  待审核后  升为C级用户  //1为A级用户 2为B级用户 3为C级用户 4为客服 5为技术专家
+	 * 审核用户
+	 */
+	@ResponseBody
+	@RequestMapping(value="/user/verifyUser",method=RequestMethod.GET)
+	public Object verifyUser(@RequestParam(value = "userId", required=false) Integer userId){
+		if(BaseUtil.isEmpty(userId)){
+			return MsgSimpleBean.fail("需要传userId参数");
+		}
+
+		UserBean user=new UserBean();
+		user.setUserId(userId);
+		user.setUserType(3);
+		user.setStatus(2);//1待审核 2已审核  默认不用审核
+		user.setUpdateTime(new Date());
+		userService.updateUserInfo(user);
+		return MsgSimpleBean.success("审核成功");
+	}
+
 
 	/**
 	 * 修改密码
@@ -275,10 +324,7 @@ public class UserController {
 			return MsgSimpleBean.fail("旧密码错误");
 		}
 		int updateCount = userService.updatePwd(userId, newPwd);
-		//if(updateCount>0){
 		return MsgSimpleBean.success("修改成功!");
-		//}
-		//return MsgSimpleBean.fail("更新失败!");
 	}
 
 	/**
