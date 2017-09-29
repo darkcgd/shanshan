@@ -88,20 +88,7 @@ public class UserController {
 
 			MsgBean msg = MsgBean.success("注册成功");
 			Map<String, Object> data = msg.getData();
-			data.put("userId", userByName.getUserId());
-			data.put("userName", userByName.getUserName());
-			data.put("token", token);
-			data.put("company", userByName.getCompany());
-			data.put("phone", userByName.getPhone());
-			data.put("sex", userByName.getSex());
-			data.put("age", userByName.getAge());
-			data.put("email", userByName.getEmail());
-			data.put("headUrl", userByName.getHeadUrl());
-			Integer userType = userByName.getUserType();
-			if(BaseUtil.isEmpty(userType)){
-				userType=1;
-			}
-			data.put("userType", userType);
+			hanlderResponseData(data,userByName);
 			smsCodeService.deleteSmsCode(phone);
 			return msg;
 		}else{
@@ -150,28 +137,7 @@ public class UserController {
 		smsCodeService.deleteSmsCode(phone);
 		MsgBean msg = MsgBean.success("登录成功");
 		Map<String, Object> data = msg.getData();
-		data.put("userId", userByName.getUserId());
-		data.put("name", userByName.getUserName());
-		data.put("token", token);
-		data.put("company", userByName.getCompany());
-		data.put("phone", userByName.getPhone());
-		data.put("sex", userByName.getSex());
-		data.put("age", userByName.getAge());
-		data.put("email", userByName.getEmail());
-		data.put("headUrl", userByName.getHeadUrl());
-
-		Integer userType = userByName.getUserType();
-		if(BaseUtil.isEmpty(userType)){
-			data.put("userType", 1);//1为A级用户 2为B级用户 3为C级用户 4为客服 5为技术专家
-		}else{
-			data.put("userType", userByName.getUserType());//1为A级用户 2为B级用户 3为C级用户 4为客服 5为技术专家
-			if(userType==5){
-				data.put("attributes", userByName.getAttributes());
-				data.put("experienceYears", userByName.getExperienceYears());
-				data.put("expertiseAreas", userByName.getExpertiseAreas());
-			}
-		}
-
+		hanlderResponseData(data,userByName);
 		return msg;
 	}
 
@@ -192,19 +158,42 @@ public class UserController {
 		if(userById!=null){
 			MsgBean msg = MsgBean.success("获取成功");
 			Map<String, Object> data = msg.getData();
-			data.put("userId", userById.getUserId());
-			data.put("name", userById.getUserName());
-			data.put("company", userById.getCompany());
-			data.put("phone", userById.getPhone());
-			data.put("sex", userById.getSex());
-			data.put("age", userById.getAge());
-			data.put("email", userById.getEmail());
-			data.put("headUrl", userById.getHeadUrl());
+			hanlderResponseData(data,userById);
 			return msg;
 		}else{
 			return MsgBean.fail("查询不到该用户!");
 		}
 	}
+
+	/**
+	 * 处理响应数据
+	 * @param data
+	 * @param userBean
+	 */
+	private void hanlderResponseData(Map<String, Object> data,UserBean userBean){
+		data.put("userId", userBean.getUserId());
+		data.put("name", userBean.getUserName());
+		data.put("company", userBean.getCompany());
+		data.put("phone", userBean.getPhone());
+		data.put("sex", userBean.getSex());
+		data.put("age", userBean.getAge());
+		data.put("email", userBean.getEmail());
+		data.put("headUrl", userBean.getHeadUrl());
+
+
+		Integer userType = userBean.getUserType();
+		if(BaseUtil.isEmpty(userType)){
+			data.put("userType", 1);//1为A级用户 2为B级用户 3为C级用户 4为客服 5为技术专家
+		}else{
+			data.put("userType", userBean.getUserType());//1为A级用户 2为B级用户 3为C级用户 4为客服 5为技术专家
+			if(userType==5){
+				data.put("attributes", userBean.getAttributes());
+				data.put("experienceYears", userBean.getExperienceYears());
+				data.put("expertiseAreas", userBean.getExpertiseAreas());
+			}
+		}
+	}
+
 
 	/**
 	 注册(用户名或手机号码注册)
@@ -260,7 +249,7 @@ public class UserController {
 		}else{
 			user.setUpdateTime(new Date());
 			int updateCount = userService.updateUserInfo(user);
-			return MsgSimpleBean.success("更新成功!");
+			return MsgSimpleBean.success("更新成功");
 		}
 	}
 
