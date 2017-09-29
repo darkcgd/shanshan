@@ -20,7 +20,9 @@ public class Config {
     public static final String SNS_AUTH_URL = "https://api.weixin.qq.com/sns/auth";
 
 
-    public static final String Sms_Acount="18211555413";
-    public static final String Sms_Acount_Pwd="hao111";
+    //public static final String Sms_Acount="18211555413";
+    //public static final String Sms_Acount_Pwd="hao111";
+    public static final String Sms_Acount="longgkj_vV4r68";
+    public static final String Sms_Acount_Pwd="Cjsms654321";
 
 }
