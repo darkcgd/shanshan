@@ -21,18 +21,18 @@ public class TokenService {
 	/**
 	 * 获取token
 	 * @param userId
-	 * @param userType 0代表普通用户 1代表商家
+	 * @param platformType 平台类型 0代表手机端 1代表PC端(目前只有客服能用PC端)
 	 * @return
 	 */
-	public TokenBean getToken(Integer userId, Integer userType) {
+	public TokenBean getToken(Integer userId, Integer platformType) {
 		TokenBeanExample example=new TokenBeanExample();
 		//通过Criteria构造查询条件
 		TokenBeanExample.Criteria criteria=example.createCriteria();
 		if(BaseUtil.isNotEmpty(userId)){
 			criteria.andUserIdEqualTo(userId);
 		}
-		if(BaseUtil.isNotEmpty(userType)){
-			criteria.andUserTypeEqualTo(userType);
+		if(BaseUtil.isNotEmpty(platformType)){
+			criteria.andPlatformTypeEqualTo(platformType);
 		}
 
 		criteria.andExpireTimeGreaterThanOrEqualTo(new Date());//过期时间大于等于现在时间
@@ -48,18 +48,18 @@ public class TokenService {
 	/**
 	 *
 	 * @param userId
-	 * @param userType 0代表普通用户 1代表客服 2代表技术专家
+	 * @param platformType 平台类型 0代表手机端 1代表PC端(目前只有客服能用PC端)
 	 * @return
 	 */
-	public String generateToken(Integer userId,Integer userType) {
+	public String generateToken(Integer userId,Integer platformType) {
 		TokenBeanExample example=new TokenBeanExample();
 		//通过Criteria构造查询条件
 		TokenBeanExample.Criteria criteria=example.createCriteria();
 		if(BaseUtil.isNotEmpty(userId)){
 			criteria.andUserIdEqualTo(userId);
 		}
-		if(BaseUtil.isNotEmpty(userType)){
-			criteria.andUserTypeEqualTo(userType);
+		if(BaseUtil.isNotEmpty(platformType)){
+			criteria.andPlatformTypeEqualTo(platformType);
 		}
 
 		List<TokenBean> tokenBeans = tokenBeanMapper.selectByExample(example);
@@ -71,9 +71,9 @@ public class TokenService {
 
 		if(tokenBeans!=null&&tokenBeans.size()>0){//说明之前已经存在该token信息,现在需要修改
 			TokenBean tokenBean = tokenBeans.get(0);
-			Integer saveUserType = tokenBean.getUserType();
-			if(BaseUtil.isEmpty(saveUserType)){
-				tokenBean.setUserType(userType);
+			Integer savePlatformType = tokenBean.getPlatformType();
+			if(BaseUtil.isEmpty(savePlatformType)){
+				tokenBean.setPlatformType(platformType);
 			}
 
 			tokenBean.setToken(md5Str);
@@ -88,7 +88,7 @@ public class TokenService {
 		}else{//说明之前未存在该token信息,需执行增 操作
 			TokenBean tokenBean=new TokenBean();
 			tokenBean.setUserId(userId);
-			tokenBean.setUserType(userType);
+			tokenBean.setPlatformType(platformType);
 			tokenBean.setToken(md5Str);
 			Date date = new Date();
 			long time = date.getTime();

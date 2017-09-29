@@ -9,6 +9,8 @@ public class TokenBean {
 
     private Integer userType;
 
+    private Integer platformType;
+
     private String token;
 
     private Date createTime;
@@ -37,6 +39,14 @@ public class TokenBean {
 
     public void setUserType(Integer userType) {
         this.userType = userType;
+    }
+
+    public Integer getPlatformType() {
+        return platformType;
+    }
+
+    public void setPlatformType(Integer platformType) {
+        this.platformType = platformType;
     }
 
     public String getToken() {

@@ -10,18 +10,13 @@ import com.shanshan.service.UserService;
 import com.shanshan.util.BaseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -137,6 +132,53 @@ public class UserController {
 		Map<String, Object> data = msg.getData();
 		hanlderResponseData(data,userByName);
 		return msg;
+	}
+
+
+	/**
+	 * 用户登录(账号密码)
+	 * @param userName
+	 * @param pwd
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/adminLogin")
+	public Object adminLogin(@RequestParam(value = "userName", required=false)String userName, @RequestParam(value = "pwd", required=false)String pwd){
+		if(BaseUtil.isEmpty(userName)){
+			return MsgSimpleBean.fail("需要传userName参数");
+		}
+		//先判断用户名是否是合法的表达式;
+		/*String regx = "(^[a-zA-Z0-9_-]{6,16}$)|(^[\u2E80-\u9FFF]{2,5})";
+		if(!name.matches(regx)){
+			return MsgSimpleBean.fail("用户名必须是6-16位数字和字母的组合或者2-5位中文");
+		}*/
+		if(BaseUtil.isEmpty(pwd)){
+			return MsgSimpleBean.fail("需要传pwd参数");
+		}
+
+		//数据库用户名重复校验
+		UserBean userByName = userService.getUserByName(userName);
+		if(userByName!=null){
+			if(userByName.getPwd()!=null&&userByName.getPwd().equals(pwd)){
+				Integer userType = userByName.getUserType();
+				if(BaseUtil.isEmpty(userType)||userType!=4){//不是客服人员
+					return MsgSimpleBean.fail("该账号不是客服账号,无法进行该操作");
+				}
+				String token = tokenService.generateToken(userByName.getUserId(),1);
+
+				userByName.setLastLoginTime(new Date());
+				userService.updateUserInfo(userByName);//更新最后登录时间
+
+				MsgBean msg = MsgBean.success("登录成功");
+				Map<String, Object> data = msg.getData();
+				hanlderResponseData(data,userByName);
+				return msg;
+			}else{
+				return MsgSimpleBean.fail("密码错误");
+			}
+		}else{
+			return MsgSimpleBean.fail("用户不存在");
+		}
 	}
 
 
