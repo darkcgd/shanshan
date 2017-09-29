@@ -225,6 +225,7 @@ public class UserController {
 		}else{
 			msg=MsgSimpleBean.success("该手机号码还没注册!");
 		}
+		System.out.println(msg.toString());
 		return msg;
 	}
 
