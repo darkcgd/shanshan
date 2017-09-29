@@ -7,11 +7,9 @@ import com.github.pagehelper.ISelect;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.shanshan.bean.ArticleBean;
+import com.shanshan.bean.ArticleBeanExample;
 import com.shanshan.common.model.PageRequest;
 import com.shanshan.dao.ArticleBeanMapper;
-
-import tk.mybatis.mapper.entity.Example;
-import tk.mybatis.mapper.entity.Example.Criteria;
 
 @Service
 public class ArticleService {
@@ -24,8 +22,7 @@ public class ArticleService {
 				.doSelectPage(new ISelect() {
 					@Override
 					public void doSelect() {
-						Example example = new Example(ArticleBean.class);
-						Criteria criteria = example.createCriteria();
+						ArticleBeanExample example = new ArticleBeanExample();
 						articleBeanMapper.selectByExample(example);
 					}
 				});

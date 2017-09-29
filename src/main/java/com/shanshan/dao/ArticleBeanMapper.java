@@ -3,12 +3,11 @@ package com.shanshan.dao;
 import com.shanshan.bean.ArticleBean;
 import com.shanshan.bean.ArticleBeanExample;
 
-import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
-public interface ArticleBeanMapper extends Mapper<ArticleBean> {
+public interface ArticleBeanMapper {
     long countByExample(ArticleBeanExample example);
 
     int deleteByExample(ArticleBeanExample example);

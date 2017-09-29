@@ -1,24 +1,26 @@
 package com.shanshan.controller;
 
-import com.shanshan.bean.SNSUserInfo;
-import com.shanshan.bean.WeixinOauth2Token;
-import com.shanshan.service.WxService;
-import com.shanshan.util.AbSHA1;
-import com.shanshan.util.AdvancedUtil;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.shanshan.bean.SNSUserInfo;
+import com.shanshan.bean.WeixinOauth2Token;
+import com.shanshan.service.WxService;
+import com.shanshan.util.AbSHA1;
+import com.shanshan.util.AdvancedUtil;
 
 /**
  * Created by szmg on 17/9/27.
