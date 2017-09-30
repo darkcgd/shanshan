@@ -68,7 +68,7 @@
 	<div class="to">
 		<a href="javascript:void(0);" onclick="register();">注&nbsp;册</a>
 	</div>
-	<a href="login.jsp" class="tolog">登录</a>
+	<a href="views/login.jsp" class="tolog">登录</a>
 	<!-- 模态框（Modal） -->
 <div style="margin-top:280px;" class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
@@ -100,14 +100,15 @@
 	var codeLength = 6;//验证码长度
 	function sendMessage() {
 		curCount = count;
-		var dealType; //验证方式
-		var uid = $("#uid").val();//用户uid
-		var phone = $("#phone").val();
-		if ($("#phone").attr("checked") == true) {
+		/*var dealType; //验证方式
+		//var uid = $("#uid").val();//用户uid
+		//var phone = $("#phone").val();
+		//if ($("#phone").attr("checked") == true) {
 			dealType = "phone";
 		} else {
 			dealType = "email";
-		}
+		}*/
+		var phone=$("#phone").val();
 		//产生验证码
 		for (var i = 0; i < codeLength; i++) {
 			code += parseInt(Math.random() * 9).toString();
@@ -148,7 +149,6 @@
 	function register() {
 		var phone = $("#phone").val();
 		var smsCode = $("#smsCode").val();
-		alert(smsCode);
 		var userName = $("#userName").val();
 		var company = $("#company").val();
 		$.ajax({
@@ -169,11 +169,11 @@
 			  if(msg.code==200){	
 					var data = msg.data;
 					if (data.userType == 4) {     
-						window.location.href = "me2.jsp";  //客服情况
+						window.location.href = "views/me2.jsp";  }//客服情况
 					if (data.userType == 5) {      
-						window.location.href = "me2.jsp";//专家情况
+						window.location.href = "views/me2.jsp";//专家情况
 					} else {
-						window.location.href == "me2.jsp";//客户情况
+						window.location.href == "views/me2.jsp";//客户情况
 					}
 			   }
 			}
