@@ -16,8 +16,6 @@
 <script src="static/js/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
 </head>
 <body>
-	<form id="form1" runat="server" action="" method="post">
-
 		<div class="Main">
 			<div class="main1">
 				<img src="pc/images/login/logo1.gif" alt="" style="width: 150px;" />
@@ -43,22 +41,19 @@
 				<li class="topE"></li>
 				<li class="middle_A"></li>
 				<li class="middle_B"></li>
-				<li class="middle_C"><span class="btn"> <a
-						href="javascript:void(0);" onclick="denglu();"><input name=""
-							type="image" src="pc/images/login/btnlogin.gif" /></a>
+				<li class="middle_C"><span class="btn"> 
+				<a href="javascript:denglu();"><input name="" type="image" src="pc/images/login/btnlogin.gif" /></a>
 				</span></li>
 				<li class="middle_D"></li>
 				<li class="bottom_A"></li>
 				<li class="bottom_B">山善后台管理系统</li>
 			</ul>
 		</div>
-	</form>
-</body>
-</html>
-<script type="text/javascript">
-	function denglu() {
-		var userName = $("#userName").val();
 		
+</body>
+<script type="text/javascript">
+	function denglu(){
+		var userName = $("#userName").val();	
 		var pwd = $("#pwd").val();
 		
 		$.ajax({
@@ -70,7 +65,6 @@
 				pwd : pwd
 			},
 			success : function(msg) {
-				alert(msg.code);
 				if (msg.code == 100) {
 					alert(msg.msg);
 				}
@@ -86,3 +80,4 @@
 		});
 	}
 </script>
+</html>
