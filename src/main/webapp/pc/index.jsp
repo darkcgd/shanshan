@@ -8,6 +8,7 @@
 <title>网站后台管理系统</title>
 <link rel="shortcut icon" href="images/favicon.ico" />
 <link href="css/css.css" type="text/css" rel="stylesheet" />
+
 </head>
 <!--框架样式-->
 <frameset rows="95,*,30" cols="*" frameborder="no" border="0" framespacing="0">
@@ -23,4 +24,5 @@
 	<frame src="bottom.jsp" name="bottomFrame" scrolling="No" noresize="noresize" id="bottomFrame" title="bottomFrame" />
 </frameset><noframes></noframes>
 <!--不可以删除-->
+
 </html>

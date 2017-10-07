@@ -54,8 +54,7 @@
 <script type="text/javascript">
 	function denglu(){
 		var userName = $("#userName").val();	
-		var pwd = $("#pwd").val();
-		
+		var pwd = $("#pwd").val();	
 		$.ajax({
 			type : "GET",
 			dataType : "json",
@@ -69,9 +68,11 @@
 					alert(msg.msg);
 				}
 				if (msg.code == 200) {
-					
 					var data = msg.data;
 					if (data.userType == 4) {
+						var c_name="c_name";
+						document.cookie=c_name+ "=" +data.name;
+						localStorage.setItem("name",data.userType); 
 						window.location.href = "/shanshan/pc/index.jsp";
 					}
 				}

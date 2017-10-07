@@ -8,6 +8,7 @@
 <link href="css/css.css" type="text/css" rel="stylesheet" />
 <link href="css/main.css" type="text/css" rel="stylesheet" />
 <link rel="shortcut icon" href="images/main/favicon.ico" />
+<script src="../static/js/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
 <style>
 body{overflow-x:hidden; background:#f2f0f5; padding:15px 0px 10px 5px;}
 #main{ font-size:12px;}
@@ -29,7 +30,7 @@ div.main-order{ line-height:30px; padding:10px 0 0 0;}
 <table width="99%" border="0" cellspacing="0" cellpadding="0" id="main">
   <tr>
     <td colspan="2" align="left" valign="top">
-    <span class="time"><strong>上午好！admin</strong><u>[超级管理员]</u></span>
+    <span class="time"><strong>上午好！</strong><strong class="c_name"></strong><u>[超级管理员]</u></span>
     <div class="top"><span class="left">您上次的登灵时间：2012-05-03  12:00   登录IP：127.0.0.1 &nbsp;&nbsp;&nbsp;&nbsp;如非您本人操作，请及时</span><a href="index.html" target="mainFrame" onFocus="this.blur()">更改密码</a></div>
     <div class="sec">这是您第<span class="num">80</span>次,登录！</div>
     </td>
@@ -61,4 +62,39 @@ div.main-order{ line-height:30px; padding:10px 0 0 0;}
   </tr>
 </table>
 </body>
+<script type="text/javascript">
+//会检查 document.cookie 对象中是否存有 cookie
+var username=getCookie("c_name");
+$(".c_name").text(username);
+function getCookie(c_name)
+{
+if (document.cookie.length>0)
+  {
+  c_start=document.cookie.indexOf(c_name + "=");
+  if (c_start!=-1)
+    { 
+    c_start=c_start + c_name.length+1 
+    c_end=document.cookie.indexOf(";",c_start)
+    if (c_end==-1) c_end=document.cookie.length
+    return unescape(document.cookie.substring(c_start,c_end))
+    } 
+  }
+return ""
+}
+//检查cookie
+function checkCookie()
+{
+username=getCookie('username');
+if (username!=null && username!="")
+  {alert('Welcome again '+username+'!')}
+else 
+  {
+  username=prompt('Please enter your name:',"");
+  if (username!=null && username!="")
+    {
+    setCookie('username',username,365)
+    }
+  }
+}
+</script>
 </html>

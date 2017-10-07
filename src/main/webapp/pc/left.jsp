@@ -7,6 +7,7 @@
 <title>左侧导航menu</title>
 <link href="css/css.css" type="text/css" rel="stylesheet" />
 <script type="text/javascript" src="js/sdmenu.js"></script>
+<script src="../static/js/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">
 	// <![CDATA[
 	var myMenu;
@@ -24,7 +25,7 @@ body{overflow-x:hidden; background:url(images/main/leftbg.jpg) left top repeat-y
 <body onselectstart="return false;" ondragstart="return false;" oncontextmenu="return false;">
 <div id="left-top">
 	<div><img src="images/main/member.gif" width="44" height="44" /></div>
-    <span>用户：admin<br>角色：超级管理员</span>
+    <span>用户：<b class="c_name"></b><br>角色：超级管理员</span>
 </div>
     <div style="float: left" id="my_menu" class="sdmenu">
       <div class="collapsed">
@@ -58,4 +59,39 @@ body{overflow-x:hidden; background:url(images/main/leftbg.jpg) left top repeat-y
       </div>
     </div>
 </body>
+<script type="text/javascript">
+//会检查 document.cookie 对象中是否存有 cookie
+var username=getCookie("c_name");
+$(".c_name").text(username);
+function getCookie(c_name)
+{
+if (document.cookie.length>0)
+  {
+  c_start=document.cookie.indexOf(c_name + "=");
+  if (c_start!=-1)
+    { 
+    c_start=c_start + c_name.length+1 
+    c_end=document.cookie.indexOf(";",c_start)
+    if (c_end==-1) c_end=document.cookie.length
+    return unescape(document.cookie.substring(c_start,c_end))
+    } 
+  }
+return ""
+}
+//检查cookie
+function checkCookie()
+{
+username=getCookie('username');
+if (username!=null && username!="")
+  {alert('Welcome again '+username+'!')}
+else 
+  {
+  username=prompt('Please enter your name:',"");
+  if (username!=null && username!="")
+    {
+    setCookie('username',username,365)
+    }
+  }
+}
+</script>
 </html>
