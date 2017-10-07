@@ -178,7 +178,7 @@
 						if (data.userType == 5) {      
 							window.location.href = "views/me2.jsp";//专家情况
 						} else {
-							window.location.href == "views/me2.jsp";//客户情况
+							window.location.href = "views/me2.jsp";//客户情况
 						}
 				   }
 			}

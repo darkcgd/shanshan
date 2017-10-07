@@ -161,19 +161,19 @@
 				userName : userName,
 				company : company	
 			},
-			success : function(msg) {
-		      if(msg.code==100){
+			success : function(msg) {		
+		      if(msg.code=='100'){
 		    	  $('#myModal').modal('show');
 				  $(".modal-body").text(msg.msg);	 
 		      }		
-			  if(msg.code==200){	
+			  if(msg.code=='200'){	
 					var data = msg.data;
-					if (data.userType == 4) {     
+					if (data.userType == '4') {    
 						window.location.href = "views/me2.jsp";  }//客服情况
-					if (data.userType == 5) {      
+					if (data.userType == '5') {      
 						window.location.href = "views/me2.jsp";//专家情况
 					} else {
-						window.location.href == "views/me2.jsp";//客户情况
+						window.location.href ="views/me2.jsp";//客户情况
 					}
 			   }
 			}
