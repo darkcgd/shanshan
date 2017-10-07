@@ -30,32 +30,32 @@ body{overflow-x:hidden; background:url(images/main/leftbg.jpg) left top repeat-y
     <div style="float: left" id="my_menu" class="sdmenu">
       <div class="collapsed">
         <span>个人中心</span>
-        <a href="main.html" target="mainFrame" onFocus="this.blur()">后台首页</a>
-        <a href="main_list.html" target="mainFrame" onFocus="this.blur()">列表页</a>
-        <a href="main_info.html" target="mainFrame" onFocus="this.blur()">列表详细页</a>
-        <a href="main_message.html" target="mainFrame" onFocus="this.blur()">留言页</a>
-        <a href="main_menu.html" target="mainFrame" onFocus="this.blur()">栏目管理</a>
+        <a href="main.jsp" target="mainFrame" onFocus="this.blur()">后台首页</a>
+        <a href="main_list.jsp" target="mainFrame" onFocus="this.blur()">列表页</a>
+        <a href="main_info.jsp" target="mainFrame" onFocus="this.blur()">列表详细页</a>
+        <a href="main_message.jsp" target="mainFrame" onFocus="this.blur()">留言页</a>
+        <a href="main_menu.jsp" target="mainFrame" onFocus="this.blur()">栏目管理</a>
       </div>
       <div>
         <span>客服中心</span>
-        <a href="main.html" target="mainFrame" onFocus="this.blur()">分组权限</a>
-        <a href="main_list.html" target="mainFrame" onFocus="this.blur()">级别权限</a>
-        <a href="main_info.html" target="mainFrame" onFocus="this.blur()">角色管理</a>
-        <a href="main.html" target="mainFrame" onFocus="this.blur()">自定义权限</a>
+        <a href="main.jsp" target="mainFrame" onFocus="this.blur()">分组权限</a>
+        <a href="main_list.jsp" target="mainFrame" onFocus="this.blur()">级别权限</a>
+        <a href="main_info.jsp" target="mainFrame" onFocus="this.blur()">角色管理</a>
+        <a href="main.jsp" target="mainFrame" onFocus="this.blur()">自定义权限</a>
       </div>
       <div>
         <span>分组管理</span>
-        <a href="main.html" target="mainFrame" onFocus="this.blur()">分组权限</a>
-        <a href="main_list.html" target="mainFrame" onFocus="this.blur()">级别权限</a>
-        <a href="main_info.html" target="mainFrame" onFocus="this.blur()">角色管理</a>
-        <a href="main.html" target="mainFrame" onFocus="this.blur()">自定义权限</a>
+        <a href="main.jsp" target="mainFrame" onFocus="this.blur()">分组权限</a>
+        <a href="main_list.jsp" target="mainFrame" onFocus="this.blur()">级别权限</a>
+        <a href="main_info.jsp" target="mainFrame" onFocus="this.blur()">角色管理</a>
+        <a href="main.jsp" target="mainFrame" onFocus="this.blur()">自定义权限</a>
       </div>
       <div>
         <span>系统设置</span>
-        <a href="main.html" target="mainFrame" onFocus="this.blur()">分组权限</a>
-        <a href="main_list.html" target="mainFrame" onFocus="this.blur()">级别权限</a>
-        <a href="main_info.html" target="mainFrame" onFocus="this.blur()">角色管理</a>
-        <a href="main.html" target="mainFrame" onFocus="this.blur()">自定义权限</a>
+        <a href="main.jsp" target="mainFrame" onFocus="this.blur()">分组权限</a>
+        <a href="main_list.jsp" target="mainFrame" onFocus="this.blur()">级别权限</a>
+        <a href="main_info.jsp" target="mainFrame" onFocus="this.blur()">角色管理</a>
+        <a href="main.jsp" target="mainFrame" onFocus="this.blur()">自定义权限</a>
       </div>
     </div>
 </body>
