@@ -1,11 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://"
+			+ request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>展开合闭按钮</title>
-<link href="/shanshan/pc/css/css.css" type="text/css" rel="stylesheet" />
+<base href="<%=basePath%>">
+<link href="pc/css/css.css" type="text/css" rel="stylesheet" />
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
 <script language="javascript">
 function switchSysBar(){
@@ -32,14 +39,14 @@ function load(){
 <tr>
 <td bgcolor="#ededb1" width="1">
 </td>
-<td id="leftbar" style="display: none; background:url(/shanshan/pc/images/main/switchbg.jpg) repeat-y #d2d2d0 0px 0">
+<td id="leftbar" style="display: none; background:url(pc/images/main/switchbg.jpg) repeat-y #d2d2d0 0px 0">
 <a onClick="switchSysBar()" href="javascript:void(0);">
-<img src="/shanshan/pc/images/main/pic24.jpg" width="12" height="72" border="0" alt="隐藏左侧菜单" >
+<img src="pc/images/main/pic24.jpg" width="12" height="72" border="0" alt="隐藏左侧菜单" >
 </a>
 </td>
-<td id="rightbar"style="background:url(/shanshan/pc/images/main/switchbg.jpg) repeat-y #f2f0f5 0px 0">
+<td id="rightbar"style="background:url(pc/images/main/switchbg.jpg) repeat-y #f2f0f5 0px 0">
 <a onClick="switchSysBar()" href="javascript:void(0);">
-<img src="/shanshan/pc/images/main/pic23.jpg" width="12" height="72" border="0" alt="隐藏左侧菜单" >
+<img src="pc/images/main/pic23.jpg" width="12" height="72" border="0" alt="隐藏左侧菜单" >
 </a>
 </td>
 </tr>
