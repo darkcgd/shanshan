@@ -128,6 +128,7 @@ public class UserController {
 		smsCodeService.deleteSmsCode(phone);
 		MsgBean msg = MsgBean.success("登录成功");
 		Map<String, Object> data = msg.getData();
+		data.put("token",token);
 		hanlderResponseData(data,userByName);
 		return msg;
 	}
@@ -169,6 +170,7 @@ public class UserController {
 
 				MsgBean msg = MsgBean.success("登录成功");
 				Map<String, Object> data = msg.getData();
+				data.put("token",token);
 				hanlderResponseData(data,userByName);
 				return msg;
 			}else{
