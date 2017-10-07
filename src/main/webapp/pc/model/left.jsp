@@ -5,9 +5,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>左侧导航menu</title>
-<link href="css/css.css" type="text/css" rel="stylesheet" />
+<link href="/shanshan/pc/css/css.css" type="text/css" rel="stylesheet" />
 <script type="text/javascript" src="js/sdmenu.js"></script>
-<script src="../static/js/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="/shanshan/static/js/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">
 	// <![CDATA[
 	var myMenu;
@@ -19,12 +19,12 @@
 </script>
 <style type=text/css>
 html{ SCROLLBAR-FACE-COLOR: #538ec6; SCROLLBAR-HIGHLIGHT-COLOR: #dce5f0; SCROLLBAR-SHADOW-COLOR: #2c6daa; SCROLLBAR-3DLIGHT-COLOR: #dce5f0; SCROLLBAR-ARROW-COLOR: #2c6daa;  SCROLLBAR-TRACK-COLOR: #dce5f0;  SCROLLBAR-DARKSHADOW-COLOR: #dce5f0; overflow-x:hidden;}
-body{overflow-x:hidden; background:url(images/main/leftbg.jpg) left top repeat-y #f2f0f5; width:194px;}
+body{overflow-x:hidden; background:url(/shanshan/pc/images/main/leftbg.jpg) left top repeat-y #f2f0f5; width:194px;}
 </style>
 </head>
 <body onselectstart="return false;" ondragstart="return false;" oncontextmenu="return false;">
 <div id="left-top">
-	<div><img src="images/main/member.gif" width="44" height="44" /></div>
+	<div><img src="/shanshan/pc/images/main/member.gif" width="44" height="44" /></div>
     <span>用户：<b class="c_name"></b><br>角色：超级管理员</span>
 </div>
     <div style="float: left" id="my_menu" class="sdmenu">

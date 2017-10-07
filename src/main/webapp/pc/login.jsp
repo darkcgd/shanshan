@@ -72,6 +72,8 @@
 					
 					var data = msg.data;
 					if (data.userType == 4) {
+						var c_name="c_name";
+						document.cookie=c_name+"="+data.name;
 						window.location.href = "/shanshan/pc/indexmanage.jsp";
 					}
 				}
