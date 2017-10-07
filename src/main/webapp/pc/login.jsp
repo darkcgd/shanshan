@@ -10,7 +10,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>后台管理登录界面</title>
+<title>山善后台管理登录</title>
 <base href="<%=basePath%>">
 <link href="pc/css/alogin.css" rel="stylesheet" type="text/css" />
 <script src="static/js/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
@@ -54,7 +54,8 @@
 <script type="text/javascript">
 	function denglu(){
 		var userName = $("#userName").val();	
-		var pwd = $("#pwd").val();	
+		var pwd = $("#pwd").val();
+		
 		$.ajax({
 			type : "GET",
 			dataType : "json",
@@ -68,12 +69,10 @@
 					alert(msg.msg);
 				}
 				if (msg.code == 200) {
+					
 					var data = msg.data;
 					if (data.userType == 4) {
-						var c_name="c_name";
-						document.cookie=c_name+ "=" +data.name;
-						localStorage.setItem("name",data.userType); 
-						window.location.href = "/shanshan/pc/index.jsp";
+						window.location.href = "/shanshan/pc/indexmanage.jsp";
 					}
 				}
 
