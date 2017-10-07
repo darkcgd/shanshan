@@ -76,7 +76,7 @@
 		</div>
 		<ul class="oul">
 				<li class="now">
-					<a href="tuijian.html">
+					<a href="views/article/tuijian.jsp">
 						<div class="left">
 							<img src="img/05.jpg"/>
 							<div class="tip">注册专享</div>
@@ -94,7 +94,7 @@
 					</a>
 				</li>
 				<li class="now">
-					<a href="toutiao.html">
+					<a href="views/article/toutiao.jsp">
 						<div class="left">
 							<img src="img/05.jpg"/>
 							<div class="tip">VIP专享</div>
@@ -113,7 +113,7 @@
 					
 				</li>
 				<li class="now">
-					<a href="introduce.html">
+					<a href="views/article/introduce.jsp">
 						<div class="left">
 							<img src="img/05.jpg"/>
 						</div>
