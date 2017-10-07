@@ -27,8 +27,8 @@
         <td align="left" valign="bottom" id="header-name">山善后台管理</td>
         <td align="right" valign="top" id="header-right">
         	<a href="pc/login.jsp" target="topFrame" onFocus="this.blur()" class="admin-out">注销</a>
-            <a href="pc/indexmanage.jsp" target="top" onFocus="this.blur()" class="admin-home">管理首页</a>
-        	<a href="pc/indexmanage.jsp" target="_blank" onFocus="this.blur()" class="admin-index">网站首页</a>       	
+            <a href="pc/indexmain.jsp" target="top" onFocus="this.blur()" class="admin-home">管理首页</a>
+        	<a href="pc/indexmain.jsp" target="_blank" onFocus="this.blur()" class="admin-index">网站首页</a>       	
             <span>
 <!-- 日历 -->
 <SCRIPT type=text/javascript src="js/clock.js"></SCRIPT>
@@ -40,21 +40,22 @@
   </tr>
   <tr>
     <td align="left" valign="bottom">
-	<table width="100%" border="0" cellspacing="0" cellpadding="0">
-      <tr>
+	<table width="100%" border="0" cellspacing="0" cellpadding="0" class="sdmenu">
+      <tr class="collapsed">
         <td align="left" valign="top" id="header-admin">后台管理系统</td>
         <td align="left" valign="bottom" id="header-menu">
-        <a href="pc/indexmanage.jsp" target="left" onFocus="this.blur()" id="menuon">后台首页</a>
-        <a href="pc/usermanage.jsp" target="left" onFocus="this.blur()">用户管理</a>
-        <a href="pc/lanmumanage.jsp" target="left" onFocus="this.blur()">栏目管理</a>
-        <a href="pc/xinximanage.jsp" target="left" onFocus="this.blur()">信息管理</a>
-        <a href="pc/liuyanmanage.jsp" target="left" onFocus="this.blur()">留言管理</a>
-        <a href="pc/fujianmanage.jsp" target="left" onFocus="this.blur()">附件管理</a>
-        <a href="pc/zhandianmanage.jsp" target="left" onFocus="this.blur()">站点管理</a>
-        </td>
+        <a href="pc/main/indexmain.jsp" target="mainFrame" onFocus="this.blur()" id="menuon">后台首页</a>
+        <a href="pc/main/usermain.jsp" target="mainFrame" onFocus="this.blur()">用户管理</a>
+        <a href="pc/main/lanmumain.jsp" target="mainFrame" onFocus="this.blur()">栏目管理</a>
+        <a href="pc/main/xinximain.jsp" target="mainFrame" onFocus="this.blur()">信息管理</a>
+        <a href="pc/main/liuyanmain.jsp" target="mainFrame" onFocus="this.blur()">留言管理</a>
+        <a href="pc/main/fujianmain.jsp" target="mainFrame" onFocus="this.blur()">附件管理</a>
+        <a href="pc/main/zhandianmain.jsp" target="mainFrame" onFocus="this.blur()">站点管理</a>
+         </td>
       </tr>
     </table></td>
   </tr>
 </table>
+ 
 </body>
 </html>
