@@ -15,12 +15,13 @@
 <link href="pc/css/css.css" type="text/css" rel="stylesheet" />
 <link href="pc/css/main.css" type="text/css" rel="stylesheet" />
 <link rel="shortcut icon" href="pc/images/main/favicon.ico" />
-<link rel="stylesheet"
-	href="static/bootstrap-3.3.7-dist/css/bootstrap.css" type="text/css">
+<link rel="stylesheet" href="static/bootstrap-3.3.7-dist/css/bootstrap.css" type="text/css">
 <link rel="stylesheet" href="pc/css/style.css" type="text/css">
 <script src="static/js/jquery-3.2.1.min.js" type="text/javascript"
 	charset="utf-8"></script>
 <script src="static/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+<script src="pc/editor/release/wangEditor.js"></script>
+
 <style>
 body {
 	overflow-x: hidden;
@@ -177,8 +178,11 @@ td.fenye {
 			</tr>
 			<tr>
 				<td class="tableleft">内容</td>
-				  
-			
+				 <td> 
+				 <div id="editor">
+			        <p>欢迎使用 <b>wangEditor</b> 富文本编辑器</p>
+			    </div> 
+			   </td>
 			</tr>
 			<tr>
 				<td class="tableleft"></td>
@@ -192,5 +196,15 @@ td.fenye {
 		</table>
 	</form>
 
+    <!-- 注意， 只需要引用 JS，无需引用任何 CSS ！！！-->
+    <script type="text/javascript" src="../editor/release/wangEditor.js"></script>
+    <script type="text/javascript">
+        var E = window.wangEditor
+        var editor = new E('#editor')
+        editor.customConfig.uploadFileName = 'uploadPic';
+        editor.customConfig.uploadImgServer ="/qiniu/picUpload";
+        editor.create();
+       
+    </script>
 </body>
 </html>
