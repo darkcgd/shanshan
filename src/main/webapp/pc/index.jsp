@@ -18,10 +18,10 @@
 <!--框架样式-->
 <frameset rows="95,*,30" cols="*" frameborder="no" border="0" framespacing="0">
 <!--top样式-->
-	<frame src="pc/model/top.jsp" name="topframe" scrolling="no" noresize id="topframe" title="topframe" />
+	<frame src="pc/model/top.jsp" name="" scrolling="no" noresize id="topframe" title="topframe" />
 <!--contact样式-->
 	<frameset id="attachucp" framespacing="0" border="0" frameborder="no" cols="194,12,*" rows="*">
-		<frame scrolling="auto" noresize="" frameborder="no" name="leftFrame" src="pc/model/left.jsp"></frame>
+		<frame scrolling="auto" noresize="" frameborder="no" name="leftFrame" src="pc/left/indexleft.jsp"></frame>
 		<frame id="leftbar" scrolling="no" noresize="" name="switchFrame" src="pc/model/swich.jsp"></frame>
 		<frame scrolling="auto" noresize="" border="0" name="mainFrame" src="pc/main/indexmain.jsp"></frame>
 	</frameset>
