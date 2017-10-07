@@ -25,10 +25,27 @@ public class ArticleController {
 	 */
 	@RequestMapping("/articleList")
 	@ResponseBody
-	public JsonResult articleList(PageRequest page) {
+	public JsonResult articleList(ArticleBean entity, PageRequest page) {
 		JsonDataResult<List<ArticleBean>> result = new JsonDataResult<>();
-		Page<ArticleBean> datas = articleService.articleList(page);
+		Page<ArticleBean> datas = articleService.articleList(entity, page);
 		result.setDatas(datas);
+		return result;
+	}
+	
+	/**
+	 * 文章详情
+	 * @return
+	 */
+	@RequestMapping("/articleDetail")
+	@ResponseBody
+	public JsonResult articleDetail(ArticleBean entity) {
+		JsonDataResult<ArticleBean> result = new JsonDataResult<>();
+		if (null == entity.getArticleId() || 0 == entity.getArticleId()) {
+			result.setErrorCode("文章id不能为空!");
+			return result;
+		}
+		ArticleBean data = articleService.articleDetail(entity);
+		result.setDatas(data);
 		return result;
 	}
 	
