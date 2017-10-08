@@ -173,6 +173,7 @@
 			      }		
 				  if(msg.code==200){	
 						var data = msg.data;
+						localStorage.setItem("c_token",data.token);
 						if (data.userType == 4) { 
 							window.location.href = "views/me2.jsp";  }//客服情况
 						if (data.userType == 5) {      
