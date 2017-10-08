@@ -148,7 +148,7 @@ input::-webkit-input-placeholder,textarea::-webkit-input-placeholder{
 	height: 100%;
 }
 
-.cc{
+.c1{
 	padding: 0.1rem 0.5rem;
 	border: 1px solid #F45F5F;
 	color: #F45F5F;
@@ -157,7 +157,7 @@ input::-webkit-input-placeholder,textarea::-webkit-input-placeholder{
 	top: 2.2rem;
 }
 
-.ca{
+.c2{
 	padding: 0.1rem 0.5rem;
 	border: 1px solid #E4A22D;
 	color: #E4A22D;
