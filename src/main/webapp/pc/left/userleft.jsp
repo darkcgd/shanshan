@@ -37,11 +37,11 @@ body{overflow-x:hidden; background:url(pc/images/main/leftbg.jpg) left top repea
     <div style="float: left" id="my_menu" class="sdmenu">
       <div class="collapsed">
          <span>用户中心</span>
-         <a href="pc/main/xinximain/article.jsp" target="mainFrame" onFocus="this.blur()">个人中心</a>
-        <a href="pc/main/xinximain/article.jsp" target="mainFrame" onFocus="this.blur()">文章模块</a>
-        <a href="pc/main/xinximain/article.jsp" target="mainFrame" onFocus="this.blur()">活动模块</a>
-        <a href="pc/main/xinximain/article.jsp" target="mainFrame" onFocus="this.blur()">培训信息模块</a>
-        <a href="pc/main/xinximain/article.jsp" target="mainFrame" onFocus="this.blur()">报修模块</a>
+         <a href="pc/main/user/article.jsp" target="mainFrame" onFocus="this.blur()">个人中心</a>
+        <a href="pc/main/user/article.jsp" target="mainFrame" onFocus="this.blur()">文章模块</a>
+        <a href="pc/main/user/article.jsp" target="mainFrame" onFocus="this.blur()">活动模块</a>
+        <a href="pc/main/user/article.jsp" target="mainFrame" onFocus="this.blur()">培训信息模块</a>
+        <a href="pc/main/user/article.jsp" target="mainFrame" onFocus="this.blur()">报修模块</a>
       </div>
     </div>
 </body>

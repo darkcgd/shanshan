@@ -50,7 +50,7 @@ td.fenye{ padding:10px 0 0 0; text-align:right;}
     </td>
     <td width="76%"><div align="center" class="emenubutton">
 		  <span id="showaddclassnav"></span>         
-           <input type="button" name="Submit" value="增加信息" onclick="self.location.href='pc/main/xinximain/articleAdd.jsp'">
+           <input type="button" name="Submit" value="增加信息" onclick="self.location.href='pc/main/user/articleAdd.jsp'">
 		  &nbsp;          
         </div></td>
   </tr>
