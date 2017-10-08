@@ -33,7 +33,7 @@ public class ArticleService {
 						if (StringUtils.isNotBlank(entity.getTitle())) {
 							criteria.andTitleLike("%" + entity.getTitle() + "%");
 						}
-						example.setOrderByClause("create_time");
+						example.setOrderByClause("create_time desc");
 						articleBeanMapper.selectByExample(example);
 					}
 				});
@@ -42,9 +42,11 @@ public class ArticleService {
 
 	public ArticleBean articleDetail(ArticleBean entity) {
 		ArticleBean article = articleBeanMapper.selectByPrimaryKey(entity.getArticleId());
-		Integer readCount = article.getReadCount();
-		article.setReadCount(readCount + 1); 
-		articleBeanMapper.updateByPrimaryKeySelective(article);
+		if (null != article) {
+			Integer readCount = article.getReadCount();
+			article.setReadCount(readCount + 1); 
+			articleBeanMapper.updateByPrimaryKeySelective(article);
+		}
 		return article;
 	}
 	
