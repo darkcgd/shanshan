@@ -68,48 +68,48 @@
 					<a href="javascript:;">非山善客户</a>
 				</div>
 			</div>
-		
+<!-- ****************************************我是山善客户******************************************************************** -->		
 		<div class="yes">
 		<ul class="infor">
 			<li>
 				<span class="left">所在地区（省/市）</span>
-				 <input id="demo1" type="text" readonly placeholder="城市选择特效"  value="广东省,深圳市,南山区" class="right"/>
+				 <input id="demo1" type="text" name="provincesCities" id="provincesCities" readonly placeholder="城市选择特效"  value="广东省,深圳市,南山区" class="right"/>
 				<img src="img/right.png" class="righter"/>
 			</li>
 			<li>
 				<span class="left">公司</span>
-				<input type="text" class="right" placeholder="xxx研发公司">
+				<input type="text" name="company" id="company" class="right" placeholder="xxx研发公司">
 			</li>
 			<li>
 				<span class="left">姓名</span>
-				<input type="text" class="right" placeholder="张小明">
+				<input type="text" name="userName" id="userName" class="right" placeholder="张小明">
 			</li>
 			<li>
 				<span class="left">性别</span>
-				<input type="text" class="right" placeholder="男">
+				<input type="text" name="sex" id="sex" class="right" placeholder="男">
 			</li>
 			<li>
 				<span class="left">职位</span>
 				<div class="right">软件工程师</div>
-				<!--<img src="img/right.png" class="righter"/>
+				<img src="img/right.png" class="righter"/>
 				<div class="slide">
-					<div class="oss">
+					<div class="oss" name="positionName" id="positionName">
 						软件工程师
 					</div>
-					<div class="oss">
+					<div class="oss" name="positionName" id="positionName">
 						UI设计师
 					</div>
-				</div>-->
+				</div>
 			</li>
 			<li>
 				<span class="left">手机号</span>
-				<input type="text" class="right" placeholder="15648411654">
+				<input type="text" name="phone" id="phone" class="right" placeholder="15648411654">
 			</li>
 			
 			
 			<li>
 				<span class="left">设备采购途径</span>
-				<input type='text'  class="right select-value" placeholder="软件">
+				<input type='text' name="buyEquipmentChannel" id="buyEquipmentChannel"  class="right select-value" placeholder="软件">
 				<img src="img/right.png" class="righter"/>
 			</li>
 		</ul>
@@ -120,15 +120,15 @@
 			</div>
 			
 			<div class="xz">
-			 <span>加工中心</span>
-			<span>车削机床</span>
-			<span>转台</span>
-			<span>其他</span>
+			 <span name="equipmentType" id="equipmentType">加工中心</span>
+			<span name="equipmentType" id="equipmentType">车削机床</span>
+			<span name="equipmentType" id="equipmentType">转台</span>
+			<span name="equipmentType" id="equipmentType">其他</span>
 			</div>
 			
 			<div class="cand hh">
 				<span>行业</span>
-				<div class="right"></div>
+				<div class="right" name="industry" id="industry"></div>
 				<img src="img/right.png" class="righter"/>
 			</div>
 		</div>
@@ -140,80 +140,79 @@
 			</div>
 			<div class="cand">
 				<span class="left">推荐人</span>
-				<input type="text" class="right" placeholder="选填，填写可加快审核速度"/>
+				<input type="text" name="referralsName" id="referralsName" class="right" placeholder="选填，填写可加快审核速度"/>
 			</div>
 			
 			<div class="cand">
 				<span class="left">推荐手机</span>
-				<input type="text" class="right" placeholder="选填，填写可加快审核速度"/>
+				<input type="text" name="referralsPhone" id="referralsPhone" class="right" placeholder="选填，填写可加快审核速度"/>
 			</div>
 			
 			<div class="cand">
 				<span class="left">公司邮箱</span>
-				<input type="text" class="right" placeholder="选填，填写方便日后获取资料"/>
+				<input type="text" name="email" id="email" class="right" placeholder="选填，填写方便日后获取资料"/>
 			</div>
 		</div>
 		
 		<div class="tj">
-			<a href="me4-yhcj.html">提交</a>
+			<a href="javascript:void(0);" onclick="tijiao()">提交</a>
 		</div>
 			
 		</div>
-		
+<!-- ****************************************非山善客户******************************************************************** -->		
 		<div class="no">
 			<ul class="infor">
 			<li>
 				<span class="left">所在地区（省/市）</span>
-				 <input id="demo2" type="text" readonly placeholder="城市选择特效" class="right"/>
+				 <input id="demo2" type="text" name="provincesCities" id="provincesCities"  readonly placeholder="城市选择特效" class="right"/>
 				<img src="img/right.png" class="righter"/>
 			</li>
 			<li>
 				<span class="left">公司</span>
-				<input type="text" class="right" value="xxx研发公司">
+				<input type="text" name="company" id="company" class="right" value="xxx研发公司">
 			</li>
 			<li>
 				<span class="left">姓名</span>
-				<input type="text" class="right" value="张小明">
+				<input type="text" name="userName" id="userName" class="right" value="张小明">
 			</li>
 			<li>
 				<span class="left">性别</span>
-				<input type="text" class="right" value="男">
+				<input type="text" name="sex" id="sex" class="right" value="男">
 			</li>
 			<li>
 				<span class="left">职位</span>
 				<div class="right">软件工程师</div>
 				<img src="img/right.png" class="righter"/>
 				<div class="slide">
-					<div class="oss">
+					<div class="oss" name="positionName" id="positionName">
 						软件工程师
 					</div>
-					<div class="oss">
+					<div class="oss" name="positionName" id="positionName">
 						UI设计师
 					</div>
 				</div>
 			</li>
 			<li>
 				<span class="left">手机号</span>
-				<input type="text" class="right" value="15648411654">
+				<input type="text" name="phone" id="phone" class="right" value="15648411654">
 			</li>
 			
 			<li>
 				<span class="left">公司邮箱</span>
-				<input type="text" class="right" placeholder="选填，填写便于日后获取资料">
+				<input type="text" name="email" id="email" class="right" placeholder="选填，填写便于日后获取资料">
 			</li>
 			
 			
 			<li class="hb">
 				<span class="left">行业</span>
-				<div class="right"></div>
+				<div class="right" name="industry" id="industry"></div>
 				<img src="img/right.png" class="righter"/>
 			</li>
 		</ul>
 		
 		<div class="tj">
-			<a href="javascript:;">提交</a>
+			<a href="javascript:void(0);" onclick="tijiao1()">提交</a>
 		</div>
-		
 		</div>
 		
 		<div class="maska">
@@ -376,5 +375,129 @@
         'type': 2,
         'data': [provs_data, citys_data, dists_data]
     });
+    </script>
+    <!-- ****************************************************************************************************************** -->
+     <script type="text/javascript">
+    function tijiao() {
+    	alert("已经进来了");
+    	var provincesCities = $("#provincesCities").val();
+    	var company = $("#company").val();
+    	var userName = $("#userName").val();
+    	var sex = $("#sex").val();
+    	var positionName = $("#positionName").val;
+		var phone = $("#phone").val();
+		var buyEquipmentChannel = $("#buyEquipmentChannel").val();
+		var equipmentType = $("#equipmentType").val();
+		var industry = $("#industry").val
+		var referralsName = $("#referralsName").val();
+		var referralsPhone = $("#referralsPhone").val();
+		var email = $("#email").val();
+		$.ajax({
+			type : "GET", //用GET方式传输
+			dataType : "json", //数据格式:JSON
+			url : 'user/updateUserInfo', //目标地址
+			data : {
+				provincesCities : provincesCities,
+				company : company,
+				userName : userName,
+				sex : sex,
+				positionName : positionName,
+				phone : phone,
+				buyEquipmentChannel : buyEquipmentChannel,
+				equipmentType : equipmentType,
+				industry : industry,
+				referralsName : referralsName,
+				referralsPhone : referralsPhone,
+				email : email,	
+			},
+			success : function(msg) {
+				alert(provincesCities);
+				alert(company);
+				alert(userName);
+				alert(sex);
+				alert(positionName);
+				alert(phone);
+				alert(buyEquipmentChannel);
+				alert(equipmentType);
+				alert(industry);
+				alert(referralsName);
+				alert(referralsPhone);
+				alert(email);
+				 if(msg.code==100){
+					 alert("失败");
+			    	  $('#myModal').modal('show');
+					  $(".modal-body").text(msg.msg);	 
+			      }		
+				  if(msg.code==200){
+					  alert("成功");
+						var data = msg.data;
+						if (data.userType == 4) { 
+							window.location.href = "views/me2.jsp";  }//客服情况
+						if (data.userType == 5) {      
+							window.location.href = "views/me2.jsp";//专家情况
+						} else {
+							window.location.href = "views/me2.jsp";//客户情况
+						}
+				   }
+			}
+		});
+
+	}
+    </script>
+    <!-- ****************************************************************************************************************** -->
+     <script type="text/javascript">
+    function tijiao1() {
+    	alert("已经进来了");
+    	var provincesCities = $("#provincesCities").val();
+    	var company = $("#company").val();
+    	var userName = $("#userName").val();
+    	var sex = $("#sex").val();
+    	var positionName = $("#positionName").val;
+		var phone = $("#phone").val();
+		var email = $("#email").val();
+		var industry = $("#industry").val
+		$.ajax({
+			type : "GET", //用GET方式传输
+			dataType : "json", //数据格式:JSON
+			url : 'user/updateUserInfo', //目标地址
+			data : {
+				provincesCities : provincesCities,
+				company : company,
+				userName : userName,
+				sex : sex,
+				positionName : positionName,
+				phone : phone,
+				email : email,
+				industry : industry,
+			},
+			success : function(msg) {
+				alert(provincesCities);
+				alert(company);
+				alert(userName);
+				alert(sex);
+				alert(positionName);
+				alert(phone);
+				alert(email);
+				alert(industry);
+				 if(msg.code==100){
+					 alert("失败");
+			    	  $('#myModal').modal('show');
+					  $(".modal-body").text(msg.msg);	 
+			      }		
+				  if(msg.code==200){
+					  alert("成功");
+						var data = msg.data;
+						if (data.userType == 4) { 
+							window.location.href = "views/me2.jsp";  }//客服情况
+						if (data.userType == 5) {      
+							window.location.href = "views/me2.jsp";//专家情况
+						} else {
+							window.location.href = "views/me2.jsp";//客户情况
+						}
+				   }
+			}
+		});
+
+	}
     </script>
 </html>
