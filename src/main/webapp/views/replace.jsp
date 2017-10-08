@@ -73,98 +73,7 @@
 		<ul class="infor">
 			<li>
 				<span class="left">所在地区（省/市）</span>
-				 <input id="demo1" type="text" name="provincesCities" id="provincesCities" readonly placeholder="城市选择特效"  value="广东省,深圳市,南山区" class="right"/>
-				<img src="img/right.png" class="righter"/>
-			</li>
-			<li>
-				<span class="left">公司</span>
-				<input type="text" name="company" id="company" class="right" placeholder="xxx研发公司">
-			</li>
-			<li>
-				<span class="left">姓名</span>
-				<input type="text" name="userName" id="userName" class="right" placeholder="张小明">
-			</li>
-			<li>
-				<span class="left">性别</span>
-				<input type="text" name="sex" id="sex" class="right" placeholder="男">
-			</li>
-			<li>
-				<span class="left">职位</span>
-				<div class="right">软件工程师</div>
-				<img src="img/right.png" class="righter"/>
-				<div class="slide">
-					<div class="oss" name="positionName" id="positionName">
-						软件工程师
-					</div>
-					<div class="oss" name="positionName" id="positionName">
-						UI设计师
-					</div>
-				</div>
-			</li>
-			<li>
-				<span class="left">手机号</span>
-				<input type="text" name="phone" id="phone" class="right" placeholder="15648411654">
-			</li>
-			
-			
-			<li>
-				<span class="left">设备采购途径</span>
-				<input type='text' name="buyEquipmentChannel" id="buyEquipmentChannel"  class="right select-value" placeholder="软件">
-				<img src="img/right.png" class="righter"/>
-			</li>
-		</ul>
-		
-		<div class="date">
-			<div class="na">
-				<span>设备类型（可多选）</span>
-			</div>
-			
-			<div class="xz">
-			 <span name="equipmentType" id="equipmentType">加工中心</span>
-			<span name="equipmentType" id="equipmentType">车削机床</span>
-			<span name="equipmentType" id="equipmentType">转台</span>
-			<span name="equipmentType" id="equipmentType">其他</span>
-			</div>
-			
-			<div class="cand hh">
-				<span>行业</span>
-				<div class="right" name="industry" id="industry"></div>
-				<img src="img/right.png" class="righter"/>
-			</div>
-		</div>
-		
-		
-		<div class="date">
-			<div class="na">
-				<span>附加信息</span>
-			</div>
-			<div class="cand">
-				<span class="left">推荐人</span>
-				<input type="text" name="referralsName" id="referralsName" class="right" placeholder="选填，填写可加快审核速度"/>
-			</div>
-			
-			<div class="cand">
-				<span class="left">推荐手机</span>
-				<input type="text" name="referralsPhone" id="referralsPhone" class="right" placeholder="选填，填写可加快审核速度"/>
-			</div>
-			
-			<div class="cand">
-				<span class="left">公司邮箱</span>
-				<input type="text" name="email" id="email" class="right" placeholder="选填，填写方便日后获取资料"/>
-			</div>
-		</div>
-		
-		<div class="tj">
-			<a href="javascript:void(0);" onclick="tijiao()">提交</a>
-		</div>
-			
-		</div>
-<!-- ****************************************非山善客户******************************************************************** -->		
-		<div class="no">
-			<ul class="infor">
-			<li>
-				<span class="left">所在地区（省/市）</span>
-				 <input id="demo2" type="text" name="provincesCities" id="provincesCities"  readonly placeholder="城市选择特效" class="right"/>
+				 <input  type="text" name="provincesCities" id="provincesCities" readonly placeholder="城市选择特效"  value="广东省,深圳市,南山区" class="right"/>
 				<img src="img/right.png" class="righter"/>
 			</li>
 			<li>
@@ -181,31 +90,99 @@
 			</li>
 			<li>
 				<span class="left">职位</span>
-				<div class="right">软件工程师</div>
+				<input type="text" name="positionName" id="positionName" class="right" value="软件工程师">
 				<img src="img/right.png" class="righter"/>
-				<div class="slide">
-					<div class="oss" name="positionName" id="positionName">
-						软件工程师
-					</div>
-					<div class="oss" name="positionName" id="positionName">
-						UI设计师
-					</div>
-				</div>
 			</li>
 			<li>
 				<span class="left">手机号</span>
 				<input type="text" name="phone" id="phone" class="right" value="15648411654">
 			</li>
+			<li>
+				<span class="left">设备采购途径</span>
+				<input type='text' name="buyEquipmentChannel" id="buyEquipmentChannel"  class="right select-value" value="软件">
+				<img src="img/right.png" class="righter"/>
+			</li>
+		</ul>
+		<div class="date">
+			<div class="na">
+				<span>设备类型（可多选）</span>
+			</div>
+			<div class="xz">
+			<span><input type="text" name="equipmentType" id="equipmentType" class="right" placeholder="加工中心" value="加工中心"></span>
+			<span><input type="text" name="equipmentType" id="equipmentType" class="right" placeholder="加工中心" value="车削机床"></span>
+			<span><input type="text" name="equipmentType" id="equipmentType" class="right" placeholder="加工中心" value="转台"></span>
+			<span><input type="text" name="equipmentType" id="equipmentType" class="right" placeholder="加工中心" value="其他"></span>
+			</div>
 			
+			<div class="cand hh">
+				<span>行业</span>
+				<input type='text' name="industry" id="industry"  class="right select-value" placeholder="软件" value="软件">
+				<img src="img/right.png" class="righter"/>
+			</div>
+		</div>
+		
+		
+		<div class="date">
+			<div class="na">
+				<span>附加信息</span>
+			</div>
+			<div class="cand">
+				<span class="left">推荐人</span>
+				<input type="text" name="referralsName" id="referralsName" class="right" placeholder="选填，填写可加快审核速度" value="山善"/>
+			</div>
+			
+			<div class="cand">
+				<span class="left">推荐手机</span>
+				<input type="text" name="referralsPhone" id="referralsPhone" class="right" placeholder="选填，填写可加快审核速度" value="123456789"/>
+			</div>
+			
+			<div class="cand">
+				<span class="left">公司邮箱</span>
+				<input type="text" name="email" id="email" class="right" placeholder="选填，填写方便日后获取资料" value="123456789@qq.com"/>
+			</div>
+		</div>
+		
+		<div class="tj">
+			<a href="javascript:void(0);" onclick="tijiao()">提交</a>
+		</div>
+			
+		</div>
+<!-- ****************************************非山善客户******************************************************************** -->		
+		<div class="no">
+			<ul class="infor">
+			<li>
+				<span class="left">所在地区（省/市）</span>
+				 <input  type="text" name="provincesCities" id="provincesCities" readonly placeholder="城市选择特效"  value="广东省,深圳市,南山区" class="right"/>
+				<img src="img/right.png" class="righter"/>
+			</li>
+			<li>
+				<span class="left">公司</span>
+				<input type="text" name="company" id="company" class="right" value="xxx研发公司">
+			</li>
+			<li>
+				<span class="left">姓名</span>
+				<input type="text" name="userName" id="userName" class="right" value="张小明">
+			</li>
+			<li>
+				<span class="left">性别</span>
+				<input type="text" name="sex" id="sex" class="right" value="男">
+			</li>
+			<li>
+				<span class="left">职位</span>
+				<input type="text" name="positionName" id="positionName" class="right" value="软件工程师">
+				<img src="img/right.png" class="righter"/>
+			</li>
+			<li>
+				<span class="left">手机号</span>
+				<input type="text" name="phone" id="phone" class="right" value="15648411654">
+			</li>
 			<li>
 				<span class="left">公司邮箱</span>
-				<input type="text" name="email" id="email" class="right" placeholder="选填，填写便于日后获取资料">
+				<input type="text" name="email" id="email" class="right" value="123456789@qq.com">
 			</li>
-			
-			
 			<li class="hb">
 				<span class="left">行业</span>
-				<div class="right" name="industry" id="industry"></div>
+				<input  type="text" name="industry" id="industry" readonly placeholder="选择" class="right"  value="电子" >
 				<img src="img/right.png" class="righter"/>
 			</li>
 		</ul>
@@ -384,11 +361,11 @@
     	var company = $("#company").val();
     	var userName = $("#userName").val();
     	var sex = $("#sex").val();
-    	var positionName = $("#positionName").val;
+    	var positionName = $("#positionName").val();
 		var phone = $("#phone").val();
 		var buyEquipmentChannel = $("#buyEquipmentChannel").val();
 		var equipmentType = $("#equipmentType").val();
-		var industry = $("#industry").val
+		var industry = $("#industry").val();
 		var referralsName = $("#referralsName").val();
 		var referralsPhone = $("#referralsPhone").val();
 		var email = $("#email").val();
@@ -445,17 +422,17 @@
 	}
     </script>
     <!-- ****************************************************************************************************************** -->
-     <script type="text/javascript">
+    <script language="javascript"> 
     function tijiao1() {
-    	alert("已经进来了");
-    	var provincesCities = $("#provincesCities").val();
-    	var company = $("#company").val();
-    	var userName = $("#userName").val();
-    	var sex = $("#sex").val();
-    	var positionName = $("#positionName").val;
-		var phone = $("#phone").val();
-		var email = $("#email").val();
-		var industry = $("#industry").val
+    	alert("已经进来了1");
+    	var provincesCities = $(".no #provincesCities").val();
+    	var company = $(".no #company").val();
+    	var userName = $(".no #userName").val();
+    	var sex = $(".no #sex").val();
+    	var positionName = $(".no #positionName").val();
+		var phone = $(".no #phone").val();
+		var email = $(".no #email").val();
+		var industry = $(".no #industry").val();
 		$.ajax({
 			type : "GET", //用GET方式传输
 			dataType : "json", //数据格式:JSON
