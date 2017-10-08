@@ -127,11 +127,11 @@
   				<div id="dd"></div>
 			</div>
 		</div>
-		<!--<div class="date">
+		<div class="date">
 			<!--<div class="na">
 				<span>参加场次</span>
 			</div>-->
-			<!--<div class="cand">
+			<div class="cand">
 				<span>选择场次</span>
 				<div class="right">第一场</div>
 				<img src="img/right.png" class="righter"/>
@@ -140,7 +140,7 @@
 					<div class="oss">第二场</div>
 				</div>
 			</div>
-		</div>-->
+		</div>
 		
 		<div class="date">
 			<!--<div class="na">
@@ -179,11 +179,6 @@
 		
 		<div class="tj">
 			<a href="javascript:;">提交</a>
-		</div>
-		
-		<div class="tta">
-			<p>提交成功</p>
-			<div class="btno">确定</div>
 		</div>
 		
 		<div class="add">
@@ -254,15 +249,6 @@
     
 </script>
 <script type="text/javascript">
-	
-	$('.tj').click(function(){
-		$('.tta').show();
-	})
-	
-	$('.tta .btno').click(function(){
-		$('.tta').hide();
-	})
-	
 		$('.oimg .jj').click(function(){
             var str=$("#pics").val();
             var val='|'+$(this).parent().find("input[type=hidden]").val();

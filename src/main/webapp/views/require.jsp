@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%
+ <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://"
 			+ request.getServerName() + ":" + request.getServerPort()
@@ -10,13 +10,13 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>提交报名信息</title>
-		<base href="<%=basePath%>">
+		<title>设备维修</title>
+	    <base href="<%=basePath%>">
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link rel="stylesheet" type="text/css" href="css/common.css"/>
 		<link rel="stylesheet" type="text/css" href="css/header.css"/>
 		<link rel="stylesheet" type="text/css" href="css/calendar.css"/>
-		<link rel="stylesheet" type="text/css" href="css/tj.css"/>
+		<link rel="stylesheet" type="text/css" href="css/require.css"/>
 		<script src="js/jquery-1.7.1.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="js/uploadPreview.js" type="text/javascript" charset="utf-8"></script>
 	</head>
@@ -43,196 +43,83 @@
 	<body>
 		<header>
     		<div class="head">
-        		<div class="title">提交报名信息</div>
+        		<div class="title">设备维修</div>
         		<span class="h-lt" style="cursor:pointer" onclick="window.history.go(-1)"><i class="h-bk"></i></span>
         		<a class="h-rt" href="#"></a>
     		</div>
 		</header>
 		<div class="section">
-			<p class="title">
-				培训活动名称
-			</p>
-			<p class="time">2017/08/27~2017/08/30</p>
-		</div>
-		<ul class="infor">
-			<!--<li>
-				<span class="left">参与者</span>
-				<input type="text" class="right" value="刘凤">
-				<img src="img/right.png" class="righter"/>
-			</li>-->
-			<li>
-				<span class="left">姓名</span>
-				<input type="text" class="right" value="张小明">
+			<ul class="infor">
+				<li>
+				<span class="left">机床品牌</span>
+				<input type="text" value="Brother" class="right">
+				<!--<div class="slide">
+					<div class="oss">
+						品牌一
+					</div>
+					<div class="oss">
+						品牌二
+					</div>
+				</div>-->
 			</li>
 			<li>
-				<span class="left">公司</span>
-				<input type="text" class="right" value="xxx研发公司">
+				<span class="left">机床机型</span>
+				<input type="text" class="right" value="填写机型">
 			</li>
 			<li>
-				<span class="left">手机号</span>
+				<span class="left">S/N</span>
+				<input type="text" class="right" value="填写机身编号">
+			</li>
+			<li>
+				<span class="left">联系人</span>
+				<input type="text" class="right" value="李刚">
+			</li>
+			<li>
+				<span class="left">联系电话</span>
 				<input type="text" class="right" value="15648411654">
 			</li>
 			
-			<li>
-				<span class="left">邮箱地址</span>
-				<input type="text" class="right" value="115615164@qq.com">
-			</li>
-			<li>
-				<span class="left">公司地址</span>
-				<input type="text" class="right" value="深圳市">
-			</li>
-			<li>
-				<span class="left">职位</span>
-				<input type="text" class="right" value="软件工程师">
-				<!--<img src="img/right.png" class="righter"/>-->
-				<!--<div class="slide">
-					<div class="oss">
-						软件工程师
-					</div>
-					<div class="oss">
-						UI设计师
-					</div>
-				</div>-->
-			</li>
-			<li>
-				<span class="left">部门</span>
-				<input type="text" class="right" value="研发部">
+			<div class="date">
+				<div class="na">
+					<span>故障描述</span>
+				</div>
+				<div class="can">
+					<textarea placeholder="请输入故障的状况"></textarea>
+				</div>
+			</div>
+			
+			<div class="date">
+				<div class="na">
+					<span>上传图片（请上传机床铭牌，报警画面等）</span>
+				</div>
 				
-				<!--<img src="img/right.png" class="righter"/>-->
-				<!--<div class="slide">
-					<div class="oss">市场部</div>
-					<div class="oss">研发部</div>
-				</div>-->
-			</li>
-			<li>
-				<span class="left">午餐</span>
-				<span class="right"></span>
-				<img src="img/finish.png" class="finish"/>
-			</li>
-			<li>
-				<span class="left">住宿</span>
-				<span class="right"></span>
-				<img src="img/finish.png" class="finish"/>
-			</li>
-			
-		</ul>
-		
-		<div class="date">
-			<!--<div class="na">
-				<span>参加日期</span>
-			</div>-->
-			<div class="can">
-				<span>选择日期</span>
-				<input type="text" id="dt" value="2017-7-15">
-  				<div id="dd"></div>
-			</div>
-		</div>
-		<!--<div class="date">
-			<!--<div class="na">
-				<span>参加场次</span>
-			</div>-->
-			<!--<div class="cand">
-				<span>选择场次</span>
-				<div class="right">第一场</div>
-				<img src="img/right.png" class="righter"/>
-				<div class="slide">
-					<div class="oss">第一场</div>
-					<div class="oss">第二场</div>
-				</div>
-			</div>
-		</div>-->
-		
-		<div class="date">
-			<!--<div class="na">
-				<span>活动信息来源</span>
-			</div>-->
-			<div class="cand">
-				<span>选择来源</span>
-				<div class="right">网络</div>
-				<img src="img/right.png" class="righter"/>
-				<div class="slide">
-					<div class="oss">网络</div>
-					<div class="oss">朋友</div>
-				</div>
-			</div>
-		</div>
-		
-		<div class="date">
-			<div class="na">
-				<span>上传图片</span>
-			</div>
-			
-			<div class="oamg">
-				<div class="omg">
+				<div class="oamg">
+					<div class="omg">
 						<div class="hh">
-			            <input type="hidden" value=""  accept="image/*;capture=camera" name="pics" id="pics">
-						<div class="oimg" id="img1">
-							<img class="jj" src="img/jj.png" alt="">				<input type="file"   class="aimgs"/>
+				            <input type="hidden" value=""  accept="image/*;capture=camera" name="pics" id="pics">
+							<div class="oimg" id="img1">
+								<img class="jj" src="img/jj.png" alt="">				<input type="file"   class="aimgs"/>
+							</div>
+				
 						</div>
-			
-		</div>
-
+	
+					</div>
 				</div>
+				
 			</div>
-			
 		</div>
 		
-		<div class="tj">
-			<a href="javascript:;">提交</a>
+		
+		<div class="join">
+			<a href="views/jask.jsp">提交</a>
 		</div>
 		
-		<div class="tta">
-			<p>提交成功</p>
-			<div class="btno">确定</div>
-		</div>
-		
-		<div class="add">
-			<a href="views/active/send.jsp">+ 添加报名者</a>
-		</div>
-		
+		<!--<div class="signup">
+			<a href="jchat.html">在线诊断</a>
+		</div>-->
 	</body>
-	<script src="js/calendar.js"></script> 
-<script>
-    $('#ca').calendar({
-        width: 320,
-        height: 320,
-        data: [
-			{
-			  date: '2015/12/24',
-			  value: 'Christmas Eve'
-			},
-			{
-			  date: '2015/12/25',
-			  value: 'Merry Christmas'
-			},
-			{
-			  date: '2016/01/01',
-			  value: 'Happy New Year'
-			}
-		],
-        onSelected: function (view, date, data) {
-            console.log('view:' + view)
-            alert('date:' + date)
-            console.log('data:' + (data || 'None'));
-        }
-    });
-
-    $('#dd').calendar({
-        trigger: '#dt',
-        zIndex: 999,
-		format: 'yyyy-mm-dd',
-        onSelected: function (view, date, data) {
-            console.log('event: onSelected')
-        },
-        onClose: function (view, date, data) {
-            console.log('event: onClose')
-            console.log('view:' + view)
-            console.log('date:' + date)
-            console.log('data:' + (data || 'None'));
-        }
-    });
-    
-    $('.infor li').click(function(){
+	<script type="text/javascript">
+		 $('.infor li').click(function(){
     	$(this).children('.slide').slideToggle();
     })
     
@@ -242,27 +129,9 @@
     	$(this).parent().siblings('.right').text(ww);
     })
     
-     $('.cand').click(function(){
-    	$(this).children('.slide').slideToggle();
-    })
-    
-    $('.slide div').click(function(){
-    	$(this).addClass('redd');
-    	var ww=$(this).html();
-    	$(this).parent().siblings('.right').text(ww);
-    })
-    
-</script>
-<script type="text/javascript">
+	</script>
 	
-	$('.tj').click(function(){
-		$('.tta').show();
-	})
-	
-	$('.tta .btno').click(function(){
-		$('.tta').hide();
-	})
-	
+	<script type="text/javascript">
 		$('.oimg .jj').click(function(){
             var str=$("#pics").val();
             var val='|'+$(this).parent().find("input[type=hidden]").val();
