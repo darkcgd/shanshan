@@ -102,9 +102,10 @@ td.fenye{ padding:10px 0 0 0; text-align:right;}
 <form name="listform" method="post" action="" onsubmit="return confirm('确认要执行此操作？');">
   <table width="100%" border="0" cellspacing="1" cellpadding="0">
     <tr>
-      <td width="10%" height="25"><div align="center"><a href="pc/main/xinximain/article.jsp" title="已发布信息总数：">未过期(12) </a></div></td>
-      <td width="10%"><div align="center"><a href="pc/main/xinximain/article.jsp">过期 (12)</a></div></td>
-      <td width="10%">&nbsp;</td>
+      <td width="7%"><div align="center"><a href="pc/main/xinximain/article.jsp" title="已发布信息总数：">状态： </a></div></td>
+      <td width="5%"><div align="center"><a href="pc/main/xinximain/article.jsp" title="已发布信息总数：">未审核(12) </a></div></td>
+      <td width="5%"><div align="center"><a href="pc/main/xinximain/article.jsp">待审核 (12) </a></div></td>
+      <td width="5%"><div align="center"><a href="pc/main/xinximain/article.jsp">已审核 (2)</a></div></td>
       <td width="58%">&nbsp; </td>
       <td width="6%">&nbsp;</td>
       <td width="6%">&nbsp;</td>
@@ -147,7 +148,7 @@ td.fenye{ padding:10px 0 0 0; text-align:right;}
 		  <input name="infoid[]" type="hidden" value="">
           </div>
       </td>
-      <td height="42"> <div align="center"> 1</div></td>
+      <td height="42"> <div align="center"> 2</div></td>
       <td height="25"> <div align="center"> 山善技术文章 </div></td>                        
       <td height="25"> <div align="center">dark_cgd</div></td>
       <td height="25"> <div align="center">2017-10-7</div></td>
