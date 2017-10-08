@@ -46,11 +46,11 @@
         <td align="left" valign="bottom" id="header-menu">
         <a href="pc/left/indexleft.jsp" target="leftFrame" onFocus="this.blur()">后台首页</a>
         <a href="pc/left/userleft.jsp" target="leftFrame" onFocus="this.blur()">用户管理</a>
-        <a href="pc/left/lanmuleft.jsp" target="leftFrame" onFocus="this.blur()">文章管理</a>
-        <a href="pc/left/xinxileft.jsp" target="leftFrame" onFocus="this.blur()">活动管理</a>
-        <a href="pc/left/liuyanleft.jsp" target="leftFrame" onFocus="this.blur()">报修管理</a>
-        <a href="pc/left/fujianleft.jsp" target="leftFrame" onFocus="this.blur()">客服管理</a>
-        <a href="pc/left/zhandianleft.jsp" target="leftFrame" onFocus="this.blur()">更多管理</a>
+        <a href="pc/left/wenzhangleft.jsp" target="leftFrame" onFocus="this.blur()">文章管理</a>
+        <a href="pc/left/huodongleft.jsp" target="leftFrame" onFocus="this.blur()">活动管理</a>
+        <a href="pc/left/baoxiuleft.jsp" target="leftFrame" onFocus="this.blur()">报修管理</a>
+        <a href="pc/left/kefuleft.jsp" target="leftFrame" onFocus="this.blur()">客服管理</a>
+        <a href="pc/left/gengdouleft.jsp" target="leftFrame" onFocus="this.blur()">更多管理</a>
          </td>
       </tr>
     </table></td>
