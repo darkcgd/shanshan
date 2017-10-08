@@ -21,7 +21,7 @@
 	<frame src="pc/model/top.jsp" name="" scrolling="no" noresize id="topframe" title="topframe" />
 <!--contact样式-->
 	<frameset id="attachucp" framespacing="0" border="0" frameborder="no" cols="194,12,*" rows="*">
-		<frame scrolling="auto" noresize="" frameborder="no" name="leftFrame" src="pc/left/indexleft.jsp"></frame>
+		<frame scrolling="auto" noresize="" frameborder="no" name="leftFrame" src="pc/left/userleft.jsp"></frame>
 		<frame id="leftbar" scrolling="no" noresize="" name="switchFrame" src="pc/model/swich.jsp"></frame>
 		<frame scrolling="auto" noresize="" border="0" name="mainFrame" src="pc/main/indexmain.jsp"></frame>
 	</frameset>
