@@ -50,7 +50,7 @@ td.fenye{ padding:10px 0 0 0; text-align:right;}
     </td>
     <td width="76%"><div align="center" class="emenubutton">
 		  <span id="showaddclassnav"></span>         
-           <input type="button" name="Submit" value="增加信息" onclick="self.location.href='pc/main/user/articleAdd.jsp'">
+           <input type="button" name="Submit" value="增加信息" onclick="self.location.href='pc/main/xinximain/articleAdd.jsp'">
 		  &nbsp;          
         </div></td>
   </tr>
@@ -102,10 +102,9 @@ td.fenye{ padding:10px 0 0 0; text-align:right;}
 <form name="listform" method="post" action="" onsubmit="return confirm('确认要执行此操作？');">
   <table width="100%" border="0" cellspacing="1" cellpadding="0">
     <tr>
-      <td width="7%"><div align="center"><a href="pc/main/xinximain/article.jsp" title="已发布信息总数："> </a></div></td>
-      <td width="5%"><div align="center"><a href="pc/main/xinximain/article.jsp" title="已发布信息总数："> </a></div></td>
-      <td width="5%"><div align="center"><a href="pc/main/xinximain/article.jsp"> </a></div></td>
-      <td width="5%"><div align="center"><a href="pc/main/xinximain/article.jsp"></a></div></td>
+      <td width="10%" height="25"><div align="center"><a href="pc/main/xinximain/article.jsp" title="已发布信息总数：">未过期(12) </a></div></td>
+      <td width="10%"><div align="center"><a href="pc/main/xinximain/article.jsp">过期 (12)</a></div></td>
+      <td width="10%">&nbsp;</td>
       <td width="58%">&nbsp; </td>
       <td width="6%">&nbsp;</td>
       <td width="6%">&nbsp;</td>
@@ -118,8 +117,8 @@ td.fenye{ padding:10px 0 0 0; text-align:right;}
     </tr>
     <tr> 
       <td width="3%"><div align="center"></div></td>
-      <td width="6%" height="25"><div align="center">姓名</div></td>
-      <td width="36%" height="25"><div align="center">用户等级</div></td>
+      <td width="6%" height="25"><div align="center">标题</div></td>
+      <td width="36%" height="25"><div align="center">用户等级可见</div></td>
       <td width="14%" height="25"> <div align="center">状态</div></td>
 	  <td width="14%" height="25"> <div align="center">编辑</div></td>
     </tr>
@@ -130,12 +129,14 @@ td.fenye{ padding:10px 0 0 0; text-align:right;}
 		  <input name="infoid[]" type="hidden" value="">
           </div>
       </td>
-     <td height="25"> <div align="center"> dark</div></td>                        
+      <td height="25"> <div align="center"> 文章</div></td>                        
       <td height="25"> <div align="center">A用户</div></td>
-	  <td height="25"> <div align="center">待审核</div></td>
+	  <td height="25"> <div align="center">未过期</div></td>
       <td height="25"> <div align="center">
-           <a href="pc/main/xinximain/articleAdd.jsp">审核</a>|  
-           <a href="pc/main/xinximain/articleAdd.jsp">删除</a>|            
+           <a href="pc/main/xinximain/articleAdd.jsp">设置未过期</a>| 
+           <a href="pc/main/xinximain/articleAdd.jsp">设置已过期</a>|  
+           <a href="pc/main/xinximain/articleAdd.jsp">删除</a>|  
+           <a href="pc/main/xinximain/articleAdd.jsp">查看详情</a> 
       </td>
     </tr>
      <tr bgcolor="#FFFFFF" onmouseout="this.style.backgroundColor='#ffffff'" onmouseover="this.style.backgroundColor='#C3EFFF'"> 
@@ -144,12 +145,14 @@ td.fenye{ padding:10px 0 0 0; text-align:right;}
 		  <input name="infoid[]" type="hidden" value="">
           </div>
       </td>
-      <td height="25"> <div align="center"> dark22</div></td>                        
+     <td height="25"> <div align="center"> 文章</div></td>                        
       <td height="25"> <div align="center">A用户</div></td>
-	  <td height="25"> <div align="center">已审核</div></td>
+	  <td height="25"> <div align="center">未过期</div></td>
       <td height="25"> <div align="center">
-           <a href="pc/main/xinximain/articleAdd.jsp">审核</a>|  
-           <a href="pc/main/xinximain/articleAdd.jsp">删除</a>|            
+           <a href="pc/main/xinximain/articleAdd.jsp">设置未过期</a>| 
+           <a href="pc/main/xinximain/articleAdd.jsp">设置已过期</a>|  
+           <a href="pc/main/xinximain/articleAdd.jsp">删除</a>|  
+           <a href="pc/main/xinximain/articleAdd.jsp">查看详情</a> 
       </td>
     </tr>
     <tr bgcolor="#FFFFFF"> 

@@ -37,7 +37,7 @@ body{overflow-x:hidden; background:url(pc/images/main/leftbg.jpg) left top repea
     <div style="float: left" id="my_menu" class="sdmenu">
       <div class="collapsed">
         <span>报修山善</span>
-         <a href="pc/main/user/articleAdd.jsp" target="mainFrame" onFocus="this.blur()">设备保修列表</a>
+         <a href="pc/main/baoxiu/zglb.jsp" target="mainFrame" onFocus="this.blur()">设备保修列表</a>
       </div>
     </div>
 </body>

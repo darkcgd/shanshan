@@ -37,11 +37,7 @@ body{overflow-x:hidden; background:url(pc/images/main/leftbg.jpg) left top repea
     <div style="float: left" id="my_menu" class="sdmenu">
       <div class="collapsed">
        <span>客服山善</span>
-        <a href="pc/main/indexmain.jsp" target="mainFrame" onFocus="this.blur()">后台首页</a>
-        <a href="pc/main/indexmain.jsp" target="mainFrame" onFocus="this.blur()">列表页</a>
-        <a href="pc/main/indexmain.jsp" target="mainFrame" onFocus="this.blur()">列表详细页</a>
-        <a href="pc/main/indexmain.jsp" target="mainFrame" onFocus="this.blur()">留言页</a>
-        <a href="pc/main/indexmain.jsp" target="mainFrame" onFocus="this.blur()">栏目管理</a>
+        
       </div>
     </div>
 </body>

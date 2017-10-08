@@ -37,8 +37,8 @@ body{overflow-x:hidden; background:url(pc/images/main/leftbg.jpg) left top repea
     <div style="float: left" id="my_menu" class="sdmenu">
       <div class="collapsed">
         <span>活动山善</span>
-        <a href="pc/main/user/articleAdd.jsp" target="mainFrame" onFocus="this.blur()">添加活动</a>
-        <a href="pc/main/user/article.jsp" target="mainFrame" onFocus="this.blur()">活动列表</a>
+        <a href="pc/main/houdong/articleAdd.jsp" target="mainFrame" onFocus="this.blur()">添加活动</a>
+        <a href="pc/main/houdong/article.jsp" target="mainFrame" onFocus="this.blur()">活动列表</a>
       </div>
     </div>
 </body>

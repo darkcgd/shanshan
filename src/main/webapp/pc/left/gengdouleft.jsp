@@ -37,8 +37,8 @@ body{overflow-x:hidden; background:url(pc/images/main/leftbg.jpg) left top repea
     <div style="float: left" id="my_menu" class="sdmenu">
       <div class="collapsed">
         <span>更多山善</span>
-        <a href="pc/main/user/articleAdd.jsp" target="mainFrame" onFocus="this.blur()">添加培训信息</a>
-        <a href="pc/main/user/article.jsp" target="mainFrame" onFocus="this.blur()">培训信息列表</a>
+        <a href="pc/main/gengdou/articleAdd.jsp" target="mainFrame" onFocus="this.blur()">添加培训信息</a>
+        <a href="pc/main/gengdou/article.jsp" target="mainFrame" onFocus="this.blur()">培训信息列表</a>
       </div>
     </div>
 </body>
