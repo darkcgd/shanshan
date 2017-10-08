@@ -48,7 +48,7 @@
 		</header>
 		<div class="section">
 			<div class="tip">
-				<a href="replace.html">
+				<a href="views/replace.jsp">
 					<div class="laba">
 						<img src="img/tip.png"/>
 					</div><p>完善信息可以获取更多的服务</p>
