@@ -14,29 +14,6 @@
 <base href="<%=basePath%>">
 <link rel="shortcut icon" href="pc/images/favicon.ico" />
 <link href="pc/css/css.css" type="text/css" rel="stylesheet" />
-<script src="static/js/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
-<script type="text/javascript">
-$(document).ready(function(){ 
-     if(getCookie('c_name')==null||getCookie('c_name')==""){
-    	 window.location.href="pc/login.jsp";
-     }
-}); 
-function getCookie(c_name)
-{
-if (document.cookie.length>0)
-  {
-  c_start=document.cookie.indexOf(c_name + "=");
-  if (c_start!=-1)
-    { 
-    c_start=c_start + c_name.length+1 
-    c_end=document.cookie.indexOf(";",c_start)
-    if (c_end==-1) c_end=document.cookie.length
-    return unescape(document.cookie.substring(c_start,c_end))
-    } 
-  }
-return ""
-}
-</script>
 </head>
 <!--框架样式-->
 <frameset rows="95,*,30" cols="*" frameborder="no" border="0" framespacing="0">

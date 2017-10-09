@@ -81,59 +81,78 @@
 	</ul>
 
 	<div class="mask">
-		<div class="bot">
-			<div class="tt">
-				<span class="no">取消</span> <span class="tap">文字分类</span> <span
-					class="yes">确定</span>
+				<div class="bot">
+					<div class="tt">
+						<span class="no">取消</span>
+						<span class="tap">文字分类</span>
+						<span class="yes">确定</span>
+					</div>
+					<div class="big">
+					<div class="part">
+						<div class="tat">加工应用</div>
+						<span>加工中心</span>
+						<span>车削中心</span>
+						<span>其他机床</span>
+						<span>其他</span>
+					</div>
+					<div class="part">
+						<div class="tat">维修保养</div>
+						<span>加工中心</span>
+						<span>车削中心</span>
+					</div>
+					<div class="part">
+						<div class="tat">其他</div>
+					</div>
+				</div>
+				</div>
 			</div>
-			<div class="big">
-				<div class="part">
-					<div class="tat">加工应用</div>
-					<span>加工中心</span> <span>车削中心</span> <span>其他机床</span> <span>其他</span>
-				</div>
-				<div class="part">
-					<div class="tat">维修保养</div>
-					<span>加工中心</span> <span>车削中旬</span>
-				</div>
-				<div class="part">
-					<div class="tat">其他</div>
-				</div>
-			</div>
-		</div>
-
-
-	</div>
 
 </body>
 <script src="js/takeswiper.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">
 	//页面加载时执行
 		$(document).ready(function(){ 
-			
+			var token= localStorage.getItem("c_token");
+			var userId= localStorage.getItem("userId");
 			$.ajax({
 				type : "GET", //用GET方式传输
 				dataType : "json", //数据格式:JSON
-				url : 'article/articleList', //目标地址
+				url : 'user/getUserInfo', //目标地址
 				//data : "dealType=" + dealType + "&uid=" + uid + "&code=" + code,
-				data : "",
+				data : {userId:userId,token:token},
 				success : function(msg) {
-					var datas=msg.datas;
-					for(var i in datas){
-					     $(".oul").append("<li class='now'><a  onclick='articleDetail("+datas[i].articleId+");'><div class='left'><img src='img/05.jpg'/><div class='tip'>注册专享</div></div><div class='right'><p class='title'><span class='size'>"+datas[i].title+"</span><span class='time'>"+datas[i].createTime+"</span></p><p class='zw'>"+datas[i].content+"</p><span class='c"+datas[i].tagId+"'>"+datas[i].categoryName+"</span></div></a></li>");
-					    }
+					if(msg.code==100){
+						alert(msg.msg);
+					}
+					if(msg.code==200){						
+						var userData=msg.data;
+						//relatePermissionUserType可看用户等级1A 2B 3C 4客服 5专家
+						var relatePermissionUserType=userData.userType;
+						alert(relatePermissionUserType);
+						$.ajax({
+							type : "GET", //用GET方式传输
+							dataType : "json", //数据格式:JSON
+							url : 'article/articleList', //目标地址
+							//data : "dealType=" + dealType + "&uid=" + uid + "&code=" + code,
+							data : "relatePermissionUserType"+relatePermissionUserType,
+							success : function(msg) {
+								var datas=msg.datas;
+								for(var i in datas){
+								     $(".oul").append("<li class='now'><a  href='views/article/introduce.jsp?articleId="+datas[i].articleId+"'><div class='left'><img src='img/05.jpg'/><div class='tip'>注册专享</div></div><div class='right'><p class='title'><span class='size'>"+datas[i].title+"</span><span class='time'>"+datas[i].createTime+"</span></p><p class='zw'>"+datas[i].content+"</p><span class='c"+datas[i].tagId+"'>"+datas[i].categoryName+"</span></div></a></li>");
+								    }
+							}
+						});
+					}
+					
 				}
-			});
+			});		
 		}); 
 	    //点击事件
-	    function articleDetail(val){
-	    	alert(val);
-	    }
 		$('.part span').click(function(){
 			$(this).addClass('focus');
 			$(this).siblings('span').removeClass('focus');
 			$(this).parent().siblings('.part').children('span').removeClass('focus');
-		})
-		
+		});		
 		$('.tt .yes').click(function(){
 			$('.mask').hide();
 		})

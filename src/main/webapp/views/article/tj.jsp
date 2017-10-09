@@ -121,10 +121,14 @@
 			<!--<div class="na">
 				<span>参加日期</span>
 			</div>-->
-			<div class="can">
-				<span>选择日期</span>
-				<input type="text" id="dt" value="2017-7-15">
-  				<div id="dd"></div>
+			<div class="cand">
+				<span>参加日期</span>
+				<div class="right">2017-07-08</div>
+				<img src="img/right.png" class="righter"/>
+				<div class="slide">
+					<div class="oss">2017-07-09</div>
+					<div class="oss">2017-07-07</div>
+				</div>
 			</div>
 		</div>
 		<!--<div class="date">

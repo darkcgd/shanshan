@@ -54,7 +54,7 @@
 	overflow: hidden;
 }
 
-.infor li .right,.cand .right{
+.infor li .right,.cand .right,.can .right{
 	color: #ACACAC;
 	display: inline-block;
 	width: 48%;

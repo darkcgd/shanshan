@@ -116,6 +116,7 @@ public class UserController {
 		if(smsCodeBean==null){
 			return MsgSimpleBean.fail("验证码已过期");
 		}else{
+			System.out.println(smsCodeBean.getSmsCode());
 			if (!smsCode.equals(smsCodeBean.getSmsCode())) {
 				return MsgSimpleBean.fail("验证码不正确");
 			}

@@ -46,8 +46,7 @@ public class ArticleController {
 		
 		if (null == entity.getArticleId() || 0 == entity.getArticleId()) {
 			return new JsonResult(1, "ID_IS_NULL", "文章id不能为空!");
-		}
-		
+		}		
 		ArticleBean data = articleService.articleDetail(entity);
 		result.setDatas(data);
 		result.setRecordCount(1);
