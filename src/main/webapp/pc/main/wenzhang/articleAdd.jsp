@@ -182,6 +182,7 @@ td.fenye {
 				 <div id="editor">
 			        <p>欢迎使用 <b>wangEditor</b> 富文本编辑器</p>
 			    </div> 
+			    <button id="btn1">获取html</button>
 			   </td>
 			</tr>
 			<tr>
@@ -201,9 +202,18 @@ td.fenye {
     <script type="text/javascript">
         var E = window.wangEditor
         var editor = new E('#editor')
-        editor.customConfig.uploadFileName = 'uploadPic';
-        editor.customConfig.uploadImgServer ="/qiniu/picUpload";
+       // editor.customConfig.uploadFileName = 'uploadPic';
+        editor.customConfig.uploadImgServer = '/upload'
+        	editor.customConfig.uploadImgHeaders = {
+
+        	       'Accept' : 'multipart/form-data'
+
+        	   };
         editor.create();
+        document.getElementById('btn1').addEventListener('click', function () {
+            // 读取 html
+            alert(editor.txt.html());
+        }, false)
        
     </script>
 </body>
