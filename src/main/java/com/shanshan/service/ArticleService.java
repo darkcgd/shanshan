@@ -29,6 +29,9 @@ public class ArticleService {
 						if (StringUtils.isNotBlank(entity.getCategoryName())) {
 							criteria.andCategoryNameEqualTo(entity.getCategoryName());
 						}
+						if (entity.getRelatePermissionUserType() != null && entity.getRelatePermissionUserType() != 0) {
+							criteria.andRelatePermissionUserTypeLessThanOrEqualTo(entity.getRelatePermissionUserType());
+						}
 						// 通过标题搜索文章
 						if (StringUtils.isNotBlank(entity.getTitle())) {
 							criteria.andTitleLike("%" + entity.getTitle() + "%");
