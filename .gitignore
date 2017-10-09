@@ -5,4 +5,4 @@ target/
 .gitignore
 .project
 ~$tabase.docx
-
+src/main/resources/dbconfig.properties

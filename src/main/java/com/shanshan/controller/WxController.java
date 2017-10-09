@@ -126,7 +126,7 @@ public class WxController {
         String code = request.getParameter("code");
 
         // 用户同意授权
-        if (!"authdeny".equals(code)) {
+        if (code!=null&&!"authdeny".equals(code)) {
             String APPID = "";
             String SECRET = "";
 

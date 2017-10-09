@@ -36,13 +36,13 @@ public class SmsCodeController {
             String responseData = SmsCodeSendUtil.sendSmsCode(phone);
             String[] aryResponseDatas = responseData.split(",");
             if(aryResponseDatas.length==3){
-                if("0".equals(aryResponseDatas[1])||"101".equals(aryResponseDatas[1])){
+                //if("0".equals(aryResponseDatas[1])){//本地环境暂时隐藏
                     if(aryResponseDatas[2]==null&&aryResponseDatas[2].length()<6){
                         return MsgSimpleBean.fail("发送验证码失败");
                     }
                     smsCodeService.saveSmsCode(phone,aryResponseDatas[2]);
                     return MsgSimpleBean.success("发送验证码成功");
-                }
+                //}
             }
         } catch (Exception e) {
             e.printStackTrace();

@@ -7,7 +7,7 @@ public class Config {
     public static final String AppID="wx997b229f42bfb8aa";
     public static final String AppSecret="0190c29a10954d38b2c8155366e0af12";
 
-    public static final String WECHAT_TOKEN = "xx";// 服务号的Token令牌
+    public static final String WECHAT_TOKEN = "shanshanToken";// 服务号的Token令牌
     // 授权链接
     public static final String OAUTH_AUTHORIZE_URL = "https://open.weixin.qq.com/connect/oauth2/authorize";
     // 获取token的链接

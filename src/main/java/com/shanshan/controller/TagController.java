@@ -31,7 +31,6 @@ public class TagController extends BaseController{
 			handlerDateToStr(map,"updateTime",tagBean.getUpdateTime(),AbDateUtil.dateFormatYMDHMS);
 			results.add(map);
 		}
-
 		MsgBean msg = MsgBean.success("获取成功");
 		Map<String, Object> data = msg.getData();
 		data.put("list", results);

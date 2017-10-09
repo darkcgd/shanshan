@@ -83,7 +83,7 @@ public class TokenService {
 
 			time+=1000*60*60*24*7;
 			tokenBean.setExpireTime(new Date(time));
-			tokenBeanMapper.updateByExample(tokenBean,example);
+			tokenBeanMapper.updateByPrimaryKeySelective(tokenBean);
 
 		}else{//说明之前未存在该token信息,需执行增 操作
 			TokenBean tokenBean=new TokenBean();

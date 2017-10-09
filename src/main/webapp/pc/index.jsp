@@ -1,25 +1,55 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://"
+			+ request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>网站后台管理系统</title>
-<link rel="shortcut icon" href="images/favicon.ico" />
-<link href="css/css.css" type="text/css" rel="stylesheet" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>山善后台管理登录</title>
+<base href="<%=basePath%>">
+<link rel="shortcut icon" href="pc/images/favicon.ico" />
+<link href="pc/css/css.css" type="text/css" rel="stylesheet" />
+<script src="static/js/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+     if(getCookie('c_name')==null||getCookie('c_name')==""){
+    	 window.location.href="pc/login.jsp";
+     }
+}); 
+function getCookie(c_name)
+{
+if (document.cookie.length>0)
+  {
+  c_start=document.cookie.indexOf(c_name + "=");
+  if (c_start!=-1)
+    { 
+    c_start=c_start + c_name.length+1 
+    c_end=document.cookie.indexOf(";",c_start)
+    if (c_end==-1) c_end=document.cookie.length
+    return unescape(document.cookie.substring(c_start,c_end))
+    } 
+  }
+return ""
+}
+</script>
 </head>
 <!--框架样式-->
 <frameset rows="95,*,30" cols="*" frameborder="no" border="0" framespacing="0">
 <!--top样式-->
-	<frame src="top.jsp" name="topframe" scrolling="no" noresize id="topframe" title="topframe" />
+	<frame src="pc/model/top.jsp" name="" scrolling="no" noresize id="topframe" title="topframe" />
 <!--contact样式-->
 	<frameset id="attachucp" framespacing="0" border="0" frameborder="no" cols="194,12,*" rows="*">
-		<frame scrolling="auto" noresize="" frameborder="no" name="leftFrame" src="left.jsp"></frame>
-		<frame id="leftbar" scrolling="no" noresize="" name="switchFrame" src="swich.jsp"></frame>
-		<frame scrolling="auto" noresize="" border="0" name="mainFrame" src="main.jsp"></frame>
+		<frame scrolling="auto" noresize="" frameborder="no" name="leftFrame" src="pc/left/userleft.jsp"></frame>
+		<frame id="leftbar" scrolling="no" noresize="" name="switchFrame" src="pc/model/swich.jsp"></frame>
+		<frame scrolling="auto" noresize="" border="0" name="mainFrame" src="pc/main/indexmain.jsp"></frame>
 	</frameset>
 <!--bottom样式-->
-	<frame src="bottom.jsp" name="bottomFrame" scrolling="No" noresize="noresize" id="bottomFrame" title="bottomFrame" />
+	<frame src="pc/model/bottom.jsp" name="bottomFrame" scrolling="No" noresize="noresize" id="bottomFrame" title="bottomFrame" />
 </frameset><noframes></noframes>
 <!--不可以删除-->
 </html>
