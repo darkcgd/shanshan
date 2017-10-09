@@ -125,18 +125,49 @@
 					}
 					if(msg.code==200){						
 						var userData=msg.data;
-						//relatePermissionUserType可看用户等级1A 2B 3C 4客服 5专家
-						var relatePermissionUserType=userData.userType;
 						$.ajax({
 							type : "GET", //用GET方式传输
 							dataType : "json", //数据格式:JSON
 							url : 'article/articleList', //目标地址
-							data : "relatePermissionUserType="+relatePermissionUserType,
+						    data : "",
 							success : function(msg) {
 								var datas=msg.datas;
 								for(var i in datas){
-								     $(".oul").append("<li class='now'><a  href='views/article/introduce.jsp?articleId="+datas[i].articleId+"'><div class='left'><img src='img/05.jpg'/><div class='tip'>注册专享</div></div><div class='right'><p class='title'><span class='size'>"+datas[i].title+"</span><span class='time'>"+datas[i].createTime+"</span></p><p class='zw'>"+datas[i].content+"</p><span class='c"+datas[i].tagId+"'>"+datas[i].categoryName+"</span></div></a></li>");
-								    }
+									$(".oul").append("<li class='now'><a value='"+datas[i].relatePermissionUserType+"' name='"+datas[i].articleId+"'><div class='left'><img src='img/05.jpg'/><div class='tip' value='"+datas[i].relatePermissionUserType+"'></div></div><div class='right'><p class='title'><span class='size'>"+datas[i].title+"</span><span class='time'>"+datas[i].createTime+"</span></p><p class='zw'>"+datas[i].content+"</p><span id='a' value='"+datas[i].tagId+"'></span></div></a></li>");			
+								}				
+								 $(".oul .tip").each(function(){
+									 //注册专享与vip区别
+									 if($(this).attr("value")<=1){
+										 $(this).removeAttr("class");
+									 }
+									 if($(this).attr("value")==3||$(this).attr("value")==2){
+										 $(this).text("");
+										 $(this).text("注册专享");
+									 }
+									 if($(this).attr("value")>=3){
+										 $(this).text("");
+										 $(this).text("VIP专享");
+									 }
+									  });
+								 //推荐和头条区别
+								 $(".oul .right #a").each(function(){
+									 if($(this).attr("value")==1){
+										 $(this).addClass("ca");
+										 $(this).text("推荐");
+									 }
+									 if($(this).attr("value")==2){
+										 $(this).addClass("cc");
+										 $(this).text("头条");
+									 }
+								 });
+								 //跳转地址区分
+								 $(".oul a").each(function(){
+									 if($(this).attr("value")<=userData.userType){
+										 var articleId=$(this).attr("name");			
+										 $(this).attr({href:"views/article/introduce.jsp?articleId="+articleId});
+									 }
+								 });
+								
 							}
 						});
 					}
