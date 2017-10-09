@@ -38,7 +38,7 @@ public class SmsCodeController {
             if(aryResponseDatas.length==3){
                 if("0".equals(aryResponseDatas[1])||"101".equals(aryResponseDatas[1])){
                     if(aryResponseDatas[2]==null&&aryResponseDatas[2].length()<6){
-                        return MsgSimpleBean.success("发送验证码失败");
+                        return MsgSimpleBean.fail("发送验证码失败");
                     }
                     smsCodeService.saveSmsCode(phone,aryResponseDatas[2]);
                     return MsgSimpleBean.success("发送验证码成功");
@@ -47,7 +47,7 @@ public class SmsCodeController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return MsgSimpleBean.success("发送验证码失败");
+        return MsgSimpleBean.fail("发送验证码失败");
     }
 
 

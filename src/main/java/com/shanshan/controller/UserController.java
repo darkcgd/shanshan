@@ -62,7 +62,7 @@ public class UserController {
 			return MsgSimpleBean.fail("验证码已过期");
 		}else{
 			if (!smsCode.equals(smsCodeBean.getSmsCode())) {
-				//return MsgSimpleBean.fail("验证码不正确");
+				return MsgSimpleBean.fail("验证码不正确");
 			}
 		}
 		UserBean user=new UserBean();
@@ -117,7 +117,7 @@ public class UserController {
 			return MsgSimpleBean.fail("验证码已过期");
 		}else{
 			if (!smsCode.equals(smsCodeBean.getSmsCode())) {
-				//return MsgSimpleBean.fail("验证码不正确");
+				return MsgSimpleBean.fail("验证码不正确");
 			}
 		}
 
