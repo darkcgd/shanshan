@@ -57,7 +57,7 @@
 		<table tableName="tbl_fault_repair" domainObjectName="FaultRepairBean"></table>
 		<table tableName="tbl_equipment_info" domainObjectName="EquipmentInfoBean"></table>
 		-->
-		<table tableName="tbl_tag" domainObjectName="TagBean"></table>
+		<table tableName="tbl_token" domainObjectName="TokenBean"></table>
 
 	</context>
 </generatorConfiguration>
