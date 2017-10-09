@@ -118,7 +118,6 @@
 				type : "GET", //用GET方式传输
 				dataType : "json", //数据格式:JSON
 				url : 'user/getUserInfo', //目标地址
-				//data : "dealType=" + dealType + "&uid=" + uid + "&code=" + code,
 				data : {userId:userId,token:token},
 				success : function(msg) {
 					if(msg.code==100){
@@ -128,13 +127,11 @@
 						var userData=msg.data;
 						//relatePermissionUserType可看用户等级1A 2B 3C 4客服 5专家
 						var relatePermissionUserType=userData.userType;
-						alert(relatePermissionUserType);
 						$.ajax({
 							type : "GET", //用GET方式传输
 							dataType : "json", //数据格式:JSON
 							url : 'article/articleList', //目标地址
-							//data : "dealType=" + dealType + "&uid=" + uid + "&code=" + code,
-							data : "relatePermissionUserType"+relatePermissionUserType,
+							data : "relatePermissionUserType="+relatePermissionUserType,
 							success : function(msg) {
 								var datas=msg.datas;
 								for(var i in datas){

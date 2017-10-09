@@ -10,7 +10,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>技术文章</title>
+		<title>活动信息</title>
 		<base href="<%=basePath%>">
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link rel="stylesheet" type="text/css" href="css/common.css"/>
@@ -41,7 +41,7 @@
 	<body>
 		<header>
     		<div class="head">
-        		<div class="title">技术文章</div>
+        		<div class="title">活动信息</div>
         		<span class="h-lt" style="cursor:pointer" onclick="window.history.go(-1)"><i class="h-bk"></i></span>
         		<a class="h-rt" href="#"></a>
     		</div>
@@ -67,11 +67,11 @@
 			   var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
 			   var r = window.location.search.substr(1).match(reg); //匹配目标参数
 			   if (r != null) return unescape(r[2]); return null; }//返回参数值
-		       var articleId= getUrlParam('articleId');
+		       var activityId= getUrlParam('activityId');
 			   $.ajax({
 					   type:'get',
-					   url:'article/articleDetail',
-					   data:"articleId="+articleId,
+					   url:'activity/activityDetail',
+					   data:"activityId="+activityId,
 					   dataType:'json',
 					   success:function(msg){
 					   var  data=msg.datas;

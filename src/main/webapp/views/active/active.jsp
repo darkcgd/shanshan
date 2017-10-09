@@ -49,57 +49,61 @@
 		</header>
 		<div class="section">
 			<ul>
-				<li class="now">
-					<a href="views/article/introduce.jsp">
-					<div class="left">
-						<img src="img/05.jpg"/>
-						<div class="tip">注册专享</div>
-					</div>
-					<div class="right">
-						<p class="title">
-							<span class="size">活动名称1</span>
-							<span class="time">21:55</span>
-						</p>
-						<p class="zw">
-							培训详情培训详情培训详情培训详情培训详情
-						</p>
-					</div>
-					</a>
-				</li>
-				<li>
-					<a href="views/article/introduce.jsp">
-					<div class="left">
-						<img src="img/blog.png"/>
-						<div class="tip">VIP专享</div>
-					</div>
-					<div class="right">
-						<p class="title">
-							<span class="size">活动名称1</span>
-							<span class="time">21:55</span>
-						</p>
-						<p class="zw">
-							培训详情培训详情培训详情培训详情培训详情
-						</p>
-					</div>
-					</a>
-				</li>
-				<li class="now">
-					<a href="views/article/introduce.jsp">
-					<div class="left">
-						<img src="img/05.jpg"/>
-					</div>
-					<div class="right">
-						<p class="title">
-							<span class="size">活动名称1</span>
-							<span class="time">21:55</span>
-						</p>
-						<p class="zw">
-							培训详情培训详情培训详情培训详情培训详情
-						</p>
-					</div>
-					</a>
-				</li>
 			</ul>
 		</div>
 	</body>
+	<script type="text/javascript">
+	//页面加载时执行
+		$(document).ready(function(){ 
+			var token= localStorage.getItem("c_token");
+			var userId= localStorage.getItem("userId");
+			$.ajax({
+				type : "GET", //用GET方式传输
+				dataType : "json", //数据格式:JSON
+				url : 'user/getUserInfo', //目标地址
+				//data : "dealType=" + dealType + "&uid=" + uid + "&code=" + code,
+				data : {userId:userId,token:token},
+				success : function(msg) {
+					if(msg.code==100){
+						alert(msg.msg);
+					}
+					if(msg.code==200){	
+						var userData=msg.data;
+						//relatePermissionUserType可看用户等级1A 2B 3C 4客服 5专家
+						var relatePermissionUserType=userData.userType;
+						$.ajax({
+							type : "GET", //用GET方式传输
+							dataType : "json", //数据格式:JSON
+							url : 'activity/activityList', //目标地址
+							data : "relatePermissionUserType="+relatePermissionUserType,
+							success : function(msg) {
+								var datas=msg.datas;
+								for(var i in datas){
+								     $(".section  ul").append("<li class='now'><a  href='views/active/introActive.jsp?activityId="+datas[i].activityId+"'><div class='left'><img src='img/05.jpg'/><div class='tip'>注册专享</div></div><div class='right'><p class='title'><span class='size'>"+datas[i].title+"</span><span class='time'>"+datas[i].createTime+"</span></p><p class='zw'>"+datas[i].content+"</p></div></a></li>");
+								    }
+							}
+						});
+					}
+					
+				}
+			});		
+		}); 
+	    //点击事件
+		$('.part span').click(function(){
+			$(this).addClass('focus');
+			$(this).siblings('span').removeClass('focus');
+			$(this).parent().siblings('.part').children('span').removeClass('focus');
+		});		
+		$('.tt .yes').click(function(){
+			$('.mask').hide();
+		})
+		
+		$('.tt .no').click(function(){
+			$('.mask').hide();
+		})
+		
+		$('.search .right').click(function(){
+			$('.mask').show();
+		})
+	</script>
 </html>
