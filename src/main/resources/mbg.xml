@@ -41,7 +41,6 @@
 
 
 		<!-- table指定每个表的生成策略 -->
-		<!--
 		<table tableName="tbl_user" domainObjectName="UserBean"></table>
 		<table tableName="tbl_token" domainObjectName="TokenBean"></table>
 		<table tableName="tbl_company" domainObjectName="CompanyBean"></table>
@@ -56,8 +55,7 @@
 		<table tableName="tbl_enroll" domainObjectName="EnrollBean"></table>
 		<table tableName="tbl_fault_repair" domainObjectName="FaultRepairBean"></table>
 		<table tableName="tbl_equipment_info" domainObjectName="EquipmentInfoBean"></table>
-		-->
-		<table tableName="tbl_token" domainObjectName="TokenBean"></table>
+		<!--<table tableName="tbl_token" domainObjectName="TokenBean"></table>-->
 
 	</context>
 </generatorConfiguration>

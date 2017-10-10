@@ -57,6 +57,14 @@ public class TrainingCourseBean {
 
     private Integer isNeedPhoto;
 
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    private Date startTime;
+
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    private Date endTime;
+
     public Integer getTrainingCourseId() {
         return trainingCourseId;
     }
@@ -239,5 +247,21 @@ public class TrainingCourseBean {
 
     public void setIsNeedPhoto(Integer isNeedPhoto) {
         this.isNeedPhoto = isNeedPhoto;
+    }
+
+    public Date getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(Date startTime) {
+        this.startTime = startTime;
+    }
+
+    public Date getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(Date endTime) {
+        this.endTime = endTime;
     }
 }

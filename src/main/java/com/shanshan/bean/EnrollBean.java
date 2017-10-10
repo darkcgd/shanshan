@@ -55,6 +55,8 @@ public class EnrollBean {
 
     private String photo4;
 
+    private Integer userId;
+
     public Integer getEnrollId() {
         return enrollId;
     }
@@ -221,5 +223,13 @@ public class EnrollBean {
 
     public void setPhoto4(String photo4) {
         this.photo4 = photo4 == null ? null : photo4.trim();
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 }
