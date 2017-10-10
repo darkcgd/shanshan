@@ -38,6 +38,7 @@ public class UserController {
 	@RequestMapping(value="/userRegist",method=RequestMethod.GET)
 	@ResponseBody
 	public Object regist(@RequestParam(value = "phone", required=false)String phone
+			,@RequestParam(value = "userId", required=false) Integer userId
 			,@RequestParam(value = "smsCode", required=false) String smsCode
 			,@RequestParam(value = "userName", required=false) String userName
 			,@RequestParam(value = "company", required=false) String company
@@ -51,6 +52,15 @@ public class UserController {
 		if(BaseUtil.isEmpty(smsCode)){
 			return MsgSimpleBean.fail("请输入验证码");
 		}
+		if(BaseUtil.isEmpty(userId)){
+			return MsgSimpleBean.fail("请先微信授权");
+		}
+
+		UserBean userById = userService.getUserById(userId);
+		if(userById==null){
+			return MsgSimpleBean.fail("该授权用户不存在");
+		}
+
 
 		UserBean registedUserBean = userService.isRegisted(phone);
 		if(registedUserBean!=null){
@@ -65,16 +75,15 @@ public class UserController {
 				return MsgSimpleBean.fail("验证码不正确");
 			}
 		}
-		UserBean user=new UserBean();
-		user.setPhone(phone);
+		userById.setPhone(phone);
 
 		if(BaseUtil.isNotEmpty(userName)){
-			user.setUserName(userName);
+			userById.setUserName(userName);
 		}
 		if(BaseUtil.isNotEmpty(company)){
-			user.setCompany(company);
+			userById.setCompany(company);
 		}
-		userService.saveUser(user);
+		userService.updateUserInfo(userById);
 		UserBean userByName = userService.isRegisted(phone);
 		if(userByName!=null){
 			String token = tokenService.generateToken(userByName.getUserId(),0);
@@ -87,6 +96,7 @@ public class UserController {
 			return MsgBean.fail("注册失败");
 		}
 	}
+
 
 	/**
 	 * 用户登录(账号密码)

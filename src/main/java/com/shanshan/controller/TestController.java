@@ -27,11 +27,11 @@ public class TestController extends BaseController{
 		userBean.setUserId(61);
 		userBean.setUserName("Dark");
 		userBean.setUserType(3);
-		ModelAndView mad = new ModelAndView("test");
+		ModelAndView mav = new ModelAndView("test");
 		//将数据存入modelMap
-		mad.addObject("text", "您还好吗");
-		mad.addObject("userBean",userBean);//默认为类名的首字母小写
-		mad.addObject("user", "这是用户信息");
-		return mad;
+		mav.addObject("text", "您还好吗");
+		mav.addObject("userBean",userBean);//默认为类名的首字母小写
+		mav.addObject("user", "这是用户信息");
+		return mav;
 	}
 }

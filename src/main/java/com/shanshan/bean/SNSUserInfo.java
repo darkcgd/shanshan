@@ -8,6 +8,7 @@ import java.util.List;
  Created by szmg on 17/9/29.
  */
 public class SNSUserInfo {
+    private int userId;
     // 用户标识
     private String openId;
     // 用户昵称
@@ -22,6 +23,15 @@ public class SNSUserInfo {
     private String city;
     // 用户头像链接
     private String headImgUrl;
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
     // 用户特权信息
     private List<String> privilegeList;
 

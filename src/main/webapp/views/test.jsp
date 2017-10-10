@@ -54,50 +54,35 @@
 				<nav class="hh">
 						<img src="img/05.jpg"/>					
 				</nav>
-				<p class="name">重蹈覆辙</p>
+				<p class="name">"${data.openId}"</p>
 				
 				<div class="pll">
-					<p>噢，再来一条</p>
+					<p>"${data.nickname}"</p>
 				</div>
 			</div>
 	        <div class="replay">
 				<nav class="hh">
 						<img src="img/05.jpg"/>					
 				</nav>
-				<p class="name">重蹈覆辙</p>
+				<p class="name">"${data.sex}"</p>
 				
 				<div class="pll">
-					<p>噢，再来一条</p>
+					<p>"${data.country}"</p>
 				</div>
 			</div>
 			<div class="people">
 				<nav class="hh">
 						<img src="img/05.jpg"/>					
 				</nav>
-				<p class="name">重蹈覆辙</p>
+				<p class="name">"${data.headImgUrl}"</p>
 				
 				<div class="pll">
-					<p>您好，有什么能帮到您</p>
+					<p>"${data.city}"</p>
 				</div>
 			</div>
 
     	</div>
 
-		<script type="text/javascript">
-            $(function(){
-                var text="${text}";
-                var user="${user}";
-                var userId="${userBean.userId}";
-                var userName="${userBean.userName}";
-                var userType="${userBean.userType}";
-				alert(text+user+userId+userName+userType);
-            });
-
-
-
-
-
-		</script>
 	</body>
 
 </html>
