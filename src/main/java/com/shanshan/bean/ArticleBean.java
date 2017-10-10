@@ -2,10 +2,6 @@ package com.shanshan.bean;
 
 import java.util.Date;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 public class ArticleBean {
     private Integer articleId;
 
@@ -27,12 +23,8 @@ public class ArticleBean {
 
     private Integer readCount;
 
-    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date createTime;
 
-    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date updateTime;
 
     private String remark;
@@ -60,6 +52,10 @@ public class ArticleBean {
     private Integer isNeedSource;
 
     private Integer isNeedPhoto;
+
+    private Date startTime;
+
+    private Date endTime;
 
     public Integer getArticleId() {
         return articleId;
@@ -259,5 +255,21 @@ public class ArticleBean {
 
     public void setIsNeedPhoto(Integer isNeedPhoto) {
         this.isNeedPhoto = isNeedPhoto;
+    }
+
+    public Date getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(Date startTime) {
+        this.startTime = startTime;
+    }
+
+    public Date getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(Date endTime) {
+        this.endTime = endTime;
     }
 }

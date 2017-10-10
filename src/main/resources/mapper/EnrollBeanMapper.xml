@@ -23,6 +23,7 @@
     <result column="photo2" jdbcType="VARCHAR" property="photo2" />
     <result column="photo3" jdbcType="VARCHAR" property="photo3" />
     <result column="photo4" jdbcType="VARCHAR" property="photo4" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -85,7 +86,7 @@
   <sql id="Base_Column_List">
     enroll_id, create_time, update_time, remark, from_type, from_id, company, user_name, 
     phone, company_address, email, position_name, department_name, free_lunch, provide_accommodation, 
-    join_date, source, photo1, photo2, photo3, photo4
+    join_date, source, photo1, photo2, photo3, photo4, user_id
   </sql>
   <select id="selectByExample" parameterType="com.shanshan.bean.EnrollBeanExample" resultMap="BaseResultMap">
     select
@@ -124,16 +125,16 @@
       company_address, email, position_name, 
       department_name, free_lunch, provide_accommodation, 
       join_date, source, photo1, 
-      photo2, photo3, photo4
-      )
+      photo2, photo3, photo4, 
+      user_id)
     values (#{enrollId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
       #{remark,jdbcType=VARCHAR}, #{fromType,jdbcType=INTEGER}, #{fromId,jdbcType=INTEGER}, 
       #{company,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
       #{companyAddress,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{positionName,jdbcType=VARCHAR}, 
       #{departmentName,jdbcType=VARCHAR}, #{freeLunch,jdbcType=INTEGER}, #{provideAccommodation,jdbcType=INTEGER}, 
       #{joinDate,jdbcType=TIMESTAMP}, #{source,jdbcType=VARCHAR}, #{photo1,jdbcType=VARCHAR}, 
-      #{photo2,jdbcType=VARCHAR}, #{photo3,jdbcType=VARCHAR}, #{photo4,jdbcType=VARCHAR}
-      )
+      #{photo2,jdbcType=VARCHAR}, #{photo3,jdbcType=VARCHAR}, #{photo4,jdbcType=VARCHAR}, 
+      #{userId,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.shanshan.bean.EnrollBean">
     insert into tbl_enroll
@@ -201,6 +202,9 @@
       <if test="photo4 != null">
         photo4,
       </if>
+      <if test="userId != null">
+        user_id,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="enrollId != null">
@@ -265,6 +269,9 @@
       </if>
       <if test="photo4 != null">
         #{photo4,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -340,6 +347,9 @@
       <if test="record.photo4 != null">
         photo4 = #{record.photo4,jdbcType=VARCHAR},
       </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -367,7 +377,8 @@
       photo1 = #{record.photo1,jdbcType=VARCHAR},
       photo2 = #{record.photo2,jdbcType=VARCHAR},
       photo3 = #{record.photo3,jdbcType=VARCHAR},
-      photo4 = #{record.photo4,jdbcType=VARCHAR}
+      photo4 = #{record.photo4,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -435,6 +446,9 @@
       <if test="photo4 != null">
         photo4 = #{photo4,jdbcType=VARCHAR},
       </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
     </set>
     where enroll_id = #{enrollId,jdbcType=INTEGER}
   </update>
@@ -459,7 +473,8 @@
       photo1 = #{photo1,jdbcType=VARCHAR},
       photo2 = #{photo2,jdbcType=VARCHAR},
       photo3 = #{photo3,jdbcType=VARCHAR},
-      photo4 = #{photo4,jdbcType=VARCHAR}
+      photo4 = #{photo4,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=INTEGER}
     where enroll_id = #{enrollId,jdbcType=INTEGER}
   </update>
 </mapper>

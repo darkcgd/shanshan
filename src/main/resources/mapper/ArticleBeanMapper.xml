@@ -27,6 +27,8 @@
     <result column="is_need_join_date" jdbcType="INTEGER" property="isNeedJoinDate" />
     <result column="is_need_source" jdbcType="INTEGER" property="isNeedSource" />
     <result column="is_need_photo" jdbcType="INTEGER" property="isNeedPhoto" />
+    <result column="start_Time" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="end_Time" jdbcType="TIMESTAMP" property="endTime" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -91,7 +93,7 @@
     status, read_count, create_time, update_time, remark, is_need_company, is_need_user_name, 
     is_need_phone, is_need_company_address, is_need_email, is_need_position_name, is_need_department_name, 
     is_need_free_lunch, is_need_provide_accommodation, is_need_join_date, is_need_source, 
-    is_need_photo
+    is_need_photo, start_Time, end_Time
   </sql>
   <select id="selectByExample" parameterType="com.shanshan.bean.ArticleBeanExample" resultMap="BaseResultMap">
     select
@@ -132,8 +134,8 @@
       is_need_user_name, is_need_phone, is_need_company_address, 
       is_need_email, is_need_position_name, is_need_department_name, 
       is_need_free_lunch, is_need_provide_accommodation, 
-      is_need_join_date, is_need_source, is_need_photo
-      )
+      is_need_join_date, is_need_source, is_need_photo, 
+      start_Time, end_Time)
     values (#{articleId,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{author,jdbcType=VARCHAR}, 
       #{content,jdbcType=VARCHAR}, #{categoryName,jdbcType=VARCHAR}, #{tagId,jdbcType=INTEGER}, 
       #{relateActivityId,jdbcType=INTEGER}, #{relatePermissionUserType,jdbcType=INTEGER}, 
@@ -142,8 +144,8 @@
       #{isNeedUserName,jdbcType=INTEGER}, #{isNeedPhone,jdbcType=INTEGER}, #{isNeedCompanyAddress,jdbcType=INTEGER}, 
       #{isNeedEmail,jdbcType=INTEGER}, #{isNeedPositionName,jdbcType=INTEGER}, #{isNeedDepartmentName,jdbcType=INTEGER}, 
       #{isNeedFreeLunch,jdbcType=INTEGER}, #{isNeedProvideAccommodation,jdbcType=INTEGER}, 
-      #{isNeedJoinDate,jdbcType=INTEGER}, #{isNeedSource,jdbcType=INTEGER}, #{isNeedPhoto,jdbcType=INTEGER}
-      )
+      #{isNeedJoinDate,jdbcType=INTEGER}, #{isNeedSource,jdbcType=INTEGER}, #{isNeedPhoto,jdbcType=INTEGER}, 
+      #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.shanshan.bean.ArticleBean">
     insert into tbl_article
@@ -223,6 +225,12 @@
       <if test="isNeedPhoto != null">
         is_need_photo,
       </if>
+      <if test="startTime != null">
+        start_Time,
+      </if>
+      <if test="endTime != null">
+        end_Time,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="articleId != null">
@@ -299,6 +307,12 @@
       </if>
       <if test="isNeedPhoto != null">
         #{isNeedPhoto,jdbcType=INTEGER},
+      </if>
+      <if test="startTime != null">
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -386,6 +400,12 @@
       <if test="record.isNeedPhoto != null">
         is_need_photo = #{record.isNeedPhoto,jdbcType=INTEGER},
       </if>
+      <if test="record.startTime != null">
+        start_Time = #{record.startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.endTime != null">
+        end_Time = #{record.endTime,jdbcType=TIMESTAMP},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -417,7 +437,9 @@
       is_need_provide_accommodation = #{record.isNeedProvideAccommodation,jdbcType=INTEGER},
       is_need_join_date = #{record.isNeedJoinDate,jdbcType=INTEGER},
       is_need_source = #{record.isNeedSource,jdbcType=INTEGER},
-      is_need_photo = #{record.isNeedPhoto,jdbcType=INTEGER}
+      is_need_photo = #{record.isNeedPhoto,jdbcType=INTEGER},
+      start_Time = #{record.startTime,jdbcType=TIMESTAMP},
+      end_Time = #{record.endTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -497,6 +519,12 @@
       <if test="isNeedPhoto != null">
         is_need_photo = #{isNeedPhoto,jdbcType=INTEGER},
       </if>
+      <if test="startTime != null">
+        start_Time = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        end_Time = #{endTime,jdbcType=TIMESTAMP},
+      </if>
     </set>
     where article_id = #{articleId,jdbcType=INTEGER}
   </update>
@@ -525,7 +553,9 @@
       is_need_provide_accommodation = #{isNeedProvideAccommodation,jdbcType=INTEGER},
       is_need_join_date = #{isNeedJoinDate,jdbcType=INTEGER},
       is_need_source = #{isNeedSource,jdbcType=INTEGER},
-      is_need_photo = #{isNeedPhoto,jdbcType=INTEGER}
+      is_need_photo = #{isNeedPhoto,jdbcType=INTEGER},
+      start_Time = #{startTime,jdbcType=TIMESTAMP},
+      end_Time = #{endTime,jdbcType=TIMESTAMP}
     where article_id = #{articleId,jdbcType=INTEGER}
   </update>
 </mapper>
