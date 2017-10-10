@@ -47,6 +47,9 @@ public class ArticleService {
 		ArticleBean article = articleBeanMapper.selectByPrimaryKey(entity.getArticleId());
 		if (null != article) {
 			Integer readCount = article.getReadCount();
+			if (readCount == null) {
+				readCount = 0;
+			}
 			article.setReadCount(readCount + 1); 
 			articleBeanMapper.updateByPrimaryKeySelective(article);
 		}
