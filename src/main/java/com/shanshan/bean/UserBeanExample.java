@@ -2044,6 +2044,66 @@ public class UserBeanExample {
             addCriterion("status not between", value1, value2, "status");
             return (Criteria) this;
         }
+
+        public Criteria andIsShanshanUserIsNull() {
+            addCriterion("is_shanshan_user is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsShanshanUserIsNotNull() {
+            addCriterion("is_shanshan_user is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsShanshanUserEqualTo(Integer value) {
+            addCriterion("is_shanshan_user =", value, "isShanshanUser");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsShanshanUserNotEqualTo(Integer value) {
+            addCriterion("is_shanshan_user <>", value, "isShanshanUser");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsShanshanUserGreaterThan(Integer value) {
+            addCriterion("is_shanshan_user >", value, "isShanshanUser");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsShanshanUserGreaterThanOrEqualTo(Integer value) {
+            addCriterion("is_shanshan_user >=", value, "isShanshanUser");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsShanshanUserLessThan(Integer value) {
+            addCriterion("is_shanshan_user <", value, "isShanshanUser");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsShanshanUserLessThanOrEqualTo(Integer value) {
+            addCriterion("is_shanshan_user <=", value, "isShanshanUser");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsShanshanUserIn(List<Integer> values) {
+            addCriterion("is_shanshan_user in", values, "isShanshanUser");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsShanshanUserNotIn(List<Integer> values) {
+            addCriterion("is_shanshan_user not in", values, "isShanshanUser");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsShanshanUserBetween(Integer value1, Integer value2) {
+            addCriterion("is_shanshan_user between", value1, value2, "isShanshanUser");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsShanshanUserNotBetween(Integer value1, Integer value2) {
+            addCriterion("is_shanshan_user not between", value1, value2, "isShanshanUser");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

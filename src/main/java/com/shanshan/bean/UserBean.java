@@ -61,6 +61,8 @@ public class UserBean {
 
     private Integer status;
 
+    private Integer isShanshanUser;
+
     public Integer getUserId() {
         return userId;
     }
@@ -291,5 +293,13 @@ public class UserBean {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public Integer getIsShanshanUser() {
+        return isShanshanUser;
+    }
+
+    public void setIsShanshanUser(Integer isShanshanUser) {
+        this.isShanshanUser = isShanshanUser;
     }
 }
