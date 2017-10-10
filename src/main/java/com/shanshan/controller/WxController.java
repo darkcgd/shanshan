@@ -11,6 +11,8 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.shanshan.util.Config;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -27,6 +29,8 @@ import com.shanshan.util.AdvancedUtil;
  */
 @Controller
 public class WxController {
+    private static final Logger LOG = Logger.getLogger(ArticleCategoryController.class);
+
     private String Token = "shanshanToken";
 
     @Resource
@@ -114,6 +118,7 @@ public class WxController {
      * 微信接入
      * @return
      * @throws IOException
+     * 如果用户同意授权，页面将跳转至 redirect_uri/?code=CODE&state=STATE。
      */
     @RequestMapping(value = "/oauth", method = { RequestMethod.GET, RequestMethod.POST })
     @ResponseBody
@@ -124,23 +129,28 @@ public class WxController {
 
         // 用户同意授权后，能获取到code
         String code = request.getParameter("code");
+        String state = request.getParameter("state");
+
+        LOG.info("===============================用户同意授权后，能获取到的code==============================="+code);
+        LOG.info("===============================用户同意授权后，能获取到的state==============================="+state);
 
         // 用户同意授权
         if (code!=null&&!"authdeny".equals(code)) {
-            String APPID = "";
-            String SECRET = "";
-
             // 获取网页授权access_token
-            WeixinOauth2Token weixinOauth2Token = AdvancedUtil.getOauth2AccessToken(APPID, SECRET, code);
-            // 网页授权接口访问凭证
-            String accessToken = weixinOauth2Token.getAccessToken();
-            // 用户标识
-            String openId = weixinOauth2Token.getOpenId();
-            // 获取用户信息
-            SNSUserInfo snsUserInfo = AdvancedUtil.getSNSUserInfo(accessToken, openId);
+            WeixinOauth2Token weixinOauth2Token = AdvancedUtil.getOauth2AccessToken(Config.AppID, Config.AppSecret, code);
+            if(weixinOauth2Token!=null){
+                // 网页授权接口访问凭证
+                String accessToken = weixinOauth2Token.getAccessToken();
+                // 用户标识
+                String openId = weixinOauth2Token.getOpenId();
+                // 获取用户信息
+                SNSUserInfo snsUserInfo = AdvancedUtil.getSNSUserInfo(accessToken, openId);
 
-            // 设置要传递的参数
-            request.setAttribute("snsUserInfo", snsUserInfo);
+                // 设置要传递的参数
+                request.setAttribute("snsUserInfo", snsUserInfo);
+                request.setAttribute("snsUserInfo", snsUserInfo);
+                request.setAttribute("snsUserInfo", snsUserInfo);
+            }
         }
         // 跳转到index.jsp
         request.getRequestDispatcher("views/login.jsp").forward(request, response);
