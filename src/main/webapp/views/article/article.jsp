@@ -58,7 +58,7 @@
 				<div class="oo">
 					<img src="img/sea.png" />
 				</div>
-				<input type="text" placeholder="搜索文章" />
+				<input id="keywordTitle" type="text" placeholder="搜索文章" />
 			</div>
 			<div class="right">
 				<span>分类</span>
@@ -155,7 +155,7 @@
 							url : 'user/getUserInfo', //目标地址
 							//data : "dealType=" + dealType + "&uid=" + uid + "&code=" + code,
 							data : {userId:userId,token:token},
-							success : function(msg) {								
+							success : function(msg) {	
 								if(msg.code==100){
 									if(msg.msg=="登录信息失效,请重新登录"){
 										alert(msg.msg);
@@ -174,11 +174,91 @@
 									 });
 								}
 							}
-					 });	
+					 });
 				}
 			});
 		}); 
 	    //点击事件
+	    //标题模糊查询
+	   $("#keywordTitle").on('keypress',function(e) {  
+            var keycode = e.keyCode;  
+            var searchName = $(this).val();  
+            if(keycode=='13') {  
+                e.preventDefault();    
+                //请求搜索接口  
+                $.ajax({
+					type : "GET", //用GET方式传输
+					dataType : "json", //数据格式:JSON
+					url : 'article/articleList', //目标地址
+					//data : "dealType=" + dealType + "&uid=" + uid + "&code=" + code,
+					data : {title:searchName},
+					success : function(msg) {
+						$(".oul").html("");
+						var datas=msg.datas;
+						for(var i in datas){
+							$(".oul").append("<li class='now'><a value='"+datas[i].relatePermissionUserType+"' name='"+datas[i].articleId+"'><div class='left'><img src='img/05.jpg'/><div class='tip' value='"+datas[i].relatePermissionUserType+"'></div></div><div class='right'><p class='title'><span class='size'>"+datas[i].title+"</span><span class='time'>"+datas[i].createTime+"</span></p><p class='zw'>"+datas[i].content+"</p><span id='a' value='"+datas[i].tagId+"'></span></div></a></li>");			
+						}				
+						 $(".oul .tip").each(function(){
+							 //注册专享与vip区别
+							 if($(this).attr("value")<=1){
+								 $(this).removeAttr("class");
+							 }
+							 if($(this).attr("value")==3||$(this).attr("value")==2){
+								 $(this).text("");
+								 $(this).text("注册专享");
+							 }
+							 if($(this).attr("value")>=3){
+								 $(this).text("");
+								 $(this).text("VIP专享");
+							 }
+							  });
+						 //推荐和头条区别
+						 $(".oul .right #a").each(function(){
+							 if($(this).attr("value")==1){
+								 $(this).addClass("ca");
+								 $(this).text("推荐");
+							 }
+							 if($(this).attr("value")==2){
+								 $(this).addClass("cc");
+								 $(this).text("头条");
+							 }
+						 });
+						 $.ajax({
+								type : "GET", //用GET方式传输
+								dataType : "json", //数据格式:JSON
+								url : 'user/getUserInfo', //目标地址
+								//data : "dealType=" + dealType + "&uid=" + uid + "&code=" + code,
+								data : {userId:userId,token:token},
+								success : function(msg) {	
+									if(msg.code==100){
+										if(msg.msg=="登录信息失效,请重新登录"){
+											alert(msg.msg);
+											window.location.href="views/login.jsp";
+										}
+										
+									}
+									if(msg.code==200){
+										var userData=msg.data;
+										//跳转地址区分
+										 $(".oul a").each(function(){
+											 if($(this).attr("value")<=userData.userType){
+												 var articleId=$(this).attr("name");
+												 $(this).attr({href:"views/article/tuijian.jsp?articleId="+articleId});
+											 }
+										 });
+									}
+								}
+						 });			
+					}
+			 });	
+                  
+            }  
+     });
+//分类查询结果展示
+   $(".mask .yse").click(function(){
+	   alert(11);
+   });
+	    //
 		$('.part span').click(function(){
 			$(this).addClass('focus');
 			$(this).siblings('span').removeClass('focus');

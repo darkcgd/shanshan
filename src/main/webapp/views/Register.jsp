@@ -147,6 +147,7 @@
 	}
 	//注册提交
 	function register() {
+		var userId=localStorage.getItem("userId");
 		var phone = $("#phone").val();
 		var smsCode = $("#smsCode").val();
 		var userName = $("#userName").val();
@@ -156,6 +157,7 @@
 			dataType:"json", //数据格式:JSON
 			url:'userRegist', //目标地址
 			data : {
+				userId:userId,
 				phone : phone,
 				smsCode : smsCode,
 				userName : userName,
