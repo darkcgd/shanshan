@@ -141,6 +141,9 @@ public class WxController {
         String code = request.getParameter("code");
         String state = request.getParameter("state");
 
+        LOG.info("=============code=====================::::"+code+"::::=================================");
+        LOG.info("=============state=====================::::"+state+"::::=================================");
+
         // 用户同意授权
         if (code!=null&&!"authdeny".equals(code)) {
             // 获取网页授权access_token
@@ -153,7 +156,7 @@ public class WxController {
                 // 获取用户信息
                 SNSUserInfo snsUserInfo = AdvancedUtil.getSNSUserInfo(accessToken, openId);
 
-                if(openId!=null){
+                if(openId!=null&&snsUserInfo!=null){
                     UserBean userByWxOpenId = userService.getUserByWxOpenId(openId);
                     if(userByWxOpenId==null){ //第一次授权 开始注册A级用户
                         UserBean userBean=new UserBean();
@@ -174,10 +177,13 @@ public class WxController {
                     }else{//说明之前已经授权了(即之前已经注册了),此时无需做任何操作
 
                     }
+                    // 设置要传递的参数
+                    mav.addObject("code",200);
+                    mav.addObject("data",snsUserInfo);
+                }else{
+                    mav.addObject("code",100);
+                    mav.addObject("data","获取不到用户数据");
                 }
-                // 设置要传递的参数
-                mav.addObject("code",200);
-                mav.addObject("data",snsUserInfo);
             }else{
                 mav.addObject("code",100);
                 mav.addObject("data","获取不到用户数据");

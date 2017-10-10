@@ -29,7 +29,7 @@ public class AdvancedUtil {
      *
      * @param appId 公众账号的唯一标识
      * @param appSecret 公众账号的密钥
-     * @param code
+     * @param code  081FvGcJ0KFm7j2x9yfJ0iPIcJ0FvGck
      * @return WeixinAouth2Token
      */
     public static WeixinOauth2Token getOauth2AccessToken(String appId, String appSecret, String code) {
