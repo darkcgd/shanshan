@@ -223,13 +223,14 @@ public class UserController {
 	 */
 	private void hanlderResponseData(Map<String, Object> data,UserBean userBean){
 		data.put("userId", userBean.getUserId());
-		data.put("name", userBean.getUserName());
+		data.put("userName", userBean.getUserName());
 		data.put("company", userBean.getCompany());
 		data.put("phone", userBean.getPhone());
 		data.put("sex", userBean.getSex());
 		data.put("age", userBean.getAge());
 		data.put("email", userBean.getEmail());
 		data.put("headUrl", userBean.getHeadUrl());
+		data.put("positionName", userBean.getPositionName());
 
 
 		Integer userType = userBean.getUserType();
