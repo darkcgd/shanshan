@@ -23,8 +23,9 @@ public class FaultRepairService {
 	private FaultRepairBeanMapper faultRepairBeanMapper;
 
 	public JsonResult save(FaultRepairBean entity) {
-
-		entity.setCreateTime(new Date(System.currentTimeMillis()));
+		Date date = new Date(System.currentTimeMillis());
+		entity.setCreateTime(date);
+		entity.setUpdateTime(date);
 		faultRepairBeanMapper.insertSelective(entity);
 
 		JsonResult result = new JsonResult(0, "", "");
