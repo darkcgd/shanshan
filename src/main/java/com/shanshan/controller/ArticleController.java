@@ -46,8 +46,7 @@ public class ArticleController {
 	@RequestMapping("/articleDetail")
 	@ResponseBody
 	public JsonResult articleDetail(ArticleBean entity) {
-		JsonDataResult<ArticleBean> result = new JsonDataResult<>();
-		
+		JsonDataResult<ArticleBean> result = new JsonDataResult<>();		
 		if (null == entity.getArticleId() || 0 == entity.getArticleId()) {
 			return new JsonResult(1, "ID_IS_NULL", "文章id不能为空!");
 		}		
