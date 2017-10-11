@@ -39,6 +39,7 @@ public class ArticleService {
 						if (StringUtils.isNotBlank(entity.getTitle())) {
 							criteria.andTitleLike("%" + entity.getTitle() + "%");
 						}
+						criteria.andStatusNotEqualTo(13);
 						example.setOrderByClause("create_time desc");
 						articleBeanMapper.selectByExample(example);
 					}
@@ -61,9 +62,53 @@ public class ArticleService {
 
 	public JsonResult saveOrUpdate(ArticleBean entity) {
 		Date date = new Date(System.currentTimeMillis());
-		entity.setCreateTime(date);
-		entity.setUpdateTime(date);
-		articleBeanMapper.insertSelective(entity);
+		if (entity == null || entity.getArticleId() != null) {
+			ArticleBean article = articleBeanMapper.selectByPrimaryKey(entity.getArticleId());
+			// 更新
+			if (article != null) {
+				if (StringUtils.isNotBlank(entity.getTitle())) {
+					article.setTitle(entity.getTitle());
+				}
+				if (StringUtils.isNotBlank(entity.getAuthor())) {
+					article.setAuthor(entity.getAuthor());
+				}
+				if (StringUtils.isNotBlank(entity.getContent())) {
+					article.setContent(entity.getContent());
+				}
+				if (StringUtils.isNotBlank(entity.getCategoryName())) {
+					article.setCategoryName(entity.getCategoryName());
+				}
+				if (entity.getTagId() != null && entity.getTagId() != 0) {
+					article.setTagId(entity.getTagId());
+				}
+				if (entity.getRelateActivityId() != null && entity.getRelateActivityId() != 0) {
+					article.setRelateActivityId(entity.getRelateActivityId());
+				}
+				if (entity.getRelatePermissionUserType() != null && entity.getRelatePermissionUserType() != 0) {
+					article.setRelatePermissionUserType(entity.getRelatePermissionUserType());
+				}
+				if (entity.getStatus() != null && entity.getStatus() != 0) {
+					article.setStatus(entity.getStatus());
+				}
+				if (StringUtils.isNotBlank(entity.getRemark())) {
+					article.setRemark(entity.getRemark());
+				}
+				if (entity.getStartTime() != null) {
+					article.setStartTime(entity.getStartTime());
+				}
+				if (entity.getEndTime() != null) {
+					article.setEndTime(entity.getEndTime());
+				}
+				article.setUpdateTime(date);
+				articleBeanMapper.updateByPrimaryKeySelective(article);
+			} else {
+				// 保存
+				entity.setCreateTime(date);
+				entity.setUpdateTime(date);
+				articleBeanMapper.insertSelective(entity);
+				
+			}
+		}
 
 		JsonResult result = new JsonResult(0, "", "");
 		return result;

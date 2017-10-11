@@ -57,7 +57,7 @@ public class ArticleController {
 	}
 	
 	/**
-	 * 保存文章
+	 * 保存文章;如果是删除就传id和states=13
 	 * @return
 	 */
 	@RequestMapping("/saveOpUpdate")

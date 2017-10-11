@@ -23,7 +23,7 @@ public class ArticleBean {
 
     private Integer relatePermissionUserType;
 
-    private Integer status;
+    private Integer status; // 10正常,11下线,13删除
 
     private Integer readCount;
 
