@@ -39,7 +39,7 @@ public class ArticleService {
 						if (StringUtils.isNotBlank(entity.getTitle())) {
 							criteria.andTitleLike("%" + entity.getTitle() + "%");
 						}
-						criteria.andStatusNotEqualTo(13);
+						criteria.andStatusEqualTo(10);
 						example.setOrderByClause("create_time desc");
 						articleBeanMapper.selectByExample(example);
 					}
