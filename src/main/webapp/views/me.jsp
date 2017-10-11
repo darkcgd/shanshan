@@ -47,10 +47,7 @@
     		</div>
 		</header>
 		<div class="section">
-			<div class="photo">
-				<img src="img/05.jpg"/>
-			</div>
-			<span>专家组-小明</span>
+			
 		</div>
 		<ul class="infor">
 			
@@ -69,10 +66,24 @@
 	</body>
 	<script type="text/javascript">
 	$(document).ready(function(){ 
-		var token= localStorage.getItem("c_token")
+		var token= localStorage.getItem("c_token");
 		var userId= localStorage.getItem("userId");
-		
-		var name= localStorage.name 
+		$.ajax({
+			type : "GET", //用GET方式传输
+			dataType : "json", //数据格式:JSON
+			url : 'user/getUserInfo', //目标地址
+			data : {userId:userId,token:token},
+			success : function(msg) {
+				var datas=msg.data;
+					$(".section").append("<div class='photo'><img src='img/05.jpg'/></div><span>专家组-"+datas.userName+"</span>");				 
+			}
+		});
+	}); 
+	</script>
+	<script type="text/javascript">
+	$(document).ready(function(){ 
+		var token= localStorage.getItem("c_token");
+		var userId= localStorage.getItem("userId");
 		$.ajax({
 			type : "GET", //用GET方式传输
 			dataType : "json", //数据格式:JSON
