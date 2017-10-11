@@ -25,7 +25,6 @@ import com.shanshan.service.FaultRepairService;
 @Controller
 @RequestMapping( "/faultRepair" )
 public class FaultRepairController {
-
 	@Autowired
 	private FaultRepairService faultRepairService;
 	

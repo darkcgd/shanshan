@@ -65,7 +65,13 @@
 				success : function(msg) {			
 					var datas=msg.datas;
 					for(var i in datas){
-						$("ul").append("<li class='now'><a value='"+datas[i].relatePermissionUserType+"' name='"+datas[i].activityId+"'><div class='left'><img src='img/05.jpg'/><div class='tip' value='"+datas[i].relatePermissionUserType+"'></div></div><div class='right'><p class='title'><span class='size'>"+datas[i].title+"</span><span class='time'>"+datas[i].createTime+"</span></p><p class='zw'>"+datas[i].content+"</p></div></a></li>");			
+						$("ul").append("<li class='now'>"+
+								           "<a value='"+datas[i].relatePermissionUserType+"' name='"+datas[i].activityId+"'>"+
+								              "<div class='left'><img src='img/05.jpg'/><div class='tip' value='"+datas[i].relatePermissionUserType+"'></div></div>"+
+								              "<div class='right'><p class='title'>"+
+								                  "<span class='size'>"+datas[i].title+"</span>"+
+								                  "<span class='time'>"+datas[i].createTime+"</span></p>"+
+								              "<p class='zw'>"+datas[i].content+"</p></div></a></li>");			
 					}	
 					// alert(11);
 					 $("ul .tip").each(function(){

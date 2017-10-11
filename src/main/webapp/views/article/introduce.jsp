@@ -76,11 +76,11 @@
 					   success:function(msg){
 					   var  data=msg.datas;
 						$(".section .title").text("");
-					   	$(".section .title").text(data.title);
+					   	$(".section .title").text(data.title);//标题
 						$(".section .time").text("");
 						$(".section .time").text(data.createTime.substr(0,10)+"~"+data.updateTime.substr(0,10));
 					    $(".infor").text("");
-					    $(".infor").text(data.content);
+					    $(".infor").text(data.content);//内容
 					   }
 				   });
 			   
