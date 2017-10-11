@@ -1,5 +1,7 @@
 package com.shanshan.service;
 
+import java.util.Date;
+
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,6 +12,7 @@ import com.github.pagehelper.PageHelper;
 import com.shanshan.bean.ArticleBean;
 import com.shanshan.bean.ArticleBeanExample;
 import com.shanshan.bean.ArticleBeanExample.Criteria;
+import com.shanshan.common.model.JsonResult;
 import com.shanshan.common.model.PageRequest;
 import com.shanshan.dao.ArticleBeanMapper;
 
@@ -54,6 +57,14 @@ public class ArticleService {
 			articleBeanMapper.updateByPrimaryKeySelective(article);
 		}
 		return article;
+	}
+
+	public JsonResult saveOrUpdate(ArticleBean entity) {
+		entity.setCreateTime(new Date(System.currentTimeMillis()));
+		articleBeanMapper.insertSelective(entity);
+
+		JsonResult result = new JsonResult(0, "", "");
+		return result;
 	}
 	
 }

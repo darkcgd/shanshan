@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -35,7 +36,7 @@ public class FaultRepairController {
 	 */
 	@RequestMapping("/saveOrupdate")
 	@ResponseBody
-	public JsonResult saveOrupdate(@Valid FaultRepairBean entity, BindingResult errors) {
+	public JsonResult saveOrupdate(@Valid @RequestBody FaultRepairBean entity, BindingResult errors) {
 		
 		// 参数验证
 		if (errors.hasErrors()) {

@@ -2,8 +2,12 @@ package com.shanshan.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -51,6 +55,21 @@ public class ArticleController {
 		result.setDatas(data);
 		result.setRecordCount(1);
 		return result;
+	}
+	
+	/**
+	 * 保存文章
+	 * @return
+	 */
+	@RequestMapping("/saveOrUpdate")
+	@ResponseBody
+	public JsonResult saveOrUpdate(@Valid @RequestBody ArticleBean entity, BindingResult errors) {
+		// 参数验证
+		if (errors.hasErrors()) {
+			return new JsonDataResult<List<String>>(JsonResult.RESULT_F, "500", errors);
+		}
+		
+		return articleService.saveOrUpdate(entity);
 	}
 	
 }
