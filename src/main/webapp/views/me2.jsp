@@ -133,7 +133,17 @@
 			data : {userId:userId,token:token},
 			success : function(msg) {
 				var datas=msg.data;
-					$(".infor").append("<li><span class='left'>公司全称</span><span class='right'>"+datas.company+"</span></li><li><span class='left'>公司所在省/市</span><span class='right'>"+datas.provincesCities+"</span></li><li><span class='left'>性别</span><span class='right'>"+datas.sex+"</span></li><li><span class='left'>部门</span><span class='right'>"+datas.equipmentType+"</span></li><li><span class='left'>职务</span><span class='right'>"+datas.positionName+"</span></li><li><span class='left'>手机号码</span><span class='right'>"+datas.phone+"</span></li><li><span class='left'>公司邮箱</span><span class='right'>"+datas.email+"</span></li><li><span class='left'>所属行业</span><span class='right'>"+datas.industry+"</span></li><li><span class='left'>设备类型</span><span class='right'>"+datas.equipmentType+"</span></li>");				 
+				var company=(datas.company==undefined||datas.company==null)?"未填写":datas.company;
+				var provincesCities=(datas.provincesCities==undefined||datas.provincesCities==null)?"未填写":datas.provincesCities;
+					$(".infor").append("<li><span class='left'>公司全称</span><span class='right'>"+company+"</span>" +
+						"</li><li><span class='left'>公司所在省/市</span><span class='right'>"+provincesCities+"</span>" +
+						"</li><li><span class='left'>性别</span><span class='right'>"+datas.sex+"</span>" +
+						"</li><li><span class='left'>部门</span><span class='right'>"+datas.equipmentType+"</span>" +
+						"</li><li><span class='left'>职务</span><span class='right'>"+datas.positionName+"</span>" +
+						"</li><li><span class='left'>手机号码</span><span class='right'>"+datas.phone+"</span>" +
+						"</li><li><span class='left'>公司邮箱</span><span class='right'>"+datas.email+"</span>" +
+						"</li><li><span class='left'>所属行业</span><span class='right'>"+datas.industry+"</span>" +
+						"</li><li><span class='left'>设备类型</span><span class='right'>"+datas.equipmentType+"</span></li>");
 			}
 		});
 	}); 
