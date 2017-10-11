@@ -230,6 +230,10 @@ public class UserController {
 		data.put("age", userBean.getAge());
 		data.put("email", userBean.getEmail());
 		data.put("headUrl", userBean.getHeadUrl());
+		data.put("provincesCities", userBean.getProvincesCities());
+		data.put("departmentName", userBean.getDepartmentName());
+		data.put("industry", userBean.getIndustry());
+		data.put("equipmentType", userBean.getEquipmentType());
 
 
 		Integer userType = userBean.getUserType();
