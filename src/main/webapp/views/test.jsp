@@ -10,12 +10,12 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>技术文章</title>
+		<title>聊天记录</title>
 		<base href="<%=basePath%>">
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link rel="stylesheet" type="text/css" href="css/common.css"/>
 		<link rel="stylesheet" type="text/css" href="css/header.css"/>
-		<link rel="stylesheet" type="text/css" href="css/introduce.css"/>
+		<link rel="stylesheet" type="text/css" href="css/service.css"/>
 		<script src="js/jquery-1.7.1.min.js" type="text/javascript" charset="utf-8"></script>
 	</head>
 	<script type="text/javascript">
@@ -41,49 +41,48 @@
 	<body>
 		<header>
     		<div class="head">
-        		<div class="title">技术文章</div>
+        		<div class="title">王霞聊天记录</div>
         		<span class="h-lt" style="cursor:pointer" onclick="window.history.go(-1)"><i class="h-bk"></i></span>
         		<a class="h-rt" href="#"></a>
     		</div>
 		</header>
-		<div class="section">
-			<p class="title">				
-			</p>
-			<p class="time"></p>
-		</div>
-		<div class="infor">			
-		</div>
 		
-		<div class="tj">
-			<a href="views/article/tj.jsp">报名参与</a>
-		</div>
-		<div class="to">
-			<a href="views/Register.jsp">注&nbsp;册</a>
-		</div>
+		<div class="cont">
+			<p class="time">2017-04-24 09:38</p>
+			
+			<div class="people">
+				<nav class="hh">
+						<img src="img/05.jpg"/>					
+				</nav>
+				<p class="name">"${data.openId}"</p>
+				
+				<div class="pll">
+					<p>"${data.nickname}"</p>
+				</div>
+			</div>
+	        <div class="replay">
+				<nav class="hh">
+						<img src="img/05.jpg"/>					
+				</nav>
+				<p class="name">"${data.sex}"</p>
+				
+				<div class="pll">
+					<p>"${data.country}"</p>
+				</div>
+			</div>
+			<div class="people">
+				<nav class="hh">
+						<img src="img/05.jpg"/>					
+				</nav>
+				<p class="name">"${data.headImgUrl}"</p>
+				
+				<div class="pll">
+					<p>"${data.city}"</p>
+				</div>
+			</div>
+
+    	</div>
+
 	</body>
-	<script type="text/javascript">
-	$(document).ready(function(){ 
-		 function getUrlParam(name) {
-			   var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
-			   var r = window.location.search.substr(1).match(reg); //匹配目标参数
-			   if (r != null) return unescape(r[2]); return null; }//返回参数值
-		       var articleId= getUrlParam('articleId');
-			   $.ajax({
-					   type:'get',
-					   url:'article/articleDetail',
-					   data:"articleId="+articleId,
-					   dataType:'json',
-					   success:function(msg){
-					   var  data=msg.datas;
-						$(".section .title").text("");
-					   	$(".section .title").text(data.title);//标题
-						$(".section .time").text("");
-						$(".section .time").text(data.createTime.substr(0,10)+"~"+data.updateTime.substr(0,10));
-					    $(".infor").text("");
-					    $(".infor").text(data.content);//内容
-					   }
-				   });
-			   
-		}); 
-	</script>
+
 </html>

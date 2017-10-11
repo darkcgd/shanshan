@@ -31,6 +31,7 @@
     <result column="equipment_type" jdbcType="VARCHAR" property="equipmentType" />
     <result column="industry" jdbcType="VARCHAR" property="industry" />
     <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="is_shanshan_user" jdbcType="INTEGER" property="isShanshanUser" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -95,7 +96,7 @@
     email, age, sex, create_time, update_time, last_login_time, user_type, remark, department_name, 
     position_name, provinces_cities, referrals_name, referrals_phone, company, attributes, 
     experience_years, expertise_areas, buy_equipment_channel, equipment_type, industry, 
-    status
+    status, is_shanshan_user
   </sql>
   <select id="selectByExample" parameterType="com.shanshan.bean.UserBeanExample" resultMap="BaseResultMap">
     select
@@ -137,7 +138,8 @@
       provinces_cities, referrals_name, referrals_phone, 
       company, attributes, experience_years, 
       expertise_areas, buy_equipment_channel, equipment_type, 
-      industry, status)
+      industry, status, is_shanshan_user
+      )
     values (#{userId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{userNickName,jdbcType=VARCHAR}, 
       #{wxOpenId,jdbcType=VARCHAR}, #{wxAccessToken,jdbcType=VARCHAR}, #{pwd,jdbcType=VARCHAR}, 
       #{headUrl,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
@@ -147,7 +149,8 @@
       #{provincesCities,jdbcType=VARCHAR}, #{referralsName,jdbcType=VARCHAR}, #{referralsPhone,jdbcType=VARCHAR}, 
       #{company,jdbcType=VARCHAR}, #{attributes,jdbcType=VARCHAR}, #{experienceYears,jdbcType=INTEGER}, 
       #{expertiseAreas,jdbcType=VARCHAR}, #{buyEquipmentChannel,jdbcType=VARCHAR}, #{equipmentType,jdbcType=VARCHAR}, 
-      #{industry,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER})
+      #{industry,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{isShanshanUser,jdbcType=INTEGER}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.shanshan.bean.UserBean">
     insert into tbl_user
@@ -239,6 +242,9 @@
       <if test="status != null">
         status,
       </if>
+      <if test="isShanshanUser != null">
+        is_shanshan_user,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="userId != null">
@@ -327,6 +333,9 @@
       </if>
       <if test="status != null">
         #{status,jdbcType=INTEGER},
+      </if>
+      <if test="isShanshanUser != null">
+        #{isShanshanUser,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -426,6 +435,9 @@
       <if test="record.status != null">
         status = #{record.status,jdbcType=INTEGER},
       </if>
+      <if test="record.isShanshanUser != null">
+        is_shanshan_user = #{record.isShanshanUser,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -461,7 +473,8 @@
       buy_equipment_channel = #{record.buyEquipmentChannel,jdbcType=VARCHAR},
       equipment_type = #{record.equipmentType,jdbcType=VARCHAR},
       industry = #{record.industry,jdbcType=VARCHAR},
-      status = #{record.status,jdbcType=INTEGER}
+      status = #{record.status,jdbcType=INTEGER},
+      is_shanshan_user = #{record.isShanshanUser,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -553,6 +566,9 @@
       <if test="status != null">
         status = #{status,jdbcType=INTEGER},
       </if>
+      <if test="isShanshanUser != null">
+        is_shanshan_user = #{isShanshanUser,jdbcType=INTEGER},
+      </if>
     </set>
     where user_id = #{userId,jdbcType=INTEGER}
   </update>
@@ -585,7 +601,8 @@
       buy_equipment_channel = #{buyEquipmentChannel,jdbcType=VARCHAR},
       equipment_type = #{equipmentType,jdbcType=VARCHAR},
       industry = #{industry,jdbcType=VARCHAR},
-      status = #{status,jdbcType=INTEGER}
+      status = #{status,jdbcType=INTEGER},
+      is_shanshan_user = #{isShanshanUser,jdbcType=INTEGER}
     where user_id = #{userId,jdbcType=INTEGER}
   </update>
 </mapper>

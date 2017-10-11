@@ -48,40 +48,80 @@
 		</header>
 		<div class="section">
 			<p class="title">
-				北京推出防伪技术
 			</p>
-			<p class="time"><span>2017/08/27</span><span>作者：王维</span></p>
-			<span class="cc">推荐</span>
-		</div>
-		
-		<div class="zw">
-			<p>白色家电分为空调、冰箱、洗衣机、部分厨房电器等，早期这些家电大多是白色的外观，因此得名。目前中国大陆是世界上最大的白色家电生产基地。这一行业与我们的生活息息相关，并具有周期性行业的特征。</p>
-			<p>接下来，我们开始正式对白色家电行业进行分析：</p>
-			<p>一、白色家电行业的整体投资价值，如下图：</p>
-			<img src="img/u42.png"/>
-			<p>图中，我们对比了白色家电行业上市公司与整体A股的营业总收入同比增长率和历年来的平均每股收益。</p>
-			<p>可以看出白色家电行业相较于整体A股在营业收入方面更具弹性，在整体A股营业收入加速增长时，白色家电行业的营业收入增长更快；而当整体A股的营业收入增速下滑时，白色家电行业的营业收入增速也会更快下滑。</p>
-			
+			<p class="time"><span id="time"></span><span id="author"></span></p>
+			<span id="tagId"></span>
+		</div>		
+		<div class="zw">		
 		</div>
 		
 		<p class="to">
-			<a href="views/article/tj.jsp">
-				相关活动报名
+			<a>
 			</a>
 		</p>
-		
 	</body>
 <script type="text/javascript">
-	function searchArticle() {	
-		$.ajax({
-			type : "GET", //用GET方式传输
-			dataType : "json", //数据格式:JSON
-			url : '', //目标地址
-			//data : "dealType=" + dealType + "&uid=" + uid + "&code=" + code,
-			data : "",
-			success : function(msg) {
-			}
-		});
-	}
-</script>
+	$(document).ready(function(){ 
+		 function getUrlParam(name) {
+			   var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+			   var r = window.location.search.substr(1).match(reg); //匹配目标参数
+			   if (r != null) return unescape(r[2]); return null; }//返回参数值
+		       var articleId= getUrlParam('articleId');
+			   $.ajax({
+					   type:'get',
+					   url:'article/articleDetail',
+					   data:"articleId="+articleId,
+					   dataType:'json',
+					   success:function(msg){
+					   var  data=msg.datas;
+						$(".section .title").text("");
+					   	$(".section .title").text(data.title);
+						$(".section .time #time").text("");
+						$(".section .time #time").text(data.createTime.substr(0,10)+"~"+data.updateTime.substr(0,10));
+						$(".section .time #author").text("");
+						$(".section .time #author").text("作者:"+data.author);					
+						if(data.tagId==1){							
+							$(".section  #tagId").addClass("cc");
+							$(".section  #tagId").text("");
+							$(".section  #tagId").text("推荐");
+						}
+						if(data.tagId==2){
+							$(".section  #tagId").removeClass("cc").addClass('ca');
+							$(".section  #tagId").text("");
+							$(".section  #tagId").text("头条");
+						}
+						$(".zw").text("");
+						$(".zw").text(data.content);
+						if(data.relateActivityId==1){
+							$(".to a").text("相关活动报名");
+							var token= localStorage.getItem("c_token")
+							var userId= localStorage.getItem("userId");	
+							 $.ajax({
+									type : "GET", //用GET方式传输
+									dataType : "json", //数据格式:JSON
+									url : 'user/getUserInfo', //目标地址
+									//data : "dealType=" + dealType + "&uid=" + uid + "&code=" + code,
+									data : {userId:userId,token:token},
+									success : function(msg) {								
+										if(msg.code==200){
+											var userData=msg.data;
+											//跳转地址区分
+											if(userData.userType>=2){
+											$(".to a").attr({href:"views/article/tj.jsp?userId="+userId});
+											}
+										}
+									}
+							 });	
+							
+						}
+						
+					   }
+				   });
+			   
+		}); 
+     $(function(){
+    	 $(".to a").click(function(){
+    	 });
+     });
+	</script>
 </html>

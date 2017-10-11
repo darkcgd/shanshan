@@ -55,38 +55,67 @@
 	<script type="text/javascript">
 	//页面加载时执行
 		$(document).ready(function(){ 
-			var token= localStorage.getItem("c_token");
-			var userId= localStorage.getItem("userId");
+			var token= localStorage.getItem("c_token")
+			var userId= localStorage.getItem("userId");	
 			$.ajax({
 				type : "GET", //用GET方式传输
 				dataType : "json", //数据格式:JSON
-				url : 'user/getUserInfo', //目标地址
-				//data : "dealType=" + dealType + "&uid=" + uid + "&code=" + code,
-				data : {userId:userId,token:token},
-				success : function(msg) {
-					if(msg.code==100){
-						alert(msg.msg);
-					}
-					if(msg.code==200){	
-						var userData=msg.data;
-						//relatePermissionUserType可看用户等级1A 2B 3C 4客服 5专家
-						var relatePermissionUserType=userData.userType;
-						$.ajax({
+				url : 'activity/activityList', //目标地址
+			    data : "",
+				success : function(msg) {			
+					var datas=msg.datas;
+					for(var i in datas){
+						$("ul").append("<li class='now'>"+
+								           "<a value='"+datas[i].relatePermissionUserType+"' name='"+datas[i].activityId+"'>"+
+								              "<div class='left'><img src='img/05.jpg'/><div class='tip' value='"+datas[i].relatePermissionUserType+"'></div></div>"+
+								              "<div class='right'><p class='title'>"+
+								                  "<span class='size'>"+datas[i].title+"</span>"+
+								                  "<span class='time'>"+datas[i].createTime+"</span></p>"+
+								              "<p class='zw'>"+datas[i].content+"</p></div></a></li>");			
+					}	
+					// alert(11);
+					 $("ul .tip").each(function(){
+						 //注册专享与vip区别
+						 if($(this).attr("value")<=1){
+							 $(this).removeAttr("class");
+						 }
+						 if($(this).attr("value")==3||$(this).attr("value")==2){
+							 $(this).text("");
+							 $(this).text("注册专享");
+						 }
+						 if($(this).attr("value")>=3){
+							 $(this).text("");
+							 $(this).text("VIP专享");
+						 }
+						  });
+					 $.ajax({
 							type : "GET", //用GET方式传输
 							dataType : "json", //数据格式:JSON
-							url : 'activity/activityList', //目标地址
-							data : "relatePermissionUserType="+relatePermissionUserType,
-							success : function(msg) {
-								var datas=msg.datas;
-								for(var i in datas){
-								     $(".section  ul").append("<li class='now'><a  href='views/active/introActive.jsp?activityId="+datas[i].activityId+"'><div class='left'><img src='img/05.jpg'/><div class='tip'>注册专享</div></div><div class='right'><p class='title'><span class='size'>"+datas[i].title+"</span><span class='time'>"+datas[i].createTime+"</span></p><p class='zw'>"+datas[i].content+"</p></div></a></li>");
-								    }
+							url : 'user/getUserInfo', //目标地址
+							//data : "dealType=" + dealType + "&uid=" + uid + "&code=" + code,
+							data : {userId:userId,token:token},
+							success : function(msg) {	
+								if(msg.code==100){
+									if(msg.msg=="登录信息失效,请重新登录"){
+										alert(msg.msg);
+										window.location.href="views/login.jsp";
+									}
+									
+								}
+								if(msg.code==200){
+									var userData=msg.data;
+									//跳转地址区分
+									 $("ul a").each(function(){
+										 if($(this).attr("value")<=userData.userType){
+											 var activityId=$(this).attr("name");
+											 $(this).attr({href:"views/active/introActive.jsp?activityId="+activityId});
+										 }
+									 });
+								}
 							}
-						});
-					}
-					
+					 });
 				}
-			});		
+			});
 		}); 
 	    //点击事件
 		$('.part span').click(function(){

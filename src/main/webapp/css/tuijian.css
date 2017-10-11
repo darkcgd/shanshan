@@ -32,6 +32,15 @@
 	right: 1rem;
 	top: 2rem;
 }
+.ca{
+	padding: 0.1rem 0.5rem;
+	border: 1px solid #F45F5F;
+	color: #F45F5F;
+	position: absolute;
+	right: 1rem;
+	top: 2rem;
+}
+
 
 .zw{
 	margin-top: 1rem;

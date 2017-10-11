@@ -102,14 +102,18 @@
 		<!-- /.modal-dialog -->
 	</div>
 	<!-- /.modal -->
+	<input type="hidden" id="rebackUserid" value="${data.userId}"/>
 </body>
 <script type="text/javascript">
+   
 	var InterValObj; //timer变量，控制时间
 	var count = 30; //间隔函数，1秒执行
 	var curCount;//当前剩余秒数
 	var code = ""; //验证码
 	var codeLength = 6;//验证码长度
 	function sendMessage() {
+		var rebackUserid=$('#rebackUserid').val();
+		localStorage.setItem("userId",rebackUserid);
 		curCount = count;
 		/*var dealType; //验证方式
 		var uid = $("#uid").val();//用户uid

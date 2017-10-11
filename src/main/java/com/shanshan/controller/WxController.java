@@ -11,6 +11,12 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.shanshan.bean.UserBean;
+import com.shanshan.service.UserService;
+import com.shanshan.util.BaseUtil;
+import com.shanshan.util.Config;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,16 +27,22 @@ import com.shanshan.bean.WeixinOauth2Token;
 import com.shanshan.service.WxService;
 import com.shanshan.util.AbSHA1;
 import com.shanshan.util.AdvancedUtil;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * Created by szmg on 17/9/27.
  */
 @Controller
 public class WxController {
+    private static final Logger LOG = Logger.getLogger(ArticleCategoryController.class);
+
     private String Token = "shanshanToken";
 
     @Resource
     WxService wxService;
+
+    @Autowired
+    UserService userService;
 
     /**
      * 微信接入
@@ -114,36 +126,73 @@ public class WxController {
      * 微信接入
      * @return
      * @throws IOException
+     * 如果用户同意授权，页面将跳转至 redirect_uri/?code=CODE&state=STATE。
      */
     @RequestMapping(value = "/oauth", method = { RequestMethod.GET, RequestMethod.POST })
     @ResponseBody
-    public void wxOauth(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public ModelAndView wxOauth(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        ModelAndView mav = new ModelAndView("login");
+
         // 将请求、响应的编码均设置为UTF-8（防止中文乱码）
         request.setCharacterEncoding("UTF-8");  //微信服务器POST消息时用的是UTF-8编码，在接收时也要用同样的编码，否则中文会乱码；
         response.setCharacterEncoding("UTF-8"); //在响应消息（回复消息给用户）时，也将编码方式设置为UTF-8，原理同上；boolean isGet = request.getMethod().toLowerCase().equals("get");
 
         // 用户同意授权后，能获取到code
         String code = request.getParameter("code");
+        String state = request.getParameter("state");
+
+        LOG.info("=============code=====================::::"+code+"::::=================================");
+        LOG.info("=============state=====================::::"+state+"::::=================================");
 
         // 用户同意授权
         if (code!=null&&!"authdeny".equals(code)) {
-            String APPID = "";
-            String SECRET = "";
-
             // 获取网页授权access_token
-            WeixinOauth2Token weixinOauth2Token = AdvancedUtil.getOauth2AccessToken(APPID, SECRET, code);
-            // 网页授权接口访问凭证
-            String accessToken = weixinOauth2Token.getAccessToken();
-            // 用户标识
-            String openId = weixinOauth2Token.getOpenId();
-            // 获取用户信息
-            SNSUserInfo snsUserInfo = AdvancedUtil.getSNSUserInfo(accessToken, openId);
+            WeixinOauth2Token weixinOauth2Token = AdvancedUtil.getOauth2AccessToken(Config.AppID, Config.AppSecret, code);
+            if(weixinOauth2Token!=null){
+                // 网页授权接口访问凭证
+                String accessToken = weixinOauth2Token.getAccessToken();
+                // 用户标识
+                String openId = weixinOauth2Token.getOpenId();
+                // 获取用户信息
+                SNSUserInfo snsUserInfo = AdvancedUtil.getSNSUserInfo(accessToken, openId);
 
-            // 设置要传递的参数
-            request.setAttribute("snsUserInfo", snsUserInfo);
+                if(openId!=null&&snsUserInfo!=null){
+                    UserBean userByWxOpenId = userService.getUserByWxOpenId(openId);
+                    if(userByWxOpenId==null){ //第一次授权 开始注册A级用户
+                        UserBean userBean=new UserBean();
+                        userBean.setUserName(snsUserInfo.getNickname());
+                        userBean.setUserType(1);
+                        userBean.setWxOpenId(snsUserInfo.getOpenId());
+                        userBean.setSex(snsUserInfo.getSex());//用户的性别，值为1时是男性，值为2时是女性，值为0时是未知
+                        userBean.setHeadUrl(snsUserInfo.getHeadImgUrl());
+
+                        //保存微信授权信息 即微信注册 A级用户
+                        userService.saveUser(userBean);
+
+                        //插入后再查询 目的是查询出用户id 方便前端 进行 注册
+                        UserBean userSaveByWxOpenId = userService.getUserByWxOpenId(openId);
+                        if(userSaveByWxOpenId!=null&& BaseUtil.isNotEmpty(userSaveByWxOpenId.getUserId())){
+                            snsUserInfo.setUserId(userSaveByWxOpenId.getUserId());
+                        }
+                    }else{//说明之前已经授权了(即之前已经注册了),此时无需做任何操作
+
+                    }
+                    // 设置要传递的参数
+                    mav.addObject("code",200);
+                    mav.addObject("data",snsUserInfo);
+                }else{
+                    mav.addObject("code",100);
+                    mav.addObject("data","获取不到用户数据");
+                }
+            }else{
+                mav.addObject("code",100);
+                mav.addObject("data","获取不到用户数据");
+            }
+        }else{
+            mav.addObject("code",101);
+            mav.addObject("data","未授权成功");
         }
-        // 跳转到index.jsp
-        request.getRequestDispatcher("views/login.jsp").forward(request, response);
+        return mav;
 
     }
 

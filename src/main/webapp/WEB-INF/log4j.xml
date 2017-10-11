@@ -73,7 +73,7 @@
 
     <!-- debug log -->
     <!-- name指定的是包名，表示这个logger只记录com.wzw.controller下的所有日志 -->
-    <logger name="com.wzw.controller" additivity="true">  <!-- additivity 是否继承root -->
+    <logger name="com.shanshan.controller" additivity="true">  <!-- additivity 是否继承root -->
         <!-- <level value="${loggingLevel}" />   -->
         <level value="DEBUG"></level>  <!-- 现在级别 -->
         <appender-ref ref="DEBUG-APPENDER" />
@@ -81,7 +81,7 @@
 
     <!-- info log -->
     <!-- name指定的是包名，这样只操作此包下的log -->
-    <logger name="com.wzw.controller" additivity="true">
+    <logger name="com.shanshan.controller" additivity="true">
         <level value="INFO"></level>
         <appender-ref ref="INFO-APPENDER" />
         <appender-ref ref="console"/>

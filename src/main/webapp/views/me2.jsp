@@ -47,21 +47,7 @@
     		</div>
 		</header>
 		<div class="section">
-			<div class="tip">
-				<a href="views/replace.jsp">
-					<div class="laba">
-						<img src="img/tip.png"/>
-					</div><p>完善信息可以获取更多的服务</p>
-					<div class="mm">
-						<img src="img/right.png"/>
-					</div>
-				</a>
-			</div>
-			<div class="photo">
-				<img src="img/05.jpg" class="phh"/>
-				<img src="img/hy.png" class="hy" />
-			</div>
-			<span>专家组-小明</span>
+			
 		</div>
 		
 		<div class="find qiye">
@@ -76,47 +62,7 @@
 			</div>
 		
 		<ul class="infor">
-			<!--<li>
-				<span class="left">用户等级</span>
-				<span class="right">13级</span>
-			</li>-->
-			<li>
-				<span class="left">公司全称</span>
-				<span class="right">xxx设备制作公司</span>
-			</li>
-			<li>
-				<span class="left">公司所在省/市</span>
-				<input id="demo1" type="text" readonly placeholder="城市选择特效"  value="广东省,深圳市,南山区" class="right"/>
-				<img src="img/right.png" class="righter"/>
-			</li>
-			<li>
-				<span class="left">性别</span>
-				<span class="right">女</span>
-			</li>
-			<li>
-				<span class="left">部门</span>
-				<span class="right">研发部</span>
-			</li>
-			<li>
-				<span class="left">职务</span>
-				<span class="right">工程师</span>
-			</li>
-			<li>
-				<span class="left">手机号码</span>
-				<span class="right">1654848148</span>
-			</li>
-			<li>
-				<span class="left">公司邮箱</span>
-				<span class="right">1651564156145</span>
-			</li>
-			<li>
-				<span class="left">所属行业</span>
-				<span class="right">互联网</span>
-			</li>
-			<li>
-				<span class="left">设备类型</span>
-				<span class="right">xxxx</span>
-			</li>
+			
 		</ul>
 		
 		<div class="abt">
@@ -160,29 +106,46 @@
 			$('.infor').slideToggle();
 		})
 	</script>
-	<script>
-    var area1 = new LArea();
-    area1.init({
-        'trigger': '#demo1', //触发选择控件的文本框，同时选择完毕后name属性输出到该位置
-        'valueTo': '#value1', //选择完毕后id属性输出到该位置
-        'keys': {
-            id: 'id',
-            name: 'name'
-        }, //绑定数据源相关字段 id对应valueTo的value属性输出 name对应trigger的value属性输出
-        'type': 1, //数据源类型
-        'data': LAreaData //数据源
-    });
-    area1.value=[1,13,3];//控制初始位置，注意：该方法并不会影响到input的value
-    var area2 = new LArea();
-    area2.init({
-        'trigger': '#demo2',
-        'valueTo': '#value2',
-        'keys': {
-            id: 'value',
-            name: 'text'
-        },
-        'type': 2,
-        'data': [provs_data, citys_data, dists_data]
-    });
-    </script>
+	<script type="text/javascript">
+	$(document).ready(function(){ 
+		var token= localStorage.getItem("c_token");
+		var userId= localStorage.getItem("userId");
+		$.ajax({
+			type : "GET", //用GET方式传输
+			dataType : "json", //数据格式:JSON
+			url : 'user/getUserInfo', //目标地址
+			data : {userId:userId,token:token},
+			success : function(msg) {
+				var datas=msg.data;
+					$(".section").append("<div class='tip'><a href='views/replace.jsp'><div class='laba'><img src='img/tip.png'/></div><p>完善信息可以获取更多的服务</p><div class='mm'><img src='img/right.png'/></div></a></div><div class='photo'><img src='img/05.jpg' class='phh'/><img src='img/hy.png' class='hy' /></div><span>专家组-"+datas.userName+"</span>");				 
+			}
+		});
+	}); 
+	</script>
+ <script type="text/javascript">
+	$(document).ready(function(){ 
+		var token= localStorage.getItem("c_token");
+		var userId= localStorage.getItem("userId");
+		$.ajax({
+			type : "GET", //用GET方式传输
+			dataType : "json", //数据格式:JSON
+			url : 'user/getUserInfo', //目标地址
+			data : {userId:userId,token:token},
+			success : function(msg) {
+				var datas=msg.data;
+				var company=(datas.company==undefined||datas.company==null)?"未填写":datas.company;
+				var provincesCities=(datas.provincesCities==undefined||datas.provincesCities==null)?"未填写":datas.provincesCities;
+					$(".infor").append("<li><span class='left'>公司全称</span><span class='right'>"+company+"</span>" +
+						"</li><li><span class='left'>公司所在省/市</span><span class='right'>"+provincesCities+"</span>" +
+						"</li><li><span class='left'>性别</span><span class='right'>"+datas.sex+"</span>" +
+						"</li><li><span class='left'>部门</span><span class='right'>"+datas.equipmentType+"</span>" +
+						"</li><li><span class='left'>职务</span><span class='right'>"+datas.positionName+"</span>" +
+						"</li><li><span class='left'>手机号码</span><span class='right'>"+datas.phone+"</span>" +
+						"</li><li><span class='left'>公司邮箱</span><span class='right'>"+datas.email+"</span>" +
+						"</li><li><span class='left'>所属行业</span><span class='right'>"+datas.industry+"</span>" +
+						"</li><li><span class='left'>设备类型</span><span class='right'>"+datas.equipmentType+"</span></li>");
+			}
+		});
+	}); 
+	</script>
 </html>

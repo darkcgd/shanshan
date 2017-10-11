@@ -8,14 +8,14 @@
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-	<head>
+<head>
 		<meta charset="UTF-8">
-		<title>技术文章</title>
+		<title>个人中心</title>
 		<base href="<%=basePath%>">
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link rel="stylesheet" type="text/css" href="css/common.css"/>
 		<link rel="stylesheet" type="text/css" href="css/header.css"/>
-		<link rel="stylesheet" type="text/css" href="css/introduce.css"/>
+		<link rel="stylesheet" type="text/css" href="css/me.css"/>
 		<script src="js/jquery-1.7.1.min.js" type="text/javascript" charset="utf-8"></script>
 	</head>
 	<script type="text/javascript">
@@ -41,49 +41,60 @@
 	<body>
 		<header>
     		<div class="head">
-        		<div class="title">技术文章</div>
+        		<div class="title">个人中心</div>
         		<span class="h-lt" style="cursor:pointer" onclick="window.history.go(-1)"><i class="h-bk"></i></span>
         		<a class="h-rt" href="#"></a>
     		</div>
 		</header>
 		<div class="section">
-			<p class="title">				
-			</p>
-			<p class="time"></p>
+			
 		</div>
-		<div class="infor">			
-		</div>
+		<ul class="infor">
+			
+		</ul>
 		
-		<div class="tj">
-			<a href="views/article/tj.jsp">报名参与</a>
-		</div>
-		<div class="to">
-			<a href="views/Register.jsp">注&nbsp;册</a>
-		</div>
+		<!--<div class="find">
+			<a href="find.html">
+				<span class="left">
+					找回密码
+				</span>
+				<span class="right">
+					<img src="img/right.png"/>
+				</span>
+			</a>
+		</div>-->
 	</body>
 	<script type="text/javascript">
 	$(document).ready(function(){ 
-		 function getUrlParam(name) {
-			   var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
-			   var r = window.location.search.substr(1).match(reg); //匹配目标参数
-			   if (r != null) return unescape(r[2]); return null; }//返回参数值
-		       var articleId= getUrlParam('articleId');
-			   $.ajax({
-					   type:'get',
-					   url:'article/articleDetail',
-					   data:"articleId="+articleId,
-					   dataType:'json',
-					   success:function(msg){
-					   var  data=msg.datas;
-						$(".section .title").text("");
-					   	$(".section .title").text(data.title);//标题
-						$(".section .time").text("");
-						$(".section .time").text(data.createTime.substr(0,10)+"~"+data.updateTime.substr(0,10));
-					    $(".infor").text("");
-					    $(".infor").text(data.content);//内容
-					   }
-				   });
-			   
-		}); 
+		var token= localStorage.getItem("c_token");
+		var userId= localStorage.getItem("userId");
+		$.ajax({
+			type : "GET", //用GET方式传输
+			dataType : "json", //数据格式:JSON
+			url : 'user/getUserInfo', //目标地址
+			data : {userId:userId,token:token},
+			success : function(msg) {
+				var datas=msg.data;
+					$(".section").append("<div class='photo'><img src='img/05.jpg'/></div><span>专家组-"+datas.userName+"</span>");				 
+			}
+		});
+	}); 
+	</script>
+	<script type="text/javascript">
+	$(document).ready(function(){ 
+		var token= localStorage.getItem("c_token");
+		var userId= localStorage.getItem("userId");
+		$.ajax({
+			type : "GET", //用GET方式传输
+			dataType : "json", //数据格式:JSON
+			url : 'user/getUserInfo', //目标地址
+			data : {userId:userId,token:token},
+			success : function(msg) {
+				var datas=msg.data;
+					$(".infor").append("<li><span class='left'>姓名</span><span class='right'>"+datas.userName+"</span></li><li><span class='left'>归属分公司</span><span class='right'>"+datas.company+"</span></li><li><span class='left'>岗位</span><span class='right'>"+datas.positionName+"</span></li><li><span class='left'>联系方式</span><span class='right'>"+datas.phone+"</span></li>");			
+					 
+			}
+		});
+	}); 
 	</script>
 </html>
