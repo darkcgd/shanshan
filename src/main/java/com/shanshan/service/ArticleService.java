@@ -1,7 +1,12 @@
 package com.shanshan.service;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import com.shanshan.bean.UserBean;
+import com.shanshan.bean.UserBeanExample;
+import com.shanshan.util.BaseUtil;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,7 +26,8 @@ public class ArticleService {
 
 	@Autowired
 	private ArticleBeanMapper articleBeanMapper;
-	
+
+	//localhost:8080/shanshan/article/articleList?start=0&limit=50&title=标题2&categoryName=分类名称&relatePermissionUserType=0
 	public Page<ArticleBean> articleList(ArticleBean entity, PageRequest page) {
 		Page<ArticleBean> result = PageHelper.offsetPage(page.getStart(), page.getLimit())
 				.doSelectPage(new ISelect() {
@@ -39,13 +45,31 @@ public class ArticleService {
 						if (StringUtils.isNotBlank(entity.getTitle())) {
 							criteria.andTitleLike("%" + entity.getTitle() + "%");
 						}
-						criteria.andStatusEqualTo(10);
+						//criteria.andStatusEqualTo(10);
 						example.setOrderByClause("create_time desc");
 						articleBeanMapper.selectByExample(example);
 					}
 				});
 		return result;
 	}
+
+
+	public List<ArticleBean> getArticleList(ArticleBean articleBean) {
+		ArticleBeanExample articleBeanExample = new ArticleBeanExample();
+		//通过Criteria构造查询条件
+		ArticleBeanExample.Criteria criteria=articleBeanExample.createCriteria();
+		if(BaseUtil.isNotEmpty(articleBean.getTitle())){
+			criteria.andTitleLike(articleBean.getTitle());
+		}
+		if(BaseUtil.isNotEmpty(articleBean.getCategoryName())){
+			criteria.andCategoryNameEqualTo(articleBean.getCategoryName());
+		}
+		if(BaseUtil.isNotEmpty(articleBean.getRelatePermissionUserType())){
+			criteria.andRelatePermissionUserTypeEqualTo(articleBean.getRelatePermissionUserType());
+		}
+		return articleBeanMapper.selectByExample(articleBeanExample);
+	}
+
 
 	public ArticleBean articleDetail(ArticleBean entity) {
 		ArticleBean article = articleBeanMapper.selectByPrimaryKey(entity.getArticleId());

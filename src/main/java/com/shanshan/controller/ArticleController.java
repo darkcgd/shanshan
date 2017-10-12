@@ -2,21 +2,22 @@ package com.shanshan.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.shanshan.base.BaseController;
+import com.shanshan.bean.MsgBean;
+import com.shanshan.bean.UserBean;
+import com.shanshan.util.Constant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
@@ -31,7 +32,7 @@ import com.shanshan.service.ArticleService;
 
 @Controller
 @RequestMapping( "/article" )
-public class ArticleController {
+public class ArticleController extends BaseController{
 
 	@Autowired
 	private ArticleService articleService;
@@ -49,6 +50,28 @@ public class ArticleController {
 		result.setRecordCount(datas.size());
 		return result;
 	}
+
+
+	/**
+	 * PC管理后台 获取用户列表
+	 */
+	@ResponseBody
+	@RequestMapping(value="/getArticleList",method= RequestMethod.GET)
+	public Object getArticleList(ArticleBean articleBean,
+			@RequestParam(value = "pagerNumber", defaultValue = ""+ Constant.DefaultPagerNumber) Integer pagerNumber,
+			@RequestParam(value = "pagerSize", defaultValue = ""+Constant.DefaultPagerSize)  Integer pagerSize){
+		PageHelper.startPage(pagerNumber, pagerSize);
+		List<ArticleBean> articleBeanList = articleService.getArticleList(articleBean);
+
+		MsgBean msg = MsgBean.success("获取成功");
+		Map<String, Object> data = msg.getData();
+
+		handlerPageInfoAdmin(data,new PageInfo(articleBeanList, pagerSize));
+
+		data.put("list", articleBeanList);
+		return msg;
+	}
+
 	
 	/**
 	 * 文章详情
