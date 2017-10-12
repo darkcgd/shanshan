@@ -119,8 +119,8 @@
                 $('#myModal').modal('show');
                 $(".modal-body").text(""+data);
             }else{
-                $('#myModal').modal('show');
-                $(".modal-body").text("请在微信中打开");
+                /*$('#myModal').modal('show');
+                $(".modal-body").text("请在微信中打开");*/
             }
         }
     });
