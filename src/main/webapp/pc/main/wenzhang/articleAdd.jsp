@@ -229,6 +229,22 @@ td.fenye {
  <!-- 注意， 只需要引用 JS，无需引用任何 CSS ！！！-->
     <script type="text/javascript" src="pc/editor/release/wangEditor.js"></script>
     <script type="text/javascript">
+    $("#saveInfo").click(function(){ 
+        $.ajax({
+			type : "POST", //用POST方式传输
+			contentType: "application/json; charset=utf-8", //数据格式:JSON
+			type:"json", //数据格式:JSON
+			url : 'article/saveOpUpdate', //目标地址
+			data : JSON.stringify(GetJsonData()),
+			error: function(XMLHttpRequest){  
+			     alert( "Error: " + XMLHttpRequest.responseText);  
+			   }  ,
+			success : function(msg) {
+				alert(msg.errorCode);
+				}
+				//发送验证返回信息
+		});
+    });
     $("#bigClass option").click(function(){	
   	  if($(this).text()=="加工应用"){
   	    	$("#smallClass").html("");
@@ -252,9 +268,9 @@ td.fenye {
    // editor.customConfig.uploadFileName = 'uploadPic';
     //editor.customConfig.uploadImgMaxLength = 5;
        //editor.customConfig.uploadImgServer = 'article/upload'
-       /* editor.customConfig.uploadImgHeaders = {
+        editor.customConfig.uploadImgHeaders = {
          'Accept' : 'multipart/form-data'
-    	 };  */
+    	 };  
       /* editor.customConfig.customUploadImg = function (files, insert) {
     	    // files 是 input 中选中的文件列表
     	    alert(files);
@@ -264,56 +280,29 @@ td.fenye {
     	    insert(imgUrl)
     	} */
     editor.customConfig.uploadImgShowBase64 = true ; 
-    editor.create();
-    $("#saveInfo").click(function(){
-    	
-        $.ajax({
-			type : "POST", //用GET方式传输
-			contentType: "application/json; charset=utf-8", //数据格式:JSON
-			type:"json", //数据格式:JSON
-			url : 'article/saveOpUpdate', //目标地址
-			data : JSON.stringify(GetJsonData()),
-			error: function(XMLHttpRequest){  
-			     alert( "Error: " + XMLHttpRequest.responseText);  
-			   }  ,
-			success : function(msg) {
-				alert(msg.errorCode);
-				}
-				//发送验证返回信息
-		});
-    });
+    editor.create();  
     function GetJsonData() {
-    	var content=editor.txt.text();
-    	alert(content);
+    	var content=editor.txt.html();
     	var title=$("#title").val();
-    	alert(title);
         var author=$("#author").val();
-        alert(author);
         var categoryName=$("#smallClass").find("option:selected").text();
-        alert(categoryName);
         var tagId=$("#tagId").find("option:selected").val();
-        alert(tagId);
         var createTime=$("#createTime").val();
-        alert(createTime);
         var startTime=$("#startTime").val();
-        alert(startTime);
         var endTime=$("#endTime").val();
-        alert(endTime);
         var relateActivityId=$("#relateActivityId").find("option:selected").val();
-        alert(relateActivityId);
         var relatePermissionUserType=$("#relatePermissionUserType").find("option:selected").val();
-        alert(relatePermissionUserType);
         var json = {
-        		"title":title,
-				"author":author,
-				"content":content,
-				"categoryName":categoryName,
-				"tagId":tagId,
-				"createTime":createTime,
-				"startTime":startTime,
-				"endTime":endTime,
-				"relateActivityId":relateActivityId,
-				"relatePermissionUserType":relatePermissionUserType
+        	    title:title,
+				author:author,
+				content:content,
+				categoryName:categoryName,
+				tagId:tagId,
+				createTime:createTime,
+				startTime:startTime,
+				endTime:endTime,
+				relateActivityId:relateActivityId,
+				relatePermissionUserType:relatePermissionUserType
         };
         return json;
     }
@@ -326,11 +315,5 @@ td.fenye {
 		 autoclose: true,//选中自动关闭
 		 todayBtn: true//显示今日按钮
 		 }) 
-	//保证时间控件不会被副文本控件影响
-     var zIndex = parseInt(this.element.parents().filter(function(){
-    		    return $(this).css('z-index') !== 'auto';
-    		    }).first().css('z-index'))  +10;
-    
- 
     </script>
 </html>
