@@ -132,7 +132,7 @@
 				var userType=a;
 					$(".section").append("<div class='tip' id='yy'><a href='views/replace.jsp'><div class='laba'><img src='img/tip.png'/></div><p>完善信息可以获取更多的服务</p><div class='mm'><img src='img/right.png'/></div></a></div><div class='photo'><img src='img/05.jpg' class='phh'/><img src='img/hy.png' class='hy' /></div><span>"+userType+"-"+datas.userName+"</span>");				 
 				var yin=document.getElementById("yy");
-				if (datas.userType==1||datas.userType==2) {
+				if (datas.userType==3||datas.userType==4||datas.userType==5) {
 					 yin.style.display='none';	
 				}else{
 					 yin.style.display='block';	
