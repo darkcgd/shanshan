@@ -168,6 +168,7 @@
 					 a="女";
 				}
 				var sex=a;
+				var departmentName=(datas.departmentName==''||datas.departmentName==null)?"未填写":datas.departmentName;
 				var positionName=(datas.positionName==''||datas.positionName==null)?"未填写":datas.positionName;
 				var phone=(datas.phone==''||datas.phone==null)?"未填写":datas.phone;
 				var email=(datas.email==''||datas.email==null)?"未填写":datas.email;
@@ -176,7 +177,7 @@
 					$(".infor").append("<li><span class='left'>公司全称</span><span class='right'>"+company+"</span>" +
 						"</li><li><span class='left'>公司所在省/市</span><span class='right'>"+provincesCities+"</span>" +
 						"</li><li><span class='left'>性别</span><span class='right'>"+sex+"</span>" +
-						"</li><li><span class='left'>部门</span><span class='right'>未填写</span>" +
+						"</li><li><span class='left'>部门</span><span class='right'>"+departmentName+"</span>" +
 						"</li><li><span class='left'>职务</span><span class='right'>"+positionName+"</span>" +
 						"</li><li><span class='left'>手机号码</span><span class='right'>"+phone+"</span>" +
 						"</li><li><span class='left'>公司邮箱</span><span class='right'>"+email+"</span>" +
