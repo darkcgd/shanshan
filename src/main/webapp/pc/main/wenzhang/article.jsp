@@ -16,6 +16,8 @@
 <link href="pc/css/main.css" type="text/css" rel="stylesheet" />
 <link rel="shortcut icon" href="pc/images/main/favicon.ico" />
 <link rel="stylesheet" href="pc/css/adminstyle.css" type="text/css">
+<script src="static/js/jquery-3.2.1.min.js" type="text/javascript"
+	charset="utf-8"></script>
 <style>
 body{overflow-x:hidden; background:#f2f0f5; padding:15px 0px 10px 5px;}
 #searchmain{ font-size:12px;}

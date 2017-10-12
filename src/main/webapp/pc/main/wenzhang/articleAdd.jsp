@@ -157,7 +157,7 @@ td.fenye {
                 <input type="hidden" name="aticleId" value="" />
 			<tr>			
 				<td width="10%" class="tableleft">标题</td>
-				<td><input type="text" id="title" value="" /></td>			
+				<td><input type="text" id="title" value="" style="width:30%"/></td>			
 			</tr>
 			<tr>
 				<td width="10%" class="tableleft">作者</td>
@@ -182,10 +182,6 @@ td.fenye {
 				</select></td>			
 			</tr>
 			<tr>
-				<td class="tableleft">发布时间</td>
-				<td><input type="text" value="" class="date" id="createTime"/></td>
-			</tr>
-			<tr>
 				<td class="tableleft">开始时间</td>
 				<td><input type="text" value="" class="date" id="startTime"/></td>				
 			</tr>
@@ -198,7 +194,10 @@ td.fenye {
 				<td><select id="relateActivityId">
 				     <option value="1">是<option>
 				     <option value="0">否<option>					     		     
-				</select></td>
+				</select>
+				活动ID:<select id="IdSelect">				     		     
+				</select></td>	
+						
 			</tr>	
 			<tr>
 				<td class="tableleft">用户等级可看</td>
@@ -229,32 +228,70 @@ td.fenye {
  <!-- 注意， 只需要引用 JS，无需引用任何 CSS ！！！-->
     <script type="text/javascript" src="pc/editor/release/wangEditor.js"></script>
     <script type="text/javascript">
-    $("#bigClass option").click(function(){	
-  	  if($(this).text()=="加工应用"){
-  	    	$("#smallClass").html("");
-  	    	$("#smallClass").append("<option>加工中心</option>"+
-  	    			                "<option>车削中心</option>"+
-  	    			                "<option>其他机床</option>"+
-  	    			                "<option>其他</option>");
-  	    	}
-  	    	if($(this).text()=="维修保养"){ 	    		
-  	    		$("#smallClass").html("");
-  	    		$("#smallClass").append("<option>加工中心</option>"+
-                                        "<option>车削中心</option>");
-  	    	}if($(this).text().length==13||$(this).text()=="其他"||$(this).text().length==12){
-  	    		$("#smallClass").html("");
-  	    	}
+    $("#saveInfo").click(function(){ 
+        $.ajax({
+			type : "POST", //用POST方式传输
+			contentType: "application/json; charset=utf-8", //数据格式:JSON
+			type:"json", //数据格式:JSON
+			url : 'article/saveOpUpdate', //目标地址
+			data : JSON.stringify(GetJsonData()),
+			error: function(XMLHttpRequest){  
+			     alert( "Error: " + XMLHttpRequest.responseText);  
+			   }  ,
+			success : function(msg) {
+			 window.history.go(-1);
+				}
+				//发送验证返回信息
+		});
     });
-  
+    //相关活动报名
+    $("#relateActivityId option").click(function(){	
+    	var relateActivityId=$("#relateActivityId").find("option:selected").val();
+    	if(relateActivityId==1){
+    		$.ajax({
+    			type : "GET", //用POST方式传输
+    			type:"json", //数据格式:JSON
+    			url : 'activity/activityList', //目标地址
+    			success : function(msg) {    				
+    				var datas=msg.datas;    			
+	    				for(var i in datas){
+	    					$("#IdSelect").html("");
+	    					$("#IdSelect").append("<option>"+datas[i].activityId+"</option>");
+	    				}
+    				}
+    				//发送验证返回信息
+    		});
+    	}
+    	if(relateActivityId!=1){
+    		$("#IdSelect").html("");
+    	}
+    });
+   //分类选择
+    $("#bigClass option").click(function(){	
+    	  if($(this).text()=="加工应用"){
+    	    	$("#smallClass").html("");
+    	    	$("#smallClass").append("<option>加工中心</option>"+
+    	    			                "<option>车削中心</option>"+
+    	    			                "<option>其他机床</option>"+
+    	    			                "<option>其他</option>");
+    	    	}
+    	    	if($(this).text()=="维修保养"){ 	    		
+    	    		$("#smallClass").html("");
+    	    		$("#smallClass").append("<option>加工中心</option>"+
+                                          "<option>车削中心</option>");
+    	    	}if($(this).text().length==13||$(this).text()=="其他"||$(this).text().length==12){
+    	    		$("#smallClass").html("");
+    	    	}
+      });
     //符文本编辑器设置
     var E = window.wangEditor
     var editor = new E('#editor')
    // editor.customConfig.uploadFileName = 'uploadPic';
     //editor.customConfig.uploadImgMaxLength = 5;
        //editor.customConfig.uploadImgServer = 'article/upload'
-       /* editor.customConfig.uploadImgHeaders = {
+        editor.customConfig.uploadImgHeaders = {
          'Accept' : 'multipart/form-data'
-    	 };  */
+    	 };  
       /* editor.customConfig.customUploadImg = function (files, insert) {
     	    // files 是 input 中选中的文件列表
     	    alert(files);
@@ -264,56 +301,27 @@ td.fenye {
     	    insert(imgUrl)
     	} */
     editor.customConfig.uploadImgShowBase64 = true ; 
-    editor.create();
-    $("#saveInfo").click(function(){
-    	
-        $.ajax({
-			type : "POST", //用GET方式传输
-			contentType: "application/json; charset=utf-8", //数据格式:JSON
-			type:"json", //数据格式:JSON
-			url : 'article/saveOpUpdate', //目标地址
-			data : JSON.stringify(GetJsonData()),
-			error: function(XMLHttpRequest){  
-			     alert( "Error: " + XMLHttpRequest.responseText);  
-			   }  ,
-			success : function(msg) {
-				alert(msg.errorCode);
-				}
-				//发送验证返回信息
-		});
-    });
+    editor.create();  
     function GetJsonData() {
-    	var content=editor.txt.text();
-    	alert(content);
+    	var content=editor.txt.html();
     	var title=$("#title").val();
-    	alert(title);
         var author=$("#author").val();
-        alert(author);
         var categoryName=$("#smallClass").find("option:selected").text();
-        alert(categoryName);
         var tagId=$("#tagId").find("option:selected").val();
-        alert(tagId);
-        var createTime=$("#createTime").val();
-        alert(createTime);
         var startTime=$("#startTime").val();
-        alert(startTime);
         var endTime=$("#endTime").val();
-        alert(endTime);
-        var relateActivityId=$("#relateActivityId").find("option:selected").val();
-        alert(relateActivityId);
+        var relateActivityId=$("#IdSelect").find("option:selected").text();
         var relatePermissionUserType=$("#relatePermissionUserType").find("option:selected").val();
-        alert(relatePermissionUserType);
         var json = {
-        		"title":title,
-				"author":author,
-				"content":content,
-				"categoryName":categoryName,
-				"tagId":tagId,
-				"createTime":createTime,
-				"startTime":startTime,
-				"endTime":endTime,
-				"relateActivityId":relateActivityId,
-				"relatePermissionUserType":relatePermissionUserType
+        	    title:title,
+				author:author,
+				content:content,
+				categoryName:categoryName,
+				tagId:tagId,
+				startTime:startTime,
+				endTime:endTime,
+				relateActivityId:relateActivityId,
+				relatePermissionUserType:relatePermissionUserType
         };
         return json;
     }
@@ -326,11 +334,5 @@ td.fenye {
 		 autoclose: true,//选中自动关闭
 		 todayBtn: true//显示今日按钮
 		 }) 
-	//保证时间控件不会被副文本控件影响
-     var zIndex = parseInt(this.element.parents().filter(function(){
-    		    return $(this).css('z-index') !== 'auto';
-    		    }).first().css('z-index'))  +10;
-    
- 
     </script>
 </html>

@@ -71,6 +71,7 @@
 		<input  type="hidden" name="userId" id="userId"  class="right">
 		<input type="hidden" name="token" id="token" class="right">
 		<input type="hidden" name=isShanshanUser id="isShanshanUser" class="right" value="1">
+		<input type="hidden" name=userType id="userType" class="right" value="3">
 		<div class="yes">
 		<ul class="infor">
 			<li>
@@ -88,7 +89,7 @@
 			</li>
 			<li>
 				<span class="left">性别</span>
-				<input type="text"  name="sex" id="sex" class="right" placeholder="男" value="0">
+				<input type="text"  name="sex" id="sex" class="right" placeholder="男" value="">
 			</li>
 			<li>
 				<span class="left">职位</span>
@@ -105,7 +106,7 @@
 			</li>
 			<li>
 				<span class="left">手机号</span>
-				<input type="text" name="phone" id="phone" class="right" placeholder="15648411654" value="">
+				<input type="text" name="phone" id="phone" class="right" placeholder="15648411654" value="" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">
 			</li>
 			
 			
@@ -149,7 +150,7 @@
 			
 			<div class="cand">
 				<span class="left">推荐手机</span>
-				<input type="text" name="referralsPhone" id="referralsPhone" class="right" placeholder="选填，填写可加快审核速度" value=""/>
+				<input type="text" name="referralsPhone" id="referralsPhone" class="right" placeholder="选填，填写可加快审核速度" value="" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')"/>
 			</div>
 			
 			<div class="cand">
@@ -166,6 +167,7 @@
         
 		<div class="no">
 		    <input type="hidden" name=isShanshanUser id="isShanshanUser" class="right" value="2">
+		    <input type="hidden" name=userType id="userType" class="right" value="3">
 			<ul class="infor">
 			<li>
 				<span class="left">所在地区（省/市）</span>
@@ -182,7 +184,7 @@
 			</li>
 			<li>
 				<span class="left">性别</span>
-				<input type="text"  name="sex" id="sex" class="right" placeholder="男" value="0">
+				<input type="text"  name="sex" id="sex" class="right" placeholder="男" value="">
 			</li>
 			<li>
 				<span class="left">职位</span>
@@ -283,7 +285,7 @@
 		$('.infor li').click(function(){
     	$(this).children('.slide').slideToggle();
     })
-      
+    
     $('.slide div').click(function(){
     	$(this).addClass('redd');
     	var ww=$(this).html();
@@ -387,7 +389,7 @@
         'type': 1, //数据源类型
         'data': LAreaData //数据源
     });
-    area1.value=[1,13,3];//控制初始位置，注意：该方法并不会影响到input的value    
+    //area1.value=[1,13,3];//控制初始位置，注意：该方法并不会影响到input的value    
     var aa =$("area1.value");    
     var area1=$(this).html();                  
    //-----------------
@@ -409,7 +411,7 @@
         'type': 2,
         'data': [provs_data, citys_data, dists_data]
     });
-    area2.value=[1,13,3];
+    //area2.value=[1,13,3];
     var aa =$("area2.value");    
     var area2=$(this).html();                  
    //-----------------
@@ -426,10 +428,11 @@
         var token= localStorage.getItem("c_token");
 		var userId= localStorage.getItem("userId");
 		var isShanshanUser = $("#isShanshanUser").val();
+		var userType = $("#userType").val();
     	var provincesCities = $("#provincesCities").val();	
     	var company = $("#company").val();
     	var userName = $("#userName").val();  
-    	var sex = $("#sex").val();
+    	var sex = $("#sex").val()=='男'||$("#sex").val()=='女'?0:1;
     	var positionName = $("#positionName").val();
 		var phone = $("#phone").val();
 		var buyEquipmentChannel = $("#buyEquipmentChannel").val();
@@ -454,6 +457,7 @@
 				 userId : userId,
 		        token : token,
 		        isShanshanUser : isShanshanUser,
+		        userType : userType,
 				provincesCities : provincesCities,
 				company : company,
 				userName : userName,
@@ -469,12 +473,12 @@
 			},
 			success : function(msg) {
 				if(msg.code==100){
-					 alert("保存失败");
+					 alert("提交失败");
 			    	  $('#myModal').modal('show');
 					  $(".modal-body").text(msg.msg);	 
 			      }		
 				  if(msg.code==200){
-					  alert("保存成功");
+					  alert("提交成功");
 					  window.location.href = "views/me2.jsp";
 				  }
 			}
@@ -486,6 +490,7 @@
     	var token= localStorage.getItem("c_token");
 		var userId= localStorage.getItem("userId");
 		var isShanshanUser = $(".no #isShanshanUser").val();
+		var userType =$(".no #userType").val();
     	var provincesCities = $(".no #provincesCities").val();
     	var company = $(".no #company").val();
     	var userName = $(".no #userName").val();
@@ -502,6 +507,7 @@
 				userId : userId,
 		        token : token,
 		        isShanshanUser : isShanshanUser,
+		        userType:userType,
 				provincesCities : provincesCities,
 				company : company,
 				userName : userName,
@@ -513,12 +519,12 @@
 			},
 			success : function(msg) {
 				if(msg.code==100){
-					 alert("保存失败");
+					 alert("提交失败");
 			    	  $('#myModal').modal('show');
 					  $(".modal-body").text(msg.msg);	 
 			      }		
 				  if(msg.code==200){
-					  alert("保存成功");
+					  alert("提交成功");
 					  window.location.href = "views/me2.jsp";
 				  }
 			}

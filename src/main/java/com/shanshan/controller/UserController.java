@@ -1,13 +1,14 @@
 package com.shanshan.controller;
 
-import com.shanshan.bean.MsgBean;
-import com.shanshan.bean.MsgSimpleBean;
-import com.shanshan.bean.SmsCodeBean;
-import com.shanshan.bean.UserBean;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.shanshan.base.BaseController;
+import com.shanshan.bean.*;
 import com.shanshan.service.SmsCodeService;
 import com.shanshan.service.TokenService;
 import com.shanshan.service.UserService;
 import com.shanshan.util.BaseUtil;
+import com.shanshan.util.Constant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,11 +17,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Date;
-import java.util.Map;
+import java.util.*;
 
 @Controller
-public class UserController {
+public class UserController extends BaseController{
 
 	@Autowired
 	UserService userService;
@@ -235,6 +235,8 @@ public class UserController {
 		data.put("industry", userBean.getIndustry());
 		data.put("equipmentType", userBean.getEquipmentType());
 		data.put("positionName", userBean.getPositionName());
+		data.put("status", userBean.getStatus());
+		data.put("isShanshanUser", userBean.getIsShanshanUser());
 
 
 		Integer userType = userBean.getUserType();
@@ -338,6 +340,31 @@ public class UserController {
 		return MsgSimpleBean.success("提交成功");
 	}
 
+
+	/**
+	 * PC管理后台 获取用户列表
+	 */
+	@ResponseBody
+	@RequestMapping(value="/user/getUserList",method=RequestMethod.GET)
+	public Object getUserList(@RequestParam(value = "pagerNumber", defaultValue = ""+ Constant.DefaultPagerNumber) Integer pagerNumber,
+							  @RequestParam(value = "pagerSize", defaultValue = ""+Constant.DefaultPagerSize) Integer pagerSize){
+		PageHelper.startPage(pagerNumber, pagerSize);
+
+		List<UserBean> userBeanList = userService.getUserList();
+		MsgBean msg = MsgBean.success("获取成功");
+		Map<String, Object> data = msg.getData();
+
+		handlerPageInfoAdmin(data,new PageInfo(userBeanList, pagerSize));
+
+		List<Map<String,Object>> userBeanResults=new ArrayList<>();
+		for (UserBean userBean:userBeanList) {
+			Map<String,Object> map = new HashMap<>();
+			hanlderResponseData(map,userBean);
+			userBeanResults.add(map);
+		}
+		data.put("list", userBeanResults);
+		return msg;
+	}
 
 	/**
 	 微信授权用户 提交完善信息  待审核后  升为C级用户  //1为A级用户 2为B级用户 3为C级用户 4为客服 5为技术专家

@@ -6,6 +6,7 @@
 			+ request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
 %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -14,6 +15,16 @@
 <base href="<%=basePath%>">
 <link rel="shortcut icon" href="pc/images/favicon.ico" />
 <link href="pc/css/css.css" type="text/css" rel="stylesheet" />
+<script src="static/js/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+   $(document).ready(function(){
+	   var userName=sessionStorage.getItem("user_name");
+	   var pwd=sessionStorage.getItem("pwd_name");
+	   if(userName==null||pwd.length==null){
+		   window.location.href="pc/login.jsp";
+	   }
+   })
+</script>
 </head>
 <!--框架样式-->
 <frameset rows="95,*,30" cols="*" frameborder="no" border="0" framespacing="0">
