@@ -157,6 +157,17 @@
 				var company=(datas.company==''||datas.company==null)?"未填写":datas.company;
 				var provincesCities=(datas.provincesCities==''||datas.provincesCities==null)?"未填写":datas.provincesCities;
 				var sex=(datas.sex==''||datas.sex==null)?"未填写":datas.sex;
+				var a="";
+				if(datas.sex==''){
+					 a="未填写";
+				}if(datas.sex==null){
+					 a="未填写";
+				}if(datas.sex=="0"){
+					 a="男";
+				}if(datas.sex=="1"){
+					 a="女";
+				}
+				var sex=a;
 				var positionName=(datas.positionName==''||datas.positionName==null)?"未填写":datas.positionName;
 				var phone=(datas.phone==''||datas.phone==null)?"未填写":datas.phone;
 				var email=(datas.email==''||datas.email==null)?"未填写":datas.email;
