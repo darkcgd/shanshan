@@ -16,8 +16,12 @@
 <link href="pc/css/main.css" type="text/css" rel="stylesheet" />
 <link rel="shortcut icon" href="pc/images/main/favicon.ico" />
 <link rel="stylesheet" href="pc/css/adminstyle.css" type="text/css">
+<link rel="stylesheet" href="pc/css/page.css" type="text/css">
 <script src="static/js/jquery-3.2.1.min.js" type="text/javascript"
 	charset="utf-8"></script>
+<script src="pc/js/vue.js" type="text/javascript"
+	charset="utf-8"></script>
+	
 <style>
 body{overflow-x:hidden; background:#f2f0f5; padding:15px 0px 10px 5px;}
 #searchmain{ font-size:12px;}
@@ -113,22 +117,7 @@ td.fenye{ padding:10px 0 0 0; text-align:right;}
            <a href="pc/main/xinximain/articleAdd.jsp">查看详情</a> 
       </td>
     </tr>
-     <tr bgcolor="#FFFFFF" onmouseout="this.style.backgroundColor='#ffffff'" onmouseover="this.style.backgroundColor='#C3EFFF'"> 
-      <td><div align="center"> 
-          <input name="id[]" type="checkbox" id="id[]" value="">
-		  <input name="infoid[]" type="hidden" value="">
-          </div>
-      </td>
-     <td height="25"> <div align="center"> 文章</div></td>                        
-      <td height="25"> <div align="center">A用户</div></td>
-	  <td height="25"> <div align="center">未过期</div></td>
-      <td height="25"> <div align="center">
-           <a href="pc/main/xinximain/articleAdd.jsp">设置未过期</a>| 
-           <a href="pc/main/xinximain/articleAdd.jsp">设置已过期</a>|  
-           <a href="pc/main/xinximain/articleAdd.jsp">删除</a>|  
-           <a href="pc/main/xinximain/articleAdd.jsp">查看详情</a> 
-      </td>
-    </tr>
+    
     <tr bgcolor="#FFFFFF"> 
       <td height="25"> <div align="center"> 
           <input type=checkbox name=chkall value=on onclick=CheckAll(this.form)>
@@ -137,14 +126,46 @@ td.fenye{ padding:10px 0 0 0; text-align:right;}
           <input type="submit" name="Submit3" value="多条删除" onclick="document.listform.enews.value='DelNews_all';document.listform.action='';">		 
         </div></td>
     </tr>
-    <tr bgcolor="#FFFFFF"> 
-      <td height="25" colspan="8"> 
-      　 </td>
-    </tr>
+   
+   
   </table>
 </form>
+<!-- 分页 -->
+      <div id="app">
+    <div>
+      <div class="page"  v-show="show">
+        <div class="pagelist">
+          <span class="jump" :class="{disabled:pstart}" @click="{current_page--}">上一页</span>
+          <span v-show="current_page>5" class="jump" @click="jumpPage(1)">1</span>
+          <span class="ellipsis"  v-show="efont">...</span>
+          <span class="jump" v-for="num in indexs" :class="{bgprimary:current_page==num}" @click="jumpPage(num)">{{num}}</span>
+          <span class="ellipsis"  v-show="ebehind">...</span>
+
+          <span :class="{disabled:pend}" class="jump" @click="{current_page++}">下一页</span>
+          <span v-show="current_page<pages-4" class="jump" @click="jumpPage(pages)">{{pages}}</span>
+
+          <span class="jumppoint">跳转到：</span>
+          <span class="jumpinp"><input type="text" v-model="changePage"></span>
+          <span class="jump gobtn" @click="jumpPage(changePage)">GO</span>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
 <script type="text/javascript">
+$(document).ready(function(){ 
+	$.ajax({
+		type : "GET",
+		dataType : "json",
+		url : "article/articleList",		
+		success : function(msg) {
+               var data=msg.datas;
+               for(var i in datas){
+            	 
+               }
+		}
+	});
+})
 function CheckAll(form)
   {
   for (var i=0;i<form.elements.length;i++)
@@ -185,5 +206,69 @@ function PushInfoToSp(form)
 	}
 	window.open('');
 }
+
+//分页部分开始
+var newlist = new Vue({
+    el: '#app',
+    data: {
+      current_page: 1, //当前页
+      pages: 50, //总页数
+      changePage:'',//跳转页
+      nowIndex:0
+    },
+    computed:{
+       show:function(){
+           return this.pages && this.pages !=1
+       },
+       pstart: function() {
+         return this.current_page == 1;
+       },
+       pend: function() {
+         return this.current_page == this.pages;
+       },
+       efont: function() {
+         if (this.pages <= 7) return false;
+         return this.current_page > 5
+       },
+       ebehind: function() {
+         if (this.pages <= 7) return false;
+         var nowAy = this.indexs;
+         return nowAy[nowAy.length - 1] != this.pages;
+       },
+       indexs: function() {
+
+         var left = 1,
+           right = this.pages,
+           ar = [];
+         if (this.pages >= 7) {
+           if (this.current_page > 5 && this.current_page < this.pages - 4) {
+             left = Number(this.current_page) - 3;
+             right = Number(this.current_page) + 3;
+           } else {
+             if (this.current_page <= 5) {
+               left = 1;
+               right = 7;
+             } else {
+               right = this.pages;
+
+               left = this.pages - 6;
+             }
+           }
+         }
+         while (left <= right) {
+           ar.push(left);
+           left++;
+         }
+         return ar;
+       },
+     },
+    methods: {
+      jumpPage: function(id) {
+        this.current_page = id;
+      },
+    },
+
+  })
+ //分页部分结束
 </script>
 </html>
