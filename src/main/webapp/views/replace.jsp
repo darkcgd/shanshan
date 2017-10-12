@@ -71,6 +71,7 @@
 		<input  type="hidden" name="userId" id="userId"  class="right">
 		<input type="hidden" name="token" id="token" class="right">
 		<input type="hidden" name=isShanshanUser id="isShanshanUser" class="right" value="1">
+		<input type="hidden" name=userType id="userType" class="right" value="3">
 		<div class="yes">
 		<ul class="infor">
 			<li>
@@ -166,6 +167,7 @@
         
 		<div class="no">
 		    <input type="hidden" name=isShanshanUser id="isShanshanUser" class="right" value="2">
+		    <input type="hidden" name=userType id="userType" class="right" value="3">
 			<ul class="infor">
 			<li>
 				<span class="left">所在地区（省/市）</span>
@@ -426,6 +428,7 @@
         var token= localStorage.getItem("c_token");
 		var userId= localStorage.getItem("userId");
 		var isShanshanUser = $("#isShanshanUser").val();
+		var userType = $("#userType").val();
     	var provincesCities = $("#provincesCities").val();	
     	var company = $("#company").val();
     	var userName = $("#userName").val();  
@@ -454,6 +457,7 @@
 				 userId : userId,
 		        token : token,
 		        isShanshanUser : isShanshanUser,
+		        userType : userType,
 				provincesCities : provincesCities,
 				company : company,
 				userName : userName,
@@ -469,12 +473,12 @@
 			},
 			success : function(msg) {
 				if(msg.code==100){
-					 alert("保存失败");
+					 alert("提交失败");
 			    	  $('#myModal').modal('show');
 					  $(".modal-body").text(msg.msg);	 
 			      }		
 				  if(msg.code==200){
-					  alert("保存成功");
+					  alert("提交成功");
 					  window.location.href = "views/me2.jsp";
 				  }
 			}
@@ -486,6 +490,7 @@
     	var token= localStorage.getItem("c_token");
 		var userId= localStorage.getItem("userId");
 		var isShanshanUser = $(".no #isShanshanUser").val();
+		var userType =$(".no #userType").val();
     	var provincesCities = $(".no #provincesCities").val();
     	var company = $(".no #company").val();
     	var userName = $(".no #userName").val();
@@ -502,6 +507,7 @@
 				userId : userId,
 		        token : token,
 		        isShanshanUser : isShanshanUser,
+		        userType:userType,
 				provincesCities : provincesCities,
 				company : company,
 				userName : userName,
@@ -513,12 +519,12 @@
 			},
 			success : function(msg) {
 				if(msg.code==100){
-					 alert("保存失败");
+					 alert("提交失败");
 			    	  $('#myModal').modal('show');
 					  $(".modal-body").text(msg.msg);	 
 			      }		
 				  if(msg.code==200){
-					  alert("保存成功");
+					  alert("提交成功");
 					  window.location.href = "views/me2.jsp";
 				  }
 			}
