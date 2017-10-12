@@ -62,7 +62,7 @@ public class ArticleService {
 
 	public JsonResult saveOrUpdate(ArticleBean entity) {
 		Date date = new Date(System.currentTimeMillis());
-		if (entity == null || entity.getArticleId() != null) {
+		if (entity == null && entity.getArticleId() != null) {
 			ArticleBean article = articleBeanMapper.selectByPrimaryKey(entity.getArticleId());
 			// 更新
 			if (article != null) {
@@ -101,13 +101,13 @@ public class ArticleService {
 				}
 				article.setUpdateTime(date);
 				articleBeanMapper.updateByPrimaryKeySelective(article);
-			} else {
-				// 保存
-				entity.setCreateTime(date);
-				entity.setUpdateTime(date);
-				articleBeanMapper.insertSelective(entity);
-				
-			}
+			} 
+		}else {
+			// 保存
+			entity.setCreateTime(date);
+			entity.setUpdateTime(date);
+			articleBeanMapper.insertSelective(entity);
+			
 		}
 
 		JsonResult result = new JsonResult(0, "", "");
