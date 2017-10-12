@@ -182,10 +182,6 @@ td.fenye {
 				</select></td>			
 			</tr>
 			<tr>
-				<td class="tableleft">发布时间</td>
-				<td><input type="text" value="" class="date" id="createTime"/></td>
-			</tr>
-			<tr>
 				<td class="tableleft">开始时间</td>
 				<td><input type="text" value="" class="date" id="startTime"/></td>				
 			</tr>
@@ -198,7 +194,10 @@ td.fenye {
 				<td><select id="relateActivityId">
 				     <option value="1">是<option>
 				     <option value="0">否<option>					     		     
-				</select></td>
+				</select>
+				活动ID:<select id="IdSelect">				     		     
+				</select></td>	
+						
 			</tr>	
 			<tr>
 				<td class="tableleft">用户等级可看</td>
@@ -245,22 +244,48 @@ td.fenye {
 				//发送验证返回信息
 		});
     });
-    $("#bigClass option").click(function(){	
-  	  if($(this).text()=="加工应用"){
-  	    	$("#smallClass").html("");
-  	    	$("#smallClass").append("<option>加工中心</option>"+
-  	    			                "<option>车削中心</option>"+
-  	    			                "<option>其他机床</option>"+
-  	    			                "<option>其他</option>");
-  	    	}
-  	    	if($(this).text()=="维修保养"){ 	    		
-  	    		$("#smallClass").html("");
-  	    		$("#smallClass").append("<option>加工中心</option>"+
-                                        "<option>车削中心</option>");
-  	    	}if($(this).text().length==13||$(this).text()=="其他"||$(this).text().length==12){
-  	    		$("#smallClass").html("");
-  	    	}
+    //相关活动报名
+    $("#relateActivityId option").click(function(){	
+    	var relateActivityId=$("#relateActivityId").find("option:selected").val();
+    	if(relateActivityId==1){
+    		$.ajax({
+    			type : "GET", //用POST方式传输
+    			type:"json", //数据格式:JSON
+    			url : 'activity/activityList', //目标地址
+    			success : function(msg) {    				
+    				var datas=msg.datas;    			
+	    				for(var i in datas){
+	    					$("#IdSelect").html("");
+	    					$("#IdSelect").append("<option>"+datas[i].activityId+"</option>");
+	    				}
+    				}
+    				//发送验证返回信息
+    		});
+    	}
+    	if(relateActivityId!=1){
+    		$("#IdSelect").html("");
+    	}
     });
+   //分类选择
+    $("#bigClass option").click(function(){	
+    	  if($(this).text()=="加工应用"){
+    	    	$("#smallClass").html("");
+    	    	$("#smallClass").append("<option>加工中心</option>"+
+    	    			                "<option>车削中心</option>"+
+    	    			                "<option>其他机床</option>"+
+    	    			                "<option>其他</option>");
+    	    	}
+    	    	if($(this).text()=="维修保养"){ 	    		
+    	    		$("#smallClass").html("");
+    	    		$("#smallClass").append("<option>加工中心</option>"+
+                                          "<option>车削中心</option>");
+    	    	}if($(this).text().length==13||$(this).text()=="其他"||$(this).text().length==12){
+    	    		$("#smallClass").html("");
+    	    	}
+      });
+     relateActivityId=$("#relateActivityId").find("option:selected").val();
+    
+    
   
     //符文本编辑器设置
     var E = window.wangEditor
@@ -287,10 +312,9 @@ td.fenye {
         var author=$("#author").val();
         var categoryName=$("#smallClass").find("option:selected").text();
         var tagId=$("#tagId").find("option:selected").val();
-        var createTime=$("#createTime").val();
         var startTime=$("#startTime").val();
         var endTime=$("#endTime").val();
-        var relateActivityId=$("#relateActivityId").find("option:selected").val();
+        var relateActivityId=$("#IdSelect").find("option:selected").text();
         var relatePermissionUserType=$("#relatePermissionUserType").find("option:selected").val();
         var json = {
         	    title:title,
@@ -298,7 +322,6 @@ td.fenye {
 				content:content,
 				categoryName:categoryName,
 				tagId:tagId,
-				createTime:createTime,
 				startTime:startTime,
 				endTime:endTime,
 				relateActivityId:relateActivityId,
