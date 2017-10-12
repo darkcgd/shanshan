@@ -88,7 +88,7 @@ public class ArticleController {
     	
     	
         try {  
-            String savePath = "D://pictuce/";  
+            String savePath = "C://pictuce/";  
             File dirPath = new File(savePath);    
             if (!dirPath.exists()) {    
                 dirPath.mkdirs();    
