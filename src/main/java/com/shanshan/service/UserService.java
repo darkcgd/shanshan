@@ -7,6 +7,7 @@ import com.shanshan.util.BaseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -15,6 +16,19 @@ public class UserService {
 	
 	@Autowired
 	UserBeanMapper userBeanMapper;
+
+	public List<UserBean> getUserList() {
+		UserBeanExample userBeanExample = new UserBeanExample();
+		//通过Criteria构造查询条件
+		UserBeanExample.Criteria criteria=userBeanExample.createCriteria();
+		List<Integer> list=new ArrayList<>();
+		list.add(1);
+		list.add(2);
+		list.add(3);
+		criteria.andUserTypeIn(list);
+		return userBeanMapper.selectByExample(userBeanExample);
+	}
+
 
 	/**
 	 * 用户保存
