@@ -154,38 +154,58 @@ td.fenye {
 <body>
 	<form>
 		<table class="table table-bordered table-hover definewidth m10">
-
-			<tr>
-				<input type="hidden" name="userId" value="" />
+                <input type="hidden" name="aticleId" value="" />
+			<tr>			
 				<td width="10%" class="tableleft">标题</td>
 				<td><input type="text" id="title" value="" /></td>			
 			</tr>
 			<tr>
+				<td width="10%" class="tableleft">作者</td>
+				<td><input type="text" id="author" value="" /></td>			
+			</tr>
+			<tr>
+				<td width="10%" class="tableleft">分类名称</td>
+				<td>
+			        <select   id="bigClass">
+			           <option>加工应用<option>
+				       <option>维修保养<option>
+				       <option>其他<option>	
+			        </select>
+			        <select   id="smallClass"></select>
+				</td>			
+			</tr>
+			<tr>
+				<td width="10%" class="tableleft">推荐/头条</td>
+				<td><select id="tagId">
+				     <option value="1">推荐<option>
+				     <option value="2">头条<option>
+				</select></td>			
+			</tr>
+			<tr>
 				<td class="tableleft">发布时间</td>
-				<td><input type="text" value="" class="date" id="cre"/></td>
+				<td><input type="text" value="" class="date" id="createTime"/></td>
 			</tr>
 			<tr>
 				<td class="tableleft">开始时间</td>
-				<td><input type="text" value="" class="date"/></td>				
+				<td><input type="text" value="" class="date" id="startTime"/></td>				
 			</tr>
 			<tr>
 				<td class="tableleft">结束时间</td>
-				<td><input type="text" value="" class="date"/></td>					
+				<td><input type="text" value="" class="date" id="endTime"/></td>					
 			</tr>
 		    <tr>
 				<td class="tableleft">是否有相关活动报名</td>
-				<td><select>
-				     <option><option>
-				     <option>是<option>
-				     <option>否<option>			     
+				<td><select id="relateActivityId">
+				     <option value="1">是<option>
+				     <option value="0">否<option>					     		     
 				</select></td>
 			</tr>	
 			<tr>
 				<td class="tableleft">用户等级可看</td>
-				<td><select>
-				     <option>A级用户<option>
-				     <option>B级用户<option>
-				     <option>C级用户<option>
+				<td><select id="relatePermissionUserType">
+				     <option value="1">A级用户<option>
+				     <option value="2">B级用户<option>
+				     <option value="3">C级用户<option>
 				</select></td>
 			</tr>
 			<tr>
@@ -193,7 +213,6 @@ td.fenye {
 				<td> 
 				 <div id="editor">			       
 			     </div> 
-			    <button id="btn1">获取html</button>
 			    </td>
 			</tr>
 			<tr>
@@ -210,32 +229,88 @@ td.fenye {
  <!-- 注意， 只需要引用 JS，无需引用任何 CSS ！！！-->
     <script type="text/javascript" src="pc/editor/release/wangEditor.js"></script>
     <script type="text/javascript">
+    $("#bigClass option").click(function(){	
+  	  if($(this).text()=="加工应用"){
+  	    	$("#smallClass").html("");
+  	    	$("#smallClass").append("<option>加工中心</option>"+
+  	    			                "<option>车削中心</option>"+
+  	    			                "<option>其他机床</option>"+
+  	    			                "<option>其他</option>");
+  	    	}
+  	    	if($(this).text()=="维修保养"){ 	    		
+  	    		$("#smallClass").html("");
+  	    		$("#smallClass").append("<option>加工中心</option>"+
+                                        "<option>车削中心</option>");
+  	    	}if($(this).text().length==13||$(this).text()=="其他"||$(this).text().length==12){
+  	    		$("#smallClass").html("");
+  	    	}
+    });
+  
     //符文本编辑器设置
     var E = window.wangEditor
     var editor = new E('#editor')
    // editor.customConfig.uploadFileName = 'uploadPic';
     //editor.customConfig.uploadImgMaxLength = 5;
-       editor.customConfig.uploadImgServer = 'upload'
-       editor.customConfig.uploadImgHeaders = {
+       //editor.customConfig.uploadImgServer = 'article/upload'
+       /* editor.customConfig.uploadImgHeaders = {
          'Accept' : 'multipart/form-data'
-    	 };
-      editor.customConfig.customUploadImg = function (files, insert) {
+    	 };  */
+      /* editor.customConfig.customUploadImg = function (files, insert) {
     	    // files 是 input 中选中的文件列表
     	    alert(files);
     	    // insert 是获取图片 url 后，插入到编辑器的方法
              
     	    // 上传代码返回结果之后，将图片插入到编辑器中
     	    insert(imgUrl)
-    	}
+    	} */
+    editor.customConfig.uploadImgShowBase64 = true ; 
     editor.create();
-    document.getElementById("saveInfo").addEventListener('click', function () {
-        // 读取 html
-        alert(editor.txt.html());
-        var title=$("#title").val();
-        alert(title);   
+    $("#saveInfo").click(function(){
+    	var content=editor.txt.text();
+    	alert(content);
+    	var title=$("#title").val();
+    	alert(title);
+        var author=$("#author").val();
+        alert(author);
+        var categoryName=$("#smallClass").find("option:selected").text();
+        alert(categoryName);
+        var tagId=$("#tagId").find("option:selected").val();
+        alert(tagId);
+        var createTime=$("#createTime").val();
+        alert(createTime);
+        var startTime=$("#startTime").val();
+        alert(startTime);
+        var endTime=$("#endTime").val();
+        alert(endTime);
+        var relateActivityId=$("#relateActivityId").find("option:selected").val();
+        alert(relateActivityId);
+        var relatePermissionUserType=$("#relatePermissionUserType").find("option:selected").val();
+        alert(relatePermissionUserType);
+        $.ajax({
+			type : "POST", //用GET方式传输
+			contentType: "application/json; charset=utf-8", //数据格式:JSON
+			dataType:"json", //数据格式:JSON
+			url : 'article/saveOpUpdate', //目标地址
+			//data : "dealType=" + dealType + "&uid=" + uid + "&code=" + code,
+			data : JSON.stringify(GetJsonData()),
+			error: function(XMLHttpRequest){  
+			     alert( "Error: " + XMLHttpRequest.responseText);  
+			   }  ,
+			success : function(msg) {
+				alert(msg.errorCode);
+				}
+				//发送验证返回信息
+		});
+    });
     
-    }, false);
-  
+    function GetJsonData() {
+        var json = {
+        		"title":'"' + title + '"',
+				"author":'"' + author + '"',
+        };
+        return json;
+    }
+    
     //时间控件
     $('.date').datetimepicker({
 		 language: 'zh-CN',//显示中文
@@ -246,9 +321,10 @@ td.fenye {
 		 todayBtn: true//显示今日按钮
 		 }) 
 	//保证时间控件不会被副文本控件影响
-     var zIndex = parseInt(this.element.parents().filter(function(){
+     /* var zIndex = parseInt(this.element.parents().filter(function(){
     		    return $(this).css('z-index') !== 'auto';
-    		    }).first().css('z-index'))  +10;
-    		        
+    		    }).first().css('z-index'))  +10; */
+    
+ 
     </script>
 </html>
