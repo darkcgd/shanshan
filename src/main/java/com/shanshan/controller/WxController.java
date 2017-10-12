@@ -148,21 +148,25 @@ public class WxController {
         if (code!=null&&!"authdeny".equals(code)) {
             // 获取网页授权access_token
             WeixinOauth2Token weixinOauth2Token = AdvancedUtil.getOauth2AccessToken(Config.AppID, Config.AppSecret, code);
+            LOG.info("=============weixinOauth2Token=====================::::"+weixinOauth2Token+"::::=================================");
             if(weixinOauth2Token!=null){
                 // 网页授权接口访问凭证
                 String accessToken = weixinOauth2Token.getAccessToken();
+                LOG.info("=============accessToken=====================::::"+accessToken+"::::=================================");
                 // 用户标识
+                //oBZHzsmT36jCNkvnRJVLj-6KjSrs
                 String openId = weixinOauth2Token.getOpenId();
+                LOG.info("=============openId=====================::::"+openId+"::::=================================");
                 // 获取用户信息
                 SNSUserInfo snsUserInfo = AdvancedUtil.getSNSUserInfo(accessToken, openId);
-
+                LOG.info("=============snsUserInfo=====================::::"+snsUserInfo+"::::=================================");
                 if(openId!=null&&snsUserInfo!=null){
                     UserBean userByWxOpenId = userService.getUserByWxOpenId(openId);
                     if(userByWxOpenId==null){ //第一次授权 开始注册A级用户
                         UserBean userBean=new UserBean();
                         userBean.setUserName(snsUserInfo.getNickname());
                         userBean.setUserType(1);
-                        userBean.setWxOpenId(snsUserInfo.getOpenId());
+                        userBean.setWxOpenId(snsUserInfo.getWxOpenId());
                         userBean.setSex(snsUserInfo.getSex());//用户的性别，值为1时是男性，值为2时是女性，值为0时是未知
                         userBean.setHeadUrl(snsUserInfo.getHeadImgUrl());
 
@@ -171,11 +175,15 @@ public class WxController {
 
                         //插入后再查询 目的是查询出用户id 方便前端 进行 注册
                         UserBean userSaveByWxOpenId = userService.getUserByWxOpenId(openId);
+                        LOG.info("=============userSaveByWxOpenId=====================::::"+userSaveByWxOpenId+"::::=================================");
                         if(userSaveByWxOpenId!=null&& BaseUtil.isNotEmpty(userSaveByWxOpenId.getUserId())){
-                            snsUserInfo.setUserId(userSaveByWxOpenId.getUserId());
+                            LOG.info("=============idid=====================::::"+userSaveByWxOpenId.getUserId()+"::::=================================");
+                            LOG.info("=============idid=====================::::"+userSaveByWxOpenId.getWxOpenId()+"::::=================================");
+                            snsUserInfo.setUserId(""+userSaveByWxOpenId.getUserId());
                         }
                     }else{//说明之前已经授权了(即之前已经注册了),此时无需做任何操作
-
+                        LOG.info("=============AAAA说明之前已经授权了(即之前已经注册了),此时无需做任何操作BBBB=====================");
+                        snsUserInfo.setUserId(""+userByWxOpenId.getUserId());
                     }
                     // 设置要传递的参数
                     mav.addObject("code",200);

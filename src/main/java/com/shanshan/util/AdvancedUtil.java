@@ -111,7 +111,7 @@ public class AdvancedUtil {
             try {
                 snsUserInfo = new SNSUserInfo();
                 // 用户的标识
-                snsUserInfo.setOpenId(jsonObject.getString("openid"));
+                snsUserInfo.setWxOpenId(jsonObject.getString("openid"));
                 // 昵称
                 snsUserInfo.setNickname(jsonObject.getString("nickname"));
                 // 性别（1是男性，2是女性，0是未知）

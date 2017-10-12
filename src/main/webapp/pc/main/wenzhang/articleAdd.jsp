@@ -245,7 +245,6 @@ td.fenye {
   	    		$("#smallClass").html("");
   	    	}
     });
-  
     //符文本编辑器设置
     var E = window.wangEditor
     var editor = new E('#editor')
@@ -265,34 +264,38 @@ td.fenye {
     	} */
     editor.customConfig.uploadImgShowBase64 = true ; 
     editor.create();
-    $("#saveInfo").click(function(){
-    	var content=editor.txt.text();
-    	alert(content);
-    	var title=$("#title").val();
-    	alert(title);
+    document.getElementById("saveInfo").addEventListener('click', function () {
+        // 读取 html
+        var content=editor.txt.text();
+        var title=$("#title").val();
         var author=$("#author").val();
-        alert(author);
         var categoryName=$("#smallClass").find("option:selected").text();
-        alert(categoryName);
         var tagId=$("#tagId").find("option:selected").val();
-        alert(tagId);
         var createTime=$("#createTime").val();
-        alert(createTime);
         var startTime=$("#startTime").val();
-        alert(startTime);
         var endTime=$("#endTime").val();
-        alert(endTime);
         var relateActivityId=$("#relateActivityId").find("option:selected").val();
-        alert(relateActivityId);
         var relatePermissionUserType=$("#relatePermissionUserType").find("option:selected").val();
-        alert(relatePermissionUserType);
-        $.ajax({
+        alert(content);
+        //向后台发送处理数据
+		$.ajax({
 			type : "POST", //用GET方式传输
-			contentType: "application/json; charset=utf-8", //数据格式:JSON
-			dataType:"json", //数据格式:JSON
+			headers:{"Content-Type":":application/json"}, //数据格式:JSON
+			type:"json", //数据格式:JSON
 			url : 'article/saveOpUpdate', //目标地址
 			//data : "dealType=" + dealType + "&uid=" + uid + "&code=" + code,
-			data : JSON.stringify(GetJsonData()),
+			data : {
+				title:title,
+				author:author,
+				content:content,
+				categoryName:categoryName,
+				tagId:tagId,
+				createTime:createTime,
+				startTime:startTime,
+				endTime:endTime,
+				relateActivityId:relateActivityId,
+				relatePermissionUserType:relatePermissionUserType
+			},
 			error: function(XMLHttpRequest){  
 			     alert( "Error: " + XMLHttpRequest.responseText);  
 			   }  ,
@@ -301,16 +304,9 @@ td.fenye {
 				}
 				//发送验证返回信息
 		});
-    });
-    
-    function GetJsonData() {
-        var json = {
-        		"title":'"' + title + '"',
-				"author":'"' + author + '"',
-        };
-        return json;
-    }
-    
+
+    }, false);
+  
     //时间控件
     $('.date').datetimepicker({
 		 language: 'zh-CN',//显示中文
@@ -321,10 +317,11 @@ td.fenye {
 		 todayBtn: true//显示今日按钮
 		 }) 
 	//保证时间控件不会被副文本控件影响
-     /* var zIndex = parseInt(this.element.parents().filter(function(){
+     var zIndex = parseInt(this.element.parents().filter(function(){
     		    return $(this).css('z-index') !== 'auto';
-    		    }).first().css('z-index'))  +10; */
+    		    }).first().css('z-index'))  +10;
     
+   //二级联动
  
     </script>
 </html>

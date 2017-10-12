@@ -61,38 +61,11 @@ td.fenye{ padding:10px 0 0 0; text-align:right;}
       <td width="100%"> <div align="right">&nbsp;搜索： 
           <select name="showspecial" id="showspecial">
             <option value="0">不限属性</option>
-            <option value="2">推荐</option>
-            <option value="3">头条</option>
+            <option value="1">推荐</option>
+            <option value="2">头条</option>
           </select>
           <input name="keyboard" type="text" id="keyboard" value="关键字">
-          <select name="show">
-            <option value="0">不限字段</option>
-            <option value="1">标题</option>
-            <option value="2">发布者</option>
-			<option value="3">ID</option>
-          </select>
 		  <span id="searchclassnav"></span>
-          <select name="myorder" id="myorder">
-            <option value="1">按信息ID</option>
-            <option value="2">按发布时间</option>
-            <option value="3">按点击率</option>
-            <option value="4">按下载数</option>
-            <option value="5">按评论数</option>
-          </select>
-          <select name="orderby" id="orderby">
-            <option value="0">降序排序</option>
-            <option value="1">升序排序</option>
-          </select>
-          <select name="infolday" id="infolday">
-            <option value="1">全部时间</option>
-            <option value="86400">1 天</option>
-            <option value="172800">2 天</option>
-            <option value="604800">一周</option>
-            <option value="2592000">1 个月</option>
-            <option value="7948800">3 个月</option>
-            <option value="15897600">6个月</option>
-            <option value="31536000">1年</option>
-          </select>
           <input type="submit" name="Submit2" value="搜索">
         </div></td>
     </tr>
@@ -133,7 +106,6 @@ td.fenye{ padding:10px 0 0 0; text-align:right;}
       <td height="25"> <div align="center">A用户</div></td>
 	  <td height="25"> <div align="center">未过期</div></td>
       <td height="25"> <div align="center">
-           <a href="pc/main/xinximain/articleAdd.jsp">设置未过期</a>| 
            <a href="pc/main/xinximain/articleAdd.jsp">设置已过期</a>|  
            <a href="pc/main/xinximain/articleAdd.jsp">删除</a>|  
            <a href="pc/main/xinximain/articleAdd.jsp">查看详情</a> 
