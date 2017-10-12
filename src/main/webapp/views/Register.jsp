@@ -100,22 +100,17 @@
 	var codeLength = 6;//验证码长度
 	function sendMessage() {
 		curCount = count;
-		/*var dealType; //验证方式
-		//var uid = $("#uid").val();//用户uid
-		//var phone = $("#phone").val();
-		//if ($("#phone").attr("checked") == true) {
-			dealType = "phone";
-		} else {
-			dealType = "email";
-		}*/
 		var phone=$("#phone").val();
+		 if(phone.length==0){
+	        	return;
+	        }
 		//产生验证码
 		for (var i = 0; i < codeLength; i++) {
 			code += parseInt(Math.random() * 9).toString();
 		}
 		//设置button效果，开始计时
 		$("#btnSendCode").attr("disabled", "true");
-		$("#btnSendCode").val(+curCount + "秒再获取");
+		
 		//向后台发送处理数据
 		$.ajax({
 			type : "GET", //用GET方式传输
@@ -124,10 +119,14 @@
 			data : "phone=" + phone,
 			//data: "dealType=" + dealType +"&uid=" + uid + "&code=" + code,				
 			success :function(msg) {
-				InterValObj = window.setInterval(SetRemainTime, 1000); //启动计时器，1秒执行一次
+				
 				if(msg.code==100){
 				 $('#myModal').modal('show');
 				 $(".modal-body").text(msg.msg);				
+				}
+				if(msg.code==200){
+					$("#btnSendCode").val(+curCount + "秒再获取");     
+					InterValObj = window.setInterval(SetRemainTime, 1000); //启动计时器，1秒执行一次
 				}
 			}
 		});
