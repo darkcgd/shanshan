@@ -200,17 +200,16 @@ function PushInfoToSp(form)
 				}if(datas[i].userType==2){
 					 b="已审核";
 				}
-				var isshanshanuser=a;
+				var =a;
 				for(var i in datas){
 					$(".user").append("<td><div align='center'>"+ 
 						          "<input name='id[]' type='checkbox' id='id[]' value=''>"+
 								  "<input name='infoid[]' type='hidden' value=''>"+
 						          "</div>"+
 						      "</td>"+
-						     
 						      "<td height='25'> <div align='center'>"+datas[i].userName+"</div></td>"+                        
-						      "<td height='25'> <div align='center'>"+userType+"</div></td>"+
-							  "<td height='25'> <div align='center'>"+isshanshanuser+"</div></td>"+
+						      "<td height='25'> <div align='center'></div></td>"+
+							  "<td height='25'> <div align='center'></div></td>"+
 						      "<td height='25'> <div align='center'>"+
 						           "<a href='pc/main/xinximain/articleAdd.jsp'>审核</a>|"+  
 						           "<a href='pc/main/xinximain/articleAdd.jsp'>删除</a>|"+            
