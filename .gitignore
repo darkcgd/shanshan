@@ -6,3 +6,4 @@ target/
 .project
 ~$tabase.docx
 src/main/resources/dbconfig.properties
+src/main/webapp/pc/main/wenzhang/articleAdd.jsp.rej
