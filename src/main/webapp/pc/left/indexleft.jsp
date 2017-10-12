@@ -46,7 +46,7 @@ body{overflow-x:hidden; background:url(pc/images/main/leftbg.jpg) left top repea
     </div>
 </body>
 <script type="text/javascript">
-//会检查 document.cookie 对象中是否存有 cookie
+
 var userName=sessionStorage.getItem("user_name");
 var pwd=sessionStorage.getItem("pwd_name");
 if(userName!=null){

@@ -68,13 +68,11 @@
 				if (msg.code == 100) {
 					alert(msg.msg);
 				}
-				if (msg.code == 200) {
-					
+				if (msg.code == 200) {					
 					var data = msg.data;
 					if (data.userType == 4) {	
-						alert(data.userName);
 						sessionStorage.setItem("user_name",data.userName);
-						sessionStorage.setItem("pwd_name",data.pwd);
+						sessionStorage.setItem("pwd_name",pwd);
 						window.location.href = "<%=path%>/pc/index.jsp";
 					}
 				}
