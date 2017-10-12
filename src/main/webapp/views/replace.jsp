@@ -88,7 +88,7 @@
 			</li>
 			<li>
 				<span class="left">性别</span>
-				<input type="text"  name="sex" id="sex" class="right" placeholder="男" value="0">
+				<input type="text"  name="sex" id="sex" class="right" placeholder="男" value="">
 			</li>
 			<li>
 				<span class="left">职位</span>
@@ -105,7 +105,7 @@
 			</li>
 			<li>
 				<span class="left">手机号</span>
-				<input type="text" name="phone" id="phone" class="right" placeholder="15648411654" value="">
+				<input type="text" name="phone" id="phone" class="right" placeholder="15648411654" value="" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">
 			</li>
 			
 			
@@ -149,7 +149,7 @@
 			
 			<div class="cand">
 				<span class="left">推荐手机</span>
-				<input type="text" name="referralsPhone" id="referralsPhone" class="right" placeholder="选填，填写可加快审核速度" value=""/>
+				<input type="text" name="referralsPhone" id="referralsPhone" class="right" placeholder="选填，填写可加快审核速度" value="" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')"/>
 			</div>
 			
 			<div class="cand">
@@ -182,7 +182,7 @@
 			</li>
 			<li>
 				<span class="left">性别</span>
-				<input type="text"  name="sex" id="sex" class="right" placeholder="男" value="0">
+				<input type="text"  name="sex" id="sex" class="right" placeholder="男" value="">
 			</li>
 			<li>
 				<span class="left">职位</span>
@@ -283,7 +283,7 @@
 		$('.infor li').click(function(){
     	$(this).children('.slide').slideToggle();
     })
-      
+    
     $('.slide div').click(function(){
     	$(this).addClass('redd');
     	var ww=$(this).html();
@@ -429,7 +429,7 @@
     	var provincesCities = $("#provincesCities").val();	
     	var company = $("#company").val();
     	var userName = $("#userName").val();  
-    	var sex = $("#sex").val();
+    	var sex = $("#sex").val()=='男'||$("#sex").val()=='女'?0:1;
     	var positionName = $("#positionName").val();
 		var phone = $("#phone").val();
 		var buyEquipmentChannel = $("#buyEquipmentChannel").val();

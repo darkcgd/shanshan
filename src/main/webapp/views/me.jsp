@@ -75,7 +75,7 @@
 			data : {userId:userId,token:token},
 			success : function(msg) {
 				var datas=msg.data;
-					$(".section").append("<div class='photo'><img src='img/05.jpg'/></div><span>专家组-"+datas.userName+"</span>");				 
+					$(".section").append("<div class='photo'><img src='img/05.jpg'/></div><span>用户名-"+datas.userName+"</span>");				 
 			}
 		});
 	}); 
@@ -91,7 +91,14 @@
 			data : {userId:userId,token:token},
 			success : function(msg) {
 				var datas=msg.data;
-					$(".infor").append("<li><span class='left'>姓名</span><span class='right'>"+datas.userName+"</span></li><li><span class='left'>归属分公司</span><span class='right'>"+datas.company+"</span></li><li><span class='left'>岗位</span><span class='right'>"+datas.positionName+"</span></li><li><span class='left'>联系方式</span><span class='right'>"+datas.phone+"</span></li>");			
+				var userName=(datas.userName==''||datas.userName==null)?"未填写":datas.userName;
+				var company=(datas.company==''||datas.company==null)?"未填写":datas.company;
+				var positionName=(datas.positionName==''||datas.positionName==null)?"未填写":datas.positionName;
+				var phone=(datas.phone==''||datas.phone==null)?"未填写":datas.phone;
+					$(".infor").append("<li><span class='left'>姓名</span><span class='right'>"+datas.userName+"</span></li>"+
+					"<li><span class='left'>归属分公司</span><span class='right'>"+datas.company+"</span></li>"+
+					"<li><span class='left'>岗位</span><span class='right'>"+datas.positionName+"</span></li>"+
+					"<li><span class='left'>联系方式</span><span class='right'>"+datas.phone+"</span></li>");			
 					 
 			}
 		});
