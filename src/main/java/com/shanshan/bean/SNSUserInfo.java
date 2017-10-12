@@ -8,9 +8,9 @@ import java.util.List;
  Created by szmg on 17/9/29.
  */
 public class SNSUserInfo {
-    private int userId;
+    private String userId;
     // 用户标识
-    private String openId;
+    private String wxOpenId;
     // 用户昵称
     private String nickname;
     // 性别（1是男性，2是女性，0是未知）
@@ -24,23 +24,23 @@ public class SNSUserInfo {
     // 用户头像链接
     private String headImgUrl;
 
-    public int getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
     // 用户特权信息
     private List<String> privilegeList;
 
-    public String getOpenId() {
-        return openId;
+    public String getWxOpenId() {
+        return wxOpenId;
     }
 
-    public void setOpenId(String openId) {
-        this.openId = openId;
+    public void setWxOpenId(String wxOpenId) {
+        this.wxOpenId = wxOpenId;
     }
 
     public String getNickname() {
