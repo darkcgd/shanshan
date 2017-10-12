@@ -113,22 +113,7 @@ td.fenye{ padding:10px 0 0 0; text-align:right;}
            <a href="pc/main/xinximain/articleAdd.jsp">查看详情</a> 
       </td>
     </tr>
-     <tr bgcolor="#FFFFFF" onmouseout="this.style.backgroundColor='#ffffff'" onmouseover="this.style.backgroundColor='#C3EFFF'"> 
-      <td><div align="center"> 
-          <input name="id[]" type="checkbox" id="id[]" value="">
-		  <input name="infoid[]" type="hidden" value="">
-          </div>
-      </td>
-     <td height="25"> <div align="center"> 文章</div></td>                        
-      <td height="25"> <div align="center">A用户</div></td>
-	  <td height="25"> <div align="center">未过期</div></td>
-      <td height="25"> <div align="center">
-           <a href="pc/main/xinximain/articleAdd.jsp">设置未过期</a>| 
-           <a href="pc/main/xinximain/articleAdd.jsp">设置已过期</a>|  
-           <a href="pc/main/xinximain/articleAdd.jsp">删除</a>|  
-           <a href="pc/main/xinximain/articleAdd.jsp">查看详情</a> 
-      </td>
-    </tr>
+    
     <tr bgcolor="#FFFFFF"> 
       <td height="25"> <div align="center"> 
           <input type=checkbox name=chkall value=on onclick=CheckAll(this.form)>
@@ -145,6 +130,19 @@ td.fenye{ padding:10px 0 0 0; text-align:right;}
 </form>
 </body>
 <script type="text/javascript">
+$(document).ready(function(){ 
+	$.ajax({
+		type : "GET",
+		dataType : "json",
+		url : "article/articleList",		
+		success : function(msg) {
+               var data=msg.datas;
+               for(var i in datas){
+            	   var data[i].
+               }
+		}
+	});
+})
 function CheckAll(form)
   {
   for (var i=0;i<form.elements.length;i++)
