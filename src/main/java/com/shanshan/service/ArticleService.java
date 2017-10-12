@@ -58,6 +58,7 @@ public class ArticleService {
 		ArticleBeanExample articleBeanExample = new ArticleBeanExample();
 		//通过Criteria构造查询条件
 		ArticleBeanExample.Criteria criteria=articleBeanExample.createCriteria();
+		// 通过标题搜索文章
 		if(BaseUtil.isNotEmpty(articleBean.getTitle())){
 			criteria.andTitleLike(articleBean.getTitle());
 		}
