@@ -389,7 +389,7 @@
         'type': 1, //数据源类型
         'data': LAreaData //数据源
     });
-    area1.value=[1,13,3];//控制初始位置，注意：该方法并不会影响到input的value    
+    //area1.value=[1,13,3];//控制初始位置，注意：该方法并不会影响到input的value    
     var aa =$("area1.value");    
     var area1=$(this).html();                  
    //-----------------
@@ -411,7 +411,7 @@
         'type': 2,
         'data': [provs_data, citys_data, dists_data]
     });
-    area2.value=[1,13,3];
+    //area2.value=[1,13,3];
     var aa =$("area2.value");    
     var area2=$(this).html();                  
    //-----------------

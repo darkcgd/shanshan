@@ -99,7 +99,6 @@ td.fenye{ padding:10px 0 0 0; text-align:right;}
 </table>
 <br>
 
-<form name="listform" method="post" action="" onsubmit="return confirm('确认要执行此操作？');">
   <table width="100%" border="0" cellspacing="1" cellpadding="0">
     <tr>
       <td width="7%"><div align="center"><a href="pc/main/xinximain/article.jsp" title="已发布信息总数："> </a></div></td>
@@ -111,7 +110,7 @@ td.fenye{ padding:10px 0 0 0; text-align:right;}
       <td width="6%">&nbsp;</td>
     </tr>
   </table>
-  <!-- 文章列表 -->
+  <!-- 用户列表 -->
   <table width="100%" border="0" align="center" cellpadding="3" cellspacing="1" class="tableborder">
     <tr class="header"> 
       <td height="25" colspan="8"></td>
@@ -123,49 +122,11 @@ td.fenye{ padding:10px 0 0 0; text-align:right;}
       <td width="14%" height="25"> <div align="center">状态</div></td>
 	  <td width="14%" height="25"> <div align="center">编辑</div></td>
     </tr>
-   
-    <tr bgcolor="#FFFFFF" onmouseout="this.style.backgroundColor='#ffffff'" onmouseover="this.style.backgroundColor='#C3EFFF'"> 
-      <td><div align="center"> 
-          <input name="id[]" type="checkbox" id="id[]" value="">
-		  <input name="infoid[]" type="hidden" value="">
-          </div>
-      </td>
-     <td height="25"> <div align="center"> dark</div></td>                        
-      <td height="25"> <div align="center">A用户</div></td>
-	  <td height="25"> <div align="center">待审核</div></td>
-      <td height="25"> <div align="center">
-           <a href="pc/main/xinximain/articleAdd.jsp">审核</a>|  
-           <a href="pc/main/xinximain/articleAdd.jsp">删除</a>|            
-      </td>
-    </tr>
-     <tr bgcolor="#FFFFFF" onmouseout="this.style.backgroundColor='#ffffff'" onmouseover="this.style.backgroundColor='#C3EFFF'"> 
-      <td><div align="center"> 
-          <input name="id[]" type="checkbox" id="id[]" value="">
-		  <input name="infoid[]" type="hidden" value="">
-          </div>
-      </td>
-      <td height="25"> <div align="center"> dark22</div></td>                        
-      <td height="25"> <div align="center">A用户</div></td>
-	  <td height="25"> <div align="center">已审核</div></td>
-      <td height="25"> <div align="center">
-           <a href="pc/main/xinximain/articleAdd.jsp">审核</a>|  
-           <a href="pc/main/xinximain/articleAdd.jsp">删除</a>|            
-      </td>
-    </tr>
-    <tr bgcolor="#FFFFFF"> 
-      <td height="25"> <div align="center"> 
-          <input type=checkbox name=chkall value=on onclick=CheckAll(this.form)>
-        </div></td>
-      <td height="25" colspan="7"><div align="center"> 
-          <input type="submit" name="Submit3" value="多条删除" onclick="document.listform.enews.value='DelNews_all';document.listform.action='';">		 
-        </div></td>
-    </tr>
-    <tr bgcolor="#FFFFFF"> 
-      <td height="25" colspan="8"> 
-      　 </td>
-    </tr>
+    <tr class="user" bgcolor="#FFFFFF" onmouseout="this.style.backgroundColor='#ffffff'" onmouseover="this.style.backgroundColor='#C3EFFF'">
+    </tr> 
   </table>
-</form>
+ 
+
 </body>
 <script type="text/javascript">
 function CheckAll(form)
@@ -209,4 +170,52 @@ function PushInfoToSp(form)
 	window.open('');
 }
 </script>
+<script type="text/javascript">
+	$(document).ready(function(){ 
+		var token= localStorage.getItem("c_token");
+		var userId= localStorage.getItem("userId");
+		$.ajax({
+			type : "GET", //用GET方式传输
+			dataType : "json", //数据格式:JSON
+			url : '/user/getUserList', //目标地址
+			data : {userId:userId,token:token},
+			success : function(msg) {
+				var datas=msg.data;
+				var a="";
+				if(datas.userType==1){
+					 a="A等级会员";
+				}if(datas.userType==2){
+					 a="B等级会员";
+				}if(datas.userType==3){
+					 a="C等级会员";
+				}if(datas.userType==4){
+					 a="客服";
+				}if(datas.userType==5){
+					 a="技术专家";
+				}
+				var userType=a;
+				var b="";
+				if(datas[i].userType==1){
+					 b="待审核";
+				}if(datas[i].userType==2){
+					 b="已审核";
+				}
+				var =a;
+				for(var i in datas){
+					$(".user").append("<td><div align='center'>"+ 
+						          "<input name='id[]' type='checkbox' id='id[]' value=''>"+
+								  "<input name='infoid[]' type='hidden' value=''>"+
+						          "</div>"+
+						      "</td>"+
+						      "<td height='25'> <div align='center'>"+datas[i].userName+"</div></td>"+                        
+						      "<td height='25'> <div align='center'></div></td>"+
+							  "<td height='25'> <div align='center'></div></td>"+
+						      "<td height='25'> <div align='center'>"+
+						           "<a href='pc/main/xinximain/articleAdd.jsp'>审核</a>|"+  
+						           "<a href='pc/main/xinximain/articleAdd.jsp'>删除</a>|"+            
+						      "</td>");
+			}}
+		});
+	}); 
+	</script>
 </html>
