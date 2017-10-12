@@ -266,6 +266,23 @@ td.fenye {
     editor.customConfig.uploadImgShowBase64 = true ; 
     editor.create();
     $("#saveInfo").click(function(){
+    	
+        $.ajax({
+			type : "POST", //用GET方式传输
+			contentType: "application/json; charset=utf-8", //数据格式:JSON
+			type:"json", //数据格式:JSON
+			url : 'article/saveOpUpdate', //目标地址
+			data : JSON.stringify(GetJsonData()),
+			error: function(XMLHttpRequest){  
+			     alert( "Error: " + XMLHttpRequest.responseText);  
+			   }  ,
+			success : function(msg) {
+				alert(msg.errorCode);
+				}
+				//发送验证返回信息
+		});
+    });
+    function GetJsonData() {
     	var content=editor.txt.text();
     	alert(content);
     	var title=$("#title").val();
@@ -286,33 +303,20 @@ td.fenye {
         alert(relateActivityId);
         var relatePermissionUserType=$("#relatePermissionUserType").find("option:selected").val();
         alert(relatePermissionUserType);
-        $.ajax({
-			type : "POST", //用GET方式传输
-			headers:{"Content-Type":":application/json"}, //数据格式:JSON
-			type:"json", //数据格式:JSON
-			url : 'article/saveOpUpdate', //目标地址
-			//data : "dealType=" + dealType + "&uid=" + uid + "&code=" + code,
-			data : {
-				title:title,
-				author:author,
-				content:content,
-				categoryName:categoryName,
-				tagId:tagId,
-				createTime:createTime,
-				startTime:startTime,
-				endTime:endTime,
-				relateActivityId:relateActivityId,
-				relatePermissionUserType:relatePermissionUserType
-			},
-			error: function(XMLHttpRequest){  
-			     alert( "Error: " + XMLHttpRequest.responseText);  
-			   }  ,
-			success : function(msg) {
-				alert(msg.errorCode);
-				}
-				//发送验证返回信息
-		});
-    });
+        var json = {
+        		"title":title,
+				"author":author,
+				"content":content,
+				"categoryName":categoryName,
+				"tagId":tagId,
+				"createTime":createTime,
+				"startTime":startTime,
+				"endTime":endTime,
+				"relateActivityId":relateActivityId,
+				"relatePermissionUserType":relatePermissionUserType
+        };
+        return json;
+    }
     //时间控件
     $('.date').datetimepicker({
 		 language: 'zh-CN',//显示中文
