@@ -53,7 +53,7 @@ public class ArticleController extends BaseController{
 
 
 	/**
-	 * PC管理后台 获取用户列表
+	 * PC管理后台 获取文章列表
 	 */
 	@ResponseBody
 	@RequestMapping(value="/getArticleList",method= RequestMethod.GET)
