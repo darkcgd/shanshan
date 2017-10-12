@@ -18,12 +18,15 @@
 <link rel="stylesheet" href="static/bootstrap-3.3.7-dist/css/bootstrap.css" type="text/css">
 <link rel="stylesheet" href="pc/css/style.css" type="text/css">
 <link rel="stylesheet" href="pc/css/bootstrap-datetimepicker.min.css" type="text/css">
+<link rel="stylesheet" href="pc/css/wangEditor-fullscreen-plugin.css" type="text/css">
 <script src="static/js/jquery-3.2.1.min.js" type="text/javascript"
 	charset="utf-8"></script>
 <script src="static/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
 <script src="pc/editor/release/wangEditor.js"></script>
 <script src="pc/js/bootstrap-datetimepicker.min.js"></script>
 <script src="pc/js/bootstrap-datetimepicker.zh-CN.js"></script>
+<script src="pc/js/wangEditor-fullscreen-plugin.js" type="text/javascript"
+	charset="utf-8"></script>
 
 <style>
 body {
@@ -253,9 +256,9 @@ td.fenye {
     			type:"json", //数据格式:JSON
     			url : 'activity/activityList', //目标地址
     			success : function(msg) {    				
-    				var datas=msg.datas;    			
-	    				for(var i in datas){
-	    					$("#IdSelect").html("");
+    				var datas=msg.datas; 
+    				$("#IdSelect").html("");
+	    				for(var i in datas){	    				
 	    					$("#IdSelect").append("<option>"+datas[i].activityId+"</option>");
 	    				}
     				}
@@ -286,70 +289,12 @@ td.fenye {
     //符文本编辑器设置
     var E = window.wangEditor
     var editor = new E('#editor')
-   
+       // editor.customConfig.uploadImgShowBase64 = true ; 
         editor.customConfig.uploadImgServer = 'article/upload';
         editor.customConfig.uploadImgMaxSize = 10 * 1024 * 1024;
-        editor.customConfig.uploadImgMaxLength = 5;
-        editor.customConfig.uploadImgHooks = {
-        	    before: function (xhr, editor, files) {
-        	        // 图片上传之前触发
-        	        // xhr 是 XMLHttpRequst 对象，editor 是编辑器对象，files 是选择的图片文件
-        	        
-        	        // 如果返回的结果是 {prevent: true, msg: 'xxxx'} 则表示用户放弃上传
-        	        // return {
-        	        //     prevent: true,
-        	        //     msg: '放弃上传'
-        	        // }
-        	    },
-        	    success: function (xhr, editor, result) {
-        	        // 图片上传并返回结果，图片插入成功之后触发
-        	        // xhr 是 XMLHttpRequst 对象，editor 是编辑器对象，result 是服务器端返回的结果
-        	    },
-        	    fail: function (xhr, editor, result) {
-        	        // 图片上传并返回结果，但图片插入错误时触发
-        	        // xhr 是 XMLHttpRequst 对象，editor 是编辑器对象，result 是服务器端返回的结果
-        	    },
-        	    error: function (xhr, editor) {
-        	        // 图片上传出错时触发
-        	        // xhr 是 XMLHttpRequst 对象，editor 是编辑器对象
-        	    },
-        	    timeout: function (xhr, editor) {
-        	        // 图片上传超时时触发
-        	        // xhr 是 XMLHttpRequst 对象，editor 是编辑器对象
-        	    },
-
-        	    // 如果服务器端返回的不是 {errno:0, data: [...]} 这种格式，可使用该配置
-        	    // （但是，服务器端返回的必须是一个 JSON 格式字符串！！！否则会报错）
-        	    customInsert: function (insertImg, result, editor) {
-        	        // 图片上传并返回结果，自定义插入图片的事件（而不是编辑器自动插入图片！！！）
-        	        // insertImg 是插入图片的函数，editor 是编辑器对象，result 是服务器端返回的结果
-
-        	        // 举例：假如上传图片成功后，服务器端返回的是 {url:'....'} 这种格式，即可这样插入图片：
-        	        var url = result.url;
-        	        insertImg(url)
-
-        	        // result 必须是一个 JSON 格式字符串！！！否则报错
-        	    }
-        	   }
-        	
-        editor.customConfig.uploadImgHeaders = {
-         'Accept' : 'multipart/form-data'
-    	 };  
-       editor.customConfig.debug = location.href.indexOf('wangeditor_debug_mode=1') > 0
-      /* editor.customConfig.customUploadImg = function (files, insert) {
-    	    // files 是 input 中选中的文件列表
-    	    alert(files);
-    	    // insert 是获取图片 url 后，插入到编辑器的方法
-             
-    	    // 上传代码返回结果之后，将图片插入到编辑器中
-    	    insert(imgUrl)
-    	} */
-    	editor.customConfig.customAlert = function (info) {
-    	    // info 是需要提示的内容
-    	    alert('自定义提示：' + info)
-    	}
-    editor.customConfig.uploadImgShowBase64 = true ; 
-    editor.create();  
+        editor.customConfig.uploadImgMaxLength = 5;     
+        editor.create();
+        E.fullscreen.init('#editor');
     function GetJsonData() {
     	var content=editor.txt.html();
     	var title=$("#title").val();
