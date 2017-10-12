@@ -64,7 +64,6 @@
 				pwd : pwd
 			},
 			success : function(msg) {
-				alert(msg);
 				if (msg.code == 100) {
 					alert(msg.msg);
 				}

@@ -13,6 +13,7 @@
 <title>后台页面头部</title>
 <base href="<%=basePath%>">
 <link href="pc/css/css.css" type="text/css" rel="stylesheet" />
+<script src="static/js/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
 </head>
 <body onselectstart="return false" oncontextmenu=return(false) style="overflow-x:hidden;">
 <!--禁止网页另存为-->
@@ -26,7 +27,7 @@
       <tr>
         <td align="left" valign="bottom" id="header-name">山善后台管理</td>
         <td align="right" valign="top" id="header-right">
-        	<a  onFocus="this.blur()" class="admin-out" onclick="checkCookie()">注销</a>
+        	<a  class="admin-out" onclick="deleteSession()">注销</a>
             <a href="pc/index.jsp" target="top" onFocus="this.blur()" class="admin-home">管理首页</a>
         	<a href="pc/index.jsp" target="_blank" onFocus="this.blur()" class="admin-index">网站首页</a>       	
             <span>
@@ -57,40 +58,12 @@
   </tr>
 </table>
 </body>
- <script type="text/javascript">
- var username=getCookie("c_name");
- $(".c_name").text(username);
- function getCookie(c_name)
- {
- if (document.cookie.length>0)
-   {
-   c_start=document.cookie.indexOf(c_name + "=");
-   if (c_start!=-1)
-     { 
-     c_start=c_start + c_name.length+1 
-     c_end=document.cookie.indexOf(";",c_start)
-     if (c_end==-1) c_end=document.cookie.length
-     return unescape(document.cookie.substring(c_start,c_end))
-     } 
-   }
- return ""
+<script type="text/javascript">
+ function deleteSession(){
+	 alert("您确定要退出？");
+	 sessionStorage.clear("user_name"); 	 
+	 sessionStorage.clear("pwd_name");	 
+	 window.parent.frames.location.href = "<%=path%>/pc/login.jsp";
  }
- //清除cookie  
-function clearCookie(name) {  
-    setCookie(name, "", -1);
-}  
-function checkCookie() {
-    var user = getCookie("c_name");
-    if (user != "") {
-   	 alert("不是吧！你真的要退出吗！" + user);
-   	 window.parent.frames.location.href = "<%=path%>/pc/login.jsp";
-    } /* else {
-        user = prompt("Please enter your name:", "");
-        if (user != "" && user != null) {
-            setCookie("username", user, 365);
-        } 
-    }  */
-}
-
 </script>
 </html>

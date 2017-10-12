@@ -157,7 +157,7 @@ td.fenye {
                 <input type="hidden" name="aticleId" value="" />
 			<tr>			
 				<td width="10%" class="tableleft">标题</td>
-				<td><input type="text" id="title" value="" /></td>			
+				<td><input type="text" id="title" value="" style="width:30%"/></td>			
 			</tr>
 			<tr>
 				<td width="10%" class="tableleft">作者</td>
