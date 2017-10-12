@@ -10,8 +10,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>主要内容区main</title>
+<title>用户列表</title>
 <base href="<%=basePath%>">
+<link rel="stylesheet" href="pc/css/page.css" type="text/css">
+<script src="static/js/jquery-3.2.1.min.js" type="text/javascript"
+	charset="utf-8"></script>
+<script src="pc/js/vue.js" type="text/javascript"
+	charset="utf-8"></script>
 <link href="pc/css/css.css" type="text/css" rel="stylesheet" />
 <link href="pc/css/main.css" type="text/css" rel="stylesheet" />
 <link rel="shortcut icon" href="pc/images/main/favicon.ico" />
@@ -111,21 +116,47 @@ td.fenye{ padding:10px 0 0 0; text-align:right;}
     </tr>
   </table>
   <!-- 用户列表 -->
-  <table width="100%" border="0" align="center" cellpadding="3" cellspacing="1" class="tableborder">
+  <table class="user" width="100%" border="0" align="center" cellpadding="3" cellspacing="1" class="tableborder">
     <tr class="header"> 
-      <td height="25" colspan="8"></td>
+      <td height="25" colspan="12"></td>
     </tr>
     <tr> 
       <td width="3%"><div align="center"></div></td>
-      <td width="6%" height="25"><div align="center">姓名</div></td>
-      <td width="36%" height="25"><div align="center">用户等级</div></td>
-      <td width="14%" height="25"> <div align="center">状态</div></td>
-	  <td width="14%" height="25"> <div align="center">编辑</div></td>
+      <td width="6%" height="25"> <div align="center">姓名</div></td>
+      <td width="3%" height="25"> <div align="center">性别</div></td>
+	  <td width="6%" height="25"> <div align="center">手机号</div></td>
+	  <td width="6%" height="25"> <div align="center">公司</div></td>
+	  <td width="6%" height="25"> <div align="center">行业</div></td>
+	  <td width="6%" height="25"> <div align="center">会员等级</div></td>
+	  <td width="6%" height="25"> <div align="center">职位</div></td>
+	  <td width="6%" height="25"> <div align="center">设备类型</div></td>
+	  <td width="6%" height="25"> <div align="center">公司邮箱</div></td>
+	  <td width="6%" height="25"> <div align="center">编辑</div></td>
     </tr>
-    <tr class="user" bgcolor="#FFFFFF" onmouseout="this.style.backgroundColor='#ffffff'" onmouseover="this.style.backgroundColor='#C3EFFF'">
-    </tr> 
-  </table>
+   
  
+  </table>
+ <!-- 分页 -->
+      <div id="app">
+    <div>
+      <div class="page"  v-show="show">
+        <div class="pagelist">
+          <span class="jump" :class="{disabled:pstart}" @click="{current_page--}">上一页</span>
+          <span v-show="current_page>5" class="jump" @click="jumpPage(1)">1</span>
+          <span class="ellipsis"  v-show="efont">...</span>
+          <span class="jump" v-for="num in indexs" :class="{bgprimary:current_page==num}" @click="jumpPage(num)">{{num}}</span>
+          <span class="ellipsis"  v-show="ebehind">...</span>
+
+          <span :class="{disabled:pend}" class="jump" @click="{current_page++}">下一页</span>
+          <span v-show="current_page<pages-4" class="jump" @click="jumpPage(pages)">{{pages}}</span>
+
+          <span class="jumppoint">跳转到：</span>
+          <span class="jumpinp"><input type="text" v-model="changePage"></span>
+          <span class="jump gobtn" @click="jumpPage(changePage)">GO</span>
+        </div>
+      </div>
+    </div>
+  </div>
 
 </body>
 <script type="text/javascript">
@@ -172,50 +203,121 @@ function PushInfoToSp(form)
 </script>
 <script type="text/javascript">
 	$(document).ready(function(){ 
-		var token= localStorage.getItem("c_token");
-		var userId= localStorage.getItem("userId");
-		$.ajax({
-			type : "GET", //用GET方式传输
-			dataType : "json", //数据格式:JSON
-			url : '/user/getUserList', //目标地址
-			data : {userId:userId,token:token},
+		var userId= sessionStorage.getItem("userId");
+		var token= sessionStorage.getItem("c_token");
+		$.ajax({  
+			url:'user/getUserList',  
+			data:{
+				userId:userId,
+				token:token,
+			},
+			dataType : "json",  
 			success : function(msg) {
-				var datas=msg.data;
-				var a="";
-				if(datas.userType==1){
-					 a="A等级会员";
-				}if(datas.userType==2){
-					 a="B等级会员";
-				}if(datas.userType==3){
-					 a="C等级会员";
-				}if(datas.userType==4){
-					 a="客服";
-				}if(datas.userType==5){
-					 a="技术专家";
-				}
-				var userType=a;
-				var b="";
-				if(datas[i].userType==1){
-					 b="待审核";
-				}if(datas[i].userType==2){
-					 b="已审核";
-				}
-				var =a;
-				for(var i in datas){
-					$(".user").append("<td><div align='center'>"+ 
-						          "<input name='id[]' type='checkbox' id='id[]' value=''>"+
-								  "<input name='infoid[]' type='hidden' value=''>"+
-						          "</div>"+
-						      "</td>"+
-						      "<td height='25'> <div align='center'>"+datas[i].userName+"</div></td>"+                        
-						      "<td height='25'> <div align='center'></div></td>"+
-							  "<td height='25'> <div align='center'></div></td>"+
-						      "<td height='25'> <div align='center'>"+
-						           "<a href='pc/main/xinximain/articleAdd.jsp'>审核</a>|"+  
-						           "<a href='pc/main/xinximain/articleAdd.jsp'>删除</a>|"+            
-						      "</td>");
+				var data = msg.data.list;
+				
+				for(var i in data){	
+					var a="";
+					if(data[i].sex==0){
+						a="男";
+					}if(data[i].sex==1){
+						a="女";
+					}
+					var sex=a;
+					var aa="";
+					if(data[i].userType==1){
+						aa="A";
+					}if(data[i].userType==2){
+						aa="B";
+					}if(data[i].userType==3){
+						aa="C";
+					}if(data[i].userType==4){
+						aa="客服";
+					}if(data[i].userType==5){
+						aa="专家";
+					}
+					var userType=aa;
+					$(".user").append("<tr bgcolor='#FFFFFF' onmouseout='this.style.backgroundColor='#ffffff'' onmouseover='this.style.backgroundColor='#C3EFFF''>"+
+							"<td><div align='center'>"+ 
+					          "<input name='id[]' type='checkbox' id='id[]' value=''>"+
+							  "<input name='infoid[]' type='hidden' value=''></div></td>"+
+					       "<td width='6%' height='25'> <div align='center'>"+data[i].userName+"</div></td>"+
+					      "<td width='3%' height='25'> <div align='center'>"+sex+"</div></td>"+
+						  "<td width='6%' height='25'> <div align='center'>"+data[i].phone+"</div></td>"+
+						  "<td width='6%' height='25'> <div align='center'>"+data[i].company+"</div></td>"+
+						  "<td width='6%' height='25'> <div align='center'>"+data[i].industry+"</div></td>"+
+						  "<td width='6%' height='25'> <div align='center'>"+userType+"</div></td>"+
+						  "<td width='6%' height='25'> <div align='center'>"+data[i].positionName+"</div></td>"+
+						  "<td width='6%' height='25'> <div align='center'>"+data[i].equipmentType+"</div></td>"+
+						  "<td width='6%' height='25'> <div align='center'>"+data[i].email+"</div></td>"+
+					      "<td width='6%' height='25'> <div align='center'>"+
+	"<a href=''>修改</a>|<a href='' onclick='return confirm('确认要删除？');'>删除</a></div></td></tr>");
 			}}
 		});
 	}); 
+	
+	//分页部分开始
+	var newlist = new Vue({
+	    el: '#app',
+	    data: {
+	      current_page: 1, //当前页
+	      pages: 50, //总页数
+	      changePage:'',//跳转页
+	      nowIndex:0
+	    },
+	    computed:{
+	       show:function(){
+	           return this.pages && this.pages !=1
+	       },
+	       pstart: function() {
+	         return this.current_page == 1;
+	       },
+	       pend: function() {
+	         return this.current_page == this.pages;
+	       },
+	       efont: function() {
+	         if (this.pages <= 7) return false;
+	         return this.current_page > 5
+	       },
+	       ebehind: function() {
+	         if (this.pages <= 7) return false;
+	         var nowAy = this.indexs;
+	         return nowAy[nowAy.length - 1] != this.pages;
+	       },
+	       indexs: function() {
+
+	         var left = 1,
+	           right = this.pages,
+	           ar = [];
+	         if (this.pages >= 7) {
+	           if (this.current_page > 5 && this.current_page < this.pages - 4) {
+	             left = Number(this.current_page) - 3;
+	             right = Number(this.current_page) + 3;
+	           } else {
+	             if (this.current_page <= 5) {
+	               left = 1;
+	               right = 7;
+	             } else {
+	               right = this.pages;
+
+	               left = this.pages - 6;
+	             }
+	           }
+	         }
+	         while (left <= right) {
+	           ar.push(left);
+	           left++;
+	         }
+	         return ar;
+	       },
+	     },
+	    methods: {
+	      jumpPage: function(id) {
+	        this.current_page = id;
+	      },
+	    },
+
+	  })
+	 //分页部分结束
 	</script>
+	
 </html>
