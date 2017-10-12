@@ -106,6 +106,7 @@ public class ArticleService {
 			// 保存
 			entity.setCreateTime(date);
 			entity.setUpdateTime(date);
+			entity.setStatus(10);
 			articleBeanMapper.insertSelective(entity);
 			
 		}
