@@ -2,10 +2,7 @@ package com.shanshan.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.shanshan.bean.SNSUserInfo;
@@ -130,8 +128,43 @@ public class WxController {
      */
     @RequestMapping(value = "/oauth", method = { RequestMethod.GET, RequestMethod.POST })
     @ResponseBody
-    public ModelAndView wxOauth(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        ModelAndView mav = new ModelAndView("login");
+    public ModelAndView wxOauth(@RequestParam(value = "type", required=false) Integer type,
+                                HttpServletRequest request, HttpServletResponse response) throws Exception {
+        /**
+         1 活动信息 active/active
+         2 产品资料 equipment/sbxx
+         3 技术文章 artile/artivle
+         4 培训课程 coach
+         5 技术咨询 jask
+         6 故障报修 require
+         7 关于山善 aboutss
+         8 联系我们 service
+         9 我的记录 myrecord
+         10 注册登录 login
+         */
+        Map<Integer,String> map=new HashMap<>();
+        map.put(1,"active/active");
+        map.put(2,"equipment/sbxx");
+        map.put(3,"artile/artivle");
+        map.put(4,"coach");
+        map.put(5,"jask");
+        map.put(6,"require");
+        map.put(7,"aboutss");
+        map.put(8,"service");
+        map.put(9,"myrecord");
+        map.put(10,"login");
+
+        ModelAndView mav=null;
+        if(BaseUtil.isNotEmpty(type)){
+            String viewName = map.get(type);
+            if(viewName!=null){
+                mav = new ModelAndView(viewName);
+            }
+        }else{
+            mav = new ModelAndView("login");
+        }
+
+
 
         // 将请求、响应的编码均设置为UTF-8（防止中文乱码）
         request.setCharacterEncoding("UTF-8");  //微信服务器POST消息时用的是UTF-8编码，在接收时也要用同样的编码，否则中文会乱码；

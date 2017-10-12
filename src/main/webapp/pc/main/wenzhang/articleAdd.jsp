@@ -266,6 +266,23 @@ td.fenye {
     editor.customConfig.uploadImgShowBase64 = true ; 
     editor.create();
     $("#saveInfo").click(function(){
+    	
+        $.ajax({
+			type : "POST", //用GET方式传输
+			contentType: "application/json; charset=utf-8", //数据格式:JSON
+			type:"json", //数据格式:JSON
+			url : 'article/saveOpUpdate', //目标地址
+			data : JSON.stringify(GetJsonData()),
+			error: function(XMLHttpRequest){  
+			     alert( "Error: " + XMLHttpRequest.responseText);  
+			   }  ,
+			success : function(msg) {
+				alert(msg.errorCode);
+				}
+				//发送验证返回信息
+		});
+    });
+    function GetJsonData() {
     	var content=editor.txt.text();
     	alert(content);
     	var title=$("#title").val();
@@ -286,34 +303,20 @@ td.fenye {
         alert(relateActivityId);
         var relatePermissionUserType=$("#relatePermissionUserType").find("option:selected").val();
         alert(relatePermissionUserType);
-        $.ajax({
-			type : "POST", //用GET方式传输
-			contentType: "application/json; charset=utf-8", //数据格式:JSON
-			dataType:"json", //数据格式:JSON
-			url : 'article/saveOpUpdate', //目标地址
-			//data : "dealType=" + dealType + "&uid=" + uid + "&code=" + code,
-			data : JSON.stringify(GetJsonData()),
-			error: function(XMLHttpRequest){  
-			     alert( "Error: " + XMLHttpRequest.responseText);  
-			   }  ,
-			success : function(msg) {
-				alert(msg.errorCode);
-				}
-				//发送验证返回信息
-		});
-	    function GetJsonData() {
-	    	console.log("title" + title);
-	    	console.log(author);
-	        var json = {
-	        		"title":title,
-					"author":author,
-					"startTime":startTime
-	        };
-	        return json;
-	    }
-    });
-    
-    
+        var json = {
+        		"title":title,
+				"author":author,
+				"content":content,
+				"categoryName":categoryName,
+				"tagId":tagId,
+				"createTime":createTime,
+				"startTime":startTime,
+				"endTime":endTime,
+				"relateActivityId":relateActivityId,
+				"relatePermissionUserType":relatePermissionUserType
+        };
+        return json;
+    }
     //时间控件
     $('.date').datetimepicker({
 		 language: 'zh-CN',//显示中文
@@ -324,9 +327,9 @@ td.fenye {
 		 todayBtn: true//显示今日按钮
 		 }) 
 	//保证时间控件不会被副文本控件影响
-     /* var zIndex = parseInt(this.element.parents().filter(function(){
+     var zIndex = parseInt(this.element.parents().filter(function(){
     		    return $(this).css('z-index') !== 'auto';
-    		    }).first().css('z-index'))  +10; */
+    		    }).first().css('z-index'))  +10;
     
  
     </script>
