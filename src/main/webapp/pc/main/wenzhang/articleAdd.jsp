@@ -239,7 +239,7 @@ td.fenye {
 			     alert( "Error: " + XMLHttpRequest.responseText);  
 			   }  ,
 			success : function(msg) {
-				alert(msg.errorCode);
+			 window.history.go(-1);
 				}
 				//发送验证返回信息
 		});
@@ -283,10 +283,6 @@ td.fenye {
     	    		$("#smallClass").html("");
     	    	}
       });
-     relateActivityId=$("#relateActivityId").find("option:selected").val();
-    
-    
-  
     //符文本编辑器设置
     var E = window.wangEditor
     var editor = new E('#editor')
