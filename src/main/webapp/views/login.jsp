@@ -115,10 +115,14 @@
             localStorage.setItem("wxOpenId",wxOpenId);
         }else{
             var data="${data}";
-            $('#myModal').modal('show');
-            $(".modal-body").text(""+data);
+            if(code==100||code==101){
+                $('#myModal').modal('show');
+                $(".modal-body").text(""+data);
+            }else{
+                $('#myModal').modal('show');
+                $(".modal-body").text("请在微信中打开");
+            }
         }
-
     });
 
 
