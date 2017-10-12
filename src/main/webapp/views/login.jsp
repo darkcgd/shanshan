@@ -135,21 +135,23 @@
         var rebackUserid=$('#rebackUserid').val();
         localStorage.setItem("userId",rebackUserid);
         curCount = count;
-		/*var dealType; //验证方式
-		 var uid = $("#uid").val();//用户uid
-		 if ($("#phone").attr("checked") == true) {
-		 dealType = "phone";
-		 } else {
-		 dealType = "email";
-		 }*/
         var phone=$("#phone").val();
+        if(phone.length==0){
+        	 $('#myModal').modal('show');
+             $(".modal-body").text("请输入手机号");
+        	return;
+        }
+        if(phone.length!=11){
+        	 $('#myModal').modal('show');
+            $(".modal-body").text("手机格式不正确");
+          	return;
+          }
         //产生验证码
         for (var i = 0; i < codeLength; i++) {
             code += parseInt(Math.random() * 9).toString();
         }
         //设置button效果，开始计时
-        $("#btnSendCode").attr("disabled", "true");
-        $("#btnSendCode").val(+curCount + "秒再获取");
+        $("#btnSendCode").attr("disabled", "true");    
         //向后台发送处理数据
         $.ajax({
             type : "GET", //用GET方式传输
@@ -158,11 +160,16 @@
             //data : "dealType=" + dealType + "&uid=" + uid + "&code=" + code,
             data : "phone=" + phone,
             success : function(msg) {
-                InterValObj = window.setInterval(SetRemainTime, 1000); //启动计时器，1秒执行一次
+            	  $("#btnSendCode").val(+curCount + "秒再获取");  
+                  InterValObj = window.setInterval(SetRemainTime, 1000);  //启动计时器，1秒执行一次
                 if (msg.code == 100) {
                     $('#myModal').modal('show');
                     $(".modal-body").text(msg.msg);
                 }
+                if (msg.code == 200) {
+                
+                             
+                }               
                 //发送验证返回信息
             }
         });
@@ -182,6 +189,21 @@
     function userLogin() {
         var phone = $("#phone").val();
         var smsCode = $("#smsCode").val();
+        if(phone.length==0){
+       	 $('#myModal').modal('show');
+         $(".modal-body").text("请输入手机号");
+       	return;
+       }
+        if(phone.length!=11){
+         	 $('#myModal').modal('show');
+             $(".modal-body").text("手机格式不正确");
+           	return;
+           }
+        if(smsCode.length!=6){
+          	 $('#myModal').modal('show');
+             $(".modal-body").text("请输入6位验证码");
+          	return;
+          }
         $.ajax({
             type : "GET", //用GET方式传输
             dataType : "json", //数据格式:JSON
