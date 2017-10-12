@@ -55,7 +55,6 @@
 	function denglu(){
 		var userName = $("#userName").val();	
 		var pwd = $("#pwd").val();
-		
 		$.ajax({
 			type : "GET",
 			dataType : "json",
@@ -65,15 +64,17 @@
 				pwd : pwd
 			},
 			success : function(msg) {
+				alert(msg);
 				if (msg.code == 100) {
 					alert(msg.msg);
 				}
 				if (msg.code == 200) {
 					
 					var data = msg.data;
-					if (data.userType == 4) {
-						var c_name="c_name";
-						document.cookie=c_name+"="+data.name;
+					if (data.userType == 4) {	
+						alert(data.userName);
+						sessionStorage.setItem("user_name",data.userName);
+						sessionStorage.setItem("pwd_name",data.pwd);
 						window.location.href = "<%=path%>/pc/index.jsp";
 					}
 				}
