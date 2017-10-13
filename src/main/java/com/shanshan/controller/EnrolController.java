@@ -2,6 +2,8 @@ package com.shanshan.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,8 +37,10 @@ public class EnrolController {
 	 */
 	@RequestMapping("/saveOrupdate")
 	@ResponseBody
-	public JsonResult saveOrupdate(@Valid EnrollBean entity, BindingResult errors) {
+	public JsonResult saveOrupdate( @Valid EnrollBean entity, BindingResult errors, HttpServletRequest request) {
 		
+		HttpSession session = request.getSession();
+		Integer userId = (Integer)session.getAttribute("userId");
 		// 参数验证
 		if (errors.hasErrors()) {
 			return new JsonResult("500", "参数校验失败");

@@ -47,6 +47,14 @@ public class ArticleController extends BaseController {
 	@Autowired
 	private ArticleService articleService;
 
+	private static String getPictureDivPath() {
+		String property = System.getProperty("user.dir");
+		int lastIndexOf = property.lastIndexOf(System.getProperty("file.separator"));
+		CharSequence subSequence = property.subSequence(0, lastIndexOf);
+		String piturePath = subSequence + System.getProperty("file.separator") + "piture";
+		return piturePath;
+	}
+
 	/**
 	 * 文章列表
 	 * 
@@ -126,7 +134,7 @@ public class ArticleController extends BaseController {
 		String tempContextUrl = url.delete(url.length() - request.getRequestURI().length(), url.length()).append(request.getServletContext().getContextPath()).append("/").toString();  
 		String downloadUrl = tempContextUrl + "article/download?fileName=";
 		try {
-			String savePath = "C://pictuce/";
+			String savePath = getPictureDivPath();
 			File dirPath = new File(savePath);
 			if (!dirPath.exists()) {
 				dirPath.mkdirs();
@@ -147,7 +155,7 @@ public class ArticleController extends BaseController {
 					if (file != null) {
 						String uuid = UUID.randomUUID().toString().toUpperCase().replaceAll("-", "");
 						String fileName = uuid + file.getOriginalFilename();
-						File localFile = new File(savePath + fileName);
+						File localFile = new File(savePath + System.getProperty("file.separator") + fileName);
 						// 写文件到本地
 						file.transferTo(localFile);
 						data.add(downloadUrl + fileName);
@@ -169,7 +177,7 @@ public class ArticleController extends BaseController {
 	public String downloadFile(@RequestParam("fileName") String fileName, HttpServletRequest request,
 			HttpServletResponse response) {
 		if (fileName != null) {
-			String realPath = "C://pictuce/";
+			String realPath = getPictureDivPath();
 			File file = new File(realPath, fileName);
 			if (file.exists()) {
 				// response.setContentType("application/force-download");// 设置强制下载不打开
