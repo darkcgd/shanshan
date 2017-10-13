@@ -10,17 +10,15 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>用户列表</title>
+<title>主要内容区main</title>
 <base href="<%=basePath%>">
-<link rel="stylesheet" href="pc/css/page.css" type="text/css">
-<script src="static/js/jquery-3.2.1.min.js" type="text/javascript"
-	charset="utf-8"></script>
-<script src="pc/js/vue.js" type="text/javascript"
-	charset="utf-8"></script>
 <link href="pc/css/css.css" type="text/css" rel="stylesheet" />
 <link href="pc/css/main.css" type="text/css" rel="stylesheet" />
 <link rel="shortcut icon" href="pc/images/main/favicon.ico" />
-<link rel="stylesheet" href="pc/css/adminstyle.css" type="text/css">
+ <link rel="stylesheet" href="pc/css/page.css" type="text/css"> 
+<!-- <link rel="stylesheet" href="pc/css/page.css" type="text/css"> -->
+<script src="static/js/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
+<!--  <script src="pc/js/vue.js" type="text/javascript" charset="utf-8"></script>-->
 <style>
 body{overflow-x:hidden; background:#f2f0f5; padding:15px 0px 10px 5px;}
 #searchmain{ font-size:12px;}
@@ -45,278 +43,183 @@ td.fenye{ padding:10px 0 0 0; text-align:right;}
 </style>
 </head>
 <body>
-</head>
-<body>
-<!-- top -->
-<table width="100%" border="0" align="center" cellpadding="3" cellspacing="1">
-  <tr> 
-    <td width="24%">位置： 
-    </td>
-    <td width="76%"><div align="center" class="emenubutton">
-		  <span id="showaddclassnav"></span>         
-           <input type="button" name="Submit" value="增加信息" onclick="self.location.href='pc/main/user/articleAdd.jsp'">
-		  &nbsp;          
-        </div></td>
+<!--main_top-->
+<table width="99%" border="0" cellspacing="0" cellpadding="0" id="searchmain">
+  <tr>
+    <td width="99%" align="left" valign="top">您的位置：用户管理</td>
   </tr>
-</table>
-<!-- 搜索栏 -->
-<table width="100%" border="0" align="center" cellpadding="3" cellspacing="1" class="tableborder">
-    <tr> 
-      <td width="100%"> <div align="right">&nbsp;搜索： 
-          <select name="showspecial" id="showspecial">
-            <option value="0">不限属性</option>
-            <option value="2">推荐</option>
-            <option value="3">头条</option>
-          </select>
-          <input name="keyboard" type="text" id="keyboard" value="关键字">
-          <select name="show">
-            <option value="0">不限字段</option>
-            <option value="1">标题</option>
-            <option value="2">发布者</option>
-			<option value="3">ID</option>
-          </select>
-		  <span id="searchclassnav"></span>
-          <select name="myorder" id="myorder">
-            <option value="1">按信息ID</option>
-            <option value="2">按发布时间</option>
-            <option value="3">按点击率</option>
-            <option value="4">按下载数</option>
-            <option value="5">按评论数</option>
-          </select>
-          <select name="orderby" id="orderby">
-            <option value="0">降序排序</option>
-            <option value="1">升序排序</option>
-          </select>
-          <select name="infolday" id="infolday">
-            <option value="1">全部时间</option>
-            <option value="86400">1 天</option>
-            <option value="172800">2 天</option>
-            <option value="604800">一周</option>
-            <option value="2592000">1 个月</option>
-            <option value="7948800">3 个月</option>
-            <option value="15897600">6个月</option>
-            <option value="31536000">1年</option>
-          </select>
-          <input type="submit" name="Submit2" value="搜索">
-        </div></td>
-    </tr>
-</table>
-<br>
-
-  <table width="100%" border="0" cellspacing="1" cellpadding="0">
-    <tr>
-      <td width="7%"><div align="center"><a href="pc/main/xinximain/article.jsp" title="已发布信息总数："> </a></div></td>
-      <td width="5%"><div align="center"><a href="pc/main/xinximain/article.jsp" title="已发布信息总数："> </a></div></td>
-      <td width="5%"><div align="center"><a href="pc/main/xinximain/article.jsp"> </a></div></td>
-      <td width="5%"><div align="center"><a href="pc/main/xinximain/article.jsp"></a></div></td>
-      <td width="58%">&nbsp; </td>
-      <td width="6%">&nbsp;</td>
-      <td width="6%">&nbsp;</td>
-    </tr>
-  </table>
-  <!-- 用户列表 -->
-  <table class="user" width="100%" border="0" align="center" cellpadding="3" cellspacing="1" class="tableborder">
-    <tr class="header"> 
-      <td height="25" colspan="12"></td>
-    </tr>
-    <tr> 
-      <td width="3%"><div align="center"></div></td>
-      <td width="6%" height="25"> <div align="center">姓名</div></td>
-      <td width="3%" height="25"> <div align="center">性别</div></td>
-	  <td width="6%" height="25"> <div align="center">手机号</div></td>
-	  <td width="6%" height="25"> <div align="center">公司</div></td>
-	  <td width="6%" height="25"> <div align="center">行业</div></td>
-	  <td width="6%" height="25"> <div align="center">会员等级</div></td>
-	  <td width="6%" height="25"> <div align="center">职位</div></td>
-	  <td width="6%" height="25"> <div align="center">设备类型</div></td>
-	  <td width="6%" height="25"> <div align="center">公司邮箱</div></td>
-	  <td width="6%" height="25"> <div align="center">编辑</div></td>
-    </tr>
-   
+  
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" id="search">
+  		<tr>
+   		 <td width="90%" align="left" valign="middle">
+	         <form method="post" action="">
+	         <span>管理员：</span>
+	         <input type="text" name="" value="" class="text-word">
+	         <input name="" type="button" value="查询" class="text-but">
+	         </form>
+         </td>
+  		  <td width="10%" align="center" valign="middle" style="text-align:right; width:150px;"><a href="add.html" target="mainFrame" onFocus="this.blur()" class="add">新增管理员</a></td>
+  		</tr>
+	</table>
  
-  </table>
- <!-- 分页 -->
-      <div id="app">
-    <div>
-      <div class="page"  v-show="show">
-        <div class="pagelist">
-          <span class="jump" :class="{disabled:pstart}" @click="{current_page--}">上一页</span>
-          <span v-show="current_page>5" class="jump" @click="jumpPage(1)">1</span>
-          <span class="ellipsis"  v-show="efont">...</span>
-          <span class="jump" v-for="num in indexs" :class="{bgprimary:current_page==num}" @click="jumpPage(num)">{{num}}</span>
-          <span class="ellipsis"  v-show="ebehind">...</span>
-
-          <span :class="{disabled:pend}" class="jump" @click="{current_page++}">下一页</span>
-          <span v-show="current_page<pages-4" class="jump" @click="jumpPage(pages)">{{pages}}</span>
-
-          <span class="jumppoint">跳转到：</span>
-          <span class="jumpinp"><input type="text" v-model="changePage"></span>
-          <span class="jump gobtn" @click="jumpPage(changePage)">GO</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-</body>
+    
+    <table class="ss"  width="100%" border="0" cellspacing="0" cellpadding="0" id="main-tab">
+      <tr> 
+        <th  align="center" valign="middle" class="borderright">全选</th>
+        <th  align="center" valign="middle" class="borderright">姓名</th>
+        <th  align="center" valign="middle" class="borderright">性别</th>
+        <th  align="center" valign="middle" class="borderright">手机号</th>
+        <th  align="center" valign="middle" class="borderright">公司</th>
+        <th  align="center" valign="middle" class="borderright">行业</th>
+        <th  align="center" valign="middle" class="borderright">会员等级</th>
+        <th  align="center" valign="middle" class="borderright">职位</th>
+        <th  align="center" valign="middle" class="borderright">设备类型</th>
+        <th  align="center" valign="middle" class="borderright">是否审核</th>
+        <th  align="center" valign="middle" class="borderright">公司邮箱</th>
+        <th   align="center" valign="middle">编辑</th>
+      </tr>
+      
+     
+    </table>
+    <table style="float:right;">
+      <tr>
+	    <td class="fenye" align="left" valign="top">&nbsp;&nbsp;<span></span>&nbsp;&nbsp;
+	    <a href="javascript:void(0)" target="mainFrame" onFocus="this.blur()" onclick="pageChange(this)" value="0">首页</a>&nbsp;&nbsp;
+	    <a href="javascript:void(0)" target="mainFrame" onFocus="this.blur()" onclick="pageChange(this)" value="">上一页</a>&nbsp;&nbsp;
+	    <a href="javascript:void(0)" target="mainFrame" onFocus="this.blur()" onclick="pageChange(this)" value="">下一页</a>&nbsp;&nbsp;
+	    <a href="javascript:void(0)" target="mainFrame" onFocus="this.blur()" onclick="pageChange(this)" value="">尾页</a></td>
+    </tr>
+    </table>
+</table>
+</body> 
+<script src="static/js/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">
-function CheckAll(form)
-  {
-  for (var i=0;i<form.elements.length;i++)
-    {
-    var e = form.elements[i];
-    if (e.name != 'chkall')
-       e.checked = form.chkall.checked;
-    }
-  }
-
-function GetSelectId(form)
-{
-  var ids='';
-  var dh='';
-  for (var i=0;i<form.elements.length;i++)
-  {
-	var e = form.elements[i];
-	if (e.name == 'id[]')
-	{
-	   if(e.checked==true)
-	   {
-       		ids+=dh+e.value;
-			dh=',';
-	   }
-	}
-  }
-  return ids;
-}
-
-function PushInfoToSp(form)
-{
-	var id='';
-	id=GetSelectId(form);
-	if(id=='')
-	{
-		alert('请选择要推送的信息');
-		return false;
-	}
-	window.open('');
-}
-</script>
-<script type="text/javascript">
-	$(document).ready(function(){ 
-		var userId= sessionStorage.getItem("userId");
-		var token= sessionStorage.getItem("c_token");
-		$.ajax({  
-			url:'user/getUserList',  
-			data:{
-				userId:userId,
-				token:token,
-			},
-			dataType : "json",  
-			success : function(msg) {
-				var data = msg.data.list;
-				
-				for(var i in data){	
-					var a="";
-					if(data[i].sex==0){
-						a="男";
-					}if(data[i].sex==1){
-						a="女";
-					}
-					var sex=a;
-					var aa="";
-					if(data[i].userType==1){
-						aa="A";
-					}if(data[i].userType==2){
-						aa="B";
-					}if(data[i].userType==3){
-						aa="C";
-					}if(data[i].userType==4){
-						aa="客服";
-					}if(data[i].userType==5){
-						aa="专家";
-					}
-					var userType=aa;
-					$(".user").append("<tr bgcolor='#FFFFFF' onmouseout='this.style.backgroundColor='#ffffff'' onmouseover='this.style.backgroundColor='#C3EFFF''>"+
-							"<td><div align='center'>"+ 
-					          "<input name='id[]' type='checkbox' id='id[]' value=''>"+
-							  "<input name='infoid[]' type='hidden' value=''></div></td>"+
-					       "<td width='6%' height='25'> <div align='center'>"+data[i].userName+"</div></td>"+
-					      "<td width='3%' height='25'> <div align='center'>"+sex+"</div></td>"+
-						  "<td width='6%' height='25'> <div align='center'>"+data[i].phone+"</div></td>"+
-						  "<td width='6%' height='25'> <div align='center'>"+data[i].company+"</div></td>"+
-						  "<td width='6%' height='25'> <div align='center'>"+data[i].industry+"</div></td>"+
-						  "<td width='6%' height='25'> <div align='center'>"+userType+"</div></td>"+
-						  "<td width='6%' height='25'> <div align='center'>"+data[i].positionName+"</div></td>"+
-						  "<td width='6%' height='25'> <div align='center'>"+data[i].equipmentType+"</div></td>"+
-						  "<td width='6%' height='25'> <div align='center'>"+data[i].email+"</div></td>"+
-					      "<td width='6%' height='25'> <div align='center'>"+
-	"<a href=''>修改</a>|<a href='' onclick='return confirm('确认要删除？');'>删除</a></div></td></tr>");
-			}}
-		});
-	}); 
-	
-	//分页部分开始
-	var newlist = new Vue({
-	    el: '#app',
-	    data: {
-	      current_page: 1, //当前页
-	      pages: 50, //总页数
-	      changePage:'',//跳转页
-	      nowIndex:0
-	    },
-	    computed:{
-	       show:function(){
-	           return this.pages && this.pages !=1
-	       },
-	       pstart: function() {
-	         return this.current_page == 1;
-	       },
-	       pend: function() {
-	         return this.current_page == this.pages;
-	       },
-	       efont: function() {
-	         if (this.pages <= 7) return false;
-	         return this.current_page > 5
-	       },
-	       ebehind: function() {
-	         if (this.pages <= 7) return false;
-	         var nowAy = this.indexs;
-	         return nowAy[nowAy.length - 1] != this.pages;
-	       },
-	       indexs: function() {
-
-	         var left = 1,
-	           right = this.pages,
-	           ar = [];
-	         if (this.pages >= 7) {
-	           if (this.current_page > 5 && this.current_page < this.pages - 4) {
-	             left = Number(this.current_page) - 3;
-	             right = Number(this.current_page) + 3;
-	           } else {
-	             if (this.current_page <= 5) {
-	               left = 1;
-	               right = 7;
-	             } else {
-	               right = this.pages;
-
-	               left = this.pages - 6;
-	             }
-	           }
-	         }
-	         while (left <= right) {
-	           ar.push(left);
-	           left++;
-	         }
-	         return ar;
-	       },
-	     },
-	    methods: {
-	      jumpPage: function(id) {
-	        this.current_page = id;
-	      },
-	    },
-
-	  })
-	 //分页部分结束
+	 $(document).ready(function(){ 
+  var userId= sessionStorage.getItem("userId");
+	var token= sessionStorage.getItem("c_token");
+	 $.ajax({ 
+		type : "GET",
+		dataType : "json", 
+		url : 'user/getUserList', 
+		data:{
+			userId:userId,
+		    token:token,
+		},
+		success : function(msg) {
+			var data = msg.data.list;
+			for(var i in data){
+				var sex="";
+				if(data[i].sex==0){
+					sex="男";
+				}if(data[i].sex==1){
+					sex="女";
+				}
+				var userType="";
+				if(data[i].userType==1){
+					userType="A";
+				}if(data[i].userType==2){
+					userType="B";
+				}if(data[i].userType==3){
+					userType="C";
+				}if(data[i].userType==4){
+					userType="客服";
+				}if(data[i].userType==5){
+					userType="专家";
+				}
+				 var status="";
+				if(data[i].status==1){
+					status="待审核";
+				}if(data[i].status==2){
+					status="已审核";
+				}
+			 	$(".ss").append("<tr onMouseOut='this.style.backgroundColor='#ffffff'' onMouseOver='this.style.backgroundColor='#edf5ff''>"+
+				        "<td align='center' valign='middle' class='borderright borderbottom'><input type='checkbox'></td>"+
+				        "<td align='center' valign='middle' class='borderright borderbottom'>"+data[i].userName+"</td>"+
+				        "<td align='center' valign='middle' class='borderright borderbottom'>"+sex+"</td>"+
+				        "<td align='center' valign='middle' class='borderright borderbottom'>"+data[i].phone+"</td>"+
+				        "<td align='center' valign='middle' class='borderright borderbottom'>"+data[i].company+"</td>"+
+				        "<td align='center' valign='middle' class='borderright borderbottom'>"+data[i].industry+"</td>"+
+				        "<td align='center' valign='middle' class='borderright borderbottom'>"+userType+"</td>"+
+				        "<td align='center' valign='middle' class='borderright borderbottom'>"+data[i].positionName+"</td>"+
+				        "<td align='center' valign='middle' class='borderright borderbottom'>"+data[i].equipmentType+"</td>"+
+				        "<td align='center' valign='middle' class='borderright borderbottom'>"+status+"</td>"+
+				        "<td align='center' valign='middle' class='borderright borderbottom'>"+data[i].email+"</td>"+
+				        "<td align='center' valign='middle' class='borderbottom'>"+
+				        "<a href='add.html' target='mainFrame' onFocus='this.blur()' class='add'>"+status+"</a>"+
+				        "<span class='gray'>&nbsp;|&nbsp;</span>"+
+				        "<a href='add.html' target='mainFrame' onFocus='this.blur()' class='add'>删除</a></td></tr>"); 
+			}
+			 
+		}
+     })
+}); 
+	 </script>
+	 <script type="text/javascript">
+	 $(document).ready(function(){ 
+		 var userId= sessionStorage.getItem("userId");
+			var token= sessionStorage.getItem("c_token");
+			 $.ajax({ 
+				type : "GET",
+				dataType : "json", 
+				url : 'user/getUserList', 
+				data:{
+					userId:userId,
+				    token:token,
+				    pagerSize:10
+				},
+				success : function(msg) {
+					   var data =msg.data;
+					   var endPageNumber=data.totalPage;//尾页
+			           var totalCount=data.totalCount;//多少条记录
+			           var totalPage=data.totalPage;//共多少页
+			           var pagerNumber=data.pagerNumber;//当前页
+			           $(".fenye a:nth-child(2)").attr({value:1});
+			           $(".fenye a:nth-child(3)").attr({value:1});
+			           $(".fenye a:nth-child(4)").attr({value:1});
+			           $(".fenye a:nth-child(5)").attr({value:endPageNumber});
+			           $(".fenye span").text(totalCount+"条数据   "+pagerNumber+"/"+totalPage+"页");
+				}
+		     })
+		}); 
+	//分页功能
+	    function pageChange(val){
+			 var button=($(val).text());
+			 var pageNumber=parseInt(($(val).attr("value")));
+			 var endpageNumber=$(".fenye a:nth-child(5)").attr("value");	
+			 var pageSize=10;
+			 if(button=="首页"){
+				pageNumber=1;
+			 }
+			 if(button=="上一页"&&pageNumber>=2){
+				 pageNumber=pageNumber-1;
+			 }
+			 if(button=="下一页"&&pageNumber<endpageNumber){
+				 pageNumber=pageNumber+1;
+			 }
+			 if(button=="尾页"){
+			 }
+			 var title=$("#keywordTitle").val();	
+			 $.ajax({
+		    		type : "GET",//get提交
+		    		dataType : "json",//json格式
+		    		url : 'user/getUserList',
+		    		data:{
+		    			title:title,
+		    			pagerNumber:pageNumber,
+		    			pagerSize:pageSize
+		    		},
+		    		success : function(msg) {
+		    	           var endPageNumber=msg.data.totalPage;//尾页
+		    	           var totalCount=msg.data.totalCount;//多少条记录
+		    	           var totalPage=msg.data.totalPage;//共多少页
+		    	           var pagerNumber=msg.data.pagerNumber;//当前页
+		    	           $(".fenye a:nth-child(3)").attr({value:pagerNumber});
+		    	           $(".fenye a:nth-child(4)").attr({value:pagerNumber});
+		    	           $(".fenye a:nth-child(5)").attr({value:endPageNumber});
+		    	           $(".fenye span").text(totalCount+"条数据   "+pagerNumber+"/"+totalPage+"页");   
+		    		}
+		    	   }); 
+			 
+		 }
 	</script>
-	
 </html>
