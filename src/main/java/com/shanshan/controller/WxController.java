@@ -145,7 +145,7 @@ public class WxController {
         Map<Integer,String> map=new HashMap<>();
         map.put(1,"active/active");
         map.put(2,"equipment/sbxx");
-        map.put(3,"artile/artivle");
+        map.put(3,"article/article");
         map.put(4,"coach");
         map.put(5,"jask");
         map.put(6,"require");
