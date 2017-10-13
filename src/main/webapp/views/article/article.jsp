@@ -120,7 +120,7 @@
 				url : 'article/articleList', //目标地址
 			    data : "",
 				success : function(msg) {
-					var datas=msg.datas;
+					var datas=msg.data;
 					for(var i in datas){
 						$(".oul").append("<li class='now'>"+
 								"<a value='"+datas[i].relatePermissionUserType+"' name='"+datas[i].articleId+"'>"+
@@ -202,7 +202,7 @@
 					data : {title:searchName},
 					success : function(msg) {
 						$(".oul").html("");
-						var datas=msg.datas;
+						var datas=msg.data;
 						for(var i in datas){
 						    $(".oul").append("<li class='now'>"+
 						    		"<a value='"+datas[i].relatePermissionUserType+"' name='"+datas[i].articleId+"'>"+
@@ -285,7 +285,7 @@
 							data : {categoryName:keycategoryName},
 							success : function(msg) {
 								$(".oul").html("");
-								var datas=msg.datas;
+								var datas=msg.data;
 								for(var i in datas){
 									$(".oul").append("<li class='now'><a value='"+datas[i].relatePermissionUserType+"' name='"+datas[i].articleId+"'><div class='left'><img src='img/05.jpg'/><div class='tip' value='"+datas[i].relatePermissionUserType+"'></div></div><div class='right'><p class='title'><span class='size'>"+datas[i].title+"</span><span class='time'>"+datas[i].createTime+"</span></p><p class='zw'>"+datas[i].content+"</p><span id='a' value='"+datas[i].tagId+"'></span></div></a></li>");			
 								}				

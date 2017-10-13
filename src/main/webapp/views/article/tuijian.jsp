@@ -73,11 +73,11 @@
 					   data:"articleId="+articleId,
 					   dataType:'json',
 					   success:function(msg){
-					   var  data=msg.datas;
+					   var  data=msg.data;
 						$(".section .title").text("");
 					   	$(".section .title").text(data.title);
 						$(".section .time #time").text("");
-						$(".section .time #time").text(data.createTime.substr(0,10)+"~"+data.updateTime.substr(0,10));
+						$(".section .time #time").text(data.createTime.substr(0,10));
 						$(".section .time #author").text("");
 						$(".section .time #author").text("作者:"+data.author);					
 						if(data.tagId==1){							
