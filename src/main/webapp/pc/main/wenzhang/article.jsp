@@ -15,7 +15,6 @@
 <link href="pc/css/css.css" type="text/css" rel="stylesheet" />
 <link href="pc/css/main.css" type="text/css" rel="stylesheet" />
 <link rel="shortcut icon" href="pc/images/main/favicon.ico" />
- <link rel="stylesheet" href="pc/css/page.css" type="text/css"> 
 <script src="static/js/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
 
 <style>
@@ -27,11 +26,11 @@ body{overflow-x:hidden; background:#f2f0f5; padding:15px 0px 10px 5px;}
 #search form input.text-but{height:24px; line-height:24px; width:55px; background:url(pc/images/main/list_input.jpg) no-repeat left top; border:none; cursor:pointer; font-family:"Microsoft YaHei","Tahoma","Arial",'宋体'; color:#666; float:left; margin:8px 0 0 6px; display:inline;}
 #search a.add{ background:url(pc/images/main/add.jpg) no-repeat -3px 7px #548fc9; padding:0 10px 0 26px; height:40px; line-height:40px; font-size:14px; font-weight:bold; color:#FFF; float:right}
 #search a:hover.add{ text-decoration:underline; color:#d2e9ff;}
-#main-tab{ border:1px solid #eaeaea; background:#FFF; font-size:12px;}
-#main-tab th{ font-size:12px; background:url(pc/images/main/list_bg.jpg) repeat-x; height:32px; line-height:32px;}
-#main-tab td{ font-size:12px; line-height:40px;}
-#main-tab td a{ font-size:12px; color:#548fc9;}
-#main-tab td a:hover{color:#565656; text-decoration:underline;}
+#aticleList{ border:1px solid #eaeaea; background:#FFF; font-size:12px;}
+#aticleList th{ font-size:12px; background:url(pc/images/main/list_bg.jpg) repeat-x; height:32px; line-height:32px;}
+#aticleList td{ font-size:12px; line-height:40px;}
+#aticleList td a{ font-size:12px; color:#548fc9;}
+#aticleList td a:hover{color:#565656; text-decoration:underline;}
 .bordertop{ border-top:1px solid #ebebeb}
 .borderright{ border-right:1px solid #ebebeb}
 .borderbottom{ border-bottom:1px solid #ebebeb}
@@ -74,103 +73,32 @@ td.fenye{ padding:10px 0 0 0; text-align:right;}
         <th align="center" valign="middle" class="borderright">阅读量</th>        
         <th align="center" valign="middle">操作</th>
       </tr>   
-    </table> 
+    </table><!-- 分页 --> </td>
+    </tr>
+  <tr>
+    <td align="left" valign="top" class="fenye">&nbsp;&nbsp;<span></span>&nbsp;&nbsp;
+    <a href="javascript:void(0)" target="mainFrame" onFocus="this.blur()" onclick="pageChange(this)" value="">首页</a>&nbsp;&nbsp;
+    <a href="javascript:void(0)" target="mainFrame" onFocus="this.blur()" onclick="pageChange(this)" value="">上一页</a>&nbsp;&nbsp;
+    <a href="javascript:void(0)" target="mainFrame" onFocus="this.blur()" onclick="pageChange(this)" value="">下一页</a>&nbsp;&nbsp;
+    <a href="javascript:void(0)" target="mainFrame" onFocus="this.blur()" onclick="pageChange(this)" value="">尾页</a></td>
+  </tr>
 </table>
-<!-- 分页 -->
-  <div id="app">
-    <div>
-      <div class="page"  v-show="show">
-        <div class="pagelist">
-          <span class="jump" :class="{disabled:pstart}" @click="{current_page--}">上一页</span>
-          <span v-show="current_page>5" class="jump" @click="jumpPage(1)">1</span>
-          <span class="ellipsis"  v-show="efont">...</span>
-          <span class="jump" v-for="num in indexs" :class="{bgprimary:current_page==num}" @click="jumpPage(num)">{{num}}</span>
-          <span class="ellipsis"  v-show="ebehind">...</span>
-          <span :class="{disabled:pend}" class="jump" @click="{current_page++}">下一页</span>
-          <span v-show="current_page<pages-4" class="jump" @click="jumpPage(pages)">{{pages}}</span>
-          <span class="jumppoint">跳转到：</span>
-          <span class="jumpinp"><input type="text" v-model="changePage"></span>
-          <span class="jump gobtn" @click="jumpPage(changePage)">GO</span>
-        </div>
-      </div>
-    </div>
-  </div> 
+
+
 </body> 
 <script src="static/js/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
 <script src="pc/js/vue.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">
-//分页部分开始
-var newlist = new Vue({
-	    el: '#app',
-	    data: {
-	      current_page: 1, //当前页
-	      pages: 50, //总页数
-	      changePage:'',//跳转页
-	      nowIndex:0
-	    },
-	    computed:{
-	       show:function(){
-	           return this.pages && this.pages !=1
-	       },
-	       pstart: function() {
-	         return this.current_page == 1;
-	       },
-	       pend: function() {
-	         return this.current_page == this.pages;
-	       },
-	       efont: function() {
-	         if (this.pages <= 7) return false;
-	         return this.current_page > 5
-	       },
-	       ebehind: function() {
-	         if (this.pages <= 7) return false;
-	         var nowAy = this.indexs;
-	         return nowAy[nowAy.length - 1] != this.pages;
-	       },
-	       indexs: function() {
 
-	         var left = 1,
-	           right = this.pages,
-	           ar = [];
-	         if (this.pages >= 7) {
-	           if (this.current_page > 5 && this.current_page < this.pages - 4) {
-	             left = Number(this.current_page) - 3;
-	             right = Number(this.current_page) + 3;
-	           } else {
-	             if (this.current_page <= 5) {
-	               left = 1;
-	               right = 7;
-	             } else {
-	               right = this.pages;
-
-	               left = this.pages - 6;
-	             }
-	           }
-	         }
-	         while (left <= right) {
-	           ar.push(left);
-	           left++;
-	         }
-	         return ar;
-	       },
-	     },
-	    methods: {
-	      jumpPage: function(id) {
-	        this.current_page = id;
-	      },
-	    },
-
-	  }) 
-	 //分页部分结束
 	 //列表加载
- $(document).ready(function(){
+$(document).ready(function(){
 $.ajax({
 	type : "GET",
 	dataType : "json",
 	url : "article/getArticleList",
-	data:"",
+	data:{pagerSize:10},
 	success : function(msg) {
-		if(msg.code==200){
+		if(msg.code==200){			
            var data=msg.data.list;         
            //添加信息
            for(var i in data){
@@ -213,17 +141,121 @@ $.ajax({
 	               "<td align='center' valign='middle' class='borderright borderbottom'>"+status+"</td>"+
 	               "<td align='center' valign='middle' class='borderright borderbottom'>"+readCount+"</td>"+	               
 	               "<td align='center' valign='middle' class='borderbottom' id='changeStatus'>"+
-	                   "<a href='javascript:void(0);' target='mainFrame' onFocus='this.blur()' onclick='changeStatus(this);' class='status' value='"+data[i].status+"'>"+isoverdue+"</a><span class='gray'>&nbsp;|&nbsp;</span>"+
-	                   "<a href='javascript:void(0);' target='mainFrame' onFocus='this.blur()' onclick='deleteAticle(this);' class='add'>删除</a><span class='gray'>&nbsp;|&nbsp;</span>"+
+	               "<a href='javascript:void(0);' target='mainFrame' onFocus='this.blur()' onclick='changeStatus(this);' class='status' value='"+data[i].status+"'>"+isoverdue+"</a><span class='gray'>&nbsp;|&nbsp;</span>"+
+	               "<a href='javascript:void(0);' target='mainFrame' onFocus='this.blur()' onclick='deleteAticle(this);' class='add'>删除</a><span class='gray'>&nbsp;|&nbsp;</span>"+
 	                   "<a href='javascript:void(0);' target='mainFrame' onFocus='this.blur()' onclick='updateAticle(this);' class='add'>查看详情</a>"+
 	               "</td>"+
               "</tr>");
-           
-                       }
-		}
-	             }
+          
+                    }
+           var endPageNumber=msg.data.totalPage;//尾页
+           var totalCount=msg.data.totalCount;//多少条记录
+           var totalPage=msg.data.totalPage;//共多少页
+           var pagerNumber=msg.data.pagerNumber;//当前页
+           $(".fenye a:nth-child(2)").attr({value:1});
+           $(".fenye a:nth-child(3)").attr({value:1});
+           $(".fenye a:nth-child(4)").attr({value:1});
+           $(".fenye a:nth-child(5)").attr({value:endPageNumber});
+           $(".fenye span").text(totalCount+"条数据   "+pagerNumber+"/"+totalPage+"页");
+                      
+		    }
+	   }
    }); 
  })  
+    //分页功能
+    function pageChange(val){
+		 var button=($(val).text());
+		 var pageNumber=parseInt(($(val).attr("value")));
+		 var endpageNumber=$(".fenye a:nth-child(5)").attr("value");	
+		 var pageSize=10;
+		 if(button=="首页"){
+			pageNumber=1;
+		 }
+		 if(button=="上一页"&&pageNumber>=2){
+			 pageNumber=pageNumber-1;
+		 }
+		 if(button=="下一页"&&pageNumber<endpageNumber){
+			 pageNumber=pageNumber+1;
+		 }
+		 if(button=="尾页"){
+		 }
+		 var title=$("#keywordTitle").val();	
+		 $.ajax({
+	    		type : "GET",//get提交
+	    		dataType : "json",//json格式
+	    		url : "article/getArticleList",
+	    		data:{
+	    			title:title,
+	    			pagerNumber:pageNumber,
+	    			pagerSize:pageSize
+	    		},
+	    		success : function(msg) {
+	    			if(msg.code==200){
+	    				$("#aticleList tr:gt(0)").remove();
+	    	           var data=msg.data.list;         
+	    	           //添加信息
+	    	           for(var i in data){
+	    	        	  //标题
+	    	        	  var title=data[i].title==null?"":data[i].title;        	 
+	    	        	  //用户等级可看
+	    	        	   var relatePermissionUserType="";
+	    	        	   if(data[i].relatePermissionUserType==1){
+	    	        		   relatePermissionUserType="A级用户";
+	    	        	   }
+	    	        	   if(data[i].relatePermissionUserType==2){
+	    	        		   relatePermissionUserType="B级用户";
+	    	        	   }
+	    	        	   if(data[i].relatePermissionUserType>=3){
+	    	        		   relatePermissionUserType="C级用户";
+	    	        	   }
+	    	        	   //是否过期
+	    	        	   var status="";
+	    	        	   if(data[i].status==11){
+	    	        		   status="已过期";
+	    	        	   }
+	    	        	   if(data[i].status==10){
+	    	        		   status="未过期";
+	    	        	   }
+	    	        	   //阅读量
+	    	        	   var readCount=data[i].readCount==null?0:data[i].readCount;
+	    	        	   //
+	    	        	   //设置过期
+	    	        	   var isoverdue="";
+	    	        	   if(data[i].status==10){
+	    	        		   isoverdue="设置已过期";
+	    	        	   }
+	    	        	   if(data[i].status==11){
+	    	        		   isoverdue="设置未过期";
+	    	        	   }
+	    	 $("#aticleList").append("<tr onMouseOut='this.style.backgroundColor='#ffffff'' onMouseOver='this.style.backgroundColor='#edf5ff''>"+		          
+	    			           "<td align='center' valign='middle' class='borderright borderbottom'>"+data[i].articleId+"</td>"+
+	    			           "<td align='center' valign='middle' class='borderright borderbottom'>"+title+"</td>"+
+	    		               "<td align='center' valign='middle' class='borderright borderbottom'>"+relatePermissionUserType+"</td>"+
+	    		               "<td align='center' valign='middle' class='borderright borderbottom'>"+status+"</td>"+
+	    		               "<td align='center' valign='middle' class='borderright borderbottom'>"+readCount+"</td>"+	               
+	    		               "<td align='center' valign='middle' class='borderbottom' id='changeStatus'>"+
+	    		                   "<a href='javascript:void(0);' target='mainFrame' onFocus='this.blur()' onclick='changeStatus(this);' class='status' value='"+data[i].status+"'>"+isoverdue+"</a><span class='gray'>&nbsp;|&nbsp;</span>"+
+	    		                   "<a href='javascript:void(0);' target='mainFrame' onFocus='this.blur()' onclick='deleteAticle(this);' class='add'>删除</a><span class='gray'>&nbsp;|&nbsp;</span>"+
+	    		                   "<a href='javascript:void(0);' target='mainFrame' onFocus='this.blur()' onclick='updateAticle(this);' class='add'>查看详情</a>"+
+	    		               "</td>"+
+	    	              "</tr>");
+	    	           
+	    	                       }
+	    	           var endPageNumber=msg.data.totalPage;//尾页
+	    	           var totalCount=msg.data.totalCount;//多少条记录
+	    	           var totalPage=msg.data.totalPage;//共多少页
+	    	           var pagerNumber=msg.data.pagerNumber;//当前页
+	    	           $(".fenye a:nth-child(3)").attr({value:pagerNumber});
+	    	           $(".fenye a:nth-child(4)").attr({value:pagerNumber});
+	    	           $(".fenye a:nth-child(5)").attr({value:endPageNumber});
+	    	           $(".fenye span").text(totalCount+"条数据   "+pagerNumber+"/"+totalPage+"页");   
+	    	           
+	    		             }
+	    		}
+	    	   }); 
+		 
+	 }
+   
    //设置是否过期
    function changeStatus(val){
 	  var  changeStatus=$(val).attr("value")==10?11:10;	
