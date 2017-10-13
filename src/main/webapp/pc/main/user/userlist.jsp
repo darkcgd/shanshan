@@ -26,7 +26,7 @@ body{overflow-x:hidden; background:#f2f0f5; padding:15px 0px 10px 5px;}
 #search form span{height:40px; line-height:40px; padding:0 0px 0 10px; float:left;}
 #search form input.text-word{height:24px; line-height:24px; width:180px; margin:8px 0 6px 0; padding:0 0px 0 10px; float:left; border:1px solid #FFF;}
 #search form input.text-but{height:24px; line-height:24px; width:55px; background:url(pc/images/main/list_input.jpg) no-repeat left top; border:none; cursor:pointer; font-family:"Microsoft YaHei","Tahoma","Arial",'宋体'; color:#666; float:left; margin:8px 0 0 6px; display:inline;}
-#search a.add{ background:url(pc/images/main/add.jpg) no-repeat -3px 7px #548fc9; padding:0 10px 0 26px; height:40px; line-height:40px; font-size:14px; font-weight:bold; color:#FFF; float:right}
+#search a.add{ background:url() no-repeat -3px 7px #548fc9; padding:0 10px 0 26px; height:40px; line-height:40px; font-size:14px; font-weight:bold; color:#FFF; float:right}
 #search a:hover.add{ text-decoration:underline; color:#d2e9ff;}
 #main-tab{ border:1px solid #eaeaea; background:#FFF; font-size:12px;}
 #main-tab th{ font-size:12px; background:url(pc/images/main/list_bg.jpg) repeat-x; height:32px; line-height:32px;}
@@ -52,20 +52,15 @@ td.fenye{ padding:10px 0 0 0; text-align:right;}
     <table width="100%" border="0" cellspacing="0" cellpadding="0" id="search">
   		<tr>
    		 <td width="90%" align="left" valign="middle">
-	         <form method="post" action="">
-	         <span>管理员：</span>
-	         <input type="text" name="" value="" class="text-word">
-	         <input name="" type="button" value="查询" class="text-but">
-	         </form>
+	       
          </td>
-  		  <td width="10%" align="center" valign="middle" style="text-align:right; width:150px;"><a href="add.html" target="mainFrame" onFocus="this.blur()" class="add">新增管理员</a></td>
+  		  <td width="10%" align="center" valign="middle" style="text-align:right; width:150px;"><a  target="mainFrame" onFocus="this.blur()" class="add"></a></td>
   		</tr>
 	</table>
  
     
     <table class="ss"  width="100%" border="0" cellspacing="0" cellpadding="0" id="main-tab">
       <tr> 
-        <th  align="center" valign="middle" class="borderright">全选</th>
         <th  align="center" valign="middle" class="borderright">姓名</th>
         <th  align="center" valign="middle" class="borderright">性别</th>
         <th  align="center" valign="middle" class="borderright">手机号</th>
@@ -81,7 +76,7 @@ td.fenye{ padding:10px 0 0 0; text-align:right;}
       
      
     </table>
-    <table style="float:right;">
+    <table style="margin: 0px auto; padding: 0px; text-align: center;">
       <tr>
 	    <td class="fenye" align="left" valign="top">&nbsp;&nbsp;<span></span>&nbsp;&nbsp;
 	    <a href="javascript:void(0)" target="mainFrame" onFocus="this.blur()" onclick="pageChange(this)" value="0">首页</a>&nbsp;&nbsp;
@@ -113,6 +108,8 @@ td.fenye{ padding:10px 0 0 0; text-align:right;}
 					sex="男";
 				}if(data[i].sex==1){
 					sex="女";
+				}if(data[i].sex==null){
+					sex="未填写";
 				}
 				var userType="";
 				if(data[i].userType==1){
@@ -125,28 +122,36 @@ td.fenye{ padding:10px 0 0 0; text-align:right;}
 					userType="客服";
 				}if(data[i].userType==5){
 					userType="专家";
+				}if(data[i].userType==null){
+					userType="未填写";
 				}
 				 var status="";
 				if(data[i].status==1){
 					status="待审核";
 				}if(data[i].status==2){
 					status="已审核";
+				}if(data[i].status==null){
+					status="待审核";
 				}
-
-                var industry=(data[i].industry==''||data[i].industry==null)?"未填写":data[i].industry;
-
+				
+				var userName=(data[i].userName==''||data[i].userName==null)?"未填写":data[i].userName;
+				var phone=(data[i].phone==''||data[i].phone==null)?"未填写":data[i].phone;
+				var company=(data[i].company==''||data[i].company==null)?"未填写":data[i].company;
+				var industry=(data[i].industry==''||data[i].industry==null)?"未填写":data[i].industry;
+				var positionName=(data[i].positionName==''||data[i].positionName==null)?"未填写":data[i].positionName;
+				var equipmentType=(data[i].equipmentType==''||data[i].equipmentType==null)?"未填写":data[i].equipmentType;
+				var email=(data[i].email==''||data[i].email==null)?"未填写":data[i].email;
 			 	$(".ss").append("<tr onMouseOut='this.style.backgroundColor='#ffffff'' onMouseOver='this.style.backgroundColor='#edf5ff''>"+
-				        "<td align='center' valign='middle' class='borderright borderbottom'><input type='checkbox'></td>"+
-				        "<td align='center' valign='middle' class='borderright borderbottom'>"+data[i].userName+"</td>"+
+				        "<td align='center' valign='middle' class='borderright borderbottom'>"+userName+"</td>"+
 				        "<td align='center' valign='middle' class='borderright borderbottom'>"+sex+"</td>"+
-				        "<td align='center' valign='middle' class='borderright borderbottom'>"+data[i].phone+"</td>"+
-				        "<td align='center' valign='middle' class='borderright borderbottom'>"+data[i].company+"</td>"+
+				        "<td align='center' valign='middle' class='borderright borderbottom'>"+phone+"</td>"+
+				        "<td align='center' valign='middle' class='borderright borderbottom'>"+company+"</td>"+
 				        "<td align='center' valign='middle' class='borderright borderbottom'>"+industry+"</td>"+
 				        "<td align='center' valign='middle' class='borderright borderbottom'>"+userType+"</td>"+
-				        "<td align='center' valign='middle' class='borderright borderbottom'>"+data[i].positionName+"</td>"+
-				        "<td align='center' valign='middle' class='borderright borderbottom'>"+data[i].equipmentType+"</td>"+
+				        "<td align='center' valign='middle' class='borderright borderbottom'>"+positionName+"</td>"+
+				        "<td align='center' valign='middle' class='borderright borderbottom'>"+equipmentType+"</td>"+
 				        "<td align='center' valign='middle' class='borderright borderbottom'>"+status+"</td>"+
-				        "<td align='center' valign='middle' class='borderright borderbottom'>"+data[i].email+"</td>"+
+				        "<td align='center' valign='middle' class='borderright borderbottom'>"+email+"</td>"+
 				        "<td align='center' valign='middle' class='borderbottom'>"+
 				        "<a href='add.html' target='mainFrame' onFocus='this.blur()' class='add'>"+status+"</a>"+
 				        "<span class='gray'>&nbsp;|&nbsp;</span>"+
