@@ -16,9 +16,8 @@
 <link href="pc/css/main.css" type="text/css" rel="stylesheet" />
 <link rel="shortcut icon" href="pc/images/main/favicon.ico" />
  <link rel="stylesheet" href="pc/css/page.css" type="text/css"> 
-<!-- <link rel="stylesheet" href="pc/css/page.css" type="text/css"> -->
 <script src="static/js/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
-<!--  <script src="pc/js/vue.js" type="text/javascript" charset="utf-8"></script>-->
+
 <style>
 body{overflow-x:hidden; background:#f2f0f5; padding:15px 0px 10px 5px;}
 #searchmain{ font-size:12px;}
@@ -55,8 +54,8 @@ td.fenye{ padding:10px 0 0 0; text-align:right;}
    		 <td width="90%" align="left" valign="middle">
 	         <form method="post" action="">
 	         <span>标题：</span>
-	         <input type="text" name="" value="" class="text-word">
-	         <input name="" type="button" value="查询" class="text-but">
+	         <input type="text" name="" value="" id="keywordTitle" class="text-word">
+	         <input name="" type="button" value="查询"  class="text-but" onclick="searchAticle();">
 	         </form>
          </td>
   		  <td width="10%" align="center" valign="middle" style="text-align:right; width:150px;"><a href="pc/main/wenzhang/articleAdd.jsp" target="mainFrame" onFocus="this.blur()" class="add">添加文章</a></td>
@@ -164,12 +163,14 @@ var newlist = new Vue({
 	  }) 
 	 //分页部分结束
 	 //列表加载
- $(document).ready(function(){$.ajax({
+ $(document).ready(function(){
+$.ajax({
 	type : "GET",
 	dataType : "json",
 	url : "article/getArticleList",
 	data:"",
 	success : function(msg) {
+		if(msg.code==200){
            var data=msg.data.list;         
            //添加信息
            for(var i in data){
@@ -214,11 +215,12 @@ var newlist = new Vue({
 	               "<td align='center' valign='middle' class='borderbottom' id='changeStatus'>"+
 	                   "<a href='javascript:void(0);' target='mainFrame' onFocus='this.blur()' onclick='changeStatus(this);' class='status' value='"+data[i].status+"'>"+isoverdue+"</a><span class='gray'>&nbsp;|&nbsp;</span>"+
 	                   "<a href='javascript:void(0);' target='mainFrame' onFocus='this.blur()' onclick='deleteAticle(this);' class='add'>删除</a><span class='gray'>&nbsp;|&nbsp;</span>"+
-	                   "<a href='javascript:void(0);' target='mainFrame' onFocus='this.blur()' class='add'>查看详情</a>"+
+	                   "<a href='javascript:void(0);' target='mainFrame' onFocus='this.blur()' onclick='updateAticle(this);' class='add'>查看详情</a>"+
 	               "</td>"+
               "</tr>");
            
                        }
+		}
 	             }
    }); 
  })  
@@ -230,15 +232,28 @@ var newlist = new Vue({
 				type : "POST", //用POST方式传输
 				contentType: "application/json; charset=utf-8",
 				url : 'article/saveOpUpdate', //目标地址
+				type:"json", //数据格式:JSON
 				data : JSON.stringify({articleId:changeArticleId,status:changeStatus}),
 				error: function(XMLHttpRequest){  
-				     alert( "Error: " + XMLHttpRequest.responseText);  
+				     //alert( "Error: " + XMLHttpRequest.responseText);  
 				   }  ,
 				success : function(msg) {
-				     alert(msg.code);
-				     window.location.reload(true);
+					if(msg.code==200){
+						//成功时
+					  var  changeStatusAfter=$(val).attr("value")==10?11:10;
+					  $(val).attr({value:changeStatusAfter});
+					  var overdueText=$(val).parent().prevAll("td:eq(1)").text()=="未过期"?"已过期":"未过期";//过期名称
+					  var statusText=$(val).text()=='设置未过期'?'设置已过期':'设置未过期';//a标签名称改变;		     
+					      $(val).parent().prevAll("td:eq(1)").text("");				    
+					      $(val).parent().prevAll("td:eq(1)").text(overdueText);			    			
+					      $(val).text("");
+					      $(val).text(statusText);
 					}
-					//发送验证返回信息
+					if(msg.code==100){
+						alert(msg.msg)
+					}
+				}	
+				   
 			}); 
 	
 	 
@@ -249,21 +264,93 @@ var newlist = new Vue({
 	  var  changeArticleId=$(val).parent().prevAll("td:eq(4)").text();	//文章ID
 	 $.ajax({
 				type : "POST", //用POST方式传输
-				contentType: "application/json; charset=utf-8",
+				contentType: "application/json; charset=utf-8",				
+				type:"json", //数据格式:JSON
 				url : 'article/saveOpUpdate', //目标地址
 				data : JSON.stringify({articleId:changeArticleId,status:changeStatus}),
 				error: function(XMLHttpRequest){  
-				     alert( "Error: " + XMLHttpRequest.responseText);  
 				   }  ,
 				success : function(msg) {
-				     alert(msg.code);
-				     window.location.reload(true);
+				       if(msg.code==200){
+				    	   window.location.reload(true); 
+				       }
 					}
 					//发送验证返回信息
 			}); 
 	
 	 
    };
+    //模糊查询
+    function searchAticle(){
+     var title=$("#keywordTitle").val();
+     $.ajax({
+    		type : "GET",//get提交
+    		dataType : "json",//json格式
+    		url : "article/getArticleList",
+    		data:{title:title},
+    		success : function(msg) {
+    			if(msg.code==200){
+    				$("#aticleList tr:gt(0)").remove();
+    	           var data=msg.data.list;         
+    	           //添加信息
+    	           for(var i in data){
+    	        	  //标题
+    	        	  var title=data[i].title==null?"":data[i].title;        	 
+    	        	  //用户等级可看
+    	        	   var relatePermissionUserType="";
+    	        	   if(data[i].relatePermissionUserType==1){
+    	        		   relatePermissionUserType="A级用户";
+    	        	   }
+    	        	   if(data[i].relatePermissionUserType==2){
+    	        		   relatePermissionUserType="B级用户";
+    	        	   }
+    	        	   if(data[i].relatePermissionUserType>=3){
+    	        		   relatePermissionUserType="C级用户";
+    	        	   }
+    	        	   //是否过期
+    	        	   var status="";
+    	        	   if(data[i].status==11){
+    	        		   status="已过期";
+    	        	   }
+    	        	   if(data[i].status==10){
+    	        		   status="未过期";
+    	        	   }
+    	        	   //阅读量
+    	        	   var readCount=data[i].readCount==null?0:data[i].readCount;
+    	        	   //
+    	        	   //设置过期
+    	        	   var isoverdue="";
+    	        	   if(data[i].status==10){
+    	        		   isoverdue="设置已过期";
+    	        	   }
+    	        	   if(data[i].status==11){
+    	        		   isoverdue="设置未过期";
+    	        	   }
+    	 $("#aticleList").append("<tr onMouseOut='this.style.backgroundColor='#ffffff'' onMouseOver='this.style.backgroundColor='#edf5ff''>"+		          
+    			           "<td align='center' valign='middle' class='borderright borderbottom'>"+data[i].articleId+"</td>"+
+    			           "<td align='center' valign='middle' class='borderright borderbottom'>"+title+"</td>"+
+    		               "<td align='center' valign='middle' class='borderright borderbottom'>"+relatePermissionUserType+"</td>"+
+    		               "<td align='center' valign='middle' class='borderright borderbottom'>"+status+"</td>"+
+    		               "<td align='center' valign='middle' class='borderright borderbottom'>"+readCount+"</td>"+	               
+    		               "<td align='center' valign='middle' class='borderbottom' id='changeStatus'>"+
+    		                   "<a href='javascript:void(0);' target='mainFrame' onFocus='this.blur()' onclick='changeStatus(this);' class='status' value='"+data[i].status+"'>"+isoverdue+"</a><span class='gray'>&nbsp;|&nbsp;</span>"+
+    		                   "<a href='javascript:void(0);' target='mainFrame' onFocus='this.blur()' onclick='deleteAticle(this);' class='add'>删除</a><span class='gray'>&nbsp;|&nbsp;</span>"+
+    		                   "<a href='javascript:void(0);' target='mainFrame' onFocus='this.blur()' onclick='updateAticle(this);' class='add'>查看详情</a>"+
+    		               "</td>"+
+    	              "</tr>");
+    	           
+    	                       }
+
+    		             }
+    		}
+    	   }); 
+    }
+    
+    //查看详情，详情页可修改内容
+    function  updateAticle(text){
+    	var articleId=$(text).parent().prevAll("td:eq(4)").text();
+    	window.location.href="pc/main/wenzhang/articleUpdate.jsp?articleId="+articleId;
+    }
             
 </script>
 
