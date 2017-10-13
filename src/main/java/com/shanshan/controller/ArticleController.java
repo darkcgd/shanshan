@@ -118,14 +118,14 @@ public class ArticleController extends BaseController {
 
 	@RequestMapping("/upload")
 	@ResponseBody
-	public ArticleJsonDateResult upload(HttpServletRequest request, HttpServletResponse response) {
+	public ArticleJsonDateResult upload(HttpServletRequest request) {
 		ArticleJsonDateResult result = new ArticleJsonDateResult();
 
 		
 		// 获取域名
 		StringBuffer url = request.getRequestURL();  
-		String tempContextUrl = url.delete(url.length() - request.getRequestURI().length(), url.length()).append("/").toString(); 
-		String downloadUrl = tempContextUrl + "shanshan/article/download?fileName=";
+		String tempContextUrl = url.delete(url.length() - request.getRequestURI().length(), url.length()).append(request.getServletContext().getContextPath()).append("/").toString();  
+		String downloadUrl = tempContextUrl + "article/download?fileName=";
 		try {
 			String savePath = "C://pictuce/";
 			File dirPath = new File(savePath);
@@ -166,6 +166,7 @@ public class ArticleController extends BaseController {
 	}
 
 	@RequestMapping("/download")
+	@ResponseBody
 	public String downloadFile(@RequestParam("fileName") String fileName, HttpServletRequest request,
 			HttpServletResponse response) {
 		if (fileName != null) {

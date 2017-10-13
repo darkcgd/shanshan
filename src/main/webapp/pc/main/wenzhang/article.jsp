@@ -16,8 +16,9 @@
 <link href="pc/css/main.css" type="text/css" rel="stylesheet" />
 <link rel="shortcut icon" href="pc/images/main/favicon.ico" />
 <link rel="stylesheet" href="pc/css/adminstyle.css" type="text/css">
-<script src="static/js/jquery-3.2.1.min.js" type="text/javascript"
-	charset="utf-8"></script>
+<!-- <link rel="stylesheet" href="pc/css/page.css" type="text/css"> -->
+<script src="static/js/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
+<!--  <script src="pc/js/vue.js" type="text/javascript" charset="utf-8"></script>-->
 <style>
 body{overflow-x:hidden; background:#f2f0f5; padding:15px 0px 10px 5px;}
 #searchmain{ font-size:12px;}
@@ -42,9 +43,6 @@ td.fenye{ padding:10px 0 0 0; text-align:right;}
 </style>
 </head>
 <body>
-</head>
-
-<body>
 <!-- top -->
 <table width="100%" border="0" align="center" cellpadding="3" cellspacing="1">
   <tr> 
@@ -68,13 +66,13 @@ td.fenye{ padding:10px 0 0 0; text-align:right;}
           </select>
           <input name="keyboard" type="text" id="keyboard" value="关键字">
 		  <span id="searchclassnav"></span>
-          <input type="submit" name="Submit2" value="搜索">
+          <input type="button" name="" value="搜索">
         </div></td>
     </tr>
 </table>
 <br>
 
-<form name="listform" method="post" action="" onsubmit="return confirm('确认要执行此操作？');">
+
   <table width="100%" border="0" cellspacing="1" cellpadding="0">
     <tr>
       <td width="10%" height="25"><div align="center"><a href="pc/main/xinximain/article.jsp" title="已发布信息总数：">未过期(12) </a></div></td>
@@ -86,7 +84,7 @@ td.fenye{ padding:10px 0 0 0; text-align:right;}
     </tr>
   </table>
   <!-- 文章列表 -->
-  <table width="100%" border="0" align="center" cellpadding="3" cellspacing="1" class="tableborder">
+  <table width="100%" border="0" align="center" cellpadding="3" cellspacing="1">
     <tr class="header"> 
       <td height="25" colspan="8"></td>
     </tr>
@@ -97,7 +95,16 @@ td.fenye{ padding:10px 0 0 0; text-align:right;}
       <td width="14%" height="25"> <div align="center">状态</div></td>
 	  <td width="14%" height="25"> <div align="center">编辑</div></td>
     </tr>
+	  <tr bgcolor="#FFFFFF"> 
+	      <td height="25"> <div align="center"> 
+	          <input type="checkbox" name="chkall"  onclick="">
+	        </div></td>
+	      <td height="25" colspan="7"><div align="center"> 
+	          <input type="submit" name="Submit3" value="多条删除" >		 
+	        </div></td>
+	    </tr>
    
+  
     <tr bgcolor="#FFFFFF" onmouseout="this.style.backgroundColor='#ffffff'" onmouseover="this.style.backgroundColor='#C3EFFF'"> 
       <td><div align="center"> 
           <input name="id[]" type="checkbox" id="id[]" value="">
@@ -113,22 +120,7 @@ td.fenye{ padding:10px 0 0 0; text-align:right;}
            <a href="pc/main/xinximain/articleAdd.jsp">查看详情</a> 
       </td>
     </tr>
-     <tr bgcolor="#FFFFFF" onmouseout="this.style.backgroundColor='#ffffff'" onmouseover="this.style.backgroundColor='#C3EFFF'"> 
-      <td><div align="center"> 
-          <input name="id[]" type="checkbox" id="id[]" value="">
-		  <input name="infoid[]" type="hidden" value="">
-          </div>
-      </td>
-     <td height="25"> <div align="center"> 文章</div></td>                        
-      <td height="25"> <div align="center">A用户</div></td>
-	  <td height="25"> <div align="center">未过期</div></td>
-      <td height="25"> <div align="center">
-           <a href="pc/main/xinximain/articleAdd.jsp">设置未过期</a>| 
-           <a href="pc/main/xinximain/articleAdd.jsp">设置已过期</a>|  
-           <a href="pc/main/xinximain/articleAdd.jsp">删除</a>|  
-           <a href="pc/main/xinximain/articleAdd.jsp">查看详情</a> 
-      </td>
-    </tr>
+    
     <tr bgcolor="#FFFFFF"> 
       <td height="25"> <div align="center"> 
           <input type=checkbox name=chkall value=on onclick=CheckAll(this.form)>
@@ -142,20 +134,154 @@ td.fenye{ padding:10px 0 0 0; text-align:right;}
       　 </td>
     </tr>
   </table>
-</form>
+<!-- 分页 -->
+      <!-- <div id="app">
+    <div>
+      <div class="page"  v-show="show">
+        <div class="pagelist">
+          <span class="jump" :class="{disabled:pstart}" @click="{current_page--}">上一页</span>
+          <span v-show="current_page>5" class="jump" @click="jumpPage(1)">1</span>
+          <span class="ellipsis"  v-show="efont">...</span>
+          <span class="jump" v-for="num in indexs" :class="{bgprimary:current_page==num}" @click="jumpPage(num)">{{num}}</span>
+          <span class="ellipsis"  v-show="ebehind">...</span>
+          <span :class="{disabled:pend}" class="jump" @click="{current_page++}">下一页</span>
+          <span v-show="current_page<pages-4" class="jump" @click="jumpPage(pages)">{{pages}}</span>
+          <span class="jumppoint">跳转到：</span>
+          <span class="jumpinp"><input type="text" v-model="changePage"></span>
+          <span class="jump gobtn" @click="jumpPage(changePage)">GO</span>
+        </div>
+      </div>
+    </div>
+  </div> -->
 </body>
 <script type="text/javascript">
+
+$(document).ready(function(){ 
+	$.ajax({
+		type : "GET",
+		dataType : "json",
+		url : "article/articleList",		
+		success : function(msg) {
+               var data=msg.datas;
+               for(var i in datas){
+            	 
+               }
+		}
+	});
+})
 function CheckAll(form)
   {
+
+alert(11);
+$(document).ready(function(){
+	alert(11);
+    $.ajax({
+	type : "GET",
+	dataType : "json",
+	url : "article/articleList",		
+	success : function(msg) {
+           var data=msg.datas;
+           //添加信息
+           for(var i in datas){ 
+        	   alert(i);
+    $(".tableborder").append("<tr bgcolor='#FFFFFF' onmouseout='this.style.background Color='"'#ffffff'"' onmouseover='this.style.backgroundColor="'#C3EFFF'"'>"+ 
+		            	      "<td><div align='center'>"+ 
+		            	          "<input name='id[]' type='checkbox' id='id[]' value=''>"+
+		            			  "<input name='infoid[]' type='hidden' value='"+datas[i].articleId+"'>"+
+		            	          "</div>"+
+		            	      "</td>"+
+		            	      "<td height='25'> <div align='center'>"+datas[i].title+"</div></td>"+                        
+		            	      "<td height='25'> <div align='center'> 文章</div></td>"+
+		            	      "<td height='25'> <div align='center'> 文章</div></td>"+
+		            	      "<td height='25'> <div align='center'>"+
+		            	           "<a href='pc/main/xinximain/articleAdd.jsp'>设置已过期</a>|"+  
+		            	           "<a href='pc/main/xinximain/articleAdd.jsp'>删除</a>| "+ 
+		            	           "<a href='pc/main/xinximain/articleAdd.jsp'>查看详情</a>"+ 
+		            	      "</td>"+
+		            	  "</tr>");
+                       }
+	             }
+            });
+
+}); 
+	//分页部分开始
+	/* var newlist = new Vue({
+	    el: '#app',
+	    data: {
+	      current_page: 1, //当前页
+	      pages: 50, //总页数
+	      changePage:'',//跳转页
+	      nowIndex:0
+	    },
+	    computed:{
+	       show:function(){
+	           return this.pages && this.pages !=1
+	       },
+	       pstart: function() {
+	         return this.current_page == 1;
+	       },
+	       pend: function() {
+	         return this.current_page == this.pages;
+	       },
+	       efont: function() {
+	         if (this.pages <= 7) return false;
+	         return this.current_page > 5
+	       },
+	       ebehind: function() {
+	         if (this.pages <= 7) return false;
+	         var nowAy = this.indexs;
+	         return nowAy[nowAy.length - 1] != this.pages;
+	       },
+	       indexs: function() {
+
+	         var left = 1,
+	           right = this.pages,
+	           ar = [];
+	         if (this.pages >= 7) {
+	           if (this.current_page > 5 && this.current_page < this.pages - 4) {
+	             left = Number(this.current_page) - 3;
+	             right = Number(this.current_page) + 3;
+	           } else {
+	             if (this.current_page <= 5) {
+	               left = 1;
+	               right = 7;
+	             } else {
+	               right = this.pages;
+
+	               left = this.pages - 6;
+	             }
+	           }
+	         }
+	         while (left <= right) {
+	           ar.push(left);
+	           left++;
+	         }
+	         return ar;
+	       },
+	     },
+	    methods: {
+	      jumpPage: function(id) {
+	        this.current_page = id;
+	      },
+	    },
+
+	  }) 
+	 //分页部分结束 */
+
+	
+/* function CheckAll(form){
+>>>>>>> 8c17e115af34b472ce449b598aabd78273bb1aa3
   for (var i=0;i<form.elements.length;i++)
     {
     var e = form.elements[i];
-    if (e.name != 'chkall')
+    if (e.name != 'chkall'){
        e.checked = form.chkall.checked;
     }
-  }
+    }
+  } 
 
-function GetSelectId(form)
+
+ function GetSelectId(form)
 {
   var ids='';
   var dh='';
@@ -173,9 +299,7 @@ function GetSelectId(form)
   }
   return ids;
 }
-
-function PushInfoToSp(form)
-{
+ function PushInfoToSp(form){
 	var id='';
 	id=GetSelectId(form);
 	if(id=='')
@@ -184,6 +308,8 @@ function PushInfoToSp(form)
 		return false;
 	}
 	window.open('');
-}
+} */
+
 </script>
+
 </html>

@@ -1,6 +1,5 @@
 package com.shanshan.service;
 
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,7 +9,6 @@ import com.github.pagehelper.PageHelper;
 import com.shanshan.bean.ActivityBean;
 import com.shanshan.bean.ActivityBeanExample;
 import com.shanshan.bean.ActivityBeanExample.Criteria;
-import com.shanshan.bean.ArticleBean;
 import com.shanshan.common.model.PageRequest;
 import com.shanshan.dao.ActivityBeanMapper;
 
