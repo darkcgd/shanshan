@@ -58,10 +58,7 @@ td.fenye{ padding:10px 0 0 0; text-align:right;}
   		  <td width="10%" align="center" valign="middle" style="text-align:right; width:150px;"><a href="add.html" target="mainFrame" onFocus="this.blur()" class="add">新增管理员</a></td>
   		</tr>
 	</table>
-    </td>
-  </tr>
-  <tr>
-    <td align="left" valign="top">
+ 
     
     <table width="100%" border="0" cellspacing="0" cellpadding="0" id="main-tab">
       <tr>

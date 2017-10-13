@@ -90,8 +90,8 @@
 							$(".section  #tagId").text("");
 							$(".section  #tagId").text("头条");
 						}
-						$(".zw").text("");
-						$(".zw").text(data.content);
+						$(".zw").html("");
+						$(".zw").html(data.content);
 						if(data.relateActivityId==1){
 							$(".to a").text("相关活动报名");
 							var token= localStorage.getItem("c_token")

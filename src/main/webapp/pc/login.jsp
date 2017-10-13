@@ -72,6 +72,8 @@
 					if (data.userType == 4) {	
 						sessionStorage.setItem("user_name",data.userName);
 						sessionStorage.setItem("pwd_name",pwd);
+						sessionStorage.setItem("userId",data.userId);
+						sessionStorage.setItem("c_token",data.token);
 						window.location.href = "<%=path%>/pc/index.jsp";
 					}
 				}

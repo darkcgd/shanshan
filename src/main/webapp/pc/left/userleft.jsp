@@ -37,7 +37,7 @@ body{overflow-x:hidden; background:url(pc/images/main/leftbg.jpg) left top repea
     <div style="float: left" id="my_menu" class="sdmenu">
       <div class="collapsed">
          <span>个人中心</span>
-         <a href="pc/main/user/article.jsp" target="mainFrame" onFocus="this.blur()">用户列表</a>
+         <a href="pc/main/user/userlist.jsp" target="mainFrame" onFocus="this.blur()">用户列表</a>
       </div>
     </div>
 </body>

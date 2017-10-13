@@ -18,12 +18,15 @@
 <link rel="stylesheet" href="static/bootstrap-3.3.7-dist/css/bootstrap.css" type="text/css">
 <link rel="stylesheet" href="pc/css/style.css" type="text/css">
 <link rel="stylesheet" href="pc/css/bootstrap-datetimepicker.min.css" type="text/css">
+<link rel="stylesheet" href="pc/css/wangEditor-fullscreen-plugin.css" type="text/css">
 <script src="static/js/jquery-3.2.1.min.js" type="text/javascript"
 	charset="utf-8"></script>
 <script src="static/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
 <script src="pc/editor/release/wangEditor.js"></script>
 <script src="pc/js/bootstrap-datetimepicker.min.js"></script>
 <script src="pc/js/bootstrap-datetimepicker.zh-CN.js"></script>
+<script src="pc/js/wangEditor-fullscreen-plugin.js" type="text/javascript"
+	charset="utf-8"></script>
 
 <style>
 body {
@@ -253,9 +256,9 @@ td.fenye {
     			type:"json", //数据格式:JSON
     			url : 'activity/activityList', //目标地址
     			success : function(msg) {    				
-    				var datas=msg.datas;    			
-	    				for(var i in datas){
-	    					$("#IdSelect").html("");
+    				var datas=msg.datas; 
+    				$("#IdSelect").html("");
+	    				for(var i in datas){	    				
 	    					$("#IdSelect").append("<option>"+datas[i].activityId+"</option>");
 	    				}
     				}
@@ -286,22 +289,12 @@ td.fenye {
     //符文本编辑器设置
     var E = window.wangEditor
     var editor = new E('#editor')
-   // editor.customConfig.uploadFileName = 'uploadPic';
-    //editor.customConfig.uploadImgMaxLength = 5;
-       //editor.customConfig.uploadImgServer = 'article/upload'
-        editor.customConfig.uploadImgHeaders = {
-         'Accept' : 'multipart/form-data'
-    	 };  
-      /* editor.customConfig.customUploadImg = function (files, insert) {
-    	    // files 是 input 中选中的文件列表
-    	    alert(files);
-    	    // insert 是获取图片 url 后，插入到编辑器的方法
-             
-    	    // 上传代码返回结果之后，将图片插入到编辑器中
-    	    insert(imgUrl)
-    	} */
-    editor.customConfig.uploadImgShowBase64 = true ; 
-    editor.create();  
+       // editor.customConfig.uploadImgShowBase64 = true ; 
+        editor.customConfig.uploadImgServer = 'article/upload';
+        editor.customConfig.uploadImgMaxSize = 10 * 1024 * 1024;
+        editor.customConfig.uploadImgMaxLength = 5;     
+        editor.create();
+        E.fullscreen.init('#editor');
     function GetJsonData() {
     	var content=editor.txt.html();
     	var title=$("#title").val();

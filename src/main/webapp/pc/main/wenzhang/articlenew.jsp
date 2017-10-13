@@ -15,7 +15,6 @@
 <link href="pc/css/css.css" type="text/css" rel="stylesheet" />
 <link href="pc/css/main.css" type="text/css" rel="stylesheet" />
 <link rel="shortcut icon" href="pc/images/main/favicon.ico" />
-<link rel="stylesheet" href="pc/css/adminstyle.css" type="text/css">
 <!-- <link rel="stylesheet" href="pc/css/page.css" type="text/css"> -->
 <script src="static/js/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
 <!--  <script src="pc/js/vue.js" type="text/javascript" charset="utf-8"></script>-->
@@ -43,135 +42,87 @@ td.fenye{ padding:10px 0 0 0; text-align:right;}
 </style>
 </head>
 <body>
-<!-- top -->
-<table width="100%" border="0" align="center" cellpadding="3" cellspacing="1">
-  <tr> 
-    <td width="24%">位置： 
+<!--main_top-->
+<table width="99%" border="0" cellspacing="0" cellpadding="0" id="searchmain">
+  <tr>
+    <td width="99%" align="left" valign="top">您的位置：用户管理</td>
+  </tr>
+  <tr>
+    <td align="left" valign="top">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" id="search">
+  		<tr>
+   		 <td width="90%" align="left" valign="middle">
+	         <form method="post" action="">
+	         <span>管理员：</span>
+	         <input type="text" name="" value="" class="text-word">
+	         <input name="" type="button" value="查询" class="text-but">
+	         </form>
+         </td>
+  		  <td width="10%" align="center" valign="middle" style="text-align:right; width:150px;"><a href="add.html" target="mainFrame" onFocus="this.blur()" class="add">新增管理员</a></td>
+  		</tr>
+	</table>
     </td>
-    <td width="76%"><div align="center" class="emenubutton">
-		  <span id="showaddclassnav"></span>         
-           <input type="button" name="Submit" value="增加信息" onclick="self.location.href='pc/main/wenzhang/articleAdd.jsp'">
-		  &nbsp;          
-        </div></td>
+  </tr>
+  <tr>
+    <td align="left" valign="top">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" id="main-tab">
+      <tr>
+        <th align="center" valign="middle" class="borderright">编号</th>
+        <th align="center" valign="middle" class="borderright">管理帐号</th>
+        <th align="center" valign="middle" class="borderright">权限</th>
+        <th align="center" valign="middle" class="borderright">锁定</th>
+        <th align="center" valign="middle" class="borderright">最后登录</th>
+        <th align="center" valign="middle">操作</th>
+      </tr>
+      <tr onMouseOut="this.style.backgroundColor='#ffffff'" onMouseOver="this.style.backgroundColor='#edf5ff'">
+        <td align="center" valign="middle" class="borderright borderbottom">1</td>
+        <td align="center" valign="middle" class="borderright borderbottom">admin</td>
+        <td align="center" valign="middle" class="borderright borderbottom">创始人</td>
+        <td align="center" valign="middle" class="borderright borderbottom">已锁定</td>
+        <td align="center" valign="middle" class="borderright borderbottom">2013-04-26 11:00:59</td>
+        <td align="center" valign="middle" class="borderbottom"><a href="add.html" target="mainFrame" onFocus="this.blur()" class="add">编辑</a><span class="gray">&nbsp;|&nbsp;</span><a href="add.html" target="mainFrame" onFocus="this.blur()" class="add">删除</a></td>
+      </tr>
+     
+    </table></td>
+    </tr>
+  <tr>
+    <td align="left" valign="top" class="fenye">11 条数据 1/1 页&nbsp;&nbsp;<a href="#" target="mainFrame" onFocus="this.blur()">首页</a>&nbsp;&nbsp;<a href="#" target="mainFrame" onFocus="this.blur()">上一页</a>&nbsp;&nbsp;<a href="#" target="mainFrame" onFocus="this.blur()">下一页</a>&nbsp;&nbsp;<a href="#" target="mainFrame" onFocus="this.blur()">尾页</a></td>
   </tr>
 </table>
-<!-- 搜索栏 -->
-<table width="100%" border="0" align="center" cellpadding="3" cellspacing="1" class="tableborder">
-    <tr> 
-      <td width="100%"> <div align="right">&nbsp;搜索： 
-          <select name="showspecial" id="showspecial">
-            <option value="0">不限属性</option>
-            <option value="1">推荐</option>
-            <option value="2">头条</option>
-          </select>
-          <input name="keyboard" type="text" id="keyboard" value="关键字">
-		  <span id="searchclassnav"></span>
-          <input type="button" name="" value="搜索">
-        </div></td>
-    </tr>
-</table>
-<br>
+<script type="text/javascript">alert(11);
+$(document).ready(function(){
+	alert(11);
+    $.ajax({
+	type : "GET",
+	dataType : "json",
+	url : "article/articleList",		
+	success : function(msg) {
+           var data=msg.datas;
+           //添加信息
+           for(var i in datas){ 
+        	   alert(i);
+    $(".tableborder").append("<tr bgcolor='#FFFFFF' onmouseout='this.style.background Color='"'#ffffff'"' onmouseover='this.style.backgroundColor="'#C3EFFF'"'>"+ 
+		            	      "<td><div align='center'>"+ 
+		            	          "<input name='id[]' type='checkbox' id='id[]' value=''>"+
+		            			  "<input name='infoid[]' type='hidden' value='"+datas[i].articleId+"'>"+
+		            	          "</div>"+
+		            	      "</td>"+
+		            	      "<td height='25'> <div align='center'>"+datas[i].title+"</div></td>"+                        
+		            	      "<td height='25'> <div align='center'> 文章</div></td>"+
+		            	      "<td height='25'> <div align='center'> 文章</div></td>"+
+		            	      "<td height='25'> <div align='center'>"+
+		            	           "<a href='pc/main/xinximain/articleAdd.jsp'>设置已过期</a>|"+  
+		            	           "<a href='pc/main/xinximain/articleAdd.jsp'>删除</a>| "+ 
+		            	           "<a href='pc/main/xinximain/articleAdd.jsp'>查看详情</a>"+ 
+		            	      "</td>"+
+		            	  "</tr>");
+                       }
+	             }
+            });
 
-
-  <table width="100%" border="0" cellspacing="1" cellpadding="0">
-    <tr>
-      <td width="10%" height="25"><div align="center"><a href="pc/main/xinximain/article.jsp" title="已发布信息总数：">未过期(12) </a></div></td>
-      <td width="10%"><div align="center"><a href="pc/main/xinximain/article.jsp">过期 (12)</a></div></td>
-      <td width="10%">&nbsp;</td>
-      <td width="58%">&nbsp; </td>
-      <td width="6%">&nbsp;</td>
-      <td width="6%">&nbsp;</td>
-    </tr>
-  </table>
-  <!-- 文章列表 -->
-  <table width="100%" border="0" align="center" cellpadding="3" cellspacing="1">
-    <tr class="header"> 
-      <td height="25" colspan="8"></td>
-    </tr>
-    <tr> 
-      <td width="3%"><div align="center"></div></td>
-      <td width="6%" height="25"><div align="center">标题</div></td>
-      <td width="36%" height="25"><div align="center">用户等级可见</div></td>
-      <td width="14%" height="25"> <div align="center">状态</div></td>
-	  <td width="14%" height="25"> <div align="center">编辑</div></td>
-    </tr>
-	  <tr bgcolor="#FFFFFF"> 
-	      <td height="25"> <div align="center"> 
-	          <input type="checkbox" name="chkall"  onclick="">
-	        </div></td>
-	      <td height="25" colspan="7"><div align="center"> 
-	          <input type="submit" name="Submit3" value="多条删除" >		 
-	        </div></td>
-	    </tr>
-   
-  
-    <tr bgcolor="#FFFFFF" onmouseout="this.style.backgroundColor='#ffffff'" onmouseover="this.style.backgroundColor='#C3EFFF'"> 
-      <td><div align="center"> 
-          <input name="id[]" type="checkbox" id="id[]" value="">
-		  <input name="infoid[]" type="hidden" value="">
-          </div>
-      </td>
-      <td height="25"> <div align="center"> 文章</div></td>                        
-      <td height="25"> <div align="center">A用户</div></td>
-	  <td height="25"> <div align="center">未过期</div></td>
-      <td height="25"> <div align="center">
-           <a href="pc/main/xinximain/articleAdd.jsp">设置已过期</a>|  
-           <a href="pc/main/xinximain/articleAdd.jsp">删除</a>|  
-           <a href="pc/main/xinximain/articleAdd.jsp">查看详情</a> 
-      </td>
-    </tr>
-    
-    <tr bgcolor="#FFFFFF"> 
-      <td height="25"> <div align="center"> 
-          <input type=checkbox name=chkall value=on onclick=CheckAll(this.form)>
-        </div></td>
-      <td height="25" colspan="7"><div align="center"> 
-          <input type="submit" name="Submit3" value="多条删除" onclick="document.listform.enews.value='DelNews_all';document.listform.action='';">		 
-        </div></td>
-    </tr>
-    <tr bgcolor="#FFFFFF"> 
-      <td height="25" colspan="8"> 
-      　 </td>
-    </tr>
-  </table>
-<!-- 分页 -->
-      <!-- <div id="app">
-    <div>
-      <div class="page"  v-show="show">
-        <div class="pagelist">
-          <span class="jump" :class="{disabled:pstart}" @click="{current_page--}">上一页</span>
-          <span v-show="current_page>5" class="jump" @click="jumpPage(1)">1</span>
-          <span class="ellipsis"  v-show="efont">...</span>
-          <span class="jump" v-for="num in indexs" :class="{bgprimary:current_page==num}" @click="jumpPage(num)">{{num}}</span>
-          <span class="ellipsis"  v-show="ebehind">...</span>
-          <span :class="{disabled:pend}" class="jump" @click="{current_page++}">下一页</span>
-          <span v-show="current_page<pages-4" class="jump" @click="jumpPage(pages)">{{pages}}</span>
-          <span class="jumppoint">跳转到：</span>
-          <span class="jumpinp"><input type="text" v-model="changePage"></span>
-          <span class="jump gobtn" @click="jumpPage(changePage)">GO</span>
-        </div>
-      </div>
-    </div>
-  </div> -->
+}); </script>
 </body>
 <script type="text/javascript">
-
-$(document).ready(function(){ 
-	$.ajax({
-		type : "GET",
-		dataType : "json",
-		url : "article/articleList",		
-		success : function(msg) {
-               var data=msg.datas;
-               for(var i in datas){
-            	 
-               }
-		}
-	});
-})
-function CheckAll(form)
-  {
-
 alert(11);
 $(document).ready(function(){
 	alert(11);
@@ -205,7 +156,7 @@ $(document).ready(function(){
 
 }); 
 	//分页部分开始
-	/* var newlist = new Vue({
+	/*  var newlist = new Vue({
 	    el: '#app',
 	    data: {
 	      current_page: 1, //当前页
@@ -270,7 +221,6 @@ $(document).ready(function(){
 
 	
 /* function CheckAll(form){
->>>>>>> 8c17e115af34b472ce449b598aabd78273bb1aa3
   for (var i=0;i<form.elements.length;i++)
     {
     var e = form.elements[i];
