@@ -272,7 +272,7 @@ $.ajax({
 				   }  ,
 				success : function(msg) {
 				       if(msg.code==200){
-				    	   window.location.reload(true); 
+				    	   $(val).parent().parent().css({"display":"none"});
 				       }
 					}
 					//发送验证返回信息
