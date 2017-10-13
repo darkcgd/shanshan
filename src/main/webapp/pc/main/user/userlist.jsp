@@ -132,13 +132,16 @@ td.fenye{ padding:10px 0 0 0; text-align:right;}
 				}if(data[i].status==2){
 					status="已审核";
 				}
+
+                var industry=(data[i].industry==''||data[i].industry==null)?"未填写":data[i].industry;
+
 			 	$(".ss").append("<tr onMouseOut='this.style.backgroundColor='#ffffff'' onMouseOver='this.style.backgroundColor='#edf5ff''>"+
 				        "<td align='center' valign='middle' class='borderright borderbottom'><input type='checkbox'></td>"+
 				        "<td align='center' valign='middle' class='borderright borderbottom'>"+data[i].userName+"</td>"+
 				        "<td align='center' valign='middle' class='borderright borderbottom'>"+sex+"</td>"+
 				        "<td align='center' valign='middle' class='borderright borderbottom'>"+data[i].phone+"</td>"+
 				        "<td align='center' valign='middle' class='borderright borderbottom'>"+data[i].company+"</td>"+
-				        "<td align='center' valign='middle' class='borderright borderbottom'>"+data[i].industry+"</td>"+
+				        "<td align='center' valign='middle' class='borderright borderbottom'>"+industry+"</td>"+
 				        "<td align='center' valign='middle' class='borderright borderbottom'>"+userType+"</td>"+
 				        "<td align='center' valign='middle' class='borderright borderbottom'>"+data[i].positionName+"</td>"+
 				        "<td align='center' valign='middle' class='borderright borderbottom'>"+data[i].equipmentType+"</td>"+
