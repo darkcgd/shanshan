@@ -72,7 +72,6 @@ public class ArticleService {
 		status.add(10);
 		status.add(11);
 		criteria.andStatusIn(status);
-		criteria.andStatusEqualTo(10);
 		articleBeanExample.setOrderByClause("create_time desc");
 		return articleBeanMapper.selectByExample(articleBeanExample);
 	}
