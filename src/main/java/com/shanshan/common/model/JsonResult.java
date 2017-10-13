@@ -1,8 +1,5 @@
 package com.shanshan.common.model;
 
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
-
 public class JsonResult {
 	
 	
@@ -13,75 +10,40 @@ public class JsonResult {
 	
 	
 	
-	public JsonResult (int result, String errorCode, String errorMessage) {
+	public JsonResult (String code, String msg) {
 		
-		this.result = result;
-		this.errorCode = errorCode;
-		this.errorMessage = errorMessage;
+		this.code = code;
+		this.msg = msg;
 	}
 	
-	
-	public JsonResult (int result, String errorCode, BindingResult errors) {
-		this.result = result;
-		this.errorCode = errorCode;
-		StringBuffer sb = new StringBuffer();
-		sb.append("参数验证失败，共有").append(errors.getErrorCount()).append("个错误：");
-		for (ObjectError error : errors.getAllErrors()) {
-			sb.append(error.getDefaultMessage()).append(",");
-		}
-		this.errorMessage = sb.toString();
-	}
-	
-	
-	public JsonResult  setError(int result, String errorCode, String errorMessage) {
-		
-		this.result = result;
-		this.errorCode = errorCode;
-		this.errorMessage = errorMessage;
-		return this;
-	}
-	
-	
 
-
-
-
-	public static final int RESULT_S = 0;
-	public static final int RESULT_F = 1;
+	private String code;
 	
-	private int result;
-	
-	private String errorCode;
-	
-	private String errorMessage;
+	private String msg;
 
-	public int getResult() {
-		return result;
+	public String getCode() {
+		return code;
 	}
 
-	public void setResult(int result) {
-		this.result = result;
+
+
+
+	public void setCode(String code) {
+		this.code = code;
 	}
 
-	public String getErrorCode() {
-		return errorCode;
+
+
+
+	public String getMsg() {
+		return msg;
 	}
 
-	public void setErrorCode(String errorCode) {
-		this.errorCode = errorCode;
+
+
+
+	public void setMsg(String msg) {
+		this.msg = msg;
 	}
 
-	public String getErrorMessage() {
-		return errorMessage;
-	}
-
-	public void setErrorMessage(String errorMessage) {
-		this.errorMessage = errorMessage;
-	}
-	
-	
-	
-	
-	
-	
 }

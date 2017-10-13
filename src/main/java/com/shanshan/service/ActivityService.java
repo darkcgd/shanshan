@@ -1,5 +1,7 @@
 package com.shanshan.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,20 +20,13 @@ public class ActivityService {
 	@Autowired
 	private ActivityBeanMapper activityBeanMapper;
 	
-	public Page<ActivityBean> activityList(ActivityBean entity, PageRequest page) {
-		Page<ActivityBean> result = PageHelper.offsetPage(page.getStart(), page.getLimit())
-				.doSelectPage(new ISelect() {
-					@Override
-					public void doSelect() {
-						ActivityBeanExample example = new ActivityBeanExample();
-						Criteria criteria = example.createCriteria();
-						
-						
-						example.setOrderByClause("create_time desc");
-						activityBeanMapper.selectByExample(example);
-					}
-				});
-		return result;
+	public List<ActivityBean> activityList(ActivityBean entity) {
+		ActivityBeanExample example = new ActivityBeanExample();
+		Criteria criteria = example.createCriteria();
+
+		
+		example.setOrderByClause("create_time desc");
+		return activityBeanMapper.selectByExample(example);
 	}
 
 	public ActivityBean activityDetail(ActivityBean entity) {

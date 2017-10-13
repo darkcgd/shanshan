@@ -93,7 +93,7 @@ public class ArticleService {
 
 	public JsonResult saveOrUpdate(ArticleBean entity) {
 		Date date = new Date(System.currentTimeMillis());
-		if (entity == null && entity.getArticleId() != null) {
+		if (entity != null && entity.getArticleId() != null) {
 			ArticleBean article = articleBeanMapper.selectByPrimaryKey(entity.getArticleId());
 			// 更新
 			if (article != null) {
@@ -142,7 +142,7 @@ public class ArticleService {
 			
 		}
 
-		JsonResult result = new JsonResult(0, "", "");
+		JsonResult result = new JsonResult("200", "操作成功");
 		return result;
 	}
 	

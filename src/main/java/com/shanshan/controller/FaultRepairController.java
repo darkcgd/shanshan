@@ -39,7 +39,7 @@ public class FaultRepairController {
 		
 		// 参数验证
 		if (errors.hasErrors()) {
-			return new JsonDataResult<List<String>>(JsonResult.RESULT_F, "500", errors);
+			return new JsonResult("500", "参数校验失败");
 		}
 		
 		return faultRepairService.save(entity);
@@ -55,7 +55,7 @@ public class FaultRepairController {
 	public JsonResult faultRepairList(FaultRepairBean entity, PageRequest page) {
 		JsonDataResult<List<FaultRepairBean>> result = new JsonDataResult<>();
 		Page<FaultRepairBean> datas = faultRepairService.faultRepairList(entity, page);
-		result.setDatas(datas);
+		result.setData(datas);
 		return result;
 		
 	}

@@ -1,18 +1,26 @@
 package com.shanshan.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.shanshan.base.BaseController;
 import com.shanshan.bean.ActivityBean;
+import com.shanshan.bean.ArticleBean;
+import com.shanshan.bean.MsgBean;
 import com.shanshan.common.model.JsonDataResult;
 import com.shanshan.common.model.JsonResult;
 import com.shanshan.common.model.PageRequest;
 import com.shanshan.service.ActivityService;
+import com.shanshan.util.Constant;
 
 /**
  * 活动
@@ -21,7 +29,7 @@ import com.shanshan.service.ActivityService;
  */
 @Controller
 @RequestMapping( "/activity" )
-public class ActivityController {
+public class ActivityController extends BaseController {
 
 	@Autowired
 	private ActivityService activityService;
@@ -32,12 +40,19 @@ public class ActivityController {
 	 */
 	@RequestMapping("/activityList")
 	@ResponseBody
-	public JsonResult articleList(ActivityBean entity, PageRequest page) {
-		JsonDataResult<List<ActivityBean>> result = new JsonDataResult<>();
-		Page<ActivityBean> datas = activityService.activityList(entity, page);
-		result.setDatas(datas);
-		result.setRecordCount(datas.size());
-		return result;
+	public Object activityList(ActivityBean entity,
+			@RequestParam(value = "pagerNumber", defaultValue = "" + Constant.DefaultPagerNumber) Integer pagerNumber,
+			@RequestParam(value = "pagerSize", defaultValue = "" + Constant.DefaultPagerSize) Integer pagerSize) {
+		PageHelper.startPage(pagerNumber, pagerSize);
+		List<ActivityBean> articleList = activityService.activityList(entity);
+
+		MsgBean msg = MsgBean.success("获取成功");
+		Map<String, Object> data = msg.getData();
+
+		handlerPageInfoAdmin(data, new PageInfo(articleList, pagerSize));
+
+		data.put("list", articleList);
+		return msg;
 	}
 	
 	/**
@@ -50,12 +65,11 @@ public class ActivityController {
 		JsonDataResult<ActivityBean> result = new JsonDataResult<>();
 		
 		if (null == entity.getActivityId() || 0 == entity.getActivityId()) {
-			return new JsonResult(1, "ID_IS_NULL", "活动id不能为空!");
+			return new JsonResult("500", "活动id不能为空!");
 		}
 		
 		ActivityBean data = activityService.activityDetail(entity);
-		result.setDatas(data);
-		result.setRecordCount(1);
+		result.setData(data);
 		return result;
 	}
 	

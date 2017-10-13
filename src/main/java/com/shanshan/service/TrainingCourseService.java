@@ -1,5 +1,7 @@
 package com.shanshan.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,20 +20,13 @@ public class TrainingCourseService {
 	@Autowired
 	private TrainingCourseBeanMapper trainingCourseBeanMapper;
 
-	public Page<TrainingCourseBean> trainingCourseList(TrainingCourseBean entity, PageRequest page) {
-		Page<TrainingCourseBean> result = PageHelper.offsetPage(page.getStart(), page.getLimit())
-				.doSelectPage(new ISelect() {
-					@Override
-					public void doSelect() {
-						TrainingCourseBeanExample example = new TrainingCourseBeanExample();
-						Criteria criteria = example.createCriteria();
-						
-						
-						example.setOrderByClause("create_time desc");
-						trainingCourseBeanMapper.selectByExample(example);
-					}
-				});
-		return result;
+	public List<TrainingCourseBean> trainingCourseList(TrainingCourseBean entity) {
+		TrainingCourseBeanExample example = new TrainingCourseBeanExample();
+		Criteria criteria = example.createCriteria();
+		
+		
+		example.setOrderByClause("create_time desc");
+		return trainingCourseBeanMapper.selectByExample(example);
 	}
 
 	public TrainingCourseBean trainingCourseDetail(TrainingCourseBean entity) {

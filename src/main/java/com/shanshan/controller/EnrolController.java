@@ -39,7 +39,7 @@ public class EnrolController {
 		
 		// 参数验证
 		if (errors.hasErrors()) {
-			return new JsonDataResult<List<String>>(JsonResult.RESULT_F, "500", errors);
+			return new JsonResult("500", "参数校验失败");
 		}
 		
 		return enrolService.save(entity);
@@ -55,7 +55,7 @@ public class EnrolController {
 	public JsonResult enrollList(EnrollBean entity, PageRequest page) {
 		JsonDataResult<List<EnrollBean>> result = new JsonDataResult<>();
 		Page<EnrollBean> datas = enrolService.enrollList(entity, page);
-		result.setDatas(datas);
+		result.setData(datas);
 		return result;
 		
 	}

@@ -27,7 +27,7 @@ public class EnrolService {
 		entity.setCreateTime(new Date(System.currentTimeMillis()));
 		enrollBeanMapper.insertSelective(entity);
 
-		JsonResult result = new JsonResult(0, "", "");
+		JsonResult result = new JsonResult("200", "操作成功");
 		return result;
 	}
 

@@ -28,7 +28,7 @@ public class FaultRepairService {
 		entity.setUpdateTime(date);
 		faultRepairBeanMapper.insertSelective(entity);
 
-		JsonResult result = new JsonResult(0, "", "");
+		JsonResult result = new JsonResult("200", "操作成功");
 		return result;
 	}
 

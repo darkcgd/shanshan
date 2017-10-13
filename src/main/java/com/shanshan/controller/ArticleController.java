@@ -57,8 +57,7 @@ public class ArticleController extends BaseController {
 	public JsonResult articleList(ArticleBean entity, PageRequest page) {
 		JsonDataResult<List<ArticleBean>> result = new JsonDataResult<>();
 		Page<ArticleBean> datas = articleService.articleList(entity, page);
-		result.setDatas(datas);
-		result.setRecordCount(datas.size());
+		result.setData(datas);
 		return result;
 	}
 
@@ -92,11 +91,11 @@ public class ArticleController extends BaseController {
 	public JsonResult articleDetail(ArticleBean entity) {
 		JsonDataResult<ArticleBean> result = new JsonDataResult<>();
 		if (null == entity.getArticleId() || 0 == entity.getArticleId()) {
-			return new JsonResult(1, "ID_IS_NULL", "文章id不能为空!");
+			return new JsonResult("500", "活动id不能为空!");
 		}
 		ArticleBean data = articleService.articleDetail(entity);
-		result.setDatas(data);
-		result.setRecordCount(1);
+		result.setData(data);
+		result.setCode("200");
 		return result;
 	}
 
@@ -110,7 +109,7 @@ public class ArticleController extends BaseController {
 	public JsonResult saveOpUpdate(@Valid @RequestBody ArticleBean entity, BindingResult errors) {
 		// 参数验证
 		if (errors.hasErrors()) {
-			return new JsonDataResult<List<String>>(JsonResult.RESULT_F, "500", errors);
+			return new JsonResult("500", "参数校验失败");
 		}
 
 		return articleService.saveOrUpdate(entity);
