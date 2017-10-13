@@ -15,7 +15,7 @@
 <link href="pc/css/css.css" type="text/css" rel="stylesheet" />
 <link href="pc/css/main.css" type="text/css" rel="stylesheet" />
 <link rel="shortcut icon" href="pc/images/main/favicon.ico" />
-<link rel="stylesheet" href="pc/css/adminstyle.css" type="text/css">
+ <link rel="stylesheet" href="pc/css/page.css" type="text/css"> 
 <!-- <link rel="stylesheet" href="pc/css/page.css" type="text/css"> -->
 <script src="static/js/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
 <!--  <script src="pc/js/vue.js" type="text/javascript" charset="utf-8"></script>-->
@@ -43,99 +43,42 @@ td.fenye{ padding:10px 0 0 0; text-align:right;}
 </style>
 </head>
 <body>
-<!-- top -->
-<table width="100%" border="0" align="center" cellpadding="3" cellspacing="1">
-  <tr> 
-    <td width="24%">位置： 
-    </td>
-    <td width="76%"><div align="center" class="emenubutton">
-		  <span id="showaddclassnav"></span>         
-           <input type="button" name="Submit" value="增加信息" onclick="self.location.href='pc/main/wenzhang/articleAdd.jsp'">
-		  &nbsp;          
-        </div></td>
+<!--main_top-->
+<table width="99%" border="0" cellspacing="0" cellpadding="0" id="searchmain">
+  <tr>
+    <td width="99%" align="left" valign="top">您的位置：文章列表</td>
   </tr>
+  <tr>
+    <td align="left" valign="top">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" id="search">
+  		<tr>
+   		 <td width="90%" align="left" valign="middle">
+	         <form method="post" action="">
+	         <span>标题：</span>
+	         <input type="text" name="" value="" class="text-word">
+	         <input name="" type="button" value="查询" class="text-but">
+	         </form>
+         </td>
+  		  <td width="10%" align="center" valign="middle" style="text-align:right; width:150px;"><a href="pc/main/wenzhang/articleAdd.jsp" target="mainFrame" onFocus="this.blur()" class="add">添加文章</a></td>
+  		</tr>
+	</table>
+    </td>
+  </tr>
+  <tr>
+    <td align="left" valign="top">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" id="aticleList">
+      <tr>
+        <th align="center" valign="middle" class="borderright">编号</th>
+        <th align="center" valign="middle" class="borderright">标题</th>
+        <th align="center" valign="middle" class="borderright">用户等级可见</th>
+        <th align="center" valign="middle" class="borderright">状态</th> 
+        <th align="center" valign="middle" class="borderright">阅读量</th>        
+        <th align="center" valign="middle">操作</th>
+      </tr>   
+    </table> 
 </table>
-<!-- 搜索栏 -->
-<table width="100%" border="0" align="center" cellpadding="3" cellspacing="1" class="tableborder">
-    <tr> 
-      <td width="100%"> <div align="right">&nbsp;搜索： 
-          <select name="showspecial" id="showspecial">
-            <option value="0">不限属性</option>
-            <option value="1">推荐</option>
-            <option value="2">头条</option>
-          </select>
-          <input name="keyboard" type="text" id="keyboard" value="关键字">
-		  <span id="searchclassnav"></span>
-          <input type="button" name="" value="搜索">
-        </div></td>
-    </tr>
-</table>
-<br>
-
-
-  <table width="100%" border="0" cellspacing="1" cellpadding="0">
-    <tr>
-      <td width="10%" height="25"><div align="center"><a href="pc/main/xinximain/article.jsp" title="已发布信息总数：">未过期(12) </a></div></td>
-      <td width="10%"><div align="center"><a href="pc/main/xinximain/article.jsp">过期 (12)</a></div></td>
-      <td width="10%">&nbsp;</td>
-      <td width="58%">&nbsp; </td>
-      <td width="6%">&nbsp;</td>
-      <td width="6%">&nbsp;</td>
-    </tr>
-  </table>
-  <!-- 文章列表 -->
-  <table width="100%" border="0" align="center" cellpadding="3" cellspacing="1">
-    <tr class="header"> 
-      <td height="25" colspan="8"></td>
-    </tr>
-    <tr> 
-      <td width="3%"><div align="center"></div></td>
-      <td width="6%" height="25"><div align="center">标题</div></td>
-      <td width="36%" height="25"><div align="center">用户等级可见</div></td>
-      <td width="14%" height="25"> <div align="center">状态</div></td>
-	  <td width="14%" height="25"> <div align="center">编辑</div></td>
-    </tr>
-	  <tr bgcolor="#FFFFFF"> 
-	      <td height="25"> <div align="center"> 
-	          <input type="checkbox" name="chkall"  onclick="">
-	        </div></td>
-	      <td height="25" colspan="7"><div align="center"> 
-	          <input type="submit" name="Submit3" value="多条删除" >		 
-	        </div></td>
-	    </tr>
-   
-  
-    <tr bgcolor="#FFFFFF" onmouseout="this.style.backgroundColor='#ffffff'" onmouseover="this.style.backgroundColor='#C3EFFF'"> 
-      <td><div align="center"> 
-          <input name="id[]" type="checkbox" id="id[]" value="">
-		  <input name="infoid[]" type="hidden" value="">
-          </div>
-      </td>
-      <td height="25"> <div align="center"> 文章</div></td>                        
-      <td height="25"> <div align="center">A用户</div></td>
-	  <td height="25"> <div align="center">未过期</div></td>
-      <td height="25"> <div align="center">
-           <a href="pc/main/xinximain/articleAdd.jsp">设置已过期</a>|  
-           <a href="pc/main/xinximain/articleAdd.jsp">删除</a>|  
-           <a href="pc/main/xinximain/articleAdd.jsp">查看详情</a> 
-      </td>
-    </tr>
-    
-    <tr bgcolor="#FFFFFF"> 
-      <td height="25"> <div align="center"> 
-          <input type=checkbox name=chkall value=on onclick=CheckAll(this.form)>
-        </div></td>
-      <td height="25" colspan="7"><div align="center"> 
-          <input type="submit" name="Submit3" value="多条删除" onclick="document.listform.enews.value='DelNews_all';document.listform.action='';">		 
-        </div></td>
-    </tr>
-    <tr bgcolor="#FFFFFF"> 
-      <td height="25" colspan="8"> 
-      　 </td>
-    </tr>
-  </table>
 <!-- 分页 -->
-      <!-- <div id="app">
+  <div id="app">
     <div>
       <div class="page"  v-show="show">
         <div class="pagelist">
@@ -152,60 +95,13 @@ td.fenye{ padding:10px 0 0 0; text-align:right;}
         </div>
       </div>
     </div>
-  </div> -->
-</body>
+  </div> 
+</body> 
+<script src="static/js/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="pc/js/vue.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">
-
-$(document).ready(function(){ 
-	$.ajax({
-		type : "GET",
-		dataType : "json",
-		url : "article/articleList",		
-		success : function(msg) {
-               var data=msg.datas;
-               for(var i in datas){
-            	 
-               }
-		}
-	});
-})
-function CheckAll(form)
-  {
-
-alert(11);
-$(document).ready(function(){
-	alert(11);
-    $.ajax({
-	type : "GET",
-	dataType : "json",
-	url : "article/articleList",		
-	success : function(msg) {
-           var data=msg.datas;
-           //添加信息
-           for(var i in datas){ 
-        	   alert(i);
-    $(".tableborder").append("<tr bgcolor='#FFFFFF' onmouseout='this.style.background Color='"'#ffffff'"' onmouseover='this.style.backgroundColor="'#C3EFFF'"'>"+ 
-		            	      "<td><div align='center'>"+ 
-		            	          "<input name='id[]' type='checkbox' id='id[]' value=''>"+
-		            			  "<input name='infoid[]' type='hidden' value='"+datas[i].articleId+"'>"+
-		            	          "</div>"+
-		            	      "</td>"+
-		            	      "<td height='25'> <div align='center'>"+datas[i].title+"</div></td>"+                        
-		            	      "<td height='25'> <div align='center'> 文章</div></td>"+
-		            	      "<td height='25'> <div align='center'> 文章</div></td>"+
-		            	      "<td height='25'> <div align='center'>"+
-		            	           "<a href='pc/main/xinximain/articleAdd.jsp'>设置已过期</a>|"+  
-		            	           "<a href='pc/main/xinximain/articleAdd.jsp'>删除</a>| "+ 
-		            	           "<a href='pc/main/xinximain/articleAdd.jsp'>查看详情</a>"+ 
-		            	      "</td>"+
-		            	  "</tr>");
-                       }
-	             }
-            });
-
-}); 
-	//分页部分开始
-	/* var newlist = new Vue({
+//分页部分开始
+var newlist = new Vue({
 	    el: '#app',
 	    data: {
 	      current_page: 1, //当前页
@@ -266,50 +162,109 @@ $(document).ready(function(){
 	    },
 
 	  }) 
-	 //分页部分结束 */
-
+	 //分页部分结束
+	 //列表加载
+ $(document).ready(function(){$.ajax({
+	type : "GET",
+	dataType : "json",
+	url : "article/getArticleList",
+	data:"",
+	success : function(msg) {
+           var data=msg.data.list;         
+           //添加信息
+           for(var i in data){
+        	  //标题
+        	  var title=data[i].title==null?"":data[i].title;        	 
+        	  //用户等级可看
+        	   var relatePermissionUserType="";
+        	   if(data[i].relatePermissionUserType==1){
+        		   relatePermissionUserType="A级用户";
+        	   }
+        	   if(data[i].relatePermissionUserType==2){
+        		   relatePermissionUserType="B级用户";
+        	   }
+        	   if(data[i].relatePermissionUserType>=3){
+        		   relatePermissionUserType="C级用户";
+        	   }
+        	   //是否过期
+        	   var status="";
+        	   if(data[i].status==11){
+        		   status="已过期";
+        	   }
+        	   if(data[i].status==10){
+        		   status="未过期";
+        	   }
+        	   //阅读量
+        	   var readCount=data[i].readCount==null?0:data[i].readCount;
+        	   //
+        	   //设置过期
+        	   var isoverdue="";
+        	   if(data[i].status==10){
+        		   isoverdue="设置已过期";
+        	   }
+        	   if(data[i].status==11){
+        		   isoverdue="设置未过期";
+        	   }
+ $("#aticleList").append("<tr onMouseOut='this.style.backgroundColor='#ffffff'' onMouseOver='this.style.backgroundColor='#edf5ff''>"+		          
+		           "<td align='center' valign='middle' class='borderright borderbottom'>"+data[i].articleId+"</td>"+
+		           "<td align='center' valign='middle' class='borderright borderbottom'>"+title+"</td>"+
+	               "<td align='center' valign='middle' class='borderright borderbottom'>"+relatePermissionUserType+"</td>"+
+	               "<td align='center' valign='middle' class='borderright borderbottom'>"+status+"</td>"+
+	               "<td align='center' valign='middle' class='borderright borderbottom'>"+readCount+"</td>"+	               
+	               "<td align='center' valign='middle' class='borderbottom' id='changeStatus'>"+
+	                   "<a href='javascript:void(0);' target='mainFrame' onFocus='this.blur()' onclick='changeStatus(this);' class='status' value='"+data[i].status+"'>"+isoverdue+"</a><span class='gray'>&nbsp;|&nbsp;</span>"+
+	                   "<a href='javascript:void(0);' target='mainFrame' onFocus='this.blur()' onclick='deleteAticle(this);' class='add'>删除</a><span class='gray'>&nbsp;|&nbsp;</span>"+
+	                   "<a href='javascript:void(0);' target='mainFrame' onFocus='this.blur()' class='add'>查看详情</a>"+
+	               "</td>"+
+              "</tr>");
+           
+                       }
+	             }
+   }); 
+ })  
+   //设置是否过期
+   function changeStatus(val){
+	  var  changeStatus=$(val).attr("value")==10?11:10;	
+	  var  changeArticleId=$(val).parent().prevAll("td:eq(4)").text();	//文章ID
+	 $.ajax({
+				type : "POST", //用POST方式传输
+				contentType: "application/json; charset=utf-8",
+				url : 'article/saveOpUpdate', //目标地址
+				data : JSON.stringify({articleId:changeArticleId,status:changeStatus}),
+				error: function(XMLHttpRequest){  
+				     alert( "Error: " + XMLHttpRequest.responseText);  
+				   }  ,
+				success : function(msg) {
+				     alert(msg.code);
+				     window.location.reload(true);
+					}
+					//发送验证返回信息
+			}); 
 	
-/* function CheckAll(form){
->>>>>>> 8c17e115af34b472ce449b598aabd78273bb1aa3
-  for (var i=0;i<form.elements.length;i++)
-    {
-    var e = form.elements[i];
-    if (e.name != 'chkall'){
-       e.checked = form.chkall.checked;
-    }
-    }
-  } 
-
-
- function GetSelectId(form)
-{
-  var ids='';
-  var dh='';
-  for (var i=0;i<form.elements.length;i++)
-  {
-	var e = form.elements[i];
-	if (e.name == 'id[]')
-	{
-	   if(e.checked==true)
-	   {
-       		ids+=dh+e.value;
-			dh=',';
-	   }
-	}
-  }
-  return ids;
-}
- function PushInfoToSp(form){
-	var id='';
-	id=GetSelectId(form);
-	if(id=='')
-	{
-		alert('请选择要推送的信息');
-		return false;
-	}
-	window.open('');
-} */
-
+	 
+   };
+   //删除功能
+   function deleteAticle(val){
+	  var  changeStatus=13;
+	  var  changeArticleId=$(val).parent().prevAll("td:eq(4)").text();	//文章ID
+	 $.ajax({
+				type : "POST", //用POST方式传输
+				contentType: "application/json; charset=utf-8",
+				url : 'article/saveOpUpdate', //目标地址
+				data : JSON.stringify({articleId:changeArticleId,status:changeStatus}),
+				error: function(XMLHttpRequest){  
+				     alert( "Error: " + XMLHttpRequest.responseText);  
+				   }  ,
+				success : function(msg) {
+				     alert(msg.code);
+				     window.location.reload(true);
+					}
+					//发送验证返回信息
+			}); 
+	
+	 
+   };
+            
 </script>
 
 </html>
