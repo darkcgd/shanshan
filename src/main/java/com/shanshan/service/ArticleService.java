@@ -60,14 +60,20 @@ public class ArticleService {
 		ArticleBeanExample.Criteria criteria=articleBeanExample.createCriteria();
 		// 通过标题搜索文章
 		if(BaseUtil.isNotEmpty(articleBean.getTitle())){
-			criteria.andTitleLike(articleBean.getTitle());
+			criteria.andTitleLike("%" + articleBean.getTitle() + "%");
 		}
 		if(BaseUtil.isNotEmpty(articleBean.getCategoryName())){
 			criteria.andCategoryNameEqualTo(articleBean.getCategoryName());
 		}
 		if(BaseUtil.isNotEmpty(articleBean.getRelatePermissionUserType())){
-			criteria.andRelatePermissionUserTypeEqualTo(articleBean.getRelatePermissionUserType());
+			criteria.andRelatePermissionUserTypeLessThanOrEqualTo(articleBean.getRelatePermissionUserType());
 		}
+		List<Integer> status = new ArrayList<>();
+		status.add(10);
+		status.add(11);
+		criteria.andStatusIn(status);
+		criteria.andStatusEqualTo(10);
+		articleBeanExample.setOrderByClause("create_time desc");
 		return articleBeanMapper.selectByExample(articleBeanExample);
 	}
 
