@@ -16,6 +16,15 @@
 <script type="text/javascript" src="pc/js/sdmenu.js"></script>
 <script src="static/js/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">
+   $(document).ready(function(){
+	   var userName=sessionStorage.getItem("user_name");
+	   var pwd=sessionStorage.getItem("pwd_name");
+	   if(userName==null||pwd.length==null){
+		   window.location.href="pc/login.jsp";
+	   }
+   })
+</script>
+<script type="text/javascript">
 	// <![CDATA[
 	var myMenu;
 	window.onload = function() {

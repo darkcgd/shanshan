@@ -27,7 +27,15 @@
 <script src="pc/js/bootstrap-datetimepicker.zh-CN.js"></script>
 <script src="pc/js/wangEditor-fullscreen-plugin.js" type="text/javascript"
 	charset="utf-8"></script>
-
+<script type="text/javascript">
+   $(document).ready(function(){
+	   var userName=sessionStorage.getItem("user_name");
+	   var pwd=sessionStorage.getItem("pwd_name");
+	   if(userName==null||pwd.length==null){
+		   window.location.href="pc/login.jsp";
+	   }
+   })
+</script>
 <style>
 body {
 	overflow-x: hidden;
@@ -220,7 +228,7 @@ td.fenye {
 			<tr>
 				<td class="tableleft"></td>
 				<td>
-					<button id="saveInfo"  class="btn btn-primary" type="button">保存</button>
+					<button id="saveInfo"  class="btn btn-primary" type="button">修改</button>
 					&nbsp;&nbsp;
 					<button type="reset" class="btn btn-success">重置</button>
 				</td>
@@ -282,6 +290,11 @@ td.fenye {
 		   }
     	 });
     })
+    function getUrlParam(name) {
+			   var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+			   var r = window.location.search.substr(1).match(reg); //匹配目标参数
+			   if (r != null) return unescape(r[2]); return null; 
+			}//返回参数值
     $("#saveInfo").click(function(){ 
         $.ajax({
 			type : "POST", //用POST方式传输
@@ -293,7 +306,7 @@ td.fenye {
 			     alert( "Error: " + XMLHttpRequest.responseText);  
 			   }  ,
 			success : function(msg) {
-			 window.history.go(-1);
+				 window.location.href="pc\\main\\wenzhang\\article.jsp";
 				}
 				//发送验证返回信息
 		});
@@ -348,6 +361,7 @@ td.fenye {
         E.fullscreen.init('#editor');
     //json数据
        function GetJsonData() {
+        var articleId= getUrlParam('articleId');
     	var content=editor.txt.html();
     	var title=$("#title").val();
         var author=$("#author").val();
@@ -358,6 +372,7 @@ td.fenye {
         var relateActivityId=$("#IdSelect").find("option:selected").text();
         var relatePermissionUserType=$("#relatePermissionUserType").find("option:selected").val();
         var json = {
+        		articleId:articleId,
         	    title:title,
 				author:author,
 				content:content,

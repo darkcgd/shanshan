@@ -16,7 +16,15 @@
 <link href="pc/css/main.css" type="text/css" rel="stylesheet" />
 <link rel="shortcut icon" href="pc/images/main/favicon.ico" />
 <script src="static/js/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
-
+<script type="text/javascript">
+   $(document).ready(function(){
+	   var userName=sessionStorage.getItem("user_name");
+	   var pwd=sessionStorage.getItem("pwd_name");
+	   if(userName==null||pwd.length==null){
+		   window.location.href="pc/login.jsp";
+	   }
+   })
+</script>
 <style>
 body{overflow-x:hidden; background:#f2f0f5; padding:15px 0px 10px 5px;}
 #searchmain{ font-size:12px;}

@@ -27,7 +27,15 @@
 <script src="pc/js/bootstrap-datetimepicker.zh-CN.js"></script>
 <script src="pc/js/wangEditor-fullscreen-plugin.js" type="text/javascript"
 	charset="utf-8"></script>
-
+<script type="text/javascript">
+   $(document).ready(function(){
+	   var userName=sessionStorage.getItem("user_name");
+	   var pwd=sessionStorage.getItem("pwd_name");
+	   if(userName==null||pwd.length==null){
+		   window.location.href="pc/login.jsp";
+	   }
+   })
+</script>
 <style>
 body {
 	overflow-x: hidden;
@@ -239,10 +247,10 @@ td.fenye {
 			url : 'article/saveOpUpdate', //目标地址
 			data : JSON.stringify(GetJsonData()),
 			error: function(XMLHttpRequest){  
-			     alert( "Error: " + XMLHttpRequest.responseText);  
+			     //alert( "Error: " + XMLHttpRequest.responseText);  
 			   }  ,
 			success : function(msg) {
-			 window.history.go(-1);
+			 window.location.href="pc\\main\\wenzhang\\article.jsp";
 				}
 				//发送验证返回信息
 		});
