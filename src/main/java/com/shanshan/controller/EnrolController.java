@@ -74,7 +74,6 @@ public class EnrolController extends BaseController {
 		
 		String userId = UserUtils.getUserId(request);
 		
-		
 		PageHelper.startPage(pagerNumber, pagerSize);
 		List<EnrollBean> articleList = enrolService.enrollList(entity, userId);
 
