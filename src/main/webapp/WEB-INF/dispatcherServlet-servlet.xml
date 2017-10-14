@@ -53,6 +53,7 @@
 		<!-- <bean class="com.cgd.crud.interceptor.UserInterceptor"/> -->
 		<mvc:interceptor>
 			<mvc:mapping path="/user/*"/>
+			<mvc:mapping path="/enrol/*"/>
 			<!-- 定义在mvc:interceptor下面的表示是对特定的请求才进行拦截的 -->
 			<bean class="com.shanshan.interceptor.UserInterceptor"/>
 		</mvc:interceptor>

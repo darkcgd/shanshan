@@ -3,6 +3,7 @@ package com.shanshan.service;
 import java.util.Date;
 
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,16 +23,28 @@ public class EnrolService {
 	@Autowired
 	private EnrollBeanMapper enrollBeanMapper;
 
-	public JsonResult save(EnrollBean entity) {
-
-		entity.setCreateTime(new Date(System.currentTimeMillis()));
-		enrollBeanMapper.insertSelective(entity);
+	public JsonResult save(EnrollBean entity, String userId) {
+		if (entity != null && entity.getEnrollId() != null) {
+			EnrollBean enrollBean = enrollBeanMapper.selectByPrimaryKey(entity.getEnrollId());
+			if (enrollBean != null) {
+				// 更新
+				BeanUtils.copyProperties(entity, enrollBean);
+				entity.setUpdateTime(new Date(System.currentTimeMillis()));
+				enrollBeanMapper.updateByPrimaryKeySelective(enrollBean);
+			}else {
+				// 保存
+				entity.setCreateTime(new Date(System.currentTimeMillis()));
+				entity.setUpdateTime(new Date(System.currentTimeMillis()));
+				entity.setUserId(Integer.parseInt(userId));
+				enrollBeanMapper.insertSelective(entity);
+			}
+		}
 
 		JsonResult result = new JsonResult("200", "操作成功");
 		return result;
 	}
 
-	public Page<EnrollBean> enrollList(EnrollBean entity, PageRequest page) {
+	public Page<EnrollBean> enrollList(EnrollBean entity, PageRequest page, String userId) {
 		Page<EnrollBean> result = PageHelper.offsetPage(page.getStart(), page.getLimit()).doSelectPage(new ISelect() {
 			@Override
 			public void doSelect() {
@@ -44,6 +57,10 @@ public class EnrolService {
 
 				if (StringUtils.isNotBlank(entity.getUserName())) {
 					criteria.andUserNameEqualTo(entity.getUserName());
+				}
+				
+				if (StringUtils.isNotBlank(userId)) {
+					criteria.andUserIdEqualTo(Integer.parseInt(userId));
 				}
 
 				example.setOrderByClause("create_time");

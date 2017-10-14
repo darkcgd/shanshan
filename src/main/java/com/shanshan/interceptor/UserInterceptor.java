@@ -4,10 +4,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.shanshan.bean.MsgBean;
 import com.shanshan.bean.MsgSimpleBean;
 import com.shanshan.bean.TokenBean;
+import com.shanshan.common.model.UserUtils;
 import com.shanshan.service.TokenService;
 import com.shanshan.service.UserService;
 import com.shanshan.util.BaseUtil;
 import com.shanshan.util.Constant;
+
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -38,8 +41,8 @@ public class UserInterceptor implements HandlerInterceptor{
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)throws Exception {
 		String msgFail = "登录信息失效,请重新登录!";
-		String requestToken = request.getParameter(Constant.TOKEN);
-		String idStr=request.getParameter(Constant.USER_ID);
+		String requestToken = getRequestToken(request);
+		String idStr = getIdStr(request);
 
 		if(BaseUtil.isEmpty(idStr)){
 			msgFail="需要传userId参数";
@@ -53,6 +56,8 @@ public class UserInterceptor implements HandlerInterceptor{
 					if(tokenBean!=null){
 						String saveToken = tokenBean.getToken();
 						if(BaseUtil.isNotEmpty(saveToken)&&requestToken.equals(saveToken)){
+							UserUtils.setUserId(request, id);
+							UserUtils.setUserToken(request, requestToken);
 							return true;
 						}else{
 							msgFail="登录信息失效,请重新登录";
@@ -76,6 +81,22 @@ public class UserInterceptor implements HandlerInterceptor{
 		writer.print(json);
 		return false;
 
+	}
+
+	private String getIdStr(HttpServletRequest request) {
+		String idStr=request.getParameter(Constant.USER_ID);
+		if (StringUtils.isBlank(idStr)) {
+			idStr = UserUtils.getUserId(request);
+		}
+		return idStr;
+	}
+
+	private String getRequestToken(HttpServletRequest request) {
+		String requestToken = request.getParameter(Constant.TOKEN);
+		if (StringUtils.isBlank(requestToken)) {
+			requestToken = UserUtils.getUserToken(request);
+		}
+		return requestToken;
 	}
 
 	/**
