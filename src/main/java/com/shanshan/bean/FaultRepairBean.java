@@ -21,7 +21,7 @@ public class FaultRepairBean {
 
     private String contactsPhone;
 
-    private String describe;
+    private String des;
 
     private String photo1;
 
@@ -105,12 +105,12 @@ public class FaultRepairBean {
         this.contactsPhone = contactsPhone == null ? null : contactsPhone.trim();
     }
 
-    public String getDescribe() {
-        return describe;
+    public String getDes() {
+        return des;
     }
 
-    public void setDescribe(String describe) {
-        this.describe = describe == null ? null : describe.trim();
+    public void setDes(String des) {
+        this.des = des == null ? null : des.trim();
     }
 
     public String getPhoto1() {
