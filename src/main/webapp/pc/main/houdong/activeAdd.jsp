@@ -164,51 +164,45 @@ td.fenye {
 </head>
 <body>
 	<form>
-		<table class="table table-bordered table-hover definewidth m10">
-                <input type="hidden" name="aticleId" value="" />
+		<table class="table table-bordered table-hover definewidth m10">           
 			<tr>			
 				<td width="10%" class="tableleft">标题</td>
 				<td><input type="text" id="title" value="" style="width:30%"/></td>			
 			</tr>
 			<tr>
-				<td width="10%" class="tableleft">作者</td>
+				<td width="10%" class="tableleft">发布者</td>
 				<td><input type="text" id="author" value="" /></td>			
 			</tr>
 			<tr>
-				<td width="10%" class="tableleft">分类名称</td>
-				<td>
-			        <select   id="bigClass">
-			           <option>加工应用<option>
-				       <option>维修保养<option>
-				       <option>其他<option>	
-			        </select>
-			        <select   id="smallClass"></select>
+				<td width="10%" class="tableleft">是否置顶</td>
+				<td id="tagId">
+				  是&nbsp;&nbsp;<input type="radio" name="tagId"  value="1" checked="checked"/>
+				  否&nbsp;&nbsp;<input type="radio" name="tagId"  value="0" />
 				</td>			
 			</tr>
 			<tr>
-				<td width="10%" class="tableleft">推荐/头条</td>
-				<td><select id="tagId">
-				     <option value="1">推荐<option>
-				     <option value="2">头条<option>
-				</select></td>			
-			</tr>
-			<tr>
-				<td class="tableleft">开始时间</td>
+				<td class="tableleft">活动开始时间</td>
 				<td><input type="text" value="" class="date" id="startTime"/></td>				
 			</tr>
 			<tr>
-				<td class="tableleft">结束时间</td>
+				<td class="tableleft">活动结束时间</td>
 				<td><input type="text" value="" class="date" id="endTime"/></td>					
 			</tr>
 		    <tr>
-				<td class="tableleft">是否有相关活动报名</td>
-				<td><select id="relateActivityId">
-				     <option value="1">是<option>
-				     <option value="0">否<option>					     		     
-				</select>
-				活动ID:<select id="IdSelect">				     		     
-				</select></td>	
-						
+				<td class="tableleft">需要提交的报名信息</td>
+				<td id="joinActiveInfo">
+				    <input type="checkbox"  id="joinActiveInfoAll" onclick="chkAll(this)"  />&nbsp;&nbsp;全选<br/>
+				    <input type="checkbox" name="Info[]" value=""  id="isNeedCompany"/>&nbsp;&nbsp;公司信息<br/>
+				    <input type="checkbox" name="Info[]" value=""  id="isNeedUserName"/>&nbsp;&nbsp;姓名<br/>
+				    <input type="checkbox" name="Info[]" value=""  id="isNeedPhone"/>&nbsp;&nbsp;手机号<br/>
+				    <input type="checkbox" name="Info[]" value=""  id="isNeedPositionName"/>&nbsp;&nbsp;职位<br/>
+				    <input type="checkbox" name="Info[]" value=""  id="isNeedDepartmentName"/>&nbsp;&nbsp;部门<br/>
+				    <input type="checkbox" name="Info[]" value=""  id="isNeedFreeLunch"/>&nbsp;&nbsp;是否需要免费午餐<br/>
+				    <input type="checkbox" name="Info[]" value=""  id="isNeedProvideAccommodation"/>&nbsp;&nbsp;是否需要提供住宿<br/>
+				    <input type="checkbox" name="Info[]" value=""  id=isNeedJoinDate/>&nbsp;&nbsp;参加活动日期<br/>	
+				    <input type="checkbox" name="Info[]" value=""  id="isNeedSource"/>&nbsp;&nbsp;活动信息来源<br/>
+				    <input type="checkbox" name="Info[]" value=""  id="isNeedPhoto"/>&nbsp;&nbsp;照片<br/>			
+				</td>							
 			</tr>	
 			<tr>
 				<td class="tableleft">用户等级可看</td>
@@ -219,7 +213,7 @@ td.fenye {
 				</select></td>
 			</tr>
 			<tr>
-				<td class="tableleft">内容</td>
+				<td class="tableleft">活动内容</td>
 				<td> 
 				 <div id="editor">			       
 			     </div> 
@@ -244,56 +238,25 @@ td.fenye {
 			type : "POST", //用POST方式传输
 			contentType: "application/json; charset=utf-8", //数据格式:JSON
 			type:"json", //数据格式:JSON
-			url : 'article/saveOpUpdate', //目标地址
+			url : 'activity/saveOpUpdate', //目标地址
 			data : JSON.stringify(GetJsonData()),
 			error: function(XMLHttpRequest){  
 			     //alert( "Error: " + XMLHttpRequest.responseText);  
 			   }  ,
 			success : function(msg) {
-			 window.location.href="pc\\main\\wenzhang\\article.jsp";
+			 window.location.href="pc//main//houdong//activeList.jsp";
 				}
 				//发送验证返回信息
 		});
     });
-    //相关活动报名
-    $("#relateActivityId option").click(function(){	
-    	var relateActivityId=$("#relateActivityId").find("option:selected").val();
-    	if(relateActivityId==1){
-    		$.ajax({
-    			type : "GET", //用POST方式传输
-    			type:"json", //数据格式:JSON
-    			url : 'activity/activityList', //目标地址
-    			success : function(msg) {    				
-    				var datas=msg.data.list; 
-    				$("#IdSelect").html("");
-	    				for(var i in datas){
-	    					$("#IdSelect").append("<option>"+datas[i].activityId+"</option>");
-	    				}
-    				}
-    				//发送验证返回信息
-    		});
-    	}
-    	if(relateActivityId!=1){
-    		$("#IdSelect").html("");
-    	}
-    });
-   //分类选择
-    $("#bigClass option").click(function(){	
-    	  if($(this).text()=="加工应用"){
-    	    	$("#smallClass").html("");
-    	    	$("#smallClass").append("<option>加工中心</option>"+
-    	    			                "<option>车削中心</option>"+
-    	    			                "<option>其他机床</option>"+
-    	    			                "<option>其他</option>");
-    	    	}
-    	    	if($(this).text()=="维修保养"){ 	    		
-    	    		$("#smallClass").html("");
-    	    		$("#smallClass").append("<option>加工中心</option>"+
-                                          "<option>车削中心</option>");
-    	    	}if($(this).text().length==13||$(this).text()=="其他"||$(this).text().length==12){
-    	    		$("#smallClass").html("");
-    	    	}
-      });
+    //提交活动信息复选框全选功能
+     
+  function chkAll(obj){
+	var objs = document.getElementsByName('Info[]');
+    for (var i = objs.length - 1; i >= 0; i--) {
+      objs[i].checked = obj.checked;
+    };
+  }
     //符文本编辑器设置
     var E = window.wangEditor
     var editor = new E('#editor')
