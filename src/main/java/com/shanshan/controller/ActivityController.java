@@ -3,8 +3,12 @@ package com.shanshan.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -71,6 +75,22 @@ public class ActivityController extends BaseController {
 		ActivityBean data = activityService.activityDetail(entity);
 		result.setData(data);
 		return result;
+	}
+	
+	/**
+	 * 保存活动;如果是删除就传id和states=13
+	 * 
+	 * @return
+	 */
+	@RequestMapping("/saveOpUpdate")
+	@ResponseBody
+	public JsonResult saveOpUpdate(@Valid @RequestBody ActivityBean entity, BindingResult errors) {
+		// 参数验证
+		if (errors.hasErrors()) {
+			return new JsonResult("500", "参数校验失败");
+		}
+
+		return activityService.saveOrUpdate(entity);
 	}
 	
 }
