@@ -174,7 +174,8 @@ public class UserController extends BaseController{
 				if(BaseUtil.isEmpty(userType)||userType!=4){//不是客服人员
 					return MsgSimpleBean.fail("该账号不是客服账号,无法进行该操作");
 				}
-				String token = tokenService.generateToken(userByName.getUserId(),1);
+				//String token = tokenService.generateToken(userByName.getUserId(),1);
+				String token = tokenService.generateToken(userByName.getUserId(),0);
 
 				userByName.setLastLoginTime(new Date());
 				userService.updateUserInfo(userByName);//更新最后登录时间
