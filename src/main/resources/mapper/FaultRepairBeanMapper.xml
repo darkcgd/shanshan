@@ -11,7 +11,7 @@
     <result column="Machine tool_SN" jdbcType="VARCHAR" property="machineToolSn" />
     <result column="contacts_name" jdbcType="VARCHAR" property="contactsName" />
     <result column="contacts_phone" jdbcType="VARCHAR" property="contactsPhone" />
-    <result column="describe" jdbcType="VARCHAR" property="describe" />
+    <result column="des" jdbcType="VARCHAR" property="des" />
     <result column="photo1" jdbcType="VARCHAR" property="photo1" />
     <result column="photo2" jdbcType="VARCHAR" property="photo2" />
     <result column="photo3" jdbcType="VARCHAR" property="photo3" />
@@ -78,8 +78,8 @@
   </sql>
   <sql id="Base_Column_List">
     repair_id, create_time, update_time, remark, machine_tool_brand, "Machine tool_model", 
-    "Machine tool_SN", contacts_name, contacts_phone, describe, photo1, photo2, photo3, 
-    photo4, user_id
+    "Machine tool_SN", contacts_name, contacts_phone, des, photo1, photo2, photo3, photo4, 
+    user_id
   </sql>
   <select id="selectByExample" parameterType="com.shanshan.bean.FaultRepairBeanExample" resultMap="BaseResultMap">
     select
@@ -115,13 +115,13 @@
     insert into tbl_fault_repair (repair_id, create_time, update_time, 
       remark, machine_tool_brand, "Machine tool_model", 
       "Machine tool_SN", contacts_name, contacts_phone, 
-      describe, photo1, photo2, 
+      des, photo1, photo2, 
       photo3, photo4, user_id
       )
     values (#{repairId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
       #{remark,jdbcType=VARCHAR}, #{machineToolBrand,jdbcType=VARCHAR}, #{machineToolModel,jdbcType=VARCHAR}, 
       #{machineToolSn,jdbcType=VARCHAR}, #{contactsName,jdbcType=VARCHAR}, #{contactsPhone,jdbcType=VARCHAR}, 
-      #{describe,jdbcType=VARCHAR}, #{photo1,jdbcType=VARCHAR}, #{photo2,jdbcType=VARCHAR}, 
+      #{des,jdbcType=VARCHAR}, #{photo1,jdbcType=VARCHAR}, #{photo2,jdbcType=VARCHAR}, 
       #{photo3,jdbcType=VARCHAR}, #{photo4,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}
       )
   </insert>
@@ -155,8 +155,8 @@
       <if test="contactsPhone != null">
         contacts_phone,
       </if>
-      <if test="describe != null">
-        describe,
+      <if test="des != null">
+        des,
       </if>
       <if test="photo1 != null">
         photo1,
@@ -202,8 +202,8 @@
       <if test="contactsPhone != null">
         #{contactsPhone,jdbcType=VARCHAR},
       </if>
-      <if test="describe != null">
-        #{describe,jdbcType=VARCHAR},
+      <if test="des != null">
+        #{des,jdbcType=VARCHAR},
       </if>
       <if test="photo1 != null">
         #{photo1,jdbcType=VARCHAR},
@@ -258,8 +258,8 @@
       <if test="record.contactsPhone != null">
         contacts_phone = #{record.contactsPhone,jdbcType=VARCHAR},
       </if>
-      <if test="record.describe != null">
-        describe = #{record.describe,jdbcType=VARCHAR},
+      <if test="record.des != null">
+        des = #{record.des,jdbcType=VARCHAR},
       </if>
       <if test="record.photo1 != null">
         photo1 = #{record.photo1,jdbcType=VARCHAR},
@@ -292,7 +292,7 @@
       "Machine tool_SN" = #{record.machineToolSn,jdbcType=VARCHAR},
       contacts_name = #{record.contactsName,jdbcType=VARCHAR},
       contacts_phone = #{record.contactsPhone,jdbcType=VARCHAR},
-      describe = #{record.describe,jdbcType=VARCHAR},
+      des = #{record.des,jdbcType=VARCHAR},
       photo1 = #{record.photo1,jdbcType=VARCHAR},
       photo2 = #{record.photo2,jdbcType=VARCHAR},
       photo3 = #{record.photo3,jdbcType=VARCHAR},
@@ -329,8 +329,8 @@
       <if test="contactsPhone != null">
         contacts_phone = #{contactsPhone,jdbcType=VARCHAR},
       </if>
-      <if test="describe != null">
-        describe = #{describe,jdbcType=VARCHAR},
+      <if test="des != null">
+        des = #{des,jdbcType=VARCHAR},
       </if>
       <if test="photo1 != null">
         photo1 = #{photo1,jdbcType=VARCHAR},
@@ -360,7 +360,7 @@
       "Machine tool_SN" = #{machineToolSn,jdbcType=VARCHAR},
       contacts_name = #{contactsName,jdbcType=VARCHAR},
       contacts_phone = #{contactsPhone,jdbcType=VARCHAR},
-      describe = #{describe,jdbcType=VARCHAR},
+      des = #{des,jdbcType=VARCHAR},
       photo1 = #{photo1,jdbcType=VARCHAR},
       photo2 = #{photo2,jdbcType=VARCHAR},
       photo3 = #{photo3,jdbcType=VARCHAR},
