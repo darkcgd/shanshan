@@ -21,7 +21,7 @@ public class FaultRepairBean {
 
     private String contactsPhone;
 
-    private String describe;
+    private String des;
 
     private String photo1;
 
@@ -30,6 +30,8 @@ public class FaultRepairBean {
     private String photo3;
 
     private String photo4;
+
+    private Integer userId;
 
     public Integer getRepairId() {
         return repairId;
@@ -103,12 +105,12 @@ public class FaultRepairBean {
         this.contactsPhone = contactsPhone == null ? null : contactsPhone.trim();
     }
 
-    public String getDescribe() {
-        return describe;
+    public String getDes() {
+        return des;
     }
 
-    public void setDescribe(String describe) {
-        this.describe = describe == null ? null : describe.trim();
+    public void setDes(String des) {
+        this.des = des == null ? null : des.trim();
     }
 
     public String getPhoto1() {
@@ -141,5 +143,13 @@ public class FaultRepairBean {
 
     public void setPhoto4(String photo4) {
         this.photo4 = photo4 == null ? null : photo4.trim();
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 }
