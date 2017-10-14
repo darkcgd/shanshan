@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50631
 File Encoding         : 65001
 
-Date: 2017-10-11 00:00:07
+Date: 2017-10-15 00:16:15
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -244,7 +244,7 @@ CREATE TABLE `tbl_fault_repair` (
   `Machine tool_SN` varchar(255) DEFAULT NULL,
   `contacts_name` varchar(255) DEFAULT NULL,
   `contacts_phone` varchar(255) DEFAULT NULL,
-  `describe` varchar(255) DEFAULT NULL,
+  `des` varchar(255) DEFAULT NULL,
   `photo1` varchar(255) DEFAULT NULL,
   `photo2` varchar(255) DEFAULT NULL,
   `photo3` varchar(255) DEFAULT NULL,
@@ -292,7 +292,6 @@ CREATE TABLE `tbl_sms_code` (
 -- ----------------------------
 -- Records of tbl_sms_code
 -- ----------------------------
-INSERT INTO `tbl_sms_code` VALUES ('18', '13600055457', '698352', '2017-10-07 08:42:30', '2017-10-07 08:42:30', '2017-10-07 08:52:30', null);
 
 -- ----------------------------
 -- Table structure for `tbl_tag`
@@ -358,7 +357,7 @@ CREATE TABLE `tbl_token` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) DEFAULT NULL,
   `user_type` int(11) DEFAULT NULL COMMENT '0代表普通用户 1代表商家',
-  `platform_type` int(11) DEFAULT NULL,
+  `platform_type` int(11) DEFAULT NULL COMMENT '0代表手机端 1代表PC端(目前只有客服能用PC端)',
   `token` varchar(255) DEFAULT NULL,
   `create_time` datetime DEFAULT NULL,
   `expire_time` datetime DEFAULT NULL,
@@ -371,9 +370,9 @@ CREATE TABLE `tbl_token` (
 INSERT INTO `tbl_token` VALUES ('16', '61', null, '0', 'DA2D4C9955DDEF9A838B58097397137C', '2017-10-07 08:21:49', '2017-10-14 08:21:49');
 INSERT INTO `tbl_token` VALUES ('17', '61', null, '1', '026561821E2E9BD6079D8877B9FE6CC9', '2017-09-29 17:41:38', '2017-10-06 17:41:38');
 INSERT INTO `tbl_token` VALUES ('18', '63', null, '0', '59BA011B900B2C5F7FC331D4DC14BA14', '2017-10-07 08:26:33', '2017-10-14 08:26:33');
-INSERT INTO `tbl_token` VALUES ('19', '64', null, '0', '38888E1FC16E3B18534E2F88B845348F', '2017-10-07 08:27:40', '2017-10-14 08:27:40');
+INSERT INTO `tbl_token` VALUES ('19', '64', null, '0', 'A17E1BEE0C42C765ED402382E7912955', '2017-10-11 21:03:36', '2017-10-18 21:03:36');
 INSERT INTO `tbl_token` VALUES ('20', '65', null, '0', '28B021D1FE4C38B3C0BF98E5BBB4D6B2', '2017-10-07 08:43:42', '2017-10-14 08:43:42');
-INSERT INTO `tbl_token` VALUES ('21', '62', null, '1', 'A1BEBE522C4AD49CB4AE96CB5CCB5002', '2017-10-08 00:00:50', '2017-10-15 00:00:50');
+INSERT INTO `tbl_token` VALUES ('21', '62', null, '1', '5D06972DA90F5BE517094392476456D7', '2017-10-14 00:17:03', '2017-10-21 00:17:03');
 
 -- ----------------------------
 -- Table structure for `tbl_training_course`
@@ -446,12 +445,13 @@ CREATE TABLE `tbl_user` (
   `equipment_type` varchar(255) DEFAULT NULL COMMENT '设备类型',
   `industry` varchar(255) DEFAULT NULL COMMENT '行业',
   `status` int(11) DEFAULT NULL COMMENT '1待审核 2已审核',
+  `is_shanshan_user` int(11) DEFAULT NULL,
   PRIMARY KEY (`user_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=66 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of tbl_user
 -- ----------------------------
-INSERT INTO `tbl_user` VALUES ('64', '大哥你家乡有400斤鸭吗', null, null, null, null, null, '13600055457', null, null, null, '2017-10-07 08:27:35', '2017-10-07 08:27:35', '2017-10-07 08:27:35', '1', null, null, null, null, null, null, '广东快乐十分', null, null, null, null, null, null, null);
-INSERT INTO `tbl_user` VALUES ('62', 'cgd', null, null, null, '123456', null, '13600055456', null, null, null, '2017-09-28 14:19:04', '2017-09-29 10:08:04', '2017-10-08 00:00:50', '4', null, null, null, null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `tbl_user` VALUES ('65', 'Daerk', null, null, null, null, null, '13600055458', null, null, null, '2017-10-07 08:43:42', '2017-10-07 08:43:42', '2017-10-07 08:43:42', '1', null, null, null, null, null, null, '化州市', null, null, null, null, null, null, null);
+INSERT INTO `tbl_user` VALUES ('64', '大哥你家乡有400斤鸭吗', null, null, null, null, null, '13600055457', null, null, null, '2017-10-07 08:27:35', '2017-10-07 08:27:35', '2017-10-11 21:03:36', '1', null, null, null, null, null, null, '广东快乐十分', null, null, null, null, null, '', null, null);
+INSERT INTO `tbl_user` VALUES ('62', 'cgd', null, null, null, '123456', null, '13600055456', null, null, null, '2017-09-28 14:19:04', '2017-09-29 10:08:04', '2017-10-14 00:17:03', '4', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `tbl_user` VALUES ('65', 'Daerk', null, null, null, null, null, '13600055458', null, null, null, '2017-10-07 08:43:42', '2017-10-07 08:43:42', '2017-10-07 08:43:42', '1', null, null, null, null, null, null, '化州市', null, null, null, null, null, '行业粉', null, null);
