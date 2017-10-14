@@ -88,7 +88,7 @@ body {
 	display: inline;
 }
 
-#search a.add {
+#customTime a.add {
 	background: url(pc/images/main/add.jpg) no-repeat -3px 7px #548fc9;
 	padding: 0 10px 0 26px;
 	height: 40px;
@@ -96,7 +96,7 @@ body {
 	font-size: 14px;
 	font-weight: bold;
 	color: #FFF;
-	float: right
+	float: left;
 }
 
 #search a:hover.add {
@@ -188,6 +188,12 @@ td.fenye {
 				<td class="tableleft">活动结束时间</td>
 				<td><input type="text" value="" class="date" id="endTime"/></td>					
 			</tr>
+			<tr>
+				<td class="tableleft">活动场次(时间+场次)</td>
+				<td id="customTime"><a onclick="addcustomTime();" target="mainFrame" onFocus="this.blur()" class="add">添加活动场次</a>
+				    <input style="display:none;width:35%;margin-top:10px;margin-left:20px;" type="text" id="AllcustomTime" value=""/>
+				</td>					
+			</tr>
 		    <tr>
 				<td class="tableleft">需要提交的报名信息</td>
 				<td id="joinActiveInfo">
@@ -249,14 +255,17 @@ td.fenye {
 				//发送验证返回信息
 		});
     });
-    //提交活动信息复选框全选功能
-     
+    //提交活动信息复选框全选功能    
   function chkAll(obj){
 	var objs = document.getElementsByName('Info[]');
     for (var i = objs.length - 1; i >= 0; i--) {
       objs[i].checked = obj.checked;
     };
   }
+    //添加活动场次功能
+    function addcustomTime(){
+    	$("#AllcustomTime").show();
+    }
     //符文本编辑器设置
     var E = window.wangEditor
     var editor = new E('#editor')
@@ -266,8 +275,7 @@ td.fenye {
         editor.customConfig.uploadImgMaxLength = 5;     
         editor.create();
         E.fullscreen.init('#editor');
-    function GetJsonData() {
-    	var content=editor.txt.html();
+    function GetJsonData() {   	
     	var title=$("#title").val();
         var author=$("#author").val();
         var categoryName=$("#smallClass").find("option:selected").text();
@@ -276,6 +284,7 @@ td.fenye {
         var endTime=$("#endTime").val();
         var relateActivityId=$("#IdSelect").find("option:selected").text();
         var relatePermissionUserType=$("#relatePermissionUserType").find("option:selected").val();
+        var content=editor.txt.html();
         var json = {
         	    title:title,
 				author:author,
