@@ -16,6 +16,7 @@
     <result column="photo2" jdbcType="VARCHAR" property="photo2" />
     <result column="photo3" jdbcType="VARCHAR" property="photo3" />
     <result column="photo4" jdbcType="VARCHAR" property="photo4" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -78,7 +79,7 @@
   <sql id="Base_Column_List">
     repair_id, create_time, update_time, remark, machine_tool_brand, "Machine tool_model", 
     "Machine tool_SN", contacts_name, contacts_phone, describe, photo1, photo2, photo3, 
-    photo4
+    photo4, user_id
   </sql>
   <select id="selectByExample" parameterType="com.shanshan.bean.FaultRepairBeanExample" resultMap="BaseResultMap">
     select
@@ -115,12 +116,14 @@
       remark, machine_tool_brand, "Machine tool_model", 
       "Machine tool_SN", contacts_name, contacts_phone, 
       describe, photo1, photo2, 
-      photo3, photo4)
+      photo3, photo4, user_id
+      )
     values (#{repairId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
       #{remark,jdbcType=VARCHAR}, #{machineToolBrand,jdbcType=VARCHAR}, #{machineToolModel,jdbcType=VARCHAR}, 
       #{machineToolSn,jdbcType=VARCHAR}, #{contactsName,jdbcType=VARCHAR}, #{contactsPhone,jdbcType=VARCHAR}, 
       #{describe,jdbcType=VARCHAR}, #{photo1,jdbcType=VARCHAR}, #{photo2,jdbcType=VARCHAR}, 
-      #{photo3,jdbcType=VARCHAR}, #{photo4,jdbcType=VARCHAR})
+      #{photo3,jdbcType=VARCHAR}, #{photo4,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.shanshan.bean.FaultRepairBean">
     insert into tbl_fault_repair
@@ -167,6 +170,9 @@
       <if test="photo4 != null">
         photo4,
       </if>
+      <if test="userId != null">
+        user_id,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="repairId != null">
@@ -210,6 +216,9 @@
       </if>
       <if test="photo4 != null">
         #{photo4,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -264,6 +273,9 @@
       <if test="record.photo4 != null">
         photo4 = #{record.photo4,jdbcType=VARCHAR},
       </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -284,7 +296,8 @@
       photo1 = #{record.photo1,jdbcType=VARCHAR},
       photo2 = #{record.photo2,jdbcType=VARCHAR},
       photo3 = #{record.photo3,jdbcType=VARCHAR},
-      photo4 = #{record.photo4,jdbcType=VARCHAR}
+      photo4 = #{record.photo4,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -331,6 +344,9 @@
       <if test="photo4 != null">
         photo4 = #{photo4,jdbcType=VARCHAR},
       </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
     </set>
     where repair_id = #{repairId,jdbcType=INTEGER}
   </update>
@@ -348,7 +364,8 @@
       photo1 = #{photo1,jdbcType=VARCHAR},
       photo2 = #{photo2,jdbcType=VARCHAR},
       photo3 = #{photo3,jdbcType=VARCHAR},
-      photo4 = #{photo4,jdbcType=VARCHAR}
+      photo4 = #{photo4,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=INTEGER}
     where repair_id = #{repairId,jdbcType=INTEGER}
   </update>
 </mapper>

@@ -31,6 +31,8 @@ public class FaultRepairBean {
 
     private String photo4;
 
+    private Integer userId;
+
     public Integer getRepairId() {
         return repairId;
     }
@@ -141,5 +143,13 @@ public class FaultRepairBean {
 
     public void setPhoto4(String photo4) {
         this.photo4 = photo4 == null ? null : photo4.trim();
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 }
