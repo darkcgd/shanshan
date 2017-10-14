@@ -1,6 +1,7 @@
 package com.shanshan.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -9,16 +10,24 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.shanshan.base.BaseController;
+import com.shanshan.bean.ActivityBean;
 import com.shanshan.bean.EnrollBean;
+import com.shanshan.bean.MsgBean;
 import com.shanshan.common.model.JsonDataResult;
 import com.shanshan.common.model.JsonResult;
 import com.shanshan.common.model.PageRequest;
 import com.shanshan.common.model.UserUtils;
 import com.shanshan.service.EnrolService;
+import com.shanshan.util.Constant;
 
 /**
  * 培训报名
@@ -27,7 +36,7 @@ import com.shanshan.service.EnrolService;
  */
 @Controller
 @RequestMapping( "/enrol" )
-public class EnrolController {
+public class EnrolController extends BaseController {
 
 	@Autowired
 	private EnrolService enrolService;
@@ -40,7 +49,7 @@ public class EnrolController {
 	 */
 	@RequestMapping("/saveOrupdate")
 	@ResponseBody
-	public JsonResult saveOrupdate( @Valid EnrollBean entity, BindingResult errors, HttpServletRequest request) {
+	public JsonResult saveOrupdate( @Valid @RequestBody EnrollBean entity, BindingResult errors, HttpServletRequest request) {
 		
 		String userId = UserUtils.getUserId(request);
 		// 参数验证
@@ -58,14 +67,24 @@ public class EnrolController {
 	 */
 	@RequestMapping("/enrollList")
 	@ResponseBody
-	public JsonResult enrollList(EnrollBean entity, PageRequest page, HttpServletRequest request) {
+	public Object enrollList(EnrollBean entity,
+			@RequestParam(value = "pagerNumber", defaultValue = "" + Constant.DefaultPagerNumber) Integer pagerNumber,
+			@RequestParam(value = "pagerSize", defaultValue = "" + Constant.DefaultPagerSize) Integer pagerSize, 
+			HttpServletRequest request) {
 		
 		String userId = UserUtils.getUserId(request);
 		
-		JsonDataResult<List<EnrollBean>> result = new JsonDataResult<>();
-		Page<EnrollBean> datas = enrolService.enrollList(entity, page, userId);
-		result.setData(datas);
-		return result;
+		
+		PageHelper.startPage(pagerNumber, pagerSize);
+		List<EnrollBean> articleList = enrolService.enrollList(entity, userId);
+
+		MsgBean msg = MsgBean.success("获取成功");
+		Map<String, Object> data = msg.getData();
+
+		handlerPageInfoAdmin(data, new PageInfo(articleList, pagerSize));
+
+		data.put("list", articleList);
+		return msg;
 		
 	}
 	

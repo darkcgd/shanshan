@@ -1,20 +1,17 @@
 package com.shanshan.service;
 
 import java.util.Date;
+import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.github.pagehelper.ISelect;
-import com.github.pagehelper.Page;
-import com.github.pagehelper.PageHelper;
 import com.shanshan.bean.EnrollBean;
 import com.shanshan.bean.EnrollBeanExample;
 import com.shanshan.bean.EnrollBeanExample.Criteria;
 import com.shanshan.common.model.JsonResult;
-import com.shanshan.common.model.PageRequest;
 import com.shanshan.dao.EnrollBeanMapper;
 
 @Service
@@ -24,7 +21,7 @@ public class EnrolService {
 	private EnrollBeanMapper enrollBeanMapper;
 
 	public JsonResult save(EnrollBean entity, String userId) {
-		if (entity != null && entity.getEnrollId() != null) {
+		if (entity != null) {
 			EnrollBean enrollBean = enrollBeanMapper.selectByPrimaryKey(entity.getEnrollId());
 			if (enrollBean != null) {
 				// 更新
@@ -44,30 +41,24 @@ public class EnrolService {
 		return result;
 	}
 
-	public Page<EnrollBean> enrollList(EnrollBean entity, PageRequest page, String userId) {
-		Page<EnrollBean> result = PageHelper.offsetPage(page.getStart(), page.getLimit()).doSelectPage(new ISelect() {
-			@Override
-			public void doSelect() {
-				EnrollBeanExample example = new EnrollBeanExample();
-				Criteria criteria = example.createCriteria();
+	public List<EnrollBean> enrollList(EnrollBean entity, String userId) {
+		EnrollBeanExample example = new EnrollBeanExample();
+		Criteria criteria = example.createCriteria();
 
-				if (StringUtils.isNotBlank(entity.getPhone())) {
+		if (StringUtils.isNotBlank(entity.getPhone())) {
 
-				}
+		}
 
-				if (StringUtils.isNotBlank(entity.getUserName())) {
-					criteria.andUserNameEqualTo(entity.getUserName());
-				}
-				
-				if (StringUtils.isNotBlank(userId)) {
-					criteria.andUserIdEqualTo(Integer.parseInt(userId));
-				}
+		if (StringUtils.isNotBlank(entity.getUserName())) {
+			criteria.andUserNameEqualTo(entity.getUserName());
+		}
+		
+		if (StringUtils.isNotBlank(userId)) {
+			criteria.andUserIdEqualTo(Integer.parseInt(userId));
+		}
 
-				example.setOrderByClause("create_time");
-				enrollBeanMapper.selectByExample(example);
-			}
-		});
-		return result;
+		example.setOrderByClause("create_time");
+		return	enrollBeanMapper.selectByExample(example);
 	}
 
 }
