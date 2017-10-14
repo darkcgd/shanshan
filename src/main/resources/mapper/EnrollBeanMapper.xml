@@ -17,7 +17,7 @@
     <result column="department_name" jdbcType="VARCHAR" property="departmentName" />
     <result column="free_lunch" jdbcType="INTEGER" property="freeLunch" />
     <result column="provide_accommodation" jdbcType="INTEGER" property="provideAccommodation" />
-    <result column="join_date" jdbcType="TIMESTAMP" property="joinDate" />
+    <result column="join_date" jdbcType="VARCHAR" property="joinDate" />
     <result column="source" jdbcType="VARCHAR" property="source" />
     <result column="photo1" jdbcType="VARCHAR" property="photo1" />
     <result column="photo2" jdbcType="VARCHAR" property="photo2" />
@@ -132,7 +132,7 @@
       #{company,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
       #{companyAddress,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{positionName,jdbcType=VARCHAR}, 
       #{departmentName,jdbcType=VARCHAR}, #{freeLunch,jdbcType=INTEGER}, #{provideAccommodation,jdbcType=INTEGER}, 
-      #{joinDate,jdbcType=TIMESTAMP}, #{source,jdbcType=VARCHAR}, #{photo1,jdbcType=VARCHAR}, 
+      #{joinDate,jdbcType=VARCHAR}, #{source,jdbcType=VARCHAR}, #{photo1,jdbcType=VARCHAR}, 
       #{photo2,jdbcType=VARCHAR}, #{photo3,jdbcType=VARCHAR}, #{photo4,jdbcType=VARCHAR}, 
       #{userId,jdbcType=INTEGER})
   </insert>
@@ -253,7 +253,7 @@
         #{provideAccommodation,jdbcType=INTEGER},
       </if>
       <if test="joinDate != null">
-        #{joinDate,jdbcType=TIMESTAMP},
+        #{joinDate,jdbcType=VARCHAR},
       </if>
       <if test="source != null">
         #{source,jdbcType=VARCHAR},
@@ -330,7 +330,7 @@
         provide_accommodation = #{record.provideAccommodation,jdbcType=INTEGER},
       </if>
       <if test="record.joinDate != null">
-        join_date = #{record.joinDate,jdbcType=TIMESTAMP},
+        join_date = #{record.joinDate,jdbcType=VARCHAR},
       </if>
       <if test="record.source != null">
         source = #{record.source,jdbcType=VARCHAR},
@@ -372,7 +372,7 @@
       department_name = #{record.departmentName,jdbcType=VARCHAR},
       free_lunch = #{record.freeLunch,jdbcType=INTEGER},
       provide_accommodation = #{record.provideAccommodation,jdbcType=INTEGER},
-      join_date = #{record.joinDate,jdbcType=TIMESTAMP},
+      join_date = #{record.joinDate,jdbcType=VARCHAR},
       source = #{record.source,jdbcType=VARCHAR},
       photo1 = #{record.photo1,jdbcType=VARCHAR},
       photo2 = #{record.photo2,jdbcType=VARCHAR},
@@ -429,7 +429,7 @@
         provide_accommodation = #{provideAccommodation,jdbcType=INTEGER},
       </if>
       <if test="joinDate != null">
-        join_date = #{joinDate,jdbcType=TIMESTAMP},
+        join_date = #{joinDate,jdbcType=VARCHAR},
       </if>
       <if test="source != null">
         source = #{source,jdbcType=VARCHAR},
@@ -468,7 +468,7 @@
       department_name = #{departmentName,jdbcType=VARCHAR},
       free_lunch = #{freeLunch,jdbcType=INTEGER},
       provide_accommodation = #{provideAccommodation,jdbcType=INTEGER},
-      join_date = #{joinDate,jdbcType=TIMESTAMP},
+      join_date = #{joinDate,jdbcType=VARCHAR},
       source = #{source,jdbcType=VARCHAR},
       photo1 = #{photo1,jdbcType=VARCHAR},
       photo2 = #{photo2,jdbcType=VARCHAR},

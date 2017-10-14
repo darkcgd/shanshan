@@ -2,10 +2,6 @@ package com.shanshan.bean;
 
 import java.util.Date;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 public class ActivityBean {
     private Integer activityId;
 
@@ -23,12 +19,8 @@ public class ActivityBean {
 
     private Integer readCount;
 
-    @DateTimeFormat(pattern="yyyy-MM-dd")
-	@JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     private Date createTime;
 
-    @DateTimeFormat(pattern="yyyy-MM-dd")
-	@JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     private Date updateTime;
 
     private String remark;
@@ -57,13 +49,17 @@ public class ActivityBean {
 
     private Integer isNeedPhoto;
 
-    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date startTime;
 
-    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date endTime;
+
+    private String customTime1;
+
+    private String customTime2;
+
+    private String customTime3;
+
+    private String customTime4;
 
     public Integer getActivityId() {
         return activityId;
@@ -263,5 +259,37 @@ public class ActivityBean {
 
     public void setEndTime(Date endTime) {
         this.endTime = endTime;
+    }
+
+    public String getCustomTime1() {
+        return customTime1;
+    }
+
+    public void setCustomTime1(String customTime1) {
+        this.customTime1 = customTime1 == null ? null : customTime1.trim();
+    }
+
+    public String getCustomTime2() {
+        return customTime2;
+    }
+
+    public void setCustomTime2(String customTime2) {
+        this.customTime2 = customTime2 == null ? null : customTime2.trim();
+    }
+
+    public String getCustomTime3() {
+        return customTime3;
+    }
+
+    public void setCustomTime3(String customTime3) {
+        this.customTime3 = customTime3 == null ? null : customTime3.trim();
+    }
+
+    public String getCustomTime4() {
+        return customTime4;
+    }
+
+    public void setCustomTime4(String customTime4) {
+        this.customTime4 = customTime4 == null ? null : customTime4.trim();
     }
 }

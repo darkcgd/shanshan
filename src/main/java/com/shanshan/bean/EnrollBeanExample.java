@@ -1095,52 +1095,62 @@ public class EnrollBeanExample {
             return (Criteria) this;
         }
 
-        public Criteria andJoinDateEqualTo(Date value) {
+        public Criteria andJoinDateEqualTo(String value) {
             addCriterion("join_date =", value, "joinDate");
             return (Criteria) this;
         }
 
-        public Criteria andJoinDateNotEqualTo(Date value) {
+        public Criteria andJoinDateNotEqualTo(String value) {
             addCriterion("join_date <>", value, "joinDate");
             return (Criteria) this;
         }
 
-        public Criteria andJoinDateGreaterThan(Date value) {
+        public Criteria andJoinDateGreaterThan(String value) {
             addCriterion("join_date >", value, "joinDate");
             return (Criteria) this;
         }
 
-        public Criteria andJoinDateGreaterThanOrEqualTo(Date value) {
+        public Criteria andJoinDateGreaterThanOrEqualTo(String value) {
             addCriterion("join_date >=", value, "joinDate");
             return (Criteria) this;
         }
 
-        public Criteria andJoinDateLessThan(Date value) {
+        public Criteria andJoinDateLessThan(String value) {
             addCriterion("join_date <", value, "joinDate");
             return (Criteria) this;
         }
 
-        public Criteria andJoinDateLessThanOrEqualTo(Date value) {
+        public Criteria andJoinDateLessThanOrEqualTo(String value) {
             addCriterion("join_date <=", value, "joinDate");
             return (Criteria) this;
         }
 
-        public Criteria andJoinDateIn(List<Date> values) {
+        public Criteria andJoinDateLike(String value) {
+            addCriterion("join_date like", value, "joinDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andJoinDateNotLike(String value) {
+            addCriterion("join_date not like", value, "joinDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andJoinDateIn(List<String> values) {
             addCriterion("join_date in", values, "joinDate");
             return (Criteria) this;
         }
 
-        public Criteria andJoinDateNotIn(List<Date> values) {
+        public Criteria andJoinDateNotIn(List<String> values) {
             addCriterion("join_date not in", values, "joinDate");
             return (Criteria) this;
         }
 
-        public Criteria andJoinDateBetween(Date value1, Date value2) {
+        public Criteria andJoinDateBetween(String value1, String value2) {
             addCriterion("join_date between", value1, value2, "joinDate");
             return (Criteria) this;
         }
 
-        public Criteria andJoinDateNotBetween(Date value1, Date value2) {
+        public Criteria andJoinDateNotBetween(String value1, String value2) {
             addCriterion("join_date not between", value1, value2, "joinDate");
             return (Criteria) this;
         }

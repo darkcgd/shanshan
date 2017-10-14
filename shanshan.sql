@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50631
 File Encoding         : 65001
 
-Date: 2017-10-15 00:16:15
+Date: 2017-10-15 01:25:46
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -45,6 +45,10 @@ CREATE TABLE `tbl_activity` (
   `is_need_photo` int(11) DEFAULT NULL,
   `start_Time` datetime DEFAULT NULL,
   `end_Time` datetime DEFAULT NULL,
+  `custom_time1` varchar(255) DEFAULT NULL,
+  `custom_time2` varchar(255) DEFAULT NULL,
+  `custom_time3` varchar(255) DEFAULT NULL,
+  `custom_time4` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`activity_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -174,7 +178,7 @@ CREATE TABLE `tbl_enroll` (
   `department_name` varchar(255) DEFAULT NULL,
   `free_lunch` int(255) DEFAULT NULL,
   `provide_accommodation` int(255) DEFAULT NULL,
-  `join_date` datetime DEFAULT NULL,
+  `join_date` varchar(0) DEFAULT NULL,
   `source` varchar(255) DEFAULT NULL,
   `photo1` varchar(255) DEFAULT NULL,
   `photo2` varchar(255) DEFAULT NULL,
@@ -240,7 +244,7 @@ CREATE TABLE `tbl_fault_repair` (
   `update_time` datetime DEFAULT NULL,
   `remark` varchar(255) DEFAULT NULL,
   `machine_tool_brand` varchar(255) DEFAULT NULL,
-  `Machine tool_model` varchar(255) DEFAULT NULL,
+  `Machine_tool_model` varchar(255) DEFAULT NULL,
   `Machine tool_SN` varchar(255) DEFAULT NULL,
   `contacts_name` varchar(255) DEFAULT NULL,
   `contacts_phone` varchar(255) DEFAULT NULL,
@@ -404,6 +408,10 @@ CREATE TABLE `tbl_training_course` (
   `is_need_photo` int(11) DEFAULT NULL,
   `start_Time` datetime DEFAULT NULL,
   `end_Time` datetime DEFAULT NULL,
+  `custom_time1` varchar(255) DEFAULT NULL,
+  `custom_time2` varchar(255) DEFAULT NULL,
+  `custom_time3` varchar(255) DEFAULT NULL,
+  `custom_time4` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`training_course_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

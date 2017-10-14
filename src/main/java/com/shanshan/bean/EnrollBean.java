@@ -2,19 +2,11 @@ package com.shanshan.bean;
 
 import java.util.Date;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 public class EnrollBean {
     private Integer enrollId;
 
-    @DateTimeFormat(pattern="yyyy-MM-dd")
-	@JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     private Date createTime;
 
-    @DateTimeFormat(pattern="yyyy-MM-dd")
-	@JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     private Date updateTime;
 
     private String remark;
@@ -41,9 +33,7 @@ public class EnrollBean {
 
     private Integer provideAccommodation;
 
-    @DateTimeFormat(pattern="yyyy-MM-dd")
-	@JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
-    private Date joinDate;
+    private String joinDate;
 
     private String source;
 
@@ -177,12 +167,12 @@ public class EnrollBean {
         this.provideAccommodation = provideAccommodation;
     }
 
-    public Date getJoinDate() {
+    public String getJoinDate() {
         return joinDate;
     }
 
-    public void setJoinDate(Date joinDate) {
-        this.joinDate = joinDate;
+    public void setJoinDate(String joinDate) {
+        this.joinDate = joinDate == null ? null : joinDate.trim();
     }
 
     public String getSource() {
