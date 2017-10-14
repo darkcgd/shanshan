@@ -165,7 +165,6 @@ td.fenye {
 <body>
 	<form>
 		<table class="table table-bordered table-hover definewidth m10">
-                <input type="hidden" name="aticleId" value="" />
 			<tr>			
 				<td width="10%" class="tableleft">标题</td>
 				<td><input type="text" id="title" value="" style="width:30%"/></td>			
@@ -320,7 +319,7 @@ td.fenye {
     			type:"json", //数据格式:JSON
     			url : 'activity/activityList', //目标地址
     			success : function(msg) {    				
-    				var datas=msg.datas; 
+    				var datas=msg.data.list; 
     				$("#IdSelect").html("");
 	    				for(var i in datas){	    				
 	    					$("#IdSelect").append("<option>"+datas[i].activityId+"</option>");

@@ -2,11 +2,19 @@ package com.shanshan.bean;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class FaultRepairBean {
     private Integer repairId;
 
+    @DateTimeFormat(pattern="yyyy-MM-dd")
+	@JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     private Date createTime;
 
+    @DateTimeFormat(pattern="yyyy-MM-dd")
+	@JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     private Date updateTime;
 
     private String remark;
@@ -106,14 +114,10 @@ public class FaultRepairBean {
     }
 
     public String getDes() {
-        return des;
-    }
+		return des;
+	}
 
-    public void setDes(String des) {
-        this.des = des == null ? null : des.trim();
-    }
-
-    public String getPhoto1() {
+	public String getPhoto1() {
         return photo1;
     }
 

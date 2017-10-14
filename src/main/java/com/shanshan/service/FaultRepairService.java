@@ -1,14 +1,17 @@
 package com.shanshan.service;
 
 import java.util.Date;
+import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.github.pagehelper.ISelect;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.shanshan.bean.EnrollBean;
 import com.shanshan.bean.FaultRepairBean;
 import com.shanshan.bean.FaultRepairBeanExample;
 import com.shanshan.bean.FaultRepairBeanExample.Criteria;
@@ -22,29 +25,37 @@ public class FaultRepairService {
 	@Autowired
 	private FaultRepairBeanMapper faultRepairBeanMapper;
 
-	public JsonResult save(FaultRepairBean entity) {
+	public JsonResult saveOrupdate(FaultRepairBean entity, String userId) {
 		Date date = new Date(System.currentTimeMillis());
-		entity.setCreateTime(date);
-		entity.setUpdateTime(date);
-		faultRepairBeanMapper.insertSelective(entity);
+		
+		if (entity != null) {
+			FaultRepairBean enrollBean = faultRepairBeanMapper.selectByPrimaryKey(entity.getRepairId());
+			if (enrollBean != null) {
+				// 更新
+				BeanUtils.copyProperties(entity, enrollBean);
+				entity.setUpdateTime(date);
+				faultRepairBeanMapper.updateByPrimaryKeySelective(enrollBean);
+			}else {
+				// 保存
+				entity.setCreateTime(date);
+				entity.setUpdateTime(date);
+				entity.setUserId(Integer.parseInt(userId));
+				faultRepairBeanMapper.insertSelective(entity);
+			}
+		}
 
 		JsonResult result = new JsonResult("200", "操作成功");
 		return result;
 	}
 
-	public Page<FaultRepairBean> faultRepairList(FaultRepairBean entity, PageRequest page) {
-		Page<FaultRepairBean> result = PageHelper.offsetPage(page.getStart(), page.getLimit()).doSelectPage(new ISelect() {
-			@Override
-			public void doSelect() {
-				FaultRepairBeanExample example = new FaultRepairBeanExample();
-				Criteria criteria = example.createCriteria();
+	public List<FaultRepairBean> faultRepairList(FaultRepairBean entity, String userId) {
+		FaultRepairBeanExample example = new FaultRepairBeanExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andUserIdEqualTo(Integer.parseInt(userId));
 
 
-				example.setOrderByClause("create_time");
-				faultRepairBeanMapper.selectByExample(example);
-			}
-		});
-		return result;
+		example.setOrderByClause("create_time");
+		return faultRepairBeanMapper.selectByExample(example);
 	}
 
 }
