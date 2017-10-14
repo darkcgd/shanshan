@@ -117,16 +117,6 @@ public class FaultRepairBean {
 		return des;
 	}
 
-	public void setDes(String des) {
-		this.des = des;
-	}
-        return des;
-    }
-
-    public void setDes(String des) {
-        this.des = des == null ? null : des.trim();
-    }
-
 	public String getPhoto1() {
         return photo1;
     }
