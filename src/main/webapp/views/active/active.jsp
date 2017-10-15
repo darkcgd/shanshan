@@ -63,7 +63,7 @@
 				url : 'activity/activityList', //目标地址
 			    data : "",
 				success : function(msg) {			
-					var datas=msg.datas;
+					var datas=msg.data.list;
 					for(var i in datas){
 						$("ul").append("<li class='now'>"+
 								           "<a value='"+datas[i].relatePermissionUserType+"' name='"+datas[i].activityId+"'>"+

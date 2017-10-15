@@ -74,7 +74,7 @@
 					   data:"activityId="+activityId,
 					   dataType:'json',
 					   success:function(msg){
-					   var  data=msg.datas;
+					   var  data=msg.data;
 						$(".section .title").text("");
 					   	$(".section .title").text(data.title);
 						$(".section .time").text("");
