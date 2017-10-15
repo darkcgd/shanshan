@@ -88,7 +88,7 @@ body {
 	display: inline;
 }
 
-#search a.add {
+#customTime a.add  {
 	background: url(pc/images/main/add.jpg) no-repeat -3px 7px #548fc9;
 	padding: 0 10px 0 26px;
 	height: 40px;
@@ -96,7 +96,7 @@ body {
 	font-size: 14px;
 	font-weight: bold;
 	color: #FFF;
-	float: right
+	float: left;
 }
 
 #search a:hover.add {
@@ -164,51 +164,51 @@ td.fenye {
 </head>
 <body>
 	<form>
-		<table class="table table-bordered table-hover definewidth m10">
-                <input type="hidden" name="aticleId" value="" />
+		<table class="table table-bordered table-hover definewidth m10">           
 			<tr>			
 				<td width="10%" class="tableleft">标题</td>
 				<td><input type="text" id="title" value="" style="width:30%"/></td>			
 			</tr>
 			<tr>
-				<td width="10%" class="tableleft">作者</td>
+				<td width="10%" class="tableleft">发布者</td>
 				<td><input type="text" id="author" value="" /></td>			
 			</tr>
 			<tr>
-				<td width="10%" class="tableleft">分类名称</td>
-				<td>
-			        <select   id="bigClass">
-			           <option>加工应用<option>
-				       <option>维修保养<option>
-				       <option>其他<option>	
-			        </select>
-			        <select   id="smallClass"></select>
+				<td width="10%" class="tableleft">是否置顶</td>
+				<td id="tagId">
+				  是&nbsp;&nbsp;<input type="radio" name="tagId"  value="1" checked="checked"/>
+				  否&nbsp;&nbsp;<input type="radio" name="tagId"  value="0" />
 				</td>			
 			</tr>
 			<tr>
-				<td width="10%" class="tableleft">推荐/头条</td>
-				<td><select id="tagId">
-				     <option value="1">推荐<option>
-				     <option value="2">头条<option>
-				</select></td>			
-			</tr>
-			<tr>
-				<td class="tableleft">开始时间</td>
+				<td class="tableleft">活动开始时间</td>
 				<td><input type="text" value="" class="date" id="startTime"/></td>				
 			</tr>
 			<tr>
-				<td class="tableleft">结束时间</td>
+				<td class="tableleft">活动结束时间</td>
 				<td><input type="text" value="" class="date" id="endTime"/></td>					
 			</tr>
+			<tr>
+				<td class="tableleft">活动场次(时间+场次)</td>
+				<td id="customTime"><a onclick="addcustomTime();" target="mainFrame" onFocus="this.blur()" class="add">添加活动场次</a>
+				    <input style="width:35%;margin-top:10px;margin-left:20px;" type="text" id="AllcustomTime" value=""/>
+				</td>					
+			</tr>
 		    <tr>
-				<td class="tableleft">是否有相关活动报名</td>
-				<td><select id="relateActivityId">
-				     <option value="1">是<option>
-				     <option value="0">否<option>					     		     
-				</select>
-				活动ID:<select id="IdSelect">				     		     
-				</select></td>	
-						
+				<td class="tableleft">需要提交的报名信息</td>
+				<td id="joinActiveInfo">
+				    <input type="checkbox"  id="joinActiveInfoAll" onclick="chkAll(this)"  />&nbsp;&nbsp;全选<br/>
+				    <input type="checkbox" name="Info[]" value=""  id="isNeedCompany"/>&nbsp;&nbsp;公司信息<br/>
+				    <input type="checkbox" name="Info[]" value=""  id="isNeedUserName"/>&nbsp;&nbsp;姓名<br/>
+				    <input type="checkbox" name="Info[]" value=""  id="isNeedPhone"/>&nbsp;&nbsp;手机号<br/>
+				    <input type="checkbox" name="Info[]" value=""  id="isNeedPositionName"/>&nbsp;&nbsp;职位<br/>
+				    <input type="checkbox" name="Info[]" value=""  id="isNeedDepartmentName"/>&nbsp;&nbsp;部门<br/>
+				    <input type="checkbox" name="Info[]" value=""  id="isNeedFreeLunch"/>&nbsp;&nbsp;是否需要免费午餐<br/>
+				    <input type="checkbox" name="Info[]" value=""  id="isNeedProvideAccommodation"/>&nbsp;&nbsp;是否需要提供住宿<br/>
+				    <input type="checkbox" name="Info[]" value=""  id="isNeedJoinDate"/>&nbsp;&nbsp;参加活动日期<br/>	
+				    <input type="checkbox" name="Info[]" value=""  id="isNeedSource"/>&nbsp;&nbsp;活动信息来源<br/>
+				    <input type="checkbox" name="Info[]" value=""  id="isNeedPhoto"/>&nbsp;&nbsp;照片<br/>			
+				</td>							
 			</tr>	
 			<tr>
 				<td class="tableleft">用户等级可看</td>
@@ -219,7 +219,7 @@ td.fenye {
 				</select></td>
 			</tr>
 			<tr>
-				<td class="tableleft">内容</td>
+				<td class="tableleft">活动内容</td>
 				<td> 
 				 <div id="editor">			       
 			     </div> 
@@ -228,7 +228,7 @@ td.fenye {
 			<tr>
 				<td class="tableleft"></td>
 				<td>
-					<button id="saveInfo"  class="btn btn-primary" type="button">修改</button>
+					<button id="saveInfo"  class="btn btn-primary" type="button">保存</button>
 					&nbsp;&nbsp;
 					<button type="reset" class="btn btn-success">重置</button>
 				</td>
@@ -245,37 +245,77 @@ td.fenye {
 			   var r = window.location.search.substr(1).match(reg); //匹配目标参数
 			   if (r != null) return unescape(r[2]); return null; 
 			}//返回参数值
-    	 var articleId= getUrlParam('articleId');
+    	 var activityId= getUrlParam('activityId');
     	 $.ajax({
 		   type:'get',
-		   url:'article/articleDetail',
-		   data:"articleId="+articleId,
+		   url:'activity/activityDetail',
+		   data:"activityId="+activityId,
 		   dataType:'json',
 		   success:function(msg){
-			   if(msg.code==200){	
+			   if(msg.code==200){
 				    var data=msg.data;//数据
 			    	var title=data.title==null?'':data.title;//标题
-			        var author=data.author==null?'':data.author;
-			        var categoryName=data.categoryName==null?'':data.categoryName;
-			        var tagId=data.tagId==null?'':data.tagId;
+			        var author=data.author==null?'':data.author;			       
+			        var tagId=data.tagId;
 			        var startTime=data.startTime==null?'':data.startTime;
 			        var endTime=data.endTime==null?'':data.endTime;
-			        var relateActivityId=data.relateActivityId==null?'':data.relateActivityId;		       
+			        var customTime1=data.customTime1==null?'':data.customTime1;
+			        var isNeedCompany=data.isNeedCompany;
+			        var isNeedUserName=data.isNeedUserName;
+			        var isNeedPhone=data.isNeedPhone;
+			        var isNeedPositionName=data.isNeedPositionName;
+			        var isNeedDepartmentName=data.isNeedDepartmentName;
+			        var isNeedFreeLunch=data.isNeedFreeLunch;
+			        var isNeedProvideAccommodation=data.isNeedProvideAccommodation;
+			        var isNeedJoinDate=data.isNeedJoinDate;
+			        var isNeedSource=data.isNeedSource;
+			        var isNeedPhoto=data.isNeedPhoto;
 			        var relatePermissionUserType=data.relatePermissionUserType==null?'':data.relatePermissionUserType;
 			        var content=data.content==null?'':data.content;
 			        //回填数据
 			        $("#title").val(title);
 			        $("#author").val(author);
-			        $("#smallClass").html("<option>"+categoryName+"</option>");
-			        if(tagId==1){
-			        	$("#tagId option:nth-child(0)").attr({selected:'selected'});
+			        if(tagId==0){
+			        	$("#tagId input:nth-child(2)").attr({checked:'checked'});
 			        }
-			        if(tagId==2){
-			        	$("#tagId option:nth-child(3)").attr({selected:'selected'});
+			        if(tagId==1){
+			        	$("#tagId input:nth-child(1)").attr({checked:'checked'});
 			        }
 			        $("#startTime").val(startTime);
 			        $("#endTime").val(endTime);
-			        $("#IdSelect").html("<option>"+relateActivityId+"</option>");
+			        $("#AllcustomTime").val(customTime1);
+			        //复选框
+			        if(isNeedCompany==1){
+			        	$("#isNeedCompany").attr({checked:"checked"});
+			        }
+			        if(isNeedUserName==1){
+			        	$("#isNeedUserName").attr({checked:"checked"});
+			        }
+			        if(isNeedPhone==1){
+			        	$("#isNeedPhone").attr({checked:"checked"});
+			        }
+			        if(isNeedPositionName==1){
+			        	$("#isNeedPositionName").attr({checked:"checked"});
+			        }
+			        if(isNeedDepartmentName==1){
+			        	$("#isNeedDepartmentName").attr({checked:"checked"});
+			        }
+			        if(isNeedFreeLunch==1){
+			        	$("#isNeedFreeLunch").attr({checked:"checked"});
+			        }
+			        if(isNeedProvideAccommodation==1){
+			        	$("#isNeedProvideAccommodation").attr({checked:"checked"});
+			        }		
+			        if(isNeedJoinDate==1){
+			        	$("#isNeedJoinDate").attr({checked:"checked"});
+			        }
+			        if(isNeedSource==1){
+			        	$("#isNeedSource").attr({checked:"checked"});
+			        }
+			        if(isNeedPhoto==1){
+			        	$("#isNeedPhoto").attr({checked:"checked"});
+			        }
+			        //用户等级可看
 			        if(relatePermissionUserType==1){
 			        	$("#relatePermissionUserType option:nth-child(0)").attr({selected:'selected'});
 			        }
@@ -300,56 +340,17 @@ td.fenye {
 			type : "POST", //用POST方式传输
 			contentType: "application/json; charset=utf-8", //数据格式:JSON
 			type:"json", //数据格式:JSON
-			url : 'article/saveOpUpdate', //目标地址
+			url : 'activity/saveOpUpdate', //目标地址
 			data : JSON.stringify(GetJsonData()),
 			error: function(XMLHttpRequest){  
-			     alert( "Error: " + XMLHttpRequest.responseText);  
+			    // alert( "Error: " + XMLHttpRequest.responseText);  
 			   }  ,
 			success : function(msg) {
-				 window.location.href="pc\\main\\wenzhang\\article.jsp";
+				 window.location.href="pc\\main\\houdong\\activeList.jsp";
 				}
 				//发送验证返回信息
 		});
     });
-    //相关活动报名
-    $("#relateActivityId option").click(function(){	
-    	var relateActivityId=$("#relateActivityId").find("option:selected").val();
-    	if(relateActivityId==1){
-    		$.ajax({
-    			type : "GET", //用POST方式传输
-    			type:"json", //数据格式:JSON
-    			url : 'activity/activityList', //目标地址
-    			success : function(msg) {    				
-    				var datas=msg.datas; 
-    				$("#IdSelect").html("");
-	    				for(var i in datas){	    				
-	    					$("#IdSelect").append("<option>"+datas[i].activityId+"</option>");
-	    				}
-    				}
-    				//发送验证返回信息
-    		});
-    	}
-    	if(relateActivityId!=1){
-    		$("#IdSelect").html("");
-    	}
-    });
-   //分类选择
-    $("#bigClass option").click(function(){	
-    	  if($(this).text()=="加工应用"){
-    	    	$("#smallClass").html("");
-    	    	$("#smallClass").append("<option>加工中心</option>"+
-    	    			                "<option>车削中心</option>"+
-    	    			                "<option>其他机床</option>"+
-    	    			                "<option>其他</option>");
-    	    	}
-    	    	if($(this).text()=="维修保养"){ 	    		
-    	    		$("#smallClass").html("");
-    	    		$("#smallClass").append("<option>加工中心</option>"+
-                                          "<option>车削中心</option>");
-    	    	}if($(this).text().length==13||$(this).text()=="其他"||$(this).text().length==12){
-    	    		$("#smallClass").html("");
-    	    	}
-      });
     //符文本编辑器设置
     var E = window.wangEditor
     var editor = new E('#editor')
@@ -361,27 +362,52 @@ td.fenye {
         E.fullscreen.init('#editor');
     //json数据
        function GetJsonData() {
-        var articleId= getUrlParam('articleId');
-    	var content=editor.txt.html();
-    	var title=$("#title").val();
-        var author=$("#author").val();
-        var categoryName=$("#smallClass").find("option:selected").text();
-        var tagId=$("#tagId").find("option:selected").val();
-        var startTime=$("#startTime").val();
-        var endTime=$("#endTime").val();
-        var relateActivityId=$("#IdSelect").find("option:selected").text();
-        var relatePermissionUserType=$("#relatePermissionUserType").find("option:selected").val();
-        var json = {
-        		articleId:articleId,
-        	    title:title,
-				author:author,
-				content:content,
-				categoryName:categoryName,
-				tagId:tagId,
-				startTime:startTime,
-				endTime:endTime,
-				relateActivityId:relateActivityId,
-				relatePermissionUserType:relatePermissionUserType
+    	   var activityId= getUrlParam('activityId');
+    	   var title=$("#title").val();
+           var author=$("#author").val();
+           var tagId=$('#tagId input:radio[name="tagId"]:checked').val();
+           var startTime=$("#startTime").val();
+           var endTime=$("#endTime").val();
+           var customTime1=$("#AllcustomTime").val();
+           if($("#isNeedCompany").is(':checked'))
+   		        {var isNeedCompany=1;
+           	     var isNeedCompanyAddress=1;
+   		        	}else{
+   		        		var isNeedCompany=0
+   		        		var isNeedCompanyAddress=0;
+   		        	};
+           if($("#isNeedUserName").is(':checked')){var isNeedUserName=1} else{var isNeedUserName=0};
+           if($("#isNeedPhone").is(':checked')){var isNeedPhone=1} else{var isNeedPhone=0};
+           if($("#isNeedPositionName").is(':checked')){var isNeedPositionName=1} else{var isNeedPositionName=0};
+           if($("#isNeedDepartmentName").is(':checked')){var isNeedDepartmentName=1} else{var isNeedDepartmentName=0};
+           if($("#isNeedFreeLunch").is(':checked')){var isNeedFreeLunch=1} else{var isNeedFreeLunch=0};
+           if($("#isNeedProvideAccommodation").is(':checked')){var isNeedProvideAccommodation=1} else{var isNeedProvideAccommodation=0};
+           if($("#isNeedJoinDate").is(':checked')){var isNeedJoinDate=1} else{var isNeedJoinDate=0};
+           if($("#isNeedSource").is(':checked')){var isNeedSource=1} else{var isNeedSource=0};
+           if($("#isNeedPhoto").is(':checked')){var isNeedPhoto=1} else{var isNeedPhoto=0};
+           var relatePermissionUserType=$("#relatePermissionUserType").find("option:selected").val();
+           var content=editor.txt.html();
+           var json = {
+        		activityId:activityId,
+           	    title:title,
+   				author:author,
+   				tagId:tagId,
+   				startTime:startTime,
+   				endTime:endTime,
+   				customTime1:customTime1,
+   				isNeedCompany:isNeedCompany,
+   				isNeedCompanyAddress:isNeedCompanyAddress,
+   				isNeedUserName:isNeedUserName,
+   				isNeedPhone:isNeedPhone,
+   				isNeedPositionName:isNeedPositionName,
+   				isNeedDepartmentName:isNeedDepartmentName,
+   				isNeedFreeLunch:isNeedFreeLunch,
+   				isNeedProvideAccommodation:isNeedProvideAccommodation,
+   				isNeedJoinDate:isNeedJoinDate,
+   				isNeedSource:isNeedSource,
+   				isNeedPhoto:isNeedPhoto,
+   				relatePermissionUserType:relatePermissionUserType,
+   				content:content,
         };
         return json;
     }

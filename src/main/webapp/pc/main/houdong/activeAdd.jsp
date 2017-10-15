@@ -205,7 +205,7 @@ td.fenye {
 				    <input type="checkbox" name="Info[]" value=""  id="isNeedDepartmentName"/>&nbsp;&nbsp;部门<br/>
 				    <input type="checkbox" name="Info[]" value=""  id="isNeedFreeLunch"/>&nbsp;&nbsp;是否需要免费午餐<br/>
 				    <input type="checkbox" name="Info[]" value=""  id="isNeedProvideAccommodation"/>&nbsp;&nbsp;是否需要提供住宿<br/>
-				    <input type="checkbox" name="Info[]" value=""  id=isNeedJoinDate/>&nbsp;&nbsp;参加活动日期<br/>	
+				    <input type="checkbox" name="Info[]" value=""  id="isNeedJoinDate"/>&nbsp;&nbsp;参加活动日期<br/>	
 				    <input type="checkbox" name="Info[]" value=""  id="isNeedSource"/>&nbsp;&nbsp;活动信息来源<br/>
 				    <input type="checkbox" name="Info[]" value=""  id="isNeedPhoto"/>&nbsp;&nbsp;照片<br/>			
 				</td>							
@@ -247,7 +247,7 @@ td.fenye {
 			url : 'activity/saveOpUpdate', //目标地址
 			data : JSON.stringify(GetJsonData()),
 			error: function(XMLHttpRequest){  
-			     //alert( "Error: " + XMLHttpRequest.responseText);  
+			    // alert( "Error: " + XMLHttpRequest.responseText);  
 			   }  ,
 			success : function(msg) {
 			 window.location.href="pc//main//houdong//activeList.jsp";
@@ -278,23 +278,48 @@ td.fenye {
     function GetJsonData() {   	
     	var title=$("#title").val();
         var author=$("#author").val();
-        var categoryName=$("#smallClass").find("option:selected").text();
-        var tagId=$("#tagId").find("option:selected").val();
+        var tagId=$('#tagId input:radio[name="tagId"]:checked').val();
         var startTime=$("#startTime").val();
         var endTime=$("#endTime").val();
-        var relateActivityId=$("#IdSelect").find("option:selected").text();
+        var customTime1=$("#AllcustomTime").val();
+        if($("#isNeedCompany").is(':checked'))
+		        {var isNeedCompany=1;
+        	     var isNeedCompanyAddress=1;
+		        	}else{
+		        		var isNeedCompany=0
+		        		var isNeedCompanyAddress=0;
+		        	};
+        if($("#isNeedUserName").is(':checked')){var isNeedUserName=1} else{var isNeedUserName=0};
+        if($("#isNeedPhone").is(':checked')){var isNeedPhone=1} else{var isNeedPhone=0};
+        if($("#isNeedPositionName").is(':checked')){var isNeedPositionName=1} else{var isNeedPositionName=0};
+        if($("#isNeedDepartmentName").is(':checked')){var isNeedDepartmentName=1} else{var isNeedDepartmentName=0};
+        if($("#isNeedFreeLunch").is(':checked')){var isNeedFreeLunch=1} else{var isNeedFreeLunch=0};
+        if($("#isNeedProvideAccommodation").is(':checked')){var isNeedProvideAccommodation=1} else{var isNeedProvideAccommodation=0};
+        if($("#isNeedJoinDate").is(':checked')){var isNeedJoinDate=1} else{var isNeedJoinDate=0};
+        if($("#isNeedSource").is(':checked')){var isNeedSource=1} else{var isNeedSource=0};
+        if($("#isNeedPhoto").is(':checked')){var isNeedPhoto=1} else{var isNeedPhoto=0};
         var relatePermissionUserType=$("#relatePermissionUserType").find("option:selected").val();
         var content=editor.txt.html();
         var json = {
         	    title:title,
 				author:author,
-				content:content,
-				categoryName:categoryName,
 				tagId:tagId,
 				startTime:startTime,
 				endTime:endTime,
-				relateActivityId:relateActivityId,
-				relatePermissionUserType:relatePermissionUserType
+				customTime1:customTime1,
+				isNeedCompany:isNeedCompany,
+				isNeedCompanyAddress:isNeedCompanyAddress,
+				isNeedUserName:isNeedUserName,
+				isNeedPhone:isNeedPhone,
+				isNeedPositionName:isNeedPositionName,
+				isNeedDepartmentName:isNeedDepartmentName,
+				isNeedFreeLunch:isNeedFreeLunch,
+				isNeedProvideAccommodation:isNeedProvideAccommodation,
+				isNeedJoinDate:isNeedJoinDate,
+				isNeedSource:isNeedSource,
+				isNeedPhoto:isNeedPhoto,
+				relatePermissionUserType:relatePermissionUserType,
+				content:content,
         };
         return json;
     }

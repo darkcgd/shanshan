@@ -60,9 +60,9 @@ td.fenye{ padding:10px 0 0 0; text-align:right;}
   		<tr>
    		 <td width="90%" align="left" valign="middle">
 	         <form method="post" action="">
-	         <span>标题：</span>
+	         <!-- <span>标题：</span>
 	         <input type="text" name="" value="" id="keywordTitle" class="text-word">
-	         <input name="" type="button" value="查询"  class="text-but" onclick="searchAticle();">
+	         <input name="" type="button" value="查询"  class="text-but" onclick="searchAticle();"> -->
 	         </form>
          </td>
   		  <td width="10%" align="center" valign="middle" style="text-align:right; width:150px;"><a href="pc/main/houdong/activeAdd.jsp" target="mainFrame" onFocus="this.blur()" class="add">添加活动信息</a></td>
@@ -123,25 +123,23 @@ $.ajax({
         	   if(data[i].relatePermissionUserType>=3){
         		   relatePermissionUserType="C级用户";
         	   }
-        	   //是否过期
-        	   var status="";
-        	   if(data[i].status==11){
+        	 //是否过期
+        	   var nowDate=new Date();
+        	   var endTime=data[i].endTime==null?"":data[i].endTime;
+        	    if(endTime) {
+        	    	var arr1=endTime.split("-");        	    
+					var date = new Date(arr1[0],arr1[1]-1,arr1[2]);					
+					}     	 
+        	   if(date<nowDate){
         		   status="已过期";
         	   }
-        	   if(data[i].status==10){
+        	   if(date>nowDate){
         		   status="未过期";
         	   }
         	   //阅读量
         	   var readCount=data[i].readCount==null?0:data[i].readCount;
         	   //
-        	   //设置过期
-        	   var isoverdue="";
-        	   if(data[i].status==10){
-        		   isoverdue="设置已过期";
-        	   }
-        	   if(data[i].status==11){
-        		   isoverdue="设置未过期";
-        	   }
+        
  $("#aticleList").append("<tr onMouseOut='this.style.backgroundColor='#ffffff'' onMouseOver='this.style.backgroundColor='#edf5ff''>"+		          
 		           "<td align='center' valign='middle' class='borderright borderbottom'>"+data[i].activityId+"</td>"+
 		           "<td align='center' valign='middle' class='borderright borderbottom'>"+title+"</td>"+
@@ -149,17 +147,18 @@ $.ajax({
 	               "<td align='center' valign='middle' class='borderright borderbottom'>"+status+"</td>"+
 	               "<td align='center' valign='middle' class='borderright borderbottom'>"+readCount+"</td>"+	               
 	               "<td align='center' valign='middle' class='borderbottom' id='changeStatus'>"+
-	               "<a href='javascript:void(0);' target='mainFrame' onFocus='this.blur()' onclick='changeStatus(this);' class='status' value='"+data[i].status+"'>"+isoverdue+"</a><span class='gray'>&nbsp;|&nbsp;</span>"+
+	               "<a href='javascript:void(0);' target='mainFrame' onFocus='this.blur()' onclick='changeStatus(this);' style='display:none;' class='status'></a><span class='gray'></span>"+
 	               "<a href='javascript:void(0);' target='mainFrame' onFocus='this.blur()' onclick='deleteAticle(this);' class='add'>删除</a><span class='gray'>&nbsp;|&nbsp;</span>"+
 	                   "<a href='javascript:void(0);' target='mainFrame' onFocus='this.blur()' onclick='updateAticle(this);' class='add'>查看详情</a>"+
 	               "</td>"+
               "</tr>");
           
                     }
-           var endPageNumber=msg.data.totalPage;//尾页
-           var totalCount=msg.data.totalCount;//多少条记录
-           var totalPage=msg.data.totalPage;//共多少页
-           var pagerNumber=msg.data.pagerNumber;//当前页
+        }
+        var endPageNumber=msg.data.totalPage==null?0:msg.data.totalPage;//尾页
+        var totalCount=msg.data.totalCount==null?0:msg.data.totalCount;//多少条记录
+        var totalPage=msg.data.totalPag==null?0:msg.data.totalPage;//共多少页
+        var pagerNumber=msg.data.pagerNumber==null?0:msg.data.pagerNumber;//当前页
            $(".fenye a:nth-child(2)").attr({value:1});
            $(".fenye a:nth-child(3)").attr({value:1});
            $(".fenye a:nth-child(4)").attr({value:1});
@@ -216,25 +215,23 @@ $.ajax({
 	    	        	   if(data[i].relatePermissionUserType>=3){
 	    	        		   relatePermissionUserType="C级用户";
 	    	        	   }
-	    	        	   //是否过期
-	    	        	   var status="";
-	    	        	   if(data[i].status==11){
+	    	        	 //是否过期
+	    	        	   var nowDate=new Date();
+	    	        	   var endTime=data[i].endTime==null?"":data[i].endTime;
+	    	        	    if(endTime) {
+	    	        	    	var arr1=endTime.split("-");        	    
+	    						var date = new Date(arr1[0],arr1[1]-1,arr1[2]);					
+	    						}     	 
+	    	        	   if(date<nowDate){
 	    	        		   status="已过期";
 	    	        	   }
-	    	        	   if(data[i].status==10){
+	    	        	   if(date>nowDate){
 	    	        		   status="未过期";
 	    	        	   }
 	    	        	   //阅读量
 	    	        	   var readCount=data[i].readCount==null?0:data[i].readCount;
 	    	        	   //
-	    	        	   //设置过期
-	    	        	   var isoverdue="";
-	    	        	   if(data[i].status==10){
-	    	        		   isoverdue="设置已过期";
-	    	        	   }
-	    	        	   if(data[i].status==11){
-	    	        		   isoverdue="设置未过期";
-	    	        	   }
+	    	      
 	    	 $("#aticleList").append("<tr onMouseOut='this.style.backgroundColor='#ffffff'' onMouseOver='this.style.backgroundColor='#edf5ff''>"+		          
 	    			           "<td align='center' valign='middle' class='borderright borderbottom'>"+data[i].activityId+"</td>"+
 	    			           "<td align='center' valign='middle' class='borderright borderbottom'>"+title+"</td>"+
@@ -242,17 +239,18 @@ $.ajax({
 	    		               "<td align='center' valign='middle' class='borderright borderbottom'>"+status+"</td>"+
 	    		               "<td align='center' valign='middle' class='borderright borderbottom'>"+readCount+"</td>"+	               
 	    		               "<td align='center' valign='middle' class='borderbottom' id='changeStatus'>"+
-	    		                   "<a href='javascript:void(0);' target='mainFrame' onFocus='this.blur()' onclick='changeStatus(this);' class='status' value='"+data[i].status+"'>"+isoverdue+"</a><span class='gray'>&nbsp;|&nbsp;</span>"+
+	    		                   "<a href='javascript:void(0);' target='mainFrame' onFocus='this.blur()' onclick='changeStatus(this);' class='status' style='display:none;'></a><span class='gray'></span>"+
 	    		                   "<a href='javascript:void(0);' target='mainFrame' onFocus='this.blur()' onclick='deleteAticle(this);' class='add'>删除</a><span class='gray'>&nbsp;|&nbsp;</span>"+
 	    		                   "<a href='javascript:void(0);' target='mainFrame' onFocus='this.blur()' onclick='updateAticle(this);' class='add'>查看详情</a>"+
 	    		               "</td>"+
 	    	              "</tr>");
 	    	           
 	    	                       }
-	    	           var endPageNumber=msg.data.totalPage;//尾页
-	    	           var totalCount=msg.data.totalCount;//多少条记录
-	    	           var totalPage=msg.data.totalPage;//共多少页
-	    	           var pagerNumber=msg.data.pagerNumber;//当前页
+	    	           }
+	    	           var endPageNumber=msg.data.totalPage==null?0:msg.data.totalPage;//尾页
+	    	           var totalCount=msg.data.totalCount==null?0:msg.data.totalCount;//多少条记录
+	    	           var totalPage=msg.data.totalPag==null?0:msg.data.totalPage;//共多少页
+	    	           var pagerNumber=msg.data.pagerNumber==null?0:msg.data.pagerNumber;//当前页
 	    	           $(".fenye a:nth-child(3)").attr({value:pagerNumber});
 	    	           $(".fenye a:nth-child(4)").attr({value:pagerNumber});
 	    	           $(".fenye a:nth-child(5)").attr({value:endPageNumber});
@@ -264,40 +262,6 @@ $.ajax({
 		 
 	 }
    
-   //设置是否过期
-   function changeStatus(val){
-	  var  changeStatus=$(val).attr("value")==10?11:10;	
-	  var  changeArticleId=$(val).parent().prevAll("td:eq(4)").text();	//文章ID
-	 $.ajax({
-				type : "POST", //用POST方式传输
-				contentType: "application/json; charset=utf-8",
-				url : 'activity/saveOpUpdate', //目标地址
-				type:"json", //数据格式:JSON
-				data : JSON.stringify({articleId:changeArticleId,status:changeStatus}),
-				error: function(XMLHttpRequest){  
-				     //alert( "Error: " + XMLHttpRequest.responseText);  
-				   }  ,
-				success : function(msg) {
-					if(msg.code==200){
-						//成功时
-					  var  changeStatusAfter=$(val).attr("value")==10?11:10;
-					  $(val).attr({value:changeStatusAfter});
-					  var overdueText=$(val).parent().prevAll("td:eq(1)").text()=="未过期"?"已过期":"未过期";//过期名称
-					  var statusText=$(val).text()=='设置未过期'?'设置已过期':'设置未过期';//a标签名称改变;		     
-					      $(val).parent().prevAll("td:eq(1)").text("");				    
-					      $(val).parent().prevAll("td:eq(1)").text(overdueText);			    			
-					      $(val).text("");
-					      $(val).text(statusText);
-					}
-					if(msg.code==100){
-						alert(msg.msg)
-					}
-				}	
-				   
-			}); 
-	
-	 
-   };
    //删除功能
    function deleteAticle(val){
 	  var  changeStatus=13;
@@ -307,7 +271,7 @@ $.ajax({
 				contentType: "application/json; charset=utf-8",				
 				type:"json", //数据格式:JSON
 				url : 'activity/saveOpUpdate', //目标地址
-				data : JSON.stringify({articleId:changeArticleId,status:changeStatus}),
+				data : JSON.stringify({activityId:changeArticleId,status:changeStatus}),
 				error: function(XMLHttpRequest){  
 				   }  ,
 				success : function(msg) {
@@ -320,7 +284,7 @@ $.ajax({
 	
 	 
    };
-    //模糊查询
+   /*  //模糊查询
     function searchAticle(){
      var title=$("#keywordTitle").val();
      $.ajax({
@@ -358,14 +322,7 @@ $.ajax({
     	        	   //阅读量
     	        	   var readCount=data[i].readCount==null?0:data[i].readCount;
     	        	   //
-    	        	   //设置过期
-    	        	   var isoverdue="";
-    	        	   if(data[i].status==10){
-    	        		   isoverdue="设置已过期";
-    	        	   }
-    	        	   if(data[i].status==11){
-    	        		   isoverdue="设置未过期";
-    	        	   }
+    	        	 
     	 $("#aticleList").append("<tr onMouseOut='this.style.backgroundColor='#ffffff'' onMouseOver='this.style.backgroundColor='#edf5ff''>"+		          
     			           "<td align='center' valign='middle' class='borderright borderbottom'>"+data[i].activityId+"</td>"+
     			           "<td align='center' valign='middle' class='borderright borderbottom'>"+title+"</td>"+
@@ -373,7 +330,7 @@ $.ajax({
     		               "<td align='center' valign='middle' class='borderright borderbottom'>"+status+"</td>"+
     		               "<td align='center' valign='middle' class='borderright borderbottom'>"+readCount+"</td>"+	               
     		               "<td align='center' valign='middle' class='borderbottom' id='changeStatus'>"+
-    		                   "<a href='javascript:void(0);' target='mainFrame' onFocus='this.blur()' onclick='changeStatus(this);' class='status' value='"+data[i].status+"'>"+isoverdue+"</a><span class='gray'>&nbsp;|&nbsp;</span>"+
+    		                   "<a href='javascript:void(0);' target='mainFrame' onFocus='this.blur()' onclick='changeStatus(this);' class='status' style='display:none;'></a><span class='gray'></span>"+
     		                   "<a href='javascript:void(0);' target='mainFrame' onFocus='this.blur()' onclick='deleteAticle(this);' class='add'>删除</a><span class='gray'>&nbsp;|&nbsp;</span>"+
     		                   "<a href='javascript:void(0);' target='mainFrame' onFocus='this.blur()' onclick='updateAticle(this);' class='add'>查看详情</a>"+
     		               "</td>"+
@@ -384,7 +341,7 @@ $.ajax({
     		             }
     		}
     	   }); 
-    }
+    } */
     
     //查看详情，详情页可修改内容
     function  updateAticle(text){
