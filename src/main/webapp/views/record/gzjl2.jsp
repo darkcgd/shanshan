@@ -49,73 +49,75 @@
     		</div>
 		</header>
 		<div class="section">
-			<ul class="infor">
-				<li>
-				<span class="left">机床品牌</span>
-				<input type="text" value="Brother" class="right">
-				<!--<div class="slide">
-					<div class="oss">
-						品牌一
-					</div>
-					<div class="oss">
-						品牌二
-					</div>
-				</div>-->
-			</li>
-			<li>
-				<span class="left">机床机型</span>
-				<input type="text" class="right" value="Brother" readonly="readonly">
-			</li>
-			<li>
-				<span class="left">S/N</span>
-				<input type="text" class="right" value="机身编号" readonly="readonly">
-			</li>
-			<li>
-				<span class="left">联系人</span>
-				<input type="text" class="right" value="李刚" readonly="readonly">
-			</li>
-			<li>
-				<span class="left">联系电话</span>
-				<input type="text" class="right" value="15648411654" readonly="readonly">
-			</li>
 			
-			<div class="date">
-				<div class="na">
-					<span>故障描述</span>
-				</div>
-				<div class="can">
-					<textarea placeholder="请输入故障的状况" readonly="readonly"></textarea>
-				</div>
-			</div>
-			
-			<div class="date">
-				<div class="na">
-					<span>上传图片（请上传机床铭牌，报警画面等）</span>
-				</div>
-				
-				<div class="oamg">
-					<div class="omg">
-						<img src="img/blog.png" class="sa"/>
-					</div>
-					<div class="omg">
-						<img src="img/blog.png" class="sa"/>
-					</div>
-					<div class="omg">
-						<img src="img/blog.png" class="sa"/>
-					</div>
-				</div>
-				
-			</div>
 		</div>
-		
-		
-		<!--<div class="join">
-			<a href="jask.html">提交</a>
-		</div>
-		-->
-		<!--<div class="signup">
-			<a href="jchat.html">在线诊断</a>
-		</div>-->
 	</body>
-
+<script type="text/javascript">
+	$(document).ready(function(){ 
+		 function getUrlParam(name) {
+		   var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+		   var r = window.location.search.substr(1).match(reg); //匹配目标参数
+		   if (r != null) return unescape(r[2]); return null; }//返回参数值
+	       var repairId= getUrlParam('repairId');
+		   alert(repairId);
+		$.ajax({
+			type : "GET", //用GET方式传输
+			dataType : "json", //数据格式:JSON
+			url : 'faultRepair/faultRepairList', //目标地址
+			 data:"repairId="+repairId,
+	      success:function(msg){
+				   var  datas=msg.data.list;
+				   alert(datas.machineToolBrand);
+				   $(".section").append("<ul class='infor'>"+
+							"<li>"+
+							"<span class='left'>机床品牌</span>"+
+							"<input type='text' class='right' value='"+datas.machineToolBrand+"' readonly='readonly'>"+
+						"</li>"+
+						"<li>"+
+							"<span class='left'>机床机型</span>"+
+							"<input type='text' class='right' value='"+datas.machineToolModel+"' readonly='readonly'>"+
+						"</li>"+
+						"<li>"+
+							"<span class='left'>S/N</span>"+
+							"<input type='text' class='right' value='"+datas.machineToolSn+"' readonly='readonly'>"+
+						"</li>"+
+						"<li>"+
+							"<span class='left'>联系人</span>"+
+							"<input type='text' class='right' value='"+datas.contactsName+"' readonly='readonly'>"+
+						"</li>"+
+						"<li>"+
+							"<span class='left'>联系电话</span>"+
+							"<input type='text' class='right' value='"+datas.contactsPhone+"' readonly='readonly'>"+
+						"</li>"+
+						"<div class='date'>"+
+							"<div class='na'>"+
+								"<span>故障描述</span>"+
+							"</div>"+
+							"<div class='can'>"+
+								"<textarea placeholder='"+datas.des+"' readonly='readonly'></textarea>"+
+							"</div>"+
+						"</div>"+
+						"<div class='date'>"+
+							"<div class='na'>"+
+								"<span>上传图片（请上传机床铭牌，报警画面等）</span>"+
+							"</div>"+
+							"<div class='oamg'>"+
+								"<div class='omg'>"+
+									"<img src='img/blog.png' class='sa'/>"+
+								"</div>"+
+								"<div class='omg'>"+
+									"<img src='img/blog.png' class='sa'/>"+
+								"</div>"+
+								"<div class='omg'>"+
+									"<img src='img/blog.png' class='sa'/>"+
+								"</div>"+
+							"</div>"+
+						"</div></ul>");
+					   
+					   }
+				   });
+			   
+		});
+	
+	</script>
 </html>

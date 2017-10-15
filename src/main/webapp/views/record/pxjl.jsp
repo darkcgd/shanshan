@@ -49,7 +49,7 @@
 		<div class="sec">
 			<ul>
 				<li>
-					<a href="views/intro2.jsp">
+					<a href="views/record/pxjl2.jsp">
 					<div class="left">
 						<img src="img/05.jpg"/>
 						<!--<div class="tip">注册专享</div>-->

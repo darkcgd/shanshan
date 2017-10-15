@@ -58,7 +58,7 @@
 				</a>
 			</li>
 			<li>
-				<a href="views/xljl.jsp">
+				<a href="views/record/pxjl.jsp">
 				<span>培训课程记录</span>
 				<div class="right">
 					<img src="img/right.png"/>
@@ -74,7 +74,7 @@
 				</a>
 			</li>
 			<li>
-				<a href="views/gzjl.jsp">
+				<a href="views/record/gzjl.jsp">
 				<span>故障报修记录</span>
 				<div class="right">
 					<img src="img/right.png"/>
