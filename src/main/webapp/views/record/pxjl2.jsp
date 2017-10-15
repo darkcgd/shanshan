@@ -63,20 +63,19 @@
 		$.ajax({
 			type : "GET", //用GET方式传输
 			dataType : "json", //数据格式:JSON
-			url : 'trainingCourse/trainingCourseDetail', //目标地址
+			url : 'enrol/enrolDetail', //目标地址
 			data:{
 				userId:userId,
 			    token:token,
 				enrollId:enrollId
 			},
 	        success:function(msg){
-				   var  datas=msg.data.list;
+				   var  datas=msg.data;
 				   $(".section").append("<p class='title'>培训课程名称</p>"+
-						"<p class='time'>'2017/08/27~2017/08/30'</p>"+
+						"<p class='time'>"+datas.createTime+"</p>"+
 					"</div>"+
 					"<div class='infor'>"+
-						"<p>团队训练的专业机构团队训练的专业机构团队训练的专业机构团队训练的专业机构团队训练的专业机构团队训练的专业机构</p>"+
-						"<p>团队训练的专业机构团队训练的专业机构团队训练的专业机构团队训练的专业机构团队训练的专业机构</p>");
+						"<p>"+datas.remark+"</p>");
 				}
 			});
 		});

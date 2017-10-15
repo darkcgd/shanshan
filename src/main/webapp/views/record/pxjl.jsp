@@ -71,7 +71,7 @@
 								"</div>"+
 								"<div class='right'>"+
 									"<p class='title'>"+
-										"<span class='size'>活动名称1</span>"+
+										"<span class='size'>培训课程1</span>"+
 										"<span class='time'>"+datas[i].createTime+"</span>"+
 									"</p>"+
 									"<p class='zw'>"+datas[i].company+"</p>"+
