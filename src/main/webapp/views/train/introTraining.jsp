@@ -10,7 +10,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>活动信息</title>
+		<title>培训课程</title>
 		<base href="<%=basePath%>">
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link rel="stylesheet" type="text/css" href="css/common.css"/>
@@ -41,7 +41,7 @@
 	<body>
 		<header>
     		<div class="head">
-        		<div class="title">活动信息</div>
+        		<div class="title">培训课程</div>
         		<span class="h-lt" style="cursor:pointer" onclick="window.history.go(-1)"><i class="h-bk"></i></span>
         		<a class="h-rt" href="#"></a>
     		</div>
@@ -67,11 +67,11 @@
 			   var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
 			   var r = window.location.search.substr(1).match(reg); //匹配目标参数
 			   if (r != null) return unescape(r[2]); return null; }//返回参数值
-		       var activityId= getUrlParam('activityId');
+		       var trainingCourseId= getUrlParam('trainingCourseId');
 			   $.ajax({
 					   type:'get',
-					   url:'activity/activityDetail',
-					   data:"activityId="+activityId,
+					   url:'trainingCourse/trainingCourseDetail',
+					   data:"trainingCourseId="+trainingCourseId,
 					   dataType:'json',
 					   success:function(msg){
 					   var  data=msg.data;
@@ -79,10 +79,10 @@
 					   var endTime=data.endTime==null?"":data.endTime;
 						$(".section .title").text("");
 					   	$(".section .title").text(data.title);
-						$(".section .time").text("");						
+						$(".section .time").text("");
 						$(".section .time").text(startTime+"~"+endTime);
-					    $(".infor").html("");
-					    $(".infor").html(data.content);
+					    $(".infor").text("");
+					    $(".infor").text(data.content);
 					   }
 				   });
 			   

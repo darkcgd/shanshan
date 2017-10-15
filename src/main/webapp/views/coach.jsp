@@ -1,12 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
- <%
+<%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://"
 			+ request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
 <html>
 	<head>
 		<meta charset="UTF-8">
@@ -15,7 +16,7 @@
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link rel="stylesheet" type="text/css" href="css/common.css"/>
 		<link rel="stylesheet" type="text/css" href="css/header.css"/>
-		<link rel="stylesheet" type="text/css" href="css/coach.css"/>
+		<link rel="stylesheet" type="text/css" href="css/active.css"/>
 		<script src="js/jquery-1.7.1.min.js" type="text/javascript" charset="utf-8"></script>
 	</head>
 	<script type="text/javascript">
@@ -46,61 +47,92 @@
         		<a class="h-rt" href="#"></a>
     		</div>
 		</header>
-		<div class="sec">
+		<div class="section">
 			<ul>
-				<li>
-					<a href="views/article/introduce.jsp">
-					<div class="left">
-						<img src="img/05.jpg"/>
-						<div class="tip">注册专享</div>
-					</div>
-					<div class="right">
-						<p class="title">
-							<span class="size">活动名称1</span>
-							<span class="time">2017/08/07</span>
-						</p>
-						<p class="zw">
-							培训详情培训详情培训详情培训详情培训详情
-						</p>
-					</div>
-					</a>
-				</li>
-				
-				<li>
-					<a href="views/article/introduce.jsp">
-					<div class="left">
-						<img src="img/05.jpg"/>
-						<div class="tip">VIP专享</div>
-					</div>
-					<div class="right">
-						<p class="title">
-							<span class="size">活动名称1</span>
-							<span class="time">2017/08/07</span>
-						</p>
-						<p class="zw">
-							培训详情培训详情培训详情培训详情培训详情
-						</p>
-					</div>
-					</a>
-				</li>
-				
-				<li class="now">
-					<a href="views/article/introduce.jsp">
-					<div class="left">
-						<img src="img/blog.png"/>
-					</div>
-					<div class="right">
-						<p class="title">
-							<span class="size">活动名称1</span>
-							<span class="time">2017/08/07</span>
-						</p>
-						<p class="zw">
-							培训详情培训详情培训详情培训详情培训详情
-						</p>
-					</div>
-					</a>
-				</li>
 			</ul>
 		</div>
 	</body>
+	<script type="text/javascript">
+	//页面加载时执行
+		$(document).ready(function(){ 
+			var token= localStorage.getItem("c_token")
+			var userId= localStorage.getItem("userId");	
+			$.ajax({
+				type : "GET", //用GET方式传输
+				dataType : "json", //数据格式:JSON
+				url : 'trainingCourse/trainingCourseList', //目标地址
+			    data : "",
+				success : function(msg) {			
+					var datas=msg.data.list;
+					for(var i in datas){
+						$("ul").append("<li class='now'>"+
+								           "<a value='"+datas[i].relatePermissionUserType+"' name='"+datas[i].trainingCourseId+"'>"+
+								              "<div class='left'><img src='img/05.jpg'/><div class='tip' value='"+datas[i].relatePermissionUserType+"'></div></div>"+
+								              "<div class='right'><p class='title'>"+
+								                  "<span class='size'>"+datas[i].title+"</span>"+
+								                  "<span class='time'>"+datas[i].createTime+"</span></p>"+
+								              "<p class='zw'>"+datas[i].content+"</p></div></a></li>");			
+					}	
+					// alert(11);
+					 $("ul .tip").each(function(){
+						 //注册专享与vip区别
+						 if($(this).attr("value")<=1){
+							 $(this).removeAttr("class");
+						 }
+						 if($(this).attr("value")==3||$(this).attr("value")==2){
+							 $(this).text("");
+							 $(this).text("注册专享");
+						 }
+						 if($(this).attr("value")>=3){
+							 $(this).text("");
+							 $(this).text("VIP专享");
+						 }
+						  });
+					 $.ajax({
+							type : "GET", //用GET方式传输
+							dataType : "json", //数据格式:JSON
+							url : 'user/getUserInfo', //目标地址
+							//data : "dealType=" + dealType + "&uid=" + uid + "&code=" + code,
+							data : {userId:userId,token:token},
+							success : function(msg) {	
+								if(msg.code==100){
+									if(msg.msg=="登录信息失效,请重新登录"){
+										alert(msg.msg);
+										window.location.href="views/login.jsp";
+									}
+									
+								}
+								if(msg.code==200){
+									var userData=msg.data;
+									//跳转地址区分
+									 $("ul a").each(function(){
+										 if($(this).attr("value")<=userData.userType){
+											 var trainingCourseId=$(this).attr("name");
+											 $(this).attr({href:"views/train/introTraining.jsp?trainingCourseId="+trainingCourseId});
+										 }
+									 });
+								}
+							}
+					 });
+				}
+			});
+		}); 
+	    //点击事件
+		$('.part span').click(function(){
+			$(this).addClass('focus');
+			$(this).siblings('span').removeClass('focus');
+			$(this).parent().siblings('.part').children('span').removeClass('focus');
+		});		
+		$('.tt .yes').click(function(){
+			$('.mask').hide();
+		})
+		
+		$('.tt .no').click(function(){
+			$('.mask').hide();
+		})
+		
+		$('.search .right').click(function(){
+			$('.mask').show();
+		})
+	</script>
 </html>
