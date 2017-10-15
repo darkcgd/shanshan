@@ -86,5 +86,24 @@ public class EnrolController extends BaseController {
 		return msg;
 		
 	}
+
+	
+	/**
+	 * 报名详情
+	 * @return
+	 */
+	@RequestMapping("/enrolDetail")
+	@ResponseBody
+	public JsonResult enrolDetail(EnrollBean entity) {
+		JsonDataResult<EnrollBean> result = new JsonDataResult<>();
+		
+		if (null == entity.getEnrollId() || 0 == entity.getEnrollId()) {
+			return new JsonResult("500", "报名id不能为空!");
+		}
+		
+		EnrollBean data = enrolService.activityDetail(entity);
+		result.setData(data);
+		return result;
+	}
 	
 }

@@ -10,12 +10,12 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>活动信息记录</title>
-		<base href="<%=basePath%>">
+		<title>活动信息</title>
+	    <base href="<%=basePath%>">
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link rel="stylesheet" type="text/css" href="css/common.css"/>
 		<link rel="stylesheet" type="text/css" href="css/header.css"/>
-		<link rel="stylesheet" type="text/css" href="css/hdjl.css"/>
+		<link rel="stylesheet" type="text/css" href="css/introduce.css"/>
 		<script src="js/jquery-1.7.1.min.js" type="text/javascript" charset="utf-8"></script>
 	</head>
 	<script type="text/javascript">
@@ -41,65 +41,42 @@
 	<body>
 		<header>
     		<div class="head">
-        		<div class="title">活动信息记录</div>
+        		<div class="title">活动信息</div>
         		<span class="h-lt" style="cursor:pointer" onclick="window.history.go(-1)"><i class="h-bk"></i></span>
         		<a class="h-rt" href="#"></a>
     		</div>
 		</header>
-		<div class="sec">
-			<ul>
-				<li>
-					<a href="views/intro.jsp">
-					<div class="left">
-						<img src="img/05.jpg"/>
-					</div>
-					<div class="right">
-						<p class="title">
-							<span class="size">活动记录</span>
-							<span class="time">2017/08/07</span>
-						</p>
-						<p class="zw">
-							培训详情培训详情培训详情培训详情培训详情
-						</p>
-					</div>
-					</a>
-				</li>
-				
-				<li>
-					<a href="views/intro.jsp">
-					<div class="left">
-						<img src="img/05.jpg"/>
-						<!--<div class="tip">VIP专享</div>-->
-					</div>
-					<div class="right">
-						<p class="title">
-							<span class="size">活动名称1</span>
-							<span class="time">2017/08/07</span>
-						</p>
-						<p class="zw">
-							培训详情培训详情培训详情培训详情培训详情
-						</p>
-					</div>
-					</a>
-				</li>
-				
-				<li>
-					<a href="views/intro.jsp">
-					<div class="left">
-						<img src="img/blog.png"/>
-					</div>
-					<div class="right">
-						<p class="title">
-							<span class="size">活动名称1</span>
-							<span class="time">2017/08/07</span>
-						</p>
-						<p class="zw">
-							培训详情培训详情培训详情培训详情培训详情
-						</p>
-					</div>
-					</a>
-				</li>
-			</ul>
+		<div class="section">
+			
 		</div>
 	</body>
+<!-- 	<script type="text/javascript">
+	$(document).ready(function(){ 
+		var token= localStorage.getItem("c_token")
+		var userId= localStorage.getItem("userId");	
+		 function getUrlParam(name) {
+		   var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+		   var r = window.location.search.substr(1).match(reg); //匹配目标参数
+		   if (r != null) return unescape(r[2]); return null; }//返回参数值
+	       var enrollId= getUrlParam('enrollId');
+		$.ajax({
+			type : "GET", //用GET方式传输
+			dataType : "json", //数据格式:JSON
+			url : 'enrol/enrolDetail', //目标地址
+			data:{
+				userId:userId,
+			    token:token,
+				enrollId:enrollId
+			},
+	        success:function(msg){
+				   var  datas=msg.data;
+				   $(".section").append("<p class='title'>培训活动名称</p>"+
+						"<p class='time'>"+datas.createTime+"</p>"+
+					"</div>"+
+					"<div class='infor'>"+
+						"<p>"+datas.remark+"</p>");
+				}
+			});
+		});
+	</script> -->
 </html>

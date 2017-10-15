@@ -52,7 +52,7 @@ td.fenye{ padding:10px 0 0 0; text-align:right;}
 <!--main_top-->
 <table width="99%" border="0" cellspacing="0" cellpadding="0" id="searchmain">
   <tr>
-    <td width="99%" align="left" valign="top">您的位置：活动列表</td>
+    <td width="99%" align="left" valign="top">您的位置：文章列表</td>
   </tr>
   <tr>
     <td align="left" valign="top">
@@ -60,12 +60,12 @@ td.fenye{ padding:10px 0 0 0; text-align:right;}
   		<tr>
    		 <td width="90%" align="left" valign="middle">
 	         <form method="post" action="">
-	         <!-- <span>标题：</span>
+	         <span>标题：</span>
 	         <input type="text" name="" value="" id="keywordTitle" class="text-word">
-	         <input name="" type="button" value="查询"  class="text-but" onclick="searchAticle();"> -->
+	         <input name="" type="button" value="查询"  class="text-but" onclick="searchAticle();">
 	         </form>
          </td>
-  		  <td width="10%" align="center" valign="middle" style="text-align:right; width:150px;"><a href="pc/main/houdong/activeAdd.jsp" target="mainFrame" onFocus="this.blur()" class="add">添加活动信息</a></td>
+  		  <td width="10%" align="center" valign="middle" style="text-align:right; width:150px;"><a href="pc/main/wenzhang/articleAdd.jsp" target="mainFrame" onFocus="this.blur()" class="add">添加文章</a></td>
   		</tr>
 	</table>
     </td>
@@ -103,10 +103,10 @@ $(document).ready(function(){
 $.ajax({
 	type : "GET",
 	dataType : "json",
-	url : "activity/activityList",
+	url : "article/getArticleList",
 	data:{pagerSize:10},
 	success : function(msg) {
-		if(msg.code==200){	
+		if(msg.code==200){
            var data=msg.data.list;         
            //添加信息
            for(var i in data){
@@ -123,12 +123,12 @@ $.ajax({
         	   if(data[i].relatePermissionUserType>=3){
         		   relatePermissionUserType="C级用户";
         	   }
-        	 //是否过期
+        	   //是否过期
         	   var nowDate=new Date();
         	   var endTime=data[i].endTime==null?"":data[i].endTime;
         	    if(endTime) {
         	    	var arr1=endTime.split("-");        	    
-					var date = new Date(arr1[0],arr1[1]-1,arr1[2]);	
+					var date = new Date(arr1[0],arr1[1]-1,arr1[2]);					
 					} 
         	    var status="";
         	   if(date<nowDate){
@@ -137,29 +137,28 @@ $.ajax({
         	   if(date>nowDate){
         		   status="未过期";
         	   }
- 
+
         	   //阅读量
         	   var readCount=data[i].readCount==null?0:data[i].readCount;
         	   //
-        
  $("#aticleList").append("<tr onMouseOut='this.style.backgroundColor='#ffffff'' onMouseOver='this.style.backgroundColor='#edf5ff''>"+		          
-		           "<td align='center' valign='middle' class='borderright borderbottom'>"+data[i].activityId+"</td>"+
+		           "<td align='center' valign='middle' class='borderright borderbottom'>"+data[i].articleId+"</td>"+
 		           "<td align='center' valign='middle' class='borderright borderbottom'>"+title+"</td>"+
 	               "<td align='center' valign='middle' class='borderright borderbottom'>"+relatePermissionUserType+"</td>"+
 	               "<td align='center' valign='middle' class='borderright borderbottom'>"+status+"</td>"+
 	               "<td align='center' valign='middle' class='borderright borderbottom'>"+readCount+"</td>"+	               
 	               "<td align='center' valign='middle' class='borderbottom' id='changeStatus'>"+
-	               "<a href='javascript:void(0);' target='mainFrame' onFocus='this.blur()' onclick='changeStatus(this);' style='display:none;' class='status'></a><span class='gray'></span>"+
+	               "<a href='javascript:void(0);' target='mainFrame' onFocus='this.blur()' onclick='changeStatus(this);' class='status' style='display:none;'></a><span class='gray'>&nbsp;|&nbsp;</span>"+
 	               "<a href='javascript:void(0);' target='mainFrame' onFocus='this.blur()' onclick='deleteAticle(this);' class='add'>删除</a><span class='gray'>&nbsp;|&nbsp;</span>"+
 	                   "<a href='javascript:void(0);' target='mainFrame' onFocus='this.blur()' onclick='updateAticle(this);' class='add'>查看详情</a>"+
 	               "</td>"+
               "</tr>");
           
                     }
-        var endPageNumber=msg.data.totalPage==null?0:msg.data.totalPage;//尾页
-        var totalCount=msg.data.totalCount==null?0:msg.data.totalCount;//多少条记录
-        var totalPage=msg.data.totalPag==null?0:msg.data.totalPage;//共多少页
-        var pagerNumber=msg.data.pagerNumber==null?0:msg.data.pagerNumber;//当前页
+           var endPageNumber=msg.data.totalPage==null?0:msg.data.totalPage;//尾页
+           var totalCount=msg.data.totalCount==null?0:msg.data.totalCount;//多少条记录
+           var totalPage=msg.data.totalPag==null?0:msg.data.totalPage;//共多少页
+           var pagerNumber=msg.data.pagerNumber==null?0:msg.data.pagerNumber;//当前页
            $(".fenye a:nth-child(2)").attr({value:1});
            $(".fenye a:nth-child(3)").attr({value:1});
            $(".fenye a:nth-child(4)").attr({value:1});
@@ -191,7 +190,7 @@ $.ajax({
 		 $.ajax({
 	    		type : "GET",//get提交
 	    		dataType : "json",//json格式
-	    		url : "activity/activityList",
+	    		url : "article/getArticleList",
 	    		data:{
 	    			title:title,
 	    			pagerNumber:pageNumber,
@@ -230,18 +229,17 @@ $.ajax({
 	    	        	   if(date>nowDate){
 	    	        		   status="未过期";
 	    	        	   }
-	    	        	
 	    	        	   //阅读量
 	    	        	   var readCount=data[i].readCount==null?0:data[i].readCount;
-	    	        	   //	    	      
+	    	        	   //
 	    	 $("#aticleList").append("<tr onMouseOut='this.style.backgroundColor='#ffffff'' onMouseOver='this.style.backgroundColor='#edf5ff''>"+		          
-	    			           "<td align='center' valign='middle' class='borderright borderbottom'>"+data[i].activityId+"</td>"+
+	    			           "<td align='center' valign='middle' class='borderright borderbottom'>"+data[i].articleId+"</td>"+
 	    			           "<td align='center' valign='middle' class='borderright borderbottom'>"+title+"</td>"+
 	    		               "<td align='center' valign='middle' class='borderright borderbottom'>"+relatePermissionUserType+"</td>"+
 	    		               "<td align='center' valign='middle' class='borderright borderbottom'>"+status+"</td>"+
 	    		               "<td align='center' valign='middle' class='borderright borderbottom'>"+readCount+"</td>"+	               
 	    		               "<td align='center' valign='middle' class='borderbottom' id='changeStatus'>"+
-	    		                   "<a href='javascript:void(0);' target='mainFrame' onFocus='this.blur()' onclick='changeStatus(this);' class='status' style='display:none;'></a><span class='gray'></span>"+
+	    		                   "<a href='javascript:void(0);' target='mainFrame' onFocus='this.blur()' onclick='changeStatus(this);' class='status' style='display:none;'></a><span class='gray'>&nbsp;|&nbsp;</span>"+
 	    		                   "<a href='javascript:void(0);' target='mainFrame' onFocus='this.blur()' onclick='deleteAticle(this);' class='add'>删除</a><span class='gray'>&nbsp;|&nbsp;</span>"+
 	    		                   "<a href='javascript:void(0);' target='mainFrame' onFocus='this.blur()' onclick='updateAticle(this);' class='add'>查看详情</a>"+
 	    		               "</td>"+
@@ -263,7 +261,7 @@ $.ajax({
 		 
 	 }
    
-  //删除功能
+   //删除功能
    function deleteAticle(val){
 	  var  changeStatus=13;
 	  var  changeArticleId=$(val).parent().prevAll("td:eq(4)").text();	//文章ID
@@ -271,8 +269,8 @@ $.ajax({
 				type : "POST", //用POST方式传输
 				contentType: "application/json; charset=utf-8",				
 				type:"json", //数据格式:JSON
-				url : 'activity/saveOpUpdate', //目标地址
-				data : JSON.stringify({activityId:changeArticleId,status:changeStatus}),
+				url : 'article/saveOpUpdate', //目标地址
+				data : JSON.stringify({articleId:changeArticleId,status:changeStatus}),
 				error: function(XMLHttpRequest){  
 				   }  ,
 				success : function(msg) {
@@ -285,13 +283,13 @@ $.ajax({
 	
 	 
    };
-   /*  //模糊查询
+    //模糊查询
     function searchAticle(){
      var title=$("#keywordTitle").val();
      $.ajax({
     		type : "GET",//get提交
     		dataType : "json",//json格式
-    		url : "activity/activityList",
+    		url : "article/getArticleList",
     		data:{title:title},
     		success : function(msg) {
     			if(msg.code==200){
@@ -312,12 +310,18 @@ $.ajax({
     	        	   if(data[i].relatePermissionUserType>=3){
     	        		   relatePermissionUserType="C级用户";
     	        	   }
-    	        	   //是否过期
-    	        	   var status="";
-    	        	   if(data[i].status==11){
+    	        	 //是否过期
+    	        	   var nowDate=new Date();
+    	        	   var endTime=data[i].endTime==null?"":data[i].endTime;
+    	        	    if(endTime) {
+    	        	    	var arr1=endTime.split("-");        	    
+    						var date = new Date(arr1[0],arr1[1]-1,arr1[2]);					
+    						} 
+    	        	    var status="";
+    	        	   if(date<nowDate){
     	        		   status="已过期";
     	        	   }
-    	        	   if(data[i].status==10){
+    	        	   if(date>nowDate){
     	        		   status="未过期";
     	        	   }
     	        	   //阅读量
@@ -325,13 +329,13 @@ $.ajax({
     	        	   //
     	        	 
     	 $("#aticleList").append("<tr onMouseOut='this.style.backgroundColor='#ffffff'' onMouseOver='this.style.backgroundColor='#edf5ff''>"+		          
-    			           "<td align='center' valign='middle' class='borderright borderbottom'>"+data[i].activityId+"</td>"+
+    			           "<td align='center' valign='middle' class='borderright borderbottom'>"+data[i].articleId+"</td>"+
     			           "<td align='center' valign='middle' class='borderright borderbottom'>"+title+"</td>"+
     		               "<td align='center' valign='middle' class='borderright borderbottom'>"+relatePermissionUserType+"</td>"+
     		               "<td align='center' valign='middle' class='borderright borderbottom'>"+status+"</td>"+
     		               "<td align='center' valign='middle' class='borderright borderbottom'>"+readCount+"</td>"+	               
     		               "<td align='center' valign='middle' class='borderbottom' id='changeStatus'>"+
-    		                   "<a href='javascript:void(0);' target='mainFrame' onFocus='this.blur()' onclick='changeStatus(this);' class='status' style='display:none;'></a><span class='gray'></span>"+
+    		                   "<a href='javascript:void(0);' target='mainFrame' onFocus='this.blur()' onclick='changeStatus(this);' class='status' style='display:none;'></a><span class='gray'>&nbsp;|&nbsp;</span>"+
     		                   "<a href='javascript:void(0);' target='mainFrame' onFocus='this.blur()' onclick='deleteAticle(this);' class='add'>删除</a><span class='gray'>&nbsp;|&nbsp;</span>"+
     		                   "<a href='javascript:void(0);' target='mainFrame' onFocus='this.blur()' onclick='updateAticle(this);' class='add'>查看详情</a>"+
     		               "</td>"+
@@ -342,12 +346,12 @@ $.ajax({
     		             }
     		}
     	   }); 
-    } */
+    }
     
     //查看详情，详情页可修改内容
     function  updateAticle(text){
-    	var activityId=$(text).parent().prevAll("td:eq(4)").text();
-    	window.location.href="pc/main/houdong/activeUpdate.jsp?activityId="+activityId;
+    	var articleId=$(text).parent().prevAll("td:eq(4)").text();
+    	window.location.href="pc/main/article/articleUpdate.jsp?articleId="+articleId;
     }
             
 </script>

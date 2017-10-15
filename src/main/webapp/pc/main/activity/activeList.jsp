@@ -65,7 +65,7 @@ td.fenye{ padding:10px 0 0 0; text-align:right;}
 	         <input name="" type="button" value="查询"  class="text-but" onclick="searchAticle();"> -->
 	         </form>
          </td>
-  		  <td width="10%" align="center" valign="middle" style="text-align:right; width:150px;"><a href="pc/main/houdong/activeAdd.jsp" target="mainFrame" onFocus="this.blur()" class="add">添加活动信息</a></td>
+  		  <td width="10%" align="center" valign="middle" style="text-align:right; width:150px;"><a href="pc/main/activity/activeAdd.jsp" target="mainFrame" onFocus="this.blur()" class="add">添加活动信息</a></td>
   		</tr>
 	</table>
     </td>
@@ -347,7 +347,7 @@ $.ajax({
     //查看详情，详情页可修改内容
     function  updateAticle(text){
     	var activityId=$(text).parent().prevAll("td:eq(4)").text();
-    	window.location.href="pc/main/peixun/trainUpdate.jsp?trainingCourseId="+trainingCourseId;
+    	window.location.href="pc/main/activity/activityUpdate.jsp?trainingCourseId="+trainingCourseId;
     }
             
 </script>

@@ -165,6 +165,7 @@ td.fenye {
 <body>
 	<form>
 		<table class="table table-bordered table-hover definewidth m10">
+               
 			<tr>			
 				<td width="10%" class="tableleft">标题</td>
 				<td><input type="text" id="title" value="" style="width:30%"/></td>			
@@ -227,7 +228,7 @@ td.fenye {
 			<tr>
 				<td class="tableleft"></td>
 				<td>
-					<button id="saveInfo"  class="btn btn-primary" type="button">修改</button>
+					<button id="saveInfo"  class="btn btn-primary" type="button">保存</button>
 					&nbsp;&nbsp;
 					<button type="reset" class="btn btn-success">重置</button>
 				</td>
@@ -238,62 +239,6 @@ td.fenye {
  <!-- 注意， 只需要引用 JS，无需引用任何 CSS ！！！-->
     <script type="text/javascript" src="pc/editor/release/wangEditor.js"></script>
     <script type="text/javascript">
-    $(document).ready(function(){
-    	 function getUrlParam(name) {
-			   var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
-			   var r = window.location.search.substr(1).match(reg); //匹配目标参数
-			   if (r != null) return unescape(r[2]); return null; 
-			}//返回参数值
-    	 var articleId= getUrlParam('articleId');
-    	 $.ajax({
-		   type:'get',
-		   url:'article/articleDetail',
-		   data:"articleId="+articleId,
-		   dataType:'json',
-		   success:function(msg){
-			   if(msg.code==200){	
-				    var data=msg.data;//数据
-			    	var title=data.title==null?'':data.title;//标题
-			        var author=data.author==null?'':data.author;
-			        var categoryName=data.categoryName==null?'':data.categoryName;
-			        var tagId=data.tagId==null?'':data.tagId;
-			        var startTime=data.startTime==null?'':data.startTime;
-			        var endTime=data.endTime==null?'':data.endTime;
-			        var relateActivityId=data.relateActivityId==null?'':data.relateActivityId;		       
-			        var relatePermissionUserType=data.relatePermissionUserType==null?'':data.relatePermissionUserType;
-			        var content=data.content==null?'':data.content;
-			        //回填数据
-			        $("#title").val(title);
-			        $("#author").val(author);
-			        $("#smallClass").html("<option>"+categoryName+"</option>");
-			        if(tagId==1){
-			        	$("#tagId option:nth-child(0)").attr({selected:'selected'});
-			        }
-			        if(tagId==2){
-			        	$("#tagId option:nth-child(3)").attr({selected:'selected'});
-			        }
-			        $("#startTime").val(startTime);
-			        $("#endTime").val(endTime);
-			        $("#IdSelect").html("<option>"+relateActivityId+"</option>");
-			        if(relatePermissionUserType==1){
-			        	$("#relatePermissionUserType option:nth-child(0)").attr({selected:'selected'});
-			        }
-			        if(relatePermissionUserType==2){
-			        	$("#relatePermissionUserType option:nth-child(3)").attr({selected:'selected'});
-			        }
-			        if(relatePermissionUserType>=3){
-			        	$("#relatePermissionUserType option:nth-child(5)").attr({selected:'selected'});
-			        }
-			        editor.txt.html("<p>"+content+"</p>");			
-			   }
-		   }
-    	 });
-    })
-    function getUrlParam(name) {
-			   var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
-			   var r = window.location.search.substr(1).match(reg); //匹配目标参数
-			   if (r != null) return unescape(r[2]); return null; 
-			}//返回参数值
     $("#saveInfo").click(function(){ 
         $.ajax({
 			type : "POST", //用POST方式传输
@@ -302,10 +247,10 @@ td.fenye {
 			url : 'article/saveOpUpdate', //目标地址
 			data : JSON.stringify(GetJsonData()),
 			error: function(XMLHttpRequest){  
-			     alert( "Error: " + XMLHttpRequest.responseText);  
+			     //alert( "Error: " + XMLHttpRequest.responseText);  
 			   }  ,
 			success : function(msg) {
-				 window.location.href="pc\\main\\wenzhang\\article.jsp";
+			 window.location.href="pc\\main\\article\\article.jsp";
 				}
 				//发送验证返回信息
 		});
@@ -321,7 +266,7 @@ td.fenye {
     			success : function(msg) {    				
     				var datas=msg.data.list; 
     				$("#IdSelect").html("");
-	    				for(var i in datas){	    				
+	    				for(var i in datas){
 	    					$("#IdSelect").append("<option>"+datas[i].activityId+"</option>");
 	    				}
     				}
@@ -358,9 +303,7 @@ td.fenye {
         editor.customConfig.uploadImgMaxLength = 5;     
         editor.create();
         E.fullscreen.init('#editor');
-    //json数据
-       function GetJsonData() {
-        var articleId= getUrlParam('articleId');
+    function GetJsonData() {
     	var content=editor.txt.html();
     	var title=$("#title").val();
         var author=$("#author").val();
@@ -371,7 +314,6 @@ td.fenye {
         var relateActivityId=$("#IdSelect").find("option:selected").text();
         var relatePermissionUserType=$("#relatePermissionUserType").find("option:selected").val();
         var json = {
-        		articleId:articleId,
         	    title:title,
 				author:author,
 				content:content,

@@ -53,9 +53,12 @@ public class FaultRepairService {
 		Criteria criteria = example.createCriteria();
 		criteria.andUserIdEqualTo(Integer.parseInt(userId));
 
-
 		example.setOrderByClause("create_time");
 		return faultRepairBeanMapper.selectByExample(example);
+	}
+
+	public FaultRepairBean faultRepairDetail(FaultRepairBean entity) {
+		return faultRepairBeanMapper.selectByPrimaryKey(entity.getRepairId());
 	}
 
 }

@@ -50,7 +50,7 @@
 		</header>
 		<ul class="section">
 			<li>
-				<a href="views/hdjl.jsp">
+				<a href="views/record/hdjl.jsp">
 				<span>活动信息记录</span>
 				<div class="right">
 					<img src="img/right.png"/>
@@ -66,7 +66,7 @@
 				</a>
 			</li>
 			<li>
-				<a href="views/history.jsp">
+				<a href="views/record/jszxjl.jsp">
 				<span>技术咨询记录</span>
 				<div class="right">
 					<img src="img/right.png"/>

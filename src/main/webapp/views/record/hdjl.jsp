@@ -10,12 +10,12 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>培训课程记录</title>
+		<title>活动信息记录</title>
 		<base href="<%=basePath%>">
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link rel="stylesheet" type="text/css" href="css/common.css"/>
 		<link rel="stylesheet" type="text/css" href="css/header.css"/>
-		<link rel="stylesheet" type="text/css" href="css/coach.css"/>
+		<link rel="stylesheet" type="text/css" href="css/hdjl.css"/>
 		<script src="js/jquery-1.7.1.min.js" type="text/javascript" charset="utf-8"></script>
 	</head>
 	<script type="text/javascript">
@@ -41,7 +41,7 @@
 	<body>
 		<header>
     		<div class="head">
-        		<div class="title">培训课程记录</div>
+        		<div class="title">活动信息记录</div>
         		<span class="h-lt" style="cursor:pointer" onclick="window.history.go(-1)"><i class="h-bk"></i></span>
         		<a class="h-rt" href="#"></a>
     		</div>
@@ -50,7 +50,7 @@
 			
 		</div>
 	</body>
-	<script type="text/javascript">
+	<!-- <script type="text/javascript">
 	$(document).ready(function(){ 
 		var token= localStorage.getItem("c_token")
 		var userId= localStorage.getItem("userId");	
@@ -63,18 +63,19 @@
 		    	token:token
 		    },
 			success : function(msg) {
-				var datas=msg.data.list;
+				var datas=msg.data;
 				for(var i in datas){
-					$(".sec").append("<ul><li><a name='"+datas[i].enrollId+"'>"+
+					$(".sec").append("<ul><li>"+
+								"<a name='"+datas[i].id+"'>"+
 								"<div class='left'>"+
-									"<img src='img/blog.png'/>"+
+									"<img src='img/05.jpg'/>"+
 								"</div>"+
 								"<div class='right'>"+
 									"<p class='title'>"+
-										"<span class='size'>培训课程1</span>"+
-										"<span class='time'>"+datas[i].createTime+"</span>"+
+										"<span class='size'>活动记录</span>"+
+										"<span class='time'>2017/08/07</span>"+
 									"</p>"+
-									"<p class='zw'>"+datas[i].company+"</p>"+
+									"<p class='zw'>培训详情培训详情培训详情培训详情培训详情</p>"+
 								"</div></a></li></ul>");			
 				}				
 				 $.ajax({
@@ -94,7 +95,7 @@
 								//跳转地址区分
 								 $(".sec a").each(function(){
 										 var enrollId=$(this).attr("name");
-										 $(this).attr({href:"views/record/pxjl2.jsp?enrollId="+enrollId});
+										 $(this).attr({href:"views/record/hdjl2.jsp?enrollId="+enrollId});
 									
 								 });
 								
@@ -105,5 +106,5 @@
 		});
 	}); 
 
-    </script>
+    </script> -->
 </html>

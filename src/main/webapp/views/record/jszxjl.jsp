@@ -47,47 +47,61 @@
     		</div>
 		</header>
 		<ul class="oul">
-				<li class="now">
-					<a href="views/ltjl.jsp">
-						<div class="right">
-							<p class="title">
-								<span class="size">王霞</span>
-								<span class="time">21:55</span>
-							</p>
-							<p class="zw">
-								培训详情培训详情培训详情培训详情培训详情
-							</p>
-						</div>
-					</a>
-				</li>
-				<li class="now">
-					<a href="views/ltjl.jsp">
-						<div class="right">
-							<p class="title">
-								<span class="size">何江</span>
-								<span class="time">21:55</span>
-							</p>
-							<p class="zw">
-								培训详情培训详情培训详情培训详情培训详情
-							</p>
-						</div>
-					</a>
-					
-				</li>
-				<li class="now">
-					<a href="views/ltjl.jsp">
-						<div class="right">
-							<p class="title">
-								<span class="size">王刚</span>
-								<span class="time">21:55</span>
-							</p>
-							<p class="zw">
-								培训详情培训详情培训详情培训详情培训详情
-							</p>
-							
-						</div>
-					</a>
-				</li>
+				
 			</ul>
 	</body>
+	<script type="text/javascript">
+	$(document).ready(function(){ 
+		var token= localStorage.getItem("c_token")
+		var userId= localStorage.getItem("userId");	
+		$.ajax({
+			type : "GET", //用GET方式传输
+			dataType : "json", //数据格式:JSON
+			url : 'faultRepair/faultRepairList', //目标地址
+		    data :{
+		    	userId:userId,
+		    	token:token
+		    },
+			success : function(msg) {
+				var datas=msg.data.list;
+				for(var i in datas){
+					$(".oul").append("<li class='now'>"+
+							"<a name='"+data[i].id+"'>"+
+								"<div class='right'>"+
+									"<p class='title'>"+
+										"<span class='size'>王霞</span>"+
+										"<span class='time'>21:55</span>"+
+									"</p>"+
+									"<p class='zw'>培训详情培训详情培训详情培训详情培训详情</p>"+
+								"</div></a></li>");			
+				}				
+				 $.ajax({
+						type : "GET", //用GET方式传输
+						dataType : "json", //数据格式:JSON
+						url : 'user/getUserInfo', //目标地址
+						//data : "dealType=" + dealType + "&uid=" + uid + "&code=" + code,
+						data : {userId:userId,token:token},
+						success : function(msg) {	
+							if(msg.code==100){
+								if(msg.msg=="登录信息失效,请重新登录"){
+									alert(msg.msg);
+									window.location.href="views/login.jsp";
+								}
+								
+							}
+							if(msg.code==200){
+								//跳转地址区分
+								 $(".oul a").each(function(){
+										 var repairId=$(this).attr("name");
+										 $(this).attr({href:"views/record/jszxjl2.jsp?repairId="+repairId});
+									
+								 });
+							}
+						}
+				 });
+			}
+		});
+	}); 
+
+    </script>
 </html>
