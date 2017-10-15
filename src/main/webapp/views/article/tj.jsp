@@ -50,9 +50,9 @@
 		</header>
 		<div class="section">
 			<p class="title">
-				培训活动名称
+				
 			</p>
-			<p class="time">2017/08/27~2017/08/30</p>
+			<p class="time"></p>
 		</div>
 		<ul class="infor">
 			<!--<li>
@@ -62,28 +62,28 @@
 			</li>-->
 			<li>
 				<span class="left">姓名</span>
-				<input type="text" class="right" value="张小明">
+				<input type="text" id="userName" class="right" value="">
 			</li>
 			<li>
 				<span class="left">公司</span>
-				<input type="text" class="right" value="xxx研发公司">
+				<input type="text" class="right" id="company" value="">
 			</li>
 			<li>
 				<span class="left">手机号</span>
-				<input type="text" class="right" value="15648411654">
+				<input type="text" class="right" id="phone" value="">
 			</li>
 			
 			<li>
 				<span class="left">邮箱地址</span>
-				<input type="text" class="right" value="115615164@qq.com">
+				<input type="text" class="right" id="email" value="">
 			</li>
 			<li>
 				<span class="left">公司地址</span>
-				<input type="text" class="right" value="深圳市">
+				<input type="text" class="right" id="provincesCities" value="">
 			</li>
 			<li>
 				<span class="left">职位</span>
-				<input type="text" class="right" value="软件工程师">
+				<input type="text" class="right" id="positionName" value="">
 				<!--<img src="img/right.png" class="righter"/>-->
 				<!--<div class="slide">
 					<div class="oss">
@@ -96,7 +96,7 @@
 			</li>
 			<li>
 				<span class="left">部门</span>
-				<input type="text" class="right" value="研发部">
+				<input type="text" class="right" id="" value="研发部">
 				
 				<!--<img src="img/right.png" class="righter"/>-->
 				<!--<div class="slide">
@@ -196,7 +196,82 @@
 		
 	</body>
 	<script src="js/calendar.js"></script> 
-<script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+	 function getUrlParam(name) {
+		   var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+		   var r = window.location.search.substr(1).match(reg); //匹配目标参数
+		   if (r != null) return unescape(r[2]); return null; 
+		   }//返回参数值
+		   var userId=getUrlParam('userId');
+		   var token=getUrlParam('token');
+		   var relateActivityId=getUrlParam('relateActivityId');
+		   //需要提交信息
+		   $.ajax({
+			   type:'get',
+			   url:'activity/activityDetail',
+			   data:"activityId="+relateActivityId,
+			   dataType:'json',
+			   success:function(msg){
+				   if(msg.code==200){
+					  var data=msg.data;
+					  var title=data.title==null?"":data.title;
+					  var startTime=data.startTime==null?"":data.startTime;
+					  var endTime=data.endTime==null?"":data.endTime;
+					  //回填信息
+					  $(".title").text(title);
+					  $(".time").text(startTime+"~"+endTime);
+					// 获取用户信息
+					   $.ajax({
+						   type:'get',
+						   url:'user/getUserInfo',
+						   data:{userId:userId,token:token},
+						   dataType:'json',
+						   success:function(msg){
+							   if(msg.code==200){
+								  var userData=msg.data;
+								  var userName=userData.userName==null?"未填写":userData.userName;//姓名
+								  var company=userData.company==null?"未填写":userData.company;//公司地址
+								  var phone=userData.phone==null?"未填写":userData.phone;//手机号
+								  var positionName=userData.positionName==null?"未填写":userData.positionName;//职位
+								  var departmentName=userData.departmentName==null?"未填写":userData.departmentName;//部门
+                                  //姓名
+								  if(data.isNeedUserName==1){
+									  $("#userName").val(userName);									  
+								  }
+								  if(data.isNeedUserName==0){
+									  $("#userName").parent().hide();
+								  }								  
+								  //公司
+								  if(data.isNeedCompany==1){
+									  $("#company").val(company);
+									  $("#provincesCities").val(provincesCities);
+								  }
+								  if(data.isNeedCompany==0){
+									  $("#company").parent().hide();
+									  $("#provincesCities").parent().hide();
+								  }
+								  if(data.isNeedUserName==1){
+									  $("#userName").val(userName);									  
+								  }
+								  if(data.isNeedUserName==0){
+									  $("#userName").parent().hide();
+								  }
+								  if(data.isNeedUserName==1){
+									  $("#userName").val(userName);									  
+								  }
+								  if(data.isNeedUserName==0){
+									  $("#userName").parent().hide();
+								  }
+
+							   }
+						   }
+					   })
+									   }
+				   
+			   }
+		   })
+})
     $('#ca').calendar({
         width: 320,
         height: 320,
@@ -258,7 +333,6 @@
     
 </script>
 <script type="text/javascript">
-	
 	$('.tj').click(function(){
 		$('.tta').show();
 	})

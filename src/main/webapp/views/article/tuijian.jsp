@@ -92,7 +92,8 @@
 						}
 						$(".zw").html("");
 						$(".zw").html(data.content);
-						if(data.relateActivityId==1){
+						var relateActivityId=data.relateActivityId==null?"":data.relateActivityId;
+						if(relateActivityId>0){
 							$(".to a").text("相关活动报名");
 							var token= localStorage.getItem("c_token")
 							var userId= localStorage.getItem("userId");	
@@ -106,8 +107,8 @@
 										if(msg.code==200){
 											var userData=msg.data;
 											//跳转地址区分
-											if(userData.userType>=2){
-											$(".to a").attr({href:"views/article/tj.jsp?userId="+userId});
+											if(userData.userType>=2){				
+											$(".to a").attr({href:"views/article/tj.jsp?userId="+userId+"&token="+token+"&relateActivityId="+relateActivityId});
 											}
 										}
 									}
@@ -119,9 +120,5 @@
 				   });
 			   
 		}); 
-     $(function(){
-    	 $(".to a").click(function(){
-    	 });
-     });
 	</script>
 </html>
