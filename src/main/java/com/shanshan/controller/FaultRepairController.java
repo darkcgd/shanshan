@@ -18,6 +18,7 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.shanshan.base.BaseController;
+import com.shanshan.bean.ActivityBean;
 import com.shanshan.bean.EnrollBean;
 import com.shanshan.bean.FaultRepairBean;
 import com.shanshan.bean.MsgBean;
@@ -81,6 +82,25 @@ public class FaultRepairController extends BaseController{
 		data.put("list", articleList);
 		return msg;
 		
+	}
+	
+	
+	/**
+	 * 报修详细数据
+	 * @return
+	 */
+	@RequestMapping("/faultRepairDetail")
+	@ResponseBody
+	public JsonResult faultRepairDetail(FaultRepairBean entity) {
+		JsonDataResult<FaultRepairBean> result = new JsonDataResult<>();
+		
+		if (null == entity.getRepairId() || 0 == entity.getRepairId()) {
+			return new JsonResult("500", "活动id不能为空!");
+		}
+		
+		FaultRepairBean data = faultRepairService.faultRepairDetail(entity);
+		result.setData(data);
+		return result;
 	}
 	
 }
