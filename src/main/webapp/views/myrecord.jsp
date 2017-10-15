@@ -66,7 +66,7 @@
 				</a>
 			</li>
 			<li>
-				<a href="views/history.jsp">
+				<a href="views/record/jszxjl.jsp">
 				<span>技术咨询记录</span>
 				<div class="right">
 					<img src="img/right.png"/>
