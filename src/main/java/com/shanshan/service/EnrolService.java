@@ -7,10 +7,14 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.shanshan.bean.ActivityBean;
 import com.shanshan.bean.EnrollBean;
 import com.shanshan.bean.EnrollBeanExample;
 import com.shanshan.bean.EnrollBeanExample.Criteria;
+import com.shanshan.common.model.JsonDataResult;
 import com.shanshan.common.model.JsonResult;
 import com.shanshan.dao.EnrollBeanMapper;
 
@@ -56,9 +60,17 @@ public class EnrolService {
 		if (StringUtils.isNotBlank(userId)) {
 			criteria.andUserIdEqualTo(Integer.parseInt(userId));
 		}
+		
+		if (entity.getFromType() != null && entity.getFromType() != 0) {
+			criteria.andFromTypeEqualTo(entity.getFromType());
+		}
 
 		example.setOrderByClause("create_time");
 		return	enrollBeanMapper.selectByExample(example);
+	}
+
+	public EnrollBean activityDetail(EnrollBean entity) {
+		return enrollBeanMapper.selectByPrimaryKey(entity.getEnrollId());
 	}
 
 }
