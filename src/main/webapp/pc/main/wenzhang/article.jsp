@@ -107,7 +107,6 @@ $.ajax({
 	data:{pagerSize:10},
 	success : function(msg) {
 		if(msg.code==200){
-			alert(msg.code);
            var data=msg.data.list;         
            //添加信息
            for(var i in data){
@@ -130,7 +129,8 @@ $.ajax({
         	    if(endTime) {
         	    	var arr1=endTime.split("-");        	    
 					var date = new Date(arr1[0],arr1[1]-1,arr1[2]);					
-					}     	 
+					} 
+        	    var status="";
         	   if(date<nowDate){
         		   status="已过期";
         	   }
@@ -221,7 +221,8 @@ $.ajax({
 	    	        	    if(endTime) {
 	    	        	    	var arr1=endTime.split("-");        	    
 	    						var date = new Date(arr1[0],arr1[1]-1,arr1[2]);					
-	    						}     	 
+	    						} 
+	    	        	    var status="";
 	    	        	   if(date<nowDate){
 	    	        		   status="已过期";
 	    	        	   }
@@ -315,7 +316,8 @@ $.ajax({
     	        	    if(endTime) {
     	        	    	var arr1=endTime.split("-");        	    
     						var date = new Date(arr1[0],arr1[1]-1,arr1[2]);					
-    						}     	 
+    						} 
+    	        	    var status="";
     	        	   if(date<nowDate){
     	        		   status="已过期";
     	        	   }
