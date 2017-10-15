@@ -47,15 +47,38 @@
     		</div>
 		</header>
 		<div class="section">
-			<p class="title">
-				培训课程名称
-			</p>
-			<p class="time">2017/08/27~2017/08/30</p>
-		</div>
-		<div class="infor">
-			<p>团队训练的专业机构团队训练的专业机构团队训练的专业机构团队训练的专业机构团队训练的专业机构团队训练的专业机构</p>
-			<p>团队训练的专业机构团队训练的专业机构团队训练的专业机构团队训练的专业机构团队训练的专业机构</p>
+			
 		</div>
 		
 	</body>
+	<script type="text/javascript">
+	$(document).ready(function(){ 
+		var token= localStorage.getItem("c_token")
+		var userId= localStorage.getItem("userId");	
+		 function getUrlParam(name) {
+			   var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+			   var r = window.location.search.substr(1).match(reg); //匹配目标参数
+			   if (r != null) return unescape(r[2]); return null; }//返回参数值
+		       var enrollId= getUrlParam('enrollId');
+		$.ajax({
+			type : "GET", //用GET方式传输
+			dataType : "json", //数据格式:JSON
+			url : 'trainingCourse/trainingCourseDetail', //目标地址
+			data:{
+				userId:userId,
+			    token:token,
+				enrollId:enrollId
+			},
+	        success:function(msg){
+				   var  datas=msg.data.list;
+				   $(".section").append("<p class='title'>培训课程名称</p>"+
+						"<p class='time'>'2017/08/27~2017/08/30'</p>"+
+					"</div>"+
+					"<div class='infor'>"+
+						"<p>团队训练的专业机构团队训练的专业机构团队训练的专业机构团队训练的专业机构团队训练的专业机构团队训练的专业机构</p>"+
+						"<p>团队训练的专业机构团队训练的专业机构团队训练的专业机构团队训练的专业机构团队训练的专业机构</p>");
+				}
+			});
+		});
+	</script>
 </html>

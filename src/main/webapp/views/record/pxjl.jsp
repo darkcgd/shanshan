@@ -47,60 +47,63 @@
     		</div>
 		</header>
 		<div class="sec">
-			<ul>
-				<li>
-					<a href="views/record/pxjl2.jsp">
-					<div class="left">
-						<img src="img/05.jpg"/>
-						<!--<div class="tip">注册专享</div>-->
-					</div>
-					<div class="right">
-						<p class="title">
-							<span class="size">活动名称1</span>
-							<span class="time">2017/08/07</span>
-						</p>
-						<p class="zw">
-							培训详情培训详情培训详情培训详情培训详情
-						</p>
-					</div>
-					</a>
-				</li>
-				
-				<li>
-					<a href="views/intro2.jsp">
-					<div class="left">
-						<img src="img/05.jpg"/>
-						<!--<div class="tip">VIP专享</div>-->
-					</div>
-					<div class="right">
-						<p class="title">
-							<span class="size">活动名称1</span>
-							<span class="time">2017/08/07</span>
-						</p>
-						<p class="zw">
-							培训详情培训详情培训详情培训详情培训详情
-						</p>
-					</div>
-					</a>
-				</li>
-				
-				<li>
-					<a href="views/intro2.jsp">
-					<div class="left">
-						<img src="img/blog.png"/>
-					</div>
-					<div class="right">
-						<p class="title">
-							<span class="size">活动名称1</span>
-							<span class="time">2017/08/07</span>
-						</p>
-						<p class="zw">
-							培训详情培训详情培训详情培训详情培训详情
-						</p>
-					</div>
-					</a>
-				</li>
-			</ul>
+			
 		</div>
 	</body>
+	<script type="text/javascript">
+	$(document).ready(function(){ 
+		var token= localStorage.getItem("c_token")
+		var userId= localStorage.getItem("userId");	
+		$.ajax({
+			type : "GET", //用GET方式传输
+			dataType : "json", //数据格式:JSON
+			url : 'enrol/enrollList', //目标地址
+		    data :{
+		    	userId:userId,
+		    	token:token
+		    },
+			success : function(msg) {
+				var datas=msg.data.list;
+				for(var i in datas){
+					$(".sec").append("<ul><li><a name='"+datas[i].enrollId+"'>"+
+								"<div class='left'>"+
+									"<img src='img/blog.png'/>"+
+								"</div>"+
+								"<div class='right'>"+
+									"<p class='title'>"+
+										"<span class='size'>活动名称1</span>"+
+										"<span class='time'>"+datas[i].createTime+"</span>"+
+									"</p>"+
+									"<p class='zw'>"+datas[i].company+"</p>"+
+								"</div></a></li></ul>");			
+				}				
+				 $.ajax({
+						type : "GET", //用GET方式传输
+						dataType : "json", //数据格式:JSON
+						url : 'user/getUserInfo', //目标地址
+						//data : "dealType=" + dealType + "&uid=" + uid + "&code=" + code,
+						data : {userId:userId,token:token},
+						success : function(msg) {	
+							if(msg.code==100){
+								if(msg.msg=="登录信息失效,请重新登录"){
+									alert(msg.msg);
+									window.location.href="views/login.jsp";
+								}
+							}
+							if(msg.code==200){
+								//跳转地址区分
+								 $(".sec a").each(function(){
+										 var enrollId=$(this).attr("name");
+										 $(this).attr({href:"views/record/pxjl2.jsp?enrollId="+enrollId});
+									
+								 });
+								
+							}
+						}
+				 });
+			}
+		});
+	}); 
+
+    </script>
 </html>
