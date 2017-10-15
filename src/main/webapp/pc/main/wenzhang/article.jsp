@@ -106,7 +106,8 @@ $.ajax({
 	url : "article/getArticleList",
 	data:{pagerSize:10},
 	success : function(msg) {
-		if(msg.code==200){			
+		if(msg.code==200){
+			alert(msg.code);
            var data=msg.data.list;         
            //添加信息
            for(var i in data){
@@ -230,8 +231,6 @@ $.ajax({
 	    	        	   //阅读量
 	    	        	   var readCount=data[i].readCount==null?0:data[i].readCount;
 	    	        	   //
-	    	        	  
-	    	        	   }
 	    	 $("#aticleList").append("<tr onMouseOut='this.style.backgroundColor='#ffffff'' onMouseOver='this.style.backgroundColor='#edf5ff''>"+		          
 	    			           "<td align='center' valign='middle' class='borderright borderbottom'>"+data[i].articleId+"</td>"+
 	    			           "<td align='center' valign='middle' class='borderright borderbottom'>"+title+"</td>"+
@@ -326,14 +325,7 @@ $.ajax({
     	        	   //阅读量
     	        	   var readCount=data[i].readCount==null?0:data[i].readCount;
     	        	   //
-    	        	   //设置过期
-    	        	   var isoverdue="";
-    	        	   if(data[i].status==10){
-    	        		   isoverdue="设置已过期";
-    	        	   }
-    	        	   if(data[i].status==11){
-    	        		   isoverdue="设置未过期";
-    	        	   }
+    	        	 
     	 $("#aticleList").append("<tr onMouseOut='this.style.backgroundColor='#ffffff'' onMouseOver='this.style.backgroundColor='#edf5ff''>"+		          
     			           "<td align='center' valign='middle' class='borderright borderbottom'>"+data[i].articleId+"</td>"+
     			           "<td align='center' valign='middle' class='borderright borderbottom'>"+title+"</td>"+

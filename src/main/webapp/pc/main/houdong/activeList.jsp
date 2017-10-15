@@ -154,7 +154,6 @@ $.ajax({
               "</tr>");
           
                     }
-        }
         var endPageNumber=msg.data.totalPage==null?0:msg.data.totalPage;//尾页
         var totalCount=msg.data.totalCount==null?0:msg.data.totalCount;//多少条记录
         var totalPage=msg.data.totalPag==null?0:msg.data.totalPage;//共多少页
@@ -230,8 +229,7 @@ $.ajax({
 	    	        	   }
 	    	        	   //阅读量
 	    	        	   var readCount=data[i].readCount==null?0:data[i].readCount;
-	    	        	   //
-	    	      
+	    	        	   //	    	      
 	    	 $("#aticleList").append("<tr onMouseOut='this.style.backgroundColor='#ffffff'' onMouseOver='this.style.backgroundColor='#edf5ff''>"+		          
 	    			           "<td align='center' valign='middle' class='borderright borderbottom'>"+data[i].activityId+"</td>"+
 	    			           "<td align='center' valign='middle' class='borderright borderbottom'>"+title+"</td>"+
@@ -246,7 +244,6 @@ $.ajax({
 	    	              "</tr>");
 	    	           
 	    	                       }
-	    	           }
 	    	           var endPageNumber=msg.data.totalPage==null?0:msg.data.totalPage;//尾页
 	    	           var totalCount=msg.data.totalCount==null?0:msg.data.totalCount;//多少条记录
 	    	           var totalPage=msg.data.totalPag==null?0:msg.data.totalPage;//共多少页
@@ -262,7 +259,7 @@ $.ajax({
 		 
 	 }
    
-   //删除功能
+  //删除功能
    function deleteAticle(val){
 	  var  changeStatus=13;
 	  var  changeArticleId=$(val).parent().prevAll("td:eq(4)").text();	//文章ID
