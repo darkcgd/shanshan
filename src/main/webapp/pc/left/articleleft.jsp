@@ -45,14 +45,13 @@ body{overflow-x:hidden; background:url(pc/images/main/leftbg.jpg) left top repea
 </div>
     <div style="float: left" id="my_menu" class="sdmenu">
       <div class="collapsed">
-        <span>活动山善</span>
-        <a href="pc/main/houdong/activeAdd.jsp" target="mainFrame" onFocus="this.blur()">添加活动</a>
-        <a href="pc/main/houdong/activeList.jsp" target="mainFrame" onFocus="this.blur()">活动列表</a>
+        <span>文章山善</span>
+        <a href="pc/main/article/articleAdd.jsp" target="mainFrame" onFocus="this.blur()">添加文章</a>
+        <a href="pc/main/article/article.jsp" target="mainFrame" onFocus="this.blur()">文章列表</a>
       </div>
     </div>
 </body>
 <script type="text/javascript">
-//会检查 document.cookie 对象中是否存有 cookie
 var userName=sessionStorage.getItem("user_name");
 var pwd=sessionStorage.getItem("pwd_name");
 if(userName!=null){

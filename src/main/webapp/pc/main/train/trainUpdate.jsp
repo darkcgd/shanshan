@@ -88,7 +88,7 @@ body {
 	display: inline;
 }
 
-#customTime a.add {
+#customTime a.add  {
 	background: url(pc/images/main/add.jpg) no-repeat -3px 7px #548fc9;
 	padding: 0 10px 0 26px;
 	height: 40px;
@@ -181,17 +181,17 @@ td.fenye {
 				</td>			
 			</tr>
 			<tr>
-				<td class="tableleft">活动开始时间</td>
+				<td class="tableleft">培训开始时间</td>
 				<td><input type="text" value="" class="date" id="startTime"/></td>				
 			</tr>
 			<tr>
-				<td class="tableleft">活动结束时间</td>
+				<td class="tableleft">培训结束时间</td>
 				<td><input type="text" value="" class="date" id="endTime"/></td>					
 			</tr>
 			<tr>
-				<td class="tableleft">活动场次(时间+场次)</td>
+				<td class="tableleft">培训场次(时间+场次)</td>
 				<td id="customTime"><a onclick="addcustomTime();" target="mainFrame" onFocus="this.blur()" class="add">添加活动场次</a>
-				    <input style="display:none;width:35%;margin-top:10px;margin-left:20px;" type="text" id="AllcustomTime" value=""/>
+				    <input style="width:35%;margin-top:10px;margin-left:20px;" type="text" id="AllcustomTime" value=""/>
 				</td>					
 			</tr>
 		    <tr>
@@ -239,6 +239,102 @@ td.fenye {
  <!-- 注意， 只需要引用 JS，无需引用任何 CSS ！！！-->
     <script type="text/javascript" src="pc/editor/release/wangEditor.js"></script>
     <script type="text/javascript">
+    $(document).ready(function(){
+    	 function getUrlParam(name) {
+			   var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+			   var r = window.location.search.substr(1).match(reg); //匹配目标参数
+			   if (r != null) return unescape(r[2]); return null; 
+			}//返回参数值
+    	 var trainingCourseId= getUrlParam('trainingCourseId');
+    	 $.ajax({
+		   type:'get',
+		   url:'trainingCourse/trainingCourseDetail',
+		   data:"trainingCourseId="+trainingCourseId,
+		   dataType:'json',
+		   success:function(msg){
+			   if(msg.code==200){
+				    var data=msg.data;//数据
+			    	var title=data.title==null?'':data.title;//标题
+			        var author=data.author==null?'':data.author;			       
+			        var tagId=data.tagId;
+			        var startTime=data.startTime==null?'':data.startTime;
+			        var endTime=data.endTime==null?'':data.endTime;
+			        var customTime1=data.customTime1==null?'':data.customTime1;
+			        var isNeedCompany=data.isNeedCompany;
+			        var isNeedUserName=data.isNeedUserName;
+			        var isNeedPhone=data.isNeedPhone;
+			        var isNeedPositionName=data.isNeedPositionName;
+			        var isNeedDepartmentName=data.isNeedDepartmentName;
+			        var isNeedFreeLunch=data.isNeedFreeLunch;
+			        var isNeedProvideAccommodation=data.isNeedProvideAccommodation;
+			        var isNeedJoinDate=data.isNeedJoinDate;
+			        var isNeedSource=data.isNeedSource;
+			        var isNeedPhoto=data.isNeedPhoto;
+			        var relatePermissionUserType=data.relatePermissionUserType==null?'':data.relatePermissionUserType;
+			        var content=data.content==null?'':data.content;
+			        //回填数据
+			        $("#title").val(title);
+			        $("#author").val(author);
+			        if(tagId==0){
+			        	$("#tagId input:nth-child(2)").attr({checked:'checked'});
+			        }
+			        if(tagId==1){
+			        	$("#tagId input:nth-child(1)").attr({checked:'checked'});
+			        }
+			        $("#startTime").val(startTime);
+			        $("#endTime").val(endTime);
+			        $("#AllcustomTime").val(customTime1);
+			        //复选框
+			        if(isNeedCompany==1){
+			        	$("#isNeedCompany").attr({checked:"checked"});
+			        }
+			        if(isNeedUserName==1){
+			        	$("#isNeedUserName").attr({checked:"checked"});
+			        }
+			        if(isNeedPhone==1){
+			        	$("#isNeedPhone").attr({checked:"checked"});
+			        }
+			        if(isNeedPositionName==1){
+			        	$("#isNeedPositionName").attr({checked:"checked"});
+			        }
+			        if(isNeedDepartmentName==1){
+			        	$("#isNeedDepartmentName").attr({checked:"checked"});
+			        }
+			        if(isNeedFreeLunch==1){
+			        	$("#isNeedFreeLunch").attr({checked:"checked"});
+			        }
+			        if(isNeedProvideAccommodation==1){
+			        	$("#isNeedProvideAccommodation").attr({checked:"checked"});
+			        }		
+			        if(isNeedJoinDate==1){
+			        	$("#isNeedJoinDate").attr({checked:"checked"});
+			        }
+			        if(isNeedSource==1){
+			        	$("#isNeedSource").attr({checked:"checked"});
+			        }
+			        if(isNeedPhoto==1){
+			        	$("#isNeedPhoto").attr({checked:"checked"});
+			        }
+			        //用户等级可看
+			        if(relatePermissionUserType==1){
+			        	$("#relatePermissionUserType option:nth-child(0)").attr({selected:'selected'});
+			        }
+			        if(relatePermissionUserType==2){
+			        	$("#relatePermissionUserType option:nth-child(3)").attr({selected:'selected'});
+			        }
+			        if(relatePermissionUserType>=3){
+			        	$("#relatePermissionUserType option:nth-child(5)").attr({selected:'selected'});
+			        }
+			        editor.txt.html("<p>"+content+"</p>");			
+			   }
+		   }
+    	 });
+    })
+    function getUrlParam(name) {
+			   var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+			   var r = window.location.search.substr(1).match(reg); //匹配目标参数
+			   if (r != null) return unescape(r[2]); return null; 
+			}//返回参数值
     $("#saveInfo").click(function(){ 
         $.ajax({
 			type : "POST", //用POST方式传输
@@ -250,22 +346,11 @@ td.fenye {
 			    // alert( "Error: " + XMLHttpRequest.responseText);  
 			   }  ,
 			success : function(msg) {
-			 window.location.href="pc//main//houdong//activeList.jsp";
+				 window.location.href="pc\\main\\train\\trainList.jsp";
 				}
 				//发送验证返回信息
 		});
     });
-    //提交活动信息复选框全选功能    
-  function chkAll(obj){
-	var objs = document.getElementsByName('Info[]');
-    for (var i = objs.length - 1; i >= 0; i--) {
-      objs[i].checked = obj.checked;
-    };
-  }
-    //添加活动场次功能
-    function addcustomTime(){
-    	$("#AllcustomTime").show();
-    }
     //符文本编辑器设置
     var E = window.wangEditor
     var editor = new E('#editor')
@@ -275,51 +360,54 @@ td.fenye {
         editor.customConfig.uploadImgMaxLength = 5;     
         editor.create();
         E.fullscreen.init('#editor');
-    function GetJsonData() {   	
-    	var title=$("#title").val();
-        var author=$("#author").val();
-        var tagId=$('#tagId input:radio[name="tagId"]:checked').val();
-        var startTime=$("#startTime").val();
-        var endTime=$("#endTime").val();
-        var customTime1=$("#AllcustomTime").val();
-        if($("#isNeedCompany").is(':checked'))
-		        {var isNeedCompany=1;
-        	     var isNeedCompanyAddress=1;
-		        	}else{
-		        		var isNeedCompany=0
-		        		var isNeedCompanyAddress=0;
-		        	};
-        if($("#isNeedUserName").is(':checked')){var isNeedUserName=1} else{var isNeedUserName=0};
-        if($("#isNeedPhone").is(':checked')){var isNeedPhone=1} else{var isNeedPhone=0};
-        if($("#isNeedPositionName").is(':checked')){var isNeedPositionName=1} else{var isNeedPositionName=0};
-        if($("#isNeedDepartmentName").is(':checked')){var isNeedDepartmentName=1} else{var isNeedDepartmentName=0};
-        if($("#isNeedFreeLunch").is(':checked')){var isNeedFreeLunch=1} else{var isNeedFreeLunch=0};
-        if($("#isNeedProvideAccommodation").is(':checked')){var isNeedProvideAccommodation=1} else{var isNeedProvideAccommodation=0};
-        if($("#isNeedJoinDate").is(':checked')){var isNeedJoinDate=1} else{var isNeedJoinDate=0};
-        if($("#isNeedSource").is(':checked')){var isNeedSource=1} else{var isNeedSource=0};
-        if($("#isNeedPhoto").is(':checked')){var isNeedPhoto=1} else{var isNeedPhoto=0};
-        var relatePermissionUserType=$("#relatePermissionUserType").find("option:selected").val();
-        var content=editor.txt.html();
-        var json = {
-        	    title:title,
-				author:author,
-				tagId:tagId,
-				startTime:startTime,
-				endTime:endTime,
-				customTime1:customTime1,
-				isNeedCompany:isNeedCompany,
-				isNeedCompanyAddress:isNeedCompanyAddress,
-				isNeedUserName:isNeedUserName,
-				isNeedPhone:isNeedPhone,
-				isNeedPositionName:isNeedPositionName,
-				isNeedDepartmentName:isNeedDepartmentName,
-				isNeedFreeLunch:isNeedFreeLunch,
-				isNeedProvideAccommodation:isNeedProvideAccommodation,
-				isNeedJoinDate:isNeedJoinDate,
-				isNeedSource:isNeedSource,
-				isNeedPhoto:isNeedPhoto,
-				relatePermissionUserType:relatePermissionUserType,
-				content:content,
+    //json数据
+       function GetJsonData() {
+    	   var trainingCourseId= getUrlParam('trainingCourseId');
+    	   var title=$("#title").val();
+           var author=$("#author").val();
+           var tagId=$('#tagId input:radio[name="tagId"]:checked').val();
+           var startTime=$("#startTime").val();
+           var endTime=$("#endTime").val();
+           var customTime1=$("#AllcustomTime").val();
+           if($("#isNeedCompany").is(':checked'))
+   		        {var isNeedCompany=1;
+           	     var isNeedCompanyAddress=1;
+   		        	}else{
+   		        		var isNeedCompany=0
+   		        		var isNeedCompanyAddress=0;
+   		        	};
+           if($("#isNeedUserName").is(':checked')){var isNeedUserName=1} else{var isNeedUserName=0};
+           if($("#isNeedPhone").is(':checked')){var isNeedPhone=1} else{var isNeedPhone=0};
+           if($("#isNeedPositionName").is(':checked')){var isNeedPositionName=1} else{var isNeedPositionName=0};
+           if($("#isNeedDepartmentName").is(':checked')){var isNeedDepartmentName=1} else{var isNeedDepartmentName=0};
+           if($("#isNeedFreeLunch").is(':checked')){var isNeedFreeLunch=1} else{var isNeedFreeLunch=0};
+           if($("#isNeedProvideAccommodation").is(':checked')){var isNeedProvideAccommodation=1} else{var isNeedProvideAccommodation=0};
+           if($("#isNeedJoinDate").is(':checked')){var isNeedJoinDate=1} else{var isNeedJoinDate=0};
+           if($("#isNeedSource").is(':checked')){var isNeedSource=1} else{var isNeedSource=0};
+           if($("#isNeedPhoto").is(':checked')){var isNeedPhoto=1} else{var isNeedPhoto=0};
+           var relatePermissionUserType=$("#relatePermissionUserType").find("option:selected").val();
+           var content=editor.txt.html();
+           var json = {
+        		activityId:activityId,
+           	    title:title,
+   				author:author,
+   				tagId:tagId,
+   				startTime:startTime,
+   				endTime:endTime,
+   				customTime1:customTime1,
+   				isNeedCompany:isNeedCompany,
+   				isNeedCompanyAddress:isNeedCompanyAddress,
+   				isNeedUserName:isNeedUserName,
+   				isNeedPhone:isNeedPhone,
+   				isNeedPositionName:isNeedPositionName,
+   				isNeedDepartmentName:isNeedDepartmentName,
+   				isNeedFreeLunch:isNeedFreeLunch,
+   				isNeedProvideAccommodation:isNeedProvideAccommodation,
+   				isNeedJoinDate:isNeedJoinDate,
+   				isNeedSource:isNeedSource,
+   				isNeedPhoto:isNeedPhoto,
+   				relatePermissionUserType:relatePermissionUserType,
+   				content:content,
         };
         return json;
     }
