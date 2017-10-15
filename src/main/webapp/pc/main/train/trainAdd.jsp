@@ -250,7 +250,7 @@ td.fenye {
 			    // alert( "Error: " + XMLHttpRequest.responseText);  
 			   }  ,
 			success : function(msg) {
-			 window.location.href="pc//main//train//trainList.jsp";
+			 window.location.href="pc//main//train//activeList.jsp";
 				}
 				//发送验证返回信息
 		});

@@ -65,7 +65,7 @@ td.fenye{ padding:10px 0 0 0; text-align:right;}
 	         <input name="" type="button" value="查询"  class="text-but" onclick="searchAticle();"> -->
 	         </form>
          </td>
-  		  <td width="10%" align="center" valign="middle" style="text-align:right; width:150px;"><a href="pc/main/activity/activeAdd.jsp" target="mainFrame" onFocus="this.blur()" class="add">添加活动信息</a></td>
+  		  <td width="10%" align="center" valign="middle" style="text-align:right; width:150px;"><a href="pc/main/train/trainAdd.jsp" target="mainFrame" onFocus="this.blur()" class="add">添加活动信息</a></td>
   		</tr>
 	</table>
     </td>
@@ -103,7 +103,7 @@ $(document).ready(function(){
 $.ajax({
 	type : "GET",
 	dataType : "json",
-	url : "trainingCourse/trainingCourseList",
+	url : "activity/activityList",
 	data:{pagerSize:10},
 	success : function(msg) {
 		if(msg.code==200){	
@@ -143,7 +143,7 @@ $.ajax({
         	   //
         
  $("#aticleList").append("<tr onMouseOut='this.style.backgroundColor='#ffffff'' onMouseOver='this.style.backgroundColor='#edf5ff''>"+		          
-		           "<td align='center' valign='middle' class='borderright borderbottom'>"+data[i].trainingCourseId+"</td>"+
+		           "<td align='center' valign='middle' class='borderright borderbottom'>"+data[i].activityId+"</td>"+
 		           "<td align='center' valign='middle' class='borderright borderbottom'>"+title+"</td>"+
 	               "<td align='center' valign='middle' class='borderright borderbottom'>"+relatePermissionUserType+"</td>"+
 	               "<td align='center' valign='middle' class='borderright borderbottom'>"+status+"</td>"+
@@ -191,7 +191,7 @@ $.ajax({
 		 $.ajax({
 	    		type : "GET",//get提交
 	    		dataType : "json",//json格式
-	    		url : "trainingCourse/trainingCourseList",
+	    		url : "activity/activityList",
 	    		data:{
 	    			title:title,
 	    			pagerNumber:pageNumber,
@@ -235,7 +235,7 @@ $.ajax({
 	    	        	   var readCount=data[i].readCount==null?0:data[i].readCount;
 	    	        	   //	    	      
 	    	 $("#aticleList").append("<tr onMouseOut='this.style.backgroundColor='#ffffff'' onMouseOver='this.style.backgroundColor='#edf5ff''>"+		          
-	    			           "<td align='center' valign='middle' class='borderright borderbottom'>"+data[i].trainingCourseId+"</td>"+
+	    			           "<td align='center' valign='middle' class='borderright borderbottom'>"+data[i].activityId+"</td>"+
 	    			           "<td align='center' valign='middle' class='borderright borderbottom'>"+title+"</td>"+
 	    		               "<td align='center' valign='middle' class='borderright borderbottom'>"+relatePermissionUserType+"</td>"+
 	    		               "<td align='center' valign='middle' class='borderright borderbottom'>"+status+"</td>"+
@@ -271,8 +271,8 @@ $.ajax({
 				type : "POST", //用POST方式传输
 				contentType: "application/json; charset=utf-8",				
 				type:"json", //数据格式:JSON
-				url : 'trainingCourse/saveOpUpdate', //目标地址
-				data : JSON.stringify({trainingCourseId:changeArticleId,status:changeStatus}),
+				url : 'activity/saveOpUpdate', //目标地址
+				data : JSON.stringify({activityId:changeArticleId,status:changeStatus}),
 				error: function(XMLHttpRequest){  
 				   }  ,
 				success : function(msg) {
@@ -347,7 +347,7 @@ $.ajax({
     //查看详情，详情页可修改内容
     function  updateAticle(text){
     	var activityId=$(text).parent().prevAll("td:eq(4)").text();
-    	window.location.href="pc/main/activity/activityUpdate.jsp?trainingCourseId="+trainingCourseId;
+    	window.location.href="pc/main/activity/activeUpdate.jsp?activityId="+activityId;
     }
             
 </script>

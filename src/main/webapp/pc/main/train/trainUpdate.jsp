@@ -205,8 +205,8 @@ td.fenye {
 				    <input type="checkbox" name="Info[]" value=""  id="isNeedDepartmentName"/>&nbsp;&nbsp;部门<br/>
 				    <input type="checkbox" name="Info[]" value=""  id="isNeedFreeLunch"/>&nbsp;&nbsp;是否需要免费午餐<br/>
 				    <input type="checkbox" name="Info[]" value=""  id="isNeedProvideAccommodation"/>&nbsp;&nbsp;是否需要提供住宿<br/>
-				    <input type="checkbox" name="Info[]" value=""  id="isNeedJoinDate"/>&nbsp;&nbsp;参加活动日期<br/>	
-				    <input type="checkbox" name="Info[]" value=""  id="isNeedSource"/>&nbsp;&nbsp;活动信息来源<br/>
+				    <input type="checkbox" name="Info[]" value=""  id="isNeedJoinDate"/>&nbsp;&nbsp;参加培训日期<br/>	
+				    <input type="checkbox" name="Info[]" value=""  id="isNeedSource"/>&nbsp;&nbsp;培训信息来源<br/>
 				    <input type="checkbox" name="Info[]" value=""  id="isNeedPhoto"/>&nbsp;&nbsp;照片<br/>			
 				</td>							
 			</tr>	
@@ -219,7 +219,7 @@ td.fenye {
 				</select></td>
 			</tr>
 			<tr>
-				<td class="tableleft">活动内容</td>
+				<td class="tableleft">培训内容</td>
 				<td> 
 				 <div id="editor">			       
 			     </div> 
@@ -340,7 +340,7 @@ td.fenye {
 			type : "POST", //用POST方式传输
 			contentType: "application/json; charset=utf-8", //数据格式:JSON
 			type:"json", //数据格式:JSON
-			url : 'activity/saveOpUpdate', //目标地址
+			url : 'trainingCourse/saveOpUpdate', //目标地址
 			data : JSON.stringify(GetJsonData()),
 			error: function(XMLHttpRequest){  
 			    // alert( "Error: " + XMLHttpRequest.responseText);  
