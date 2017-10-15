@@ -10,12 +10,12 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>故障报修记录</title>
+		<title>培训课程记录</title>
 		<base href="<%=basePath%>">
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link rel="stylesheet" type="text/css" href="css/common.css"/>
 		<link rel="stylesheet" type="text/css" href="css/header.css"/>
-		<link rel="stylesheet" type="text/css" href="css/gzjl.css"/>
+		<link rel="stylesheet" type="text/css" href="css/coach.css"/>
 		<script src="js/jquery-1.7.1.min.js" type="text/javascript" charset="utf-8"></script>
 	</head>
 	<script type="text/javascript">
@@ -41,7 +41,7 @@
 	<body>
 		<header>
     		<div class="head">
-        		<div class="title">故障报修记录</div>
+        		<div class="title">培训课程记录</div>
         		<span class="h-lt" style="cursor:pointer" onclick="window.history.go(-1)"><i class="h-bk"></i></span>
         		<a class="h-rt" href="#"></a>
     		</div>
@@ -49,14 +49,15 @@
 		<div class="sec">
 			<ul>
 				<li>
-					<a href="views/gzjl2.jsp">
-					<!--<div class="left">
+					<a href="views/record/pxjl2.jsp">
+					<div class="left">
 						<img src="img/05.jpg"/>
-					</div>-->
+						<!--<div class="tip">注册专享</div>-->
+					</div>
 					<div class="right">
 						<p class="title">
-							<span class="size">2017/08/07</span>
-							<!--<span class="time">2017/08/07</span>-->
+							<span class="size">活动名称1</span>
+							<span class="time">2017/08/07</span>
 						</p>
 						<p class="zw">
 							培训详情培训详情培训详情培训详情培训详情
@@ -66,15 +67,15 @@
 				</li>
 				
 				<li>
-					<a href="views/gzjl2.jsp">
-					<!--<div class="left">
+					<a href="views/intro2.jsp">
+					<div class="left">
 						<img src="img/05.jpg"/>
-						<!--<div class="tip">VIP专享</div>
-					</div>-->
+						<!--<div class="tip">VIP专享</div>-->
+					</div>
 					<div class="right">
 						<p class="title">
-							<span class="size">2017/08/07</span>
-							<!--<span class="time">2017/08/07</span>-->
+							<span class="size">活动名称1</span>
+							<span class="time">2017/08/07</span>
 						</p>
 						<p class="zw">
 							培训详情培训详情培训详情培训详情培训详情
@@ -84,14 +85,14 @@
 				</li>
 				
 				<li>
-					<a href="views/gzjl2.jsp">
-					<!--<div class="left">
+					<a href="views/intro2.jsp">
+					<div class="left">
 						<img src="img/blog.png"/>
-					</div>-->
+					</div>
 					<div class="right">
 						<p class="title">
-							<span class="size">2017/08/07</span>
-							<!--<span class="time">2017/08/07</span>-->
+							<span class="size">活动名称1</span>
+							<span class="time">2017/08/07</span>
 						</p>
 						<p class="zw">
 							培训详情培训详情培训详情培训详情培训详情
