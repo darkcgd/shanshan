@@ -183,7 +183,7 @@
 		</div>
 		
 		<div class="tj">
-			<a href="javascript:;">提交</a>
+			<a href="javascript:void(0);" onclick="submit()">提交</a>
 		</div>
 		
 		<div class="tta">
@@ -207,6 +207,7 @@ $(document).ready(function(){
 		   var userId=getUrlParam('userId');
 		   var token=getUrlParam('token');
 		   var relateActivityId=getUrlParam('relateActivityId');
+		  
 		   //需要提交信息
 		   $.ajax({
 			   type:'get',
@@ -332,7 +333,77 @@ $("#isNeedProvideAccommodation").click(function(){
     }
 })
 //提交报名
+function  submit(){
+	 $.ajax({
+			type : "POST", //用POST方式传输
+			contentType: "application/json; charset=utf-8", //数据格式:JSON
+			type:"json", //数据格式:JSON
+			url : 'enrol/saveOrupdate', //目标地址
+			data : JSON.stringify(GetJsonData()),
+			error: function(XMLHttpRequest){  
+			     alert( "Error: " + XMLHttpRequest.responseText);  
+			   }  ,
+			success : function(msg) {
+				window.history.go(-1);
+				}
+				//发送验证返回信息
+		});
+}
+function getUrlParam(name) {
+	   var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+	   var r = window.location.search.substr(1).match(reg); //匹配目标参数
+	   if (r != null) return unescape(r[2]); return null; 
+	   }//返回参数值
 
+//获取json数据
+function GetJsonData() {	
+	var userId=getUrlParam('userId');
+	var token=getUrlParam('token');
+	var fromType= 1;
+	var fromId=getUrlParam('relateActivityId');
+	var company=$("#company").val();
+	var userName=$("#userName").val();
+	var phone=$("#phone").val();
+	var email=$("#email").val();
+	var companyAddress=$("#provincesCities").val();
+    var positionName=$("#positionName").val();
+    var departmentName=$("#departmentName").val();
+    //是否午餐
+    if($("#isNeedFreeLunch img").attr("style")=="display:block;"){
+        var	freeLunch=1;
+    }
+    if($("#isNeedFreeLunch img").attr("style")=="display:none;"){
+        var	freeLunch=0;
+    }
+    //是否住宿
+    if($("#isNeedProvideAccommodation img").attr("style")=="display:block;"){
+        var	provideAccommodation=1;
+    }
+    if($("#isNeedProvideAccommodation img").attr("style")=="display:none;"){
+        var	provideAccommodation=0;
+    }
+    //参加日期
+    var joinDate=$("#isNeedJoinDate .right").text();
+    var source=$("#isNeedSource .right").text();  
+    var json = {
+    		userId:userId,
+    		token:token,
+    		fromType:fromType,
+    		fromId:fromId,
+    		company:company,
+    		userName:userName,
+    		phone:phone,
+    		email:email,
+    		companyAddress:companyAddress,
+    		positionName:positionName,
+    		departmentName:departmentName,
+    		freeLunch:freeLunch,
+    		provideAccommodation:provideAccommodation,
+    		joinDate:joinDate,
+    		source:source,
+ };
+ return json;
+}
     $('#ca').calendar({
         width: 320,
         height: 320,
