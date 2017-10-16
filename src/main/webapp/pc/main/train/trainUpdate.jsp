@@ -201,6 +201,7 @@ td.fenye {
 				    <input type="checkbox" name="Info[]" value=""  id="isNeedCompany"/>&nbsp;&nbsp;公司信息<br/>
 				    <input type="checkbox" name="Info[]" value=""  id="isNeedUserName"/>&nbsp;&nbsp;姓名<br/>
 				    <input type="checkbox" name="Info[]" value=""  id="isNeedPhone"/>&nbsp;&nbsp;手机号<br/>
+				    <input type="checkbox" name="Info[]" value=""  id="isNeedEmail"/>&nbsp;&nbsp;邮箱<br/>
 				    <input type="checkbox" name="Info[]" value=""  id="isNeedPositionName"/>&nbsp;&nbsp;职位<br/>
 				    <input type="checkbox" name="Info[]" value=""  id="isNeedDepartmentName"/>&nbsp;&nbsp;部门<br/>
 				    <input type="checkbox" name="Info[]" value=""  id="isNeedFreeLunch"/>&nbsp;&nbsp;是否需要免费午餐<br/>
@@ -263,6 +264,7 @@ td.fenye {
 			        var isNeedCompany=data.isNeedCompany;
 			        var isNeedUserName=data.isNeedUserName;
 			        var isNeedPhone=data.isNeedPhone;
+			        var isNeedEmail=data.isNeedEmail;
 			        var isNeedPositionName=data.isNeedPositionName;
 			        var isNeedDepartmentName=data.isNeedDepartmentName;
 			        var isNeedFreeLunch=data.isNeedFreeLunch;
@@ -293,6 +295,9 @@ td.fenye {
 			        }
 			        if(isNeedPhone==1){
 			        	$("#isNeedPhone").attr({checked:"checked"});
+			        }
+			        if(isNeedEmail==1){
+			        	$("#isNeedEmail").attr({checked:"checked"});
 			        }
 			        if(isNeedPositionName==1){
 			        	$("#isNeedPositionName").attr({checked:"checked"});
@@ -378,6 +383,7 @@ td.fenye {
    		        	};
            if($("#isNeedUserName").is(':checked')){var isNeedUserName=1} else{var isNeedUserName=0};
            if($("#isNeedPhone").is(':checked')){var isNeedPhone=1} else{var isNeedPhone=0};
+           if($("#isNeedEmail").is(':checked')){var isNeedEmail=1} else{var isNeedEmail=0};
            if($("#isNeedPositionName").is(':checked')){var isNeedPositionName=1} else{var isNeedPositionName=0};
            if($("#isNeedDepartmentName").is(':checked')){var isNeedDepartmentName=1} else{var isNeedDepartmentName=0};
            if($("#isNeedFreeLunch").is(':checked')){var isNeedFreeLunch=1} else{var isNeedFreeLunch=0};
@@ -399,6 +405,7 @@ td.fenye {
    				isNeedCompanyAddress:isNeedCompanyAddress,
    				isNeedUserName:isNeedUserName,
    				isNeedPhone:isNeedPhone,
+   				isNeedEmail:isNeedEmail,
    				isNeedPositionName:isNeedPositionName,
    				isNeedDepartmentName:isNeedDepartmentName,
    				isNeedFreeLunch:isNeedFreeLunch,

@@ -65,7 +65,7 @@ td.fenye{ padding:10px 0 0 0; text-align:right;}
 	         <input name="" type="button" value="查询"  class="text-but" onclick="searchAticle();"> -->
 	         </form>
          </td>
-  		  <td width="10%" align="center" valign="middle" style="text-align:right; width:150px;"><a href="/pc/main/train/trainAdd.jsp" target="mainFrame" onFocus="this.blur()" class="add">添加培训信息</a></td>
+  		  <td width="10%" align="center" valign="middle" style="text-align:right; width:150px;"><a href="pc/main/train/trainAdd.jsp" target="mainFrame" onFocus="this.blur()" class="add">添加培训信息</a></td>
   		</tr>
 	</table>
     </td>

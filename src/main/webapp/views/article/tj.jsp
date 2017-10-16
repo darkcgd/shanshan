@@ -96,7 +96,7 @@
 			</li>
 			<li>
 				<span class="left">部门</span>
-				<input type="text" class="right" id="" value="研发部">
+				<input type="text" class="right" id="departmentName" value="">
 				
 				<!--<img src="img/right.png" class="righter"/>-->
 				<!--<div class="slide">
@@ -104,15 +104,16 @@
 					<div class="oss">研发部</div>
 				</div>-->
 			</li>
-			<li>
+			<li id="isNeedFreeLunch"">
 				<span class="left">午餐</span>
 				<span class="right"></span>
-				<img src="img/finish.png" class="finish"/>
+		           <img style="display:block;"  src="img/finish.png" class="finish"/> 
+		
 			</li>
-			<li>
+			<li id="isNeedProvideAccommodation">
 				<span class="left">住宿</span>
-				<span class="right"></span>
-				<img src="img/finish.png" class="finish"/>
+				<span class="right"></span>				
+			        <img  style="display:block;" src="img/finish.png" class="finish"/> 			   
 			</li>
 			
 		</ul>
@@ -121,13 +122,13 @@
 			<!--<div class="na">
 				<span>参加日期</span>
 			</div>-->
-			<div class="cand">
+			<div class="cand" id="isNeedJoinDate">
 				<span>参加日期</span>
-				<div class="right">2017-07-08</div>
+				<div class="right"></div>
 				<img src="img/right.png" class="righter"/>
 				<div class="slide">
-					<div class="oss">2017-07-09</div>
-					<div class="oss">2017-07-07</div>
+					<div class="oss"></div>
+					<!-- <div class="oss"></div> -->
 				</div>
 			</div>
 		</div>
@@ -150,18 +151,18 @@
 			<!--<div class="na">
 				<span>活动信息来源</span>
 			</div>-->
-			<div class="cand">
+			<div class="cand" id="isNeedSource">
 				<span>选择来源</span>
 				<div class="right">网络</div>
 				<img src="img/right.png" class="righter"/>
 				<div class="slide">
 					<div class="oss">网络</div>
-					<div class="oss">朋友</div>
+					<div class="oss">朋友</div> 
 				</div>
 			</div>
 		</div>
 		
-		<div class="date">
+		<div class="date" id="isNeedPhoto">
 			<div class="na">
 				<span>上传图片</span>
 			</div>
@@ -235,6 +236,8 @@ $(document).ready(function(){
 								  var phone=userData.phone==null?"未填写":userData.phone;//手机号
 								  var positionName=userData.positionName==null?"未填写":userData.positionName;//职位
 								  var departmentName=userData.departmentName==null?"未填写":userData.departmentName;//部门
+								  var email=userData.email==null?"未填写":userData.email;//邮箱
+								  var provincesCities=userData.provincesCities==null?"未填写":userData.provincesCities;//邮箱
                                   //姓名
 								  if(data.isNeedUserName==1){
 									  $("#userName").val(userName);									  
@@ -251,18 +254,58 @@ $(document).ready(function(){
 									  $("#company").parent().hide();
 									  $("#provincesCities").parent().hide();
 								  }
-								  if(data.isNeedUserName==1){
-									  $("#userName").val(userName);									  
+								  //手机号
+								  if(data.isNeedPhone==1){
+									  $("#phone").val(phone);									  
 								  }
-								  if(data.isNeedUserName==0){
-									  $("#userName").parent().hide();
+								  if(data.phone==0){
+									  $("#phone").parent().hide();
 								  }
-								  if(data.isNeedUserName==1){
-									  $("#userName").val(userName);									  
+								  //职位
+								  if(data.isNeedPositionName==1){
+									  $("#positionName").val(positionName);									  
 								  }
-								  if(data.isNeedUserName==0){
-									  $("#userName").parent().hide();
+								  if(data.isNeedPositionName==0){
+									  $("#positionName").parent().hide();
 								  }
+								//部门
+								  if(data.isNeedDepartmentName==1){
+									  $("#departmentName").val(departmentName);									  
+								  }
+								  if(data.isNeedDepartmentName==0){
+									  $("#departmentName").parent().hide();
+								  }
+								  //邮箱
+								  if(data.isNeedEmail==1){
+									  $("#email").val(email);									  
+								  }
+								  if(data.isNeedEmail==0){
+									  $("#email").parent().hide();
+								  }
+								  //是否午餐
+								  if(data.isNeedFreeLunch==0){
+									  $("#isNeedFreeLunch").hide();
+								  }
+								  //是否住宿
+								  if(data.isNeedProvideAccommodation==0){
+									  $("#isNeedProvideAccommodation").hide();
+								  }
+								  //选择日期场次
+								  if(data.isNeedJoinDate==1){
+									 $("#isNeedJoinDate .oss").text(data.customTime1);
+								  }
+								  if(data.isNeedJoinDate==0){
+									  $("#isNeedJoinDate").hide();
+								  }
+								  //选择来源
+								  if(data.isNeedSource==0){
+									  $("#isNeedSource").hide();
+								  }
+								  //选择照片
+								  if(data.isNeedPhoto==0){
+									  $("#isNeedPhoto").hide();
+								  }
+								  
 
 							   }
 						   }
@@ -272,6 +315,24 @@ $(document).ready(function(){
 			   }
 		   })
 })
+//是否午餐点击
+$("#isNeedFreeLunch").click(function(){
+      if($("#isNeedFreeLunch img" ).css("display")=="block"){
+    	  $("#isNeedFreeLunch img").hide();
+      }else{
+    	  $("#isNeedFreeLunch img").show();
+      }
+})
+//是否住宿点击
+$("#isNeedProvideAccommodation").click(function(){
+    if($("#isNeedProvideAccommodation img" ).css("display")=="block"){
+  	  $("#isNeedProvideAccommodation img").hide();
+    }else{
+  	  $("#isNeedProvideAccommodation img").show();
+    }
+})
+//提交报名
+
     $('#ca').calendar({
         width: 320,
         height: 320,
