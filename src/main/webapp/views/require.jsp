@@ -52,7 +52,7 @@
 			<ul class="infor">
 				<li>
 				<span class="left">机床品牌</span>
-				<input type="text" value="Brother" class="right">
+				<input type="text" value="" id="machineToolBrand" class="right">
 				<!--<div class="slide">
 					<div class="oss">
 						品牌一
@@ -64,27 +64,27 @@
 			</li>
 			<li>
 				<span class="left">机床机型</span>
-				<input type="text" class="right" value="填写机型">
+				<input type="text" class="right" id="machineToolModel" value="">
 			</li>
 			<li>
 				<span class="left">S/N</span>
-				<input type="text" class="right" value="填写机身编号">
+				<input type="text" class="right" id="machineToolSn" value="">
 			</li>
 			<li>
 				<span class="left">联系人</span>
-				<input type="text" class="right" value="李刚">
+				<input type="text" class="right" id="contactsName" value="">
 			</li>
 			<li>
 				<span class="left">联系电话</span>
-				<input type="text" class="right" value="15648411654">
+				<input type="text" class="right" id="contactsPhone" value="">
 			</li>
 			
 			<div class="date">
 				<div class="na">
 					<span>故障描述</span>
 				</div>
-				<div class="can">
-					<textarea placeholder="请输入故障的状况"></textarea>
+				<div class="can">""
+					<textarea placeholder=""  id="des"></textarea>
 				</div>
 			</div>
 			
@@ -111,7 +111,7 @@
 		
 		
 		<div class="join">
-			<a href="views/jask.jsp">提交</a>
+			<a href="javascript:void(0);" onclick="submit()">提交</a>
 		</div>
 		
 		<!--<div class="signup">
@@ -119,6 +119,54 @@
 		</div>-->
 	</body>
 	<script type="text/javascript">
+	
+	//报修提交
+	function submit(){
+		 $.ajax({
+				type : "POST", //用POST方式传输
+				contentType: "application/json; charset=utf-8", //数据格式:JSON
+				type:"json", //数据格式:JSON
+				url : 'faultRepair/saveOrupdate', //目标地址
+				data : JSON.stringify(GetJsonData()),
+				error: function(XMLHttpRequest){  
+				     alert( "Error: " + XMLHttpRequest.responseText);  
+				   }  ,
+				success : function(msg) {
+					window.history.go(-1);
+					}
+					//发送验证返回信息
+			});
+	}
+	//获取json数据
+	function GetJsonData() {	
+		var token= localStorage.getItem("c_token");
+		alert(token);
+		var userId= localStorage.getItem("userId");	
+		alert(userId);
+		var machineToolBrand=$("#machineToolBrand").val();
+		alert(machineToolBrand);
+		var machineToolModel=$("#machineToolModel").val();
+		alert(machineToolModel);
+		var machineToolSn=$("#machineToolSn").val();
+		alert(machineToolSn);
+		var contactsName=$("#contactsName").val();
+		alert(contactsName);
+		var contactsPhone=$("#contactsPhone").val();
+		alert(contactsPhone);
+		var des=$("#des").val();	
+		alert(des);
+	    var json = {
+	    		userId:userId,
+	    		token:token,
+	    		machineToolBrand:machineToolBrand,
+	    		machineToolModel:machineToolModel,
+	    		machineToolSn:machineToolSn,
+	    		contactsName:contactsName,
+	    		contactsPhone:contactsPhone,
+	    		des:des
+	 };
+	 return json;
+	}
 		 $('.infor li').click(function(){
     	$(this).children('.slide').slideToggle();
     })

@@ -107,7 +107,7 @@
 											var userData=msg.data;
 											//跳转地址区分
 											if(userData.userType>=2){				
-											$(".to a").attr({href:"views/article/tj.jsp?userId="+userId+"&token="+token+"&relateActivityId="+relateActivityId});
+											$(".to a").attr({href:"views/article/tj.jsp?userId="+userId+"&token="+token+"&activityId="+relateActivityId});
 											}
 										}
 									}

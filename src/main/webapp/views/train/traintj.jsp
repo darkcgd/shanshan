@@ -205,13 +205,12 @@ $(document).ready(function(){
 		   }//返回参数值
 		   var userId=getUrlParam('userId');
 		   var token=getUrlParam('token');
-		   var activityId=getUrlParam('activityId');
-		  
+		   var trainingCourseId=getUrlParam('trainingCourseId');		  
 		   //需要提交信息
 		   $.ajax({
 			   type:'get',
-			   url:'activity/activityDetail',
-			   data:"activityId="+activityId,
+			   url:'trainingCourse/trainingCourseDetail',
+			   data:"trainingCourseId="+trainingCourseId,
 			   dataType:'json',
 			   success:function(msg){
 				   if(msg.code==200){
@@ -371,8 +370,8 @@ function getUrlParam(name) {
 function GetJsonData() {	
 	var userId=getUrlParam('userId');
 	var token=getUrlParam('token');
-	var fromType= 1;
-	var fromId=getUrlParam('activityId');
+	var fromType= 2;
+	var fromId=getUrlParam('trainingCourseId');
 	var company=$("#company").val();
 	var userName=$("#userName").val();
 	var phone=$("#phone").val();
@@ -420,8 +419,8 @@ function GetJsonData() {
 	   function addEnrol(){ 
 		   var userId=getUrlParam('userId');
 		   var token=getUrlParam('token');
-		   var activityId=getUrlParam('activityId');
-		   window.location.href="views/active/send.jsp?userId="+userId+"&token="+token+"&activityId="+activityId;
+		   var trainingCourseId=getUrlParam('trainingCourseId');
+		   window.location.href="views/train/strainSend.jsp?userId="+userId+"&token="+token+"&trainingCourseId="+trainingCourseId;
 	   }
     $('#ca').calendar({
         width: 320,

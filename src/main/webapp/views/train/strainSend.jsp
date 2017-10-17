@@ -127,7 +127,8 @@
 				<div class="right"></div>
 				<img src="img/right.png" class="righter"/>
 				<div class="slide">
-				   			 
+					<div class="oss"></div>
+					<!-- <div class="oss"></div> -->
 				</div>
 			</div>
 		</div>
@@ -191,7 +192,7 @@
 		</div>
 		
 		<div class="add">
-			<a href="javascript:void(0);" onclick="addEnrol()">+ 添加报名者</a>
+		    <a href="javascript:void(0);" onclick="addEnrol()">+ 添加报名者</a>
 		</div>
 		
 	</body>
@@ -205,8 +206,7 @@ $(document).ready(function(){
 		   }//返回参数值
 		   var userId=getUrlParam('userId');
 		   var token=getUrlParam('token');
-		   var activityId=getUrlParam('activityId');
-		  
+		   var trainingCourseId=getUrlParam('trainingCourseId');	
 		   //需要提交信息
 		   $.ajax({
 			   type:'get',
@@ -238,13 +238,7 @@ $(document).ready(function(){
 								  var departmentName=userData.departmentName==null?"未填写":userData.departmentName;//部门
 								  var email=userData.email==null?"未填写":userData.email;//邮箱
 								  var provincesCities=userData.provincesCities==null?"未填写":userData.provincesCities;//邮箱
-                                  //姓名
-								  if(data.isNeedUserName==1){
-									  $("#userName").val(userName);									  
-								  }
-								  if(data.isNeedUserName==0){
-									  $("#userName").parent().hide();
-								  }								  
+                                 
 								  //公司
 								  if(data.isNeedCompany==1){
 									  $("#company").val(company);
@@ -254,35 +248,7 @@ $(document).ready(function(){
 									  $("#company").parent().hide();
 									  $("#provincesCities").parent().hide();
 								  }
-								  //手机号
-								  if(data.isNeedPhone==1){
-									  $("#phone").val(phone);									  
-								  }
-								  if(data.phone==0){
-									  $("#phone").parent().hide();
-								  }
-								  //职位
-								  if(data.isNeedPositionName==1){
-									  $("#positionName").val(positionName);									  
-								  }
-								  if(data.isNeedPositionName==0){
-									  $("#positionName").parent().hide();
-								  }
-								//部门
-								  if(data.isNeedDepartmentName==1){
-									  $("#departmentName").val(departmentName);									  
-								  }
-								  if(data.isNeedDepartmentName==0){
-									  $("#departmentName").parent().hide();
-								  }
-								  //邮箱
-								  if(data.isNeedEmail==1){
-									  $("#email").val(email);									  
-								  }
-								  if(data.isNeedEmail==0){
-									  $("#email").parent().hide();
-								  }
-								  //是否午餐
+							  //是否午餐
 								  if(data.isNeedFreeLunch==0){
 									  $("#isNeedFreeLunch").hide();
 								  }
@@ -291,6 +257,7 @@ $(document).ready(function(){
 									  $("#isNeedProvideAccommodation").hide();
 								  }
 								  //选择日期场次
+								  
 								  if(data.isNeedJoinDate==1){
 									  var customTime1=data.customTime1==null?"":data.customTime1;
 									  var strs= new Array(); //定义一数组
@@ -305,7 +272,6 @@ $(document).ready(function(){
 										  });
 									       //分割后的字符输出
 									  } 
-									
 								  }
 								  if(data.isNeedJoinDate==0){
 									  $("#isNeedJoinDate").hide();
@@ -353,7 +319,7 @@ function  submit(){
 			url : 'enrol/saveOrupdate', //目标地址
 			data : JSON.stringify(GetJsonData()),
 			error: function(XMLHttpRequest){  
-			     alert( "Error: " + XMLHttpRequest.responseText);  
+			     //alert( "Error: " + XMLHttpRequest.responseText);  
 			   }  ,
 			success : function(msg) {
 				window.history.go(-1);
@@ -371,8 +337,8 @@ function getUrlParam(name) {
 function GetJsonData() {	
 	var userId=getUrlParam('userId');
 	var token=getUrlParam('token');
-	var fromType= 1;
-	var fromId=getUrlParam('activityId');
+	var fromType= 2;
+	var fromId=getUrlParam('trainingCourseId');
 	var company=$("#company").val();
 	var userName=$("#userName").val();
 	var phone=$("#phone").val();
@@ -416,13 +382,13 @@ function GetJsonData() {
  };
  return json;
 }
-	   //添加报名者信息
-	   function addEnrol(){ 
-		   var userId=getUrlParam('userId');
-		   var token=getUrlParam('token');
-		   var activityId=getUrlParam('activityId');
-		   window.location.href="views/active/send.jsp?userId="+userId+"&token="+token+"&activityId="+activityId;
-	   }
+//添加报名者信息
+function addEnrol(){ 
+	   var userId=getUrlParam('userId');
+	   var token=getUrlParam('token');
+	   var trainingCourseId=getUrlParam('trainingCourseId');
+	   window.location.href="views/train/strainSend.jsp?userId="+userId+"&token="+token+"&trainingCourseId="+trainingCourseId;
+}
     $('#ca').calendar({
         width: 320,
         height: 320,
@@ -465,17 +431,23 @@ function GetJsonData() {
     $('.infor li').click(function(){
     	$(this).children('.slide').slideToggle();
     })
-
+    
+    $('.slide div').click(function(){
+    	$(this).addClass('redd');
+    	var ww=$(this).html();
+    	$(this).parent().siblings('.right').text(ww);
+    })
     
      $('.cand').click(function(){
     	$(this).children('.slide').slideToggle();
     })
-
+    
     $('.slide div').click(function(){
     	$(this).addClass('redd');
-    	var ww=$(this).text();
+    	var ww=$(this).html();
     	$(this).parent().siblings('.right').text(ww);
-    }) 
+    })
+    
 </script>
 <script type="text/javascript">
 	$('.tj').click(function(){

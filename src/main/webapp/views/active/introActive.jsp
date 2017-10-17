@@ -55,7 +55,7 @@
 		</div>
 		
 		<div class="tj">
-			<a href="views/article/tj.jsp">报名参与</a>
+			<a href="javascript:void(0)" onclick="enroll()">报名参与</a>
 		</div>
 		<div class="to">
 			<a href="views/Register.jsp">注&nbsp;册</a>
@@ -87,5 +87,33 @@
 				   });
 			   
 		}); 
+	function getUrlParam(name) {
+		   var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+		   var r = window.location.search.substr(1).match(reg); //匹配目标参数
+		   if (r != null) return unescape(r[2]); return null; }//返回参数值
+	//报名地址跳转
+	function enroll(){
+		var token= localStorage.getItem("c_token")
+		var userId= localStorage.getItem("userId");
+	    var activityId= getUrlParam('activityId');
+		 $.ajax({
+				type : "GET", //用GET方式传输
+				dataType : "json", //数据格式:JSON
+				url : 'user/getUserInfo', //目标地址
+				//data : "dealType=" + dealType + "&uid=" + uid + "&code=" + code,
+				data : {userId:userId,token:token},
+				success : function(msg) {								
+					if(msg.code==200){
+						var userData=msg.data;
+						//跳转地址区分
+						if(userData.userType>=2){				
+						window.location.href="views/article/tj.jsp?userId="+userId+"&token="+token+"&activityId="+activityId;
+						}
+					}
+				}
+		 });	
+		
+		   }
+	
 	</script>
 </html>

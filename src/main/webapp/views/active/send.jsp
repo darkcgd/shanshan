@@ -192,7 +192,7 @@
 		</div>
 		
 		<div class="add">
-			<a href="views/active/send.jsp">+ 添加报名者</a>
+			<a href="javascript:void(0);" onclick="addEnrol()">+ 添加报名者</a>
 		</div>
 		
 	</body>
@@ -207,7 +207,6 @@ $(document).ready(function(){
 		   var userId=getUrlParam('userId');
 		   var token=getUrlParam('token');
 		   var activityId=getUrlParam('activityId');	
-		   alert(userId);
 		   //需要提交信息
 		   $.ajax({
 			   type:'get',
@@ -382,6 +381,13 @@ function GetJsonData() {
     		source:source,
  };
  return json;
+}
+//添加报名者信息
+function addEnrol(){ 
+	   var userId=getUrlParam('userId');
+	   var token=getUrlParam('token');
+	   var activityId=getUrlParam('relateActivityId');
+	   window.location.href="views/active/send.jsp?userId="+userId+"&token="+token+"&activityId="+activityId;
 }
     $('#ca').calendar({
         width: 320,
