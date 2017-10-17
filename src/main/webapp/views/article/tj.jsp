@@ -127,8 +127,7 @@
 				<div class="right"></div>
 				<img src="img/right.png" class="righter"/>
 				<div class="slide">
-					<div class="oss"></div>
-					<!-- <div class="oss"></div> -->
+				   			 
 				</div>
 			</div>
 		</div>
@@ -192,7 +191,7 @@
 		</div>
 		
 		<div class="add">
-			<a href="views/active/send.jsp">+ 添加报名者</a>
+			<a href="javascript:void(0);" onclick="addEnrol()">+ 添加报名者</a>
 		</div>
 		
 	</body>
@@ -293,7 +292,20 @@ $(document).ready(function(){
 								  }
 								  //选择日期场次
 								  if(data.isNeedJoinDate==1){
-									 $("#isNeedJoinDate .oss").text(data.customTime1);
+									  var customTime1=data.customTime1==null?"":data.customTime1;
+									  var strs= new Array(); //定义一数组
+									  strs=customTime1.split(","); //字符分割
+									  for (i=0;i<strs.length ;i++ )
+									  {
+										  $("#isNeedJoinDate .slide").append("<div class='oss'>"+strs[i]+"</div>");
+										  $("#isNeedJoinDate .slide").on("click","div",function(){
+											   $(this).addClass('redd');
+										    	var ww=$(this).text();
+										    	$(this).parent().siblings('.right').text(ww);
+										  });
+									       //分割后的字符输出
+									  } 
+									
 								  }
 								  if(data.isNeedJoinDate==0){
 									  $("#isNeedJoinDate").hide();
@@ -404,6 +416,13 @@ function GetJsonData() {
  };
  return json;
 }
+	   //添加报名者信息
+	   function addEnrol(){ 
+		   var userId=getUrlParam('userId');
+		   var token=getUrlParam('token');
+		   var activityId=getUrlParam('relateActivityId');
+		   window.location.href="views/active/send.jsp?userId="+userId+"&token="+token+"&activityId="+activityId;
+	   }
     $('#ca').calendar({
         width: 320,
         height: 320,
@@ -446,23 +465,17 @@ function GetJsonData() {
     $('.infor li').click(function(){
     	$(this).children('.slide').slideToggle();
     })
-    
-    $('.slide div').click(function(){
-    	$(this).addClass('redd');
-    	var ww=$(this).html();
-    	$(this).parent().siblings('.right').text(ww);
-    })
+
     
      $('.cand').click(function(){
     	$(this).children('.slide').slideToggle();
     })
-    
+
     $('.slide div').click(function(){
     	$(this).addClass('redd');
-    	var ww=$(this).html();
+    	var ww=$(this).text();
     	$(this).parent().siblings('.right').text(ww);
-    })
-    
+    }) 
 </script>
 <script type="text/javascript">
 	$('.tj').click(function(){
@@ -530,7 +543,7 @@ function GetJsonData() {
             }*/
             $.ajax({
                 type: "POST",
-                url:'upload_aimgs',
+                url:'article/upload',
                 data:{token:token,file:img},
                 cache: false,
                 success:function(data) {

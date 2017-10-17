@@ -50,9 +50,9 @@
 		</header>
 		<div class="section">
 			<p class="title">
-				培训活动名称
+				
 			</p>
-			<p class="time">2017/08/27~2017/08/30</p>
+			<p class="time"></p>
 		</div>
 		<ul class="infor">
 			<!--<li>
@@ -62,28 +62,28 @@
 			</li>-->
 			<li>
 				<span class="left">姓名</span>
-				<input type="text" class="right" value="张小明">
+				<input type="text" id="userName" class="right" value="">
 			</li>
 			<li>
 				<span class="left">公司</span>
-				<input type="text" class="right" value="xxx研发公司">
+				<input type="text" class="right" id="company" value="">
 			</li>
 			<li>
 				<span class="left">手机号</span>
-				<input type="text" class="right" value="15648411654">
+				<input type="text" class="right" id="phone" value="">
 			</li>
 			
 			<li>
 				<span class="left">邮箱地址</span>
-				<input type="text" class="right" value="115615164@qq.com">
+				<input type="text" class="right" id="email" value="">
 			</li>
 			<li>
 				<span class="left">公司地址</span>
-				<input type="text" class="right" value="深圳市">
+				<input type="text" class="right" id="provincesCities" value="">
 			</li>
 			<li>
 				<span class="left">职位</span>
-				<input type="text" class="right" value="软件工程师">
+				<input type="text" class="right" id="positionName" value="">
 				<!--<img src="img/right.png" class="righter"/>-->
 				<!--<div class="slide">
 					<div class="oss">
@@ -96,7 +96,7 @@
 			</li>
 			<li>
 				<span class="left">部门</span>
-				<input type="text" class="right" value="研发部">
+				<input type="text" class="right" id="departmentName" value="">
 				
 				<!--<img src="img/right.png" class="righter"/>-->
 				<!--<div class="slide">
@@ -104,15 +104,16 @@
 					<div class="oss">研发部</div>
 				</div>-->
 			</li>
-			<li>
+			<li id="isNeedFreeLunch"">
 				<span class="left">午餐</span>
 				<span class="right"></span>
-				<img src="img/finish.png" class="finish"/>
+		           <img style="display:block;"  src="img/finish.png" class="finish"/> 
+		
 			</li>
-			<li>
+			<li id="isNeedProvideAccommodation">
 				<span class="left">住宿</span>
-				<span class="right"></span>
-				<img src="img/finish.png" class="finish"/>
+				<span class="right"></span>				
+			        <img  style="display:block;" src="img/finish.png" class="finish"/> 			   
 			</li>
 			
 		</ul>
@@ -121,17 +122,21 @@
 			<!--<div class="na">
 				<span>参加日期</span>
 			</div>-->
-			<div class="can">
-				<span>选择日期</span>
-				<input type="text" id="dt" value="2017-7-15">
-  				<div id="dd"></div>
+			<div class="cand" id="isNeedJoinDate">
+				<span>参加日期</span>
+				<div class="right"></div>
+				<img src="img/right.png" class="righter"/>
+				<div class="slide">
+					<div class="oss"></div>
+					<!-- <div class="oss"></div> -->
+				</div>
 			</div>
 		</div>
-		<div class="date">
+		<!--<div class="date">
 			<!--<div class="na">
 				<span>参加场次</span>
 			</div>-->
-			<div class="cand">
+			<!--<div class="cand">
 				<span>选择场次</span>
 				<div class="right">第一场</div>
 				<img src="img/right.png" class="righter"/>
@@ -140,24 +145,24 @@
 					<div class="oss">第二场</div>
 				</div>
 			</div>
-		</div>
+		</div>-->
 		
 		<div class="date">
 			<!--<div class="na">
 				<span>活动信息来源</span>
 			</div>-->
-			<div class="cand">
+			<div class="cand" id="isNeedSource">
 				<span>选择来源</span>
 				<div class="right">网络</div>
 				<img src="img/right.png" class="righter"/>
 				<div class="slide">
 					<div class="oss">网络</div>
-					<div class="oss">朋友</div>
+					<div class="oss">朋友</div> 
 				</div>
 			</div>
 		</div>
 		
-		<div class="date">
+		<div class="date" id="isNeedPhoto">
 			<div class="na">
 				<span>上传图片</span>
 			</div>
@@ -178,7 +183,12 @@
 		</div>
 		
 		<div class="tj">
-			<a href="javascript:;">提交</a>
+			<a href="javascript:void(0);" onclick="submit()">提交</a>
+		</div>
+		
+		<div class="tta">
+			<p>提交成功</p>
+			<div class="btno">确定</div>
 		</div>
 		
 		<div class="add">
@@ -187,7 +197,192 @@
 		
 	</body>
 	<script src="js/calendar.js"></script> 
-<script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+	 function getUrlParam(name) {
+		   var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+		   var r = window.location.search.substr(1).match(reg); //匹配目标参数
+		   if (r != null) return unescape(r[2]); return null; 
+		   }//返回参数值
+		   var userId=getUrlParam('userId');
+		   var token=getUrlParam('token');
+		   var activityId=getUrlParam('activityId');	
+		   alert(userId);
+		   //需要提交信息
+		   $.ajax({
+			   type:'get',
+			   url:'activity/activityDetail',
+			   data:"activityId="+activityId,
+			   dataType:'json',
+			   success:function(msg){
+				   if(msg.code==200){
+					  var data=msg.data;
+					  var title=data.title==null?"":data.title;
+					  var startTime=data.startTime==null?"":data.startTime;
+					  var endTime=data.endTime==null?"":data.endTime;
+					  //回填信息
+					  $(".title").text(title);
+					  $(".time").text(startTime+"~"+endTime);
+					// 获取用户信息
+					   $.ajax({
+						   type:'get',
+						   url:'user/getUserInfo',
+						   data:{userId:userId,token:token},
+						   dataType:'json',
+						   success:function(msg){
+							   if(msg.code==200){
+								  var userData=msg.data;
+								  var userName=userData.userName==null?"未填写":userData.userName;//姓名
+								  var company=userData.company==null?"未填写":userData.company;//公司地址
+								  var phone=userData.phone==null?"未填写":userData.phone;//手机号
+								  var positionName=userData.positionName==null?"未填写":userData.positionName;//职位
+								  var departmentName=userData.departmentName==null?"未填写":userData.departmentName;//部门
+								  var email=userData.email==null?"未填写":userData.email;//邮箱
+								  var provincesCities=userData.provincesCities==null?"未填写":userData.provincesCities;//邮箱
+                                 
+								  //公司
+								  if(data.isNeedCompany==1){
+									  $("#company").val(company);
+									  $("#provincesCities").val(provincesCities);
+								  }
+								  if(data.isNeedCompany==0){
+									  $("#company").parent().hide();
+									  $("#provincesCities").parent().hide();
+								  }
+							  //是否午餐
+								  if(data.isNeedFreeLunch==0){
+									  $("#isNeedFreeLunch").hide();
+								  }
+								  //是否住宿
+								  if(data.isNeedProvideAccommodation==0){
+									  $("#isNeedProvideAccommodation").hide();
+								  }
+								  //选择日期场次
+								  
+								  if(data.isNeedJoinDate==1){
+									  var customTime1=data.customTime1==null?"":data.customTime1;
+									  var strs= new Array(); //定义一数组
+									  strs=customTime1.split(","); //字符分割
+									  for (i=0;i<strs.length ;i++ )
+									  {
+										  $("#isNeedJoinDate .slide").append("<div class='oss'>"+strs[i]+"</div>");
+										  $("#isNeedJoinDate .slide").on("click","div",function(){
+											   $(this).addClass('redd');
+										    	var ww=$(this).text();
+										    	$(this).parent().siblings('.right').text(ww);
+										  });
+									       //分割后的字符输出
+									  } 
+								  }
+								  if(data.isNeedJoinDate==0){
+									  $("#isNeedJoinDate").hide();
+								  }
+								  //选择来源
+								  if(data.isNeedSource==0){
+									  $("#isNeedSource").hide();
+								  }
+								  //选择照片
+								  if(data.isNeedPhoto==0){
+									  $("#isNeedPhoto").hide();
+								  }
+								  
+
+							   }
+						   }
+					   })
+									   }
+				   
+			   }
+		   })
+})
+//是否午餐点击
+$("#isNeedFreeLunch").click(function(){
+      if($("#isNeedFreeLunch img" ).css("display")=="block"){
+    	  $("#isNeedFreeLunch img").hide();
+      }else{
+    	  $("#isNeedFreeLunch img").show();
+      }
+})
+//是否住宿点击
+$("#isNeedProvideAccommodation").click(function(){
+    if($("#isNeedProvideAccommodation img" ).css("display")=="block"){
+  	  $("#isNeedProvideAccommodation img").hide();
+    }else{
+  	  $("#isNeedProvideAccommodation img").show();
+    }
+})
+//提交报名
+function  submit(){
+	 $.ajax({
+			type : "POST", //用POST方式传输
+			contentType: "application/json; charset=utf-8", //数据格式:JSON
+			type:"json", //数据格式:JSON
+			url : 'enrol/saveOrupdate', //目标地址
+			data : JSON.stringify(GetJsonData()),
+			error: function(XMLHttpRequest){  
+			     alert( "Error: " + XMLHttpRequest.responseText);  
+			   }  ,
+			success : function(msg) {
+				window.history.go(-1);
+				}
+				//发送验证返回信息
+		});
+}
+function getUrlParam(name) {
+	   var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+	   var r = window.location.search.substr(1).match(reg); //匹配目标参数
+	   if (r != null) return unescape(r[2]); return null; 
+	   }//返回参数值
+
+//获取json数据
+function GetJsonData() {	
+	var userId=getUrlParam('userId');
+	var token=getUrlParam('token');
+	var fromType= 1;
+	var fromId=getUrlParam('activityId');
+	var company=$("#company").val();
+	var userName=$("#userName").val();
+	var phone=$("#phone").val();
+	var email=$("#email").val();
+	var companyAddress=$("#provincesCities").val();
+    var positionName=$("#positionName").val();
+    var departmentName=$("#departmentName").val();
+    //是否午餐
+    if($("#isNeedFreeLunch img").attr("style")=="display:block;"){
+        var	freeLunch=1;
+    }
+    if($("#isNeedFreeLunch img").attr("style")=="display:none;"){
+        var	freeLunch=0;
+    }
+    //是否住宿
+    if($("#isNeedProvideAccommodation img").attr("style")=="display:block;"){
+        var	provideAccommodation=1;
+    }
+    if($("#isNeedProvideAccommodation img").attr("style")=="display:none;"){
+        var	provideAccommodation=0;
+    }
+    //参加日期
+    var joinDate=$("#isNeedJoinDate .right").text();
+    var source=$("#isNeedSource .right").text();  
+    var json = {
+    		userId:userId,
+    		token:token,
+    		fromType:fromType,
+    		fromId:fromId,
+    		company:company,
+    		userName:userName,
+    		phone:phone,
+    		email:email,
+    		companyAddress:companyAddress,
+    		positionName:positionName,
+    		departmentName:departmentName,
+    		freeLunch:freeLunch,
+    		provideAccommodation:provideAccommodation,
+    		joinDate:joinDate,
+    		source:source,
+ };
+ return json;
+}
     $('#ca').calendar({
         width: 320,
         height: 320,
@@ -249,6 +444,14 @@
     
 </script>
 <script type="text/javascript">
+	$('.tj').click(function(){
+		$('.tta').show();
+	})
+	
+	$('.tta .btno').click(function(){
+		$('.tta').hide();
+	})
+	
 		$('.oimg .jj').click(function(){
             var str=$("#pics").val();
             var val='|'+$(this).parent().find("input[type=hidden]").val();
@@ -306,7 +509,7 @@
             }*/
             $.ajax({
                 type: "POST",
-                url:'upload_aimgs',
+                url:'article/upload',
                 data:{token:token,file:img},
                 cache: false,
                 success:function(data) {
