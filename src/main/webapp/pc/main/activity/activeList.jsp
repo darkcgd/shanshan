@@ -347,7 +347,7 @@ $.ajax({
     //查看详情，详情页可修改内容
     function  updateAticle(text){
     	var activityId=$(text).parent().prevAll("td:eq(4)").text();
-    	window.location.href="pc/main/activity/activeUpdate.jsp?activityId="+activityId;
+    	window.location.href="pc/main/activity/activityUpdate.jsp?activityId="+activityId;
     }
             
 </script>

@@ -177,11 +177,12 @@ td.fenye {
 			<tr>
 				<td width="10%" class="tableleft">分类名称</td>
 				<td>
-			        <select   id="bigClass">
+			      <select   id="bigClass">
 			           <option>加工应用<option>
 				       <option>维修保养<option>
 				       <option>其他<option>	
-			        </select>
+			        </select> 
+	
 			        <select   id="smallClass"></select>
 				</td>			
 			</tr>
@@ -239,6 +240,18 @@ td.fenye {
  <!-- 注意， 只需要引用 JS，无需引用任何 CSS ！！！-->
     <script type="text/javascript" src="pc/editor/release/wangEditor.js"></script>
     <script type="text/javascript">
+    $("#bigClass option:nth-child(2)").hide();
+    $("#bigClass option:nth-child(4)").hide();
+    $("#bigClass option:nth-child(6)").hide();
+    $("#tagId option:nth-child(2)").hide();
+    $("#tagId option:nth-child(4)").hide();
+    $("#relateActivityId option:nth-child(2)").hide();
+    $("#relateActivityId option:nth-child(4)").hide();
+    $("#relatePermissionUserType option:nth-child(2)").hide();
+    $("#relatePermissionUserType option:nth-child(4)").hide();
+    $("#relatePermissionUserType option:nth-child(6)").hide();
+    
+    
     $("#saveInfo").click(function(){ 
         $.ajax({
 			type : "POST", //用POST方式传输
