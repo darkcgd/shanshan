@@ -374,13 +374,13 @@ public class UserController extends BaseController{
 	 */
 	@ResponseBody
 	@RequestMapping(value="/user/verifyUser",method=RequestMethod.GET)
-	public Object verifyUser(@RequestParam(value = "userId", required=false) Integer userId){
-		if(BaseUtil.isEmpty(userId)){
-			return MsgSimpleBean.fail("需要传userId参数");
+	public Object verifyUser(@RequestParam(value = "verifyUserId", required=false) Integer verifyUserId){
+		if(BaseUtil.isEmpty(verifyUserId)){
+			return MsgSimpleBean.fail("需要传被审核的userId参数");
 		}
 
 		UserBean user=new UserBean();
-		user.setUserId(userId);
+		user.setUserId(verifyUserId);
 		user.setUserType(3);
 		user.setStatus(2);//1待审核 2已审核  默认不用审核
 		user.setUpdateTime(new Date());
