@@ -189,7 +189,7 @@ td.fenye {
 				<td><input type="text" value="" class="date" id="endTime"/></td>					
 			</tr>
 			<tr>
-				<td class="tableleft">活动场次(时间+场次)</td>
+				<td class="tableleft">活动场次(时间+场次,每场用逗号隔开)</td>
 				<td id="customTime"><a onclick="addcustomTime();" target="mainFrame" onFocus="this.blur()" class="add">添加活动场次</a>
 				    <input style="display:none;width:35%;margin-top:10px;margin-left:20px;" type="text" id="AllcustomTime" value=""/>
 				</td>					
@@ -240,6 +240,9 @@ td.fenye {
  <!-- 注意， 只需要引用 JS，无需引用任何 CSS ！！！-->
     <script type="text/javascript" src="pc/editor/release/wangEditor.js"></script>
     <script type="text/javascript">
+    $("#relatePermissionUserType option:nth-child(2)").hide();
+    $("#relatePermissionUserType option:nth-child(4)").hide();
+    $("#relatePermissionUserType option:nth-child(6)").hide();
     $("#saveInfo").click(function(){ 
         $.ajax({
 			type : "POST", //用POST方式传输

@@ -238,6 +238,16 @@ td.fenye {
  <!-- 注意， 只需要引用 JS，无需引用任何 CSS ！！！-->
     <script type="text/javascript" src="pc/editor/release/wangEditor.js"></script>
     <script type="text/javascript">
+    $("#bigClass option:nth-child(2)").hide();
+    $("#bigClass option:nth-child(4)").hide();
+    $("#bigClass option:nth-child(6)").hide();
+    $("#tagId option:nth-child(2)").hide();
+    $("#tagId option:nth-child(4)").hide();
+    $("#relateActivityId option:nth-child(2)").hide();
+    $("#relateActivityId option:nth-child(4)").hide();
+    $("#relatePermissionUserType option:nth-child(2)").hide();
+    $("#relatePermissionUserType option:nth-child(4)").hide();
+    $("#relatePermissionUserType option:nth-child(6)").hide();
     $(document).ready(function(){
     	 function getUrlParam(name) {
 			   var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
