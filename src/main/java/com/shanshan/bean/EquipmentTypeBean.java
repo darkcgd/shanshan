@@ -5,7 +5,7 @@ import java.util.Date;
 public class EquipmentTypeBean {
     private Integer equipmentTypeId;
 
-    private Integer equipmentTypeName;
+    private String equipmentTypeName;
 
     private Integer equipmentParentTypeId;
 
@@ -23,12 +23,12 @@ public class EquipmentTypeBean {
         this.equipmentTypeId = equipmentTypeId;
     }
 
-    public Integer getEquipmentTypeName() {
+    public String getEquipmentTypeName() {
         return equipmentTypeName;
     }
 
-    public void setEquipmentTypeName(Integer equipmentTypeName) {
-        this.equipmentTypeName = equipmentTypeName;
+    public void setEquipmentTypeName(String equipmentTypeName) {
+        this.equipmentTypeName = equipmentTypeName == null ? null : equipmentTypeName.trim();
     }
 
     public Integer getEquipmentParentTypeId() {

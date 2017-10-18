@@ -3,7 +3,7 @@
 <mapper namespace="com.shanshan.dao.EquipmentTypeBeanMapper">
   <resultMap id="BaseResultMap" type="com.shanshan.bean.EquipmentTypeBean">
     <id column="equipment_type_id" jdbcType="INTEGER" property="equipmentTypeId" />
-    <result column="equipment_type_name" jdbcType="INTEGER" property="equipmentTypeName" />
+    <result column="equipment_type_name" jdbcType="VARCHAR" property="equipmentTypeName" />
     <result column="equipment_parent_type_id" jdbcType="INTEGER" property="equipmentParentTypeId" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
@@ -105,7 +105,7 @@
     insert into tbl_equipment_type (equipment_type_id, equipment_type_name, 
       equipment_parent_type_id, create_time, update_time, 
       remark)
-    values (#{equipmentTypeId,jdbcType=INTEGER}, #{equipmentTypeName,jdbcType=INTEGER}, 
+    values (#{equipmentTypeId,jdbcType=INTEGER}, #{equipmentTypeName,jdbcType=VARCHAR}, 
       #{equipmentParentTypeId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
       #{remark,jdbcType=VARCHAR})
   </insert>
@@ -136,7 +136,7 @@
         #{equipmentTypeId,jdbcType=INTEGER},
       </if>
       <if test="equipmentTypeName != null">
-        #{equipmentTypeName,jdbcType=INTEGER},
+        #{equipmentTypeName,jdbcType=VARCHAR},
       </if>
       <if test="equipmentParentTypeId != null">
         #{equipmentParentTypeId,jdbcType=INTEGER},
@@ -165,7 +165,7 @@
         equipment_type_id = #{record.equipmentTypeId,jdbcType=INTEGER},
       </if>
       <if test="record.equipmentTypeName != null">
-        equipment_type_name = #{record.equipmentTypeName,jdbcType=INTEGER},
+        equipment_type_name = #{record.equipmentTypeName,jdbcType=VARCHAR},
       </if>
       <if test="record.equipmentParentTypeId != null">
         equipment_parent_type_id = #{record.equipmentParentTypeId,jdbcType=INTEGER},
@@ -187,7 +187,7 @@
   <update id="updateByExample" parameterType="map">
     update tbl_equipment_type
     set equipment_type_id = #{record.equipmentTypeId,jdbcType=INTEGER},
-      equipment_type_name = #{record.equipmentTypeName,jdbcType=INTEGER},
+      equipment_type_name = #{record.equipmentTypeName,jdbcType=VARCHAR},
       equipment_parent_type_id = #{record.equipmentParentTypeId,jdbcType=INTEGER},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       update_time = #{record.updateTime,jdbcType=TIMESTAMP},
@@ -200,7 +200,7 @@
     update tbl_equipment_type
     <set>
       <if test="equipmentTypeName != null">
-        equipment_type_name = #{equipmentTypeName,jdbcType=INTEGER},
+        equipment_type_name = #{equipmentTypeName,jdbcType=VARCHAR},
       </if>
       <if test="equipmentParentTypeId != null">
         equipment_parent_type_id = #{equipmentParentTypeId,jdbcType=INTEGER},
@@ -219,7 +219,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.shanshan.bean.EquipmentTypeBean">
     update tbl_equipment_type
-    set equipment_type_name = #{equipmentTypeName,jdbcType=INTEGER},
+    set equipment_type_name = #{equipmentTypeName,jdbcType=VARCHAR},
       equipment_parent_type_id = #{equipmentParentTypeId,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},

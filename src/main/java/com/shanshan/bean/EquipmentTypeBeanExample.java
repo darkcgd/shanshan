@@ -175,52 +175,62 @@ public class EquipmentTypeBeanExample {
             return (Criteria) this;
         }
 
-        public Criteria andEquipmentTypeNameEqualTo(Integer value) {
+        public Criteria andEquipmentTypeNameEqualTo(String value) {
             addCriterion("equipment_type_name =", value, "equipmentTypeName");
             return (Criteria) this;
         }
 
-        public Criteria andEquipmentTypeNameNotEqualTo(Integer value) {
+        public Criteria andEquipmentTypeNameNotEqualTo(String value) {
             addCriterion("equipment_type_name <>", value, "equipmentTypeName");
             return (Criteria) this;
         }
 
-        public Criteria andEquipmentTypeNameGreaterThan(Integer value) {
+        public Criteria andEquipmentTypeNameGreaterThan(String value) {
             addCriterion("equipment_type_name >", value, "equipmentTypeName");
             return (Criteria) this;
         }
 
-        public Criteria andEquipmentTypeNameGreaterThanOrEqualTo(Integer value) {
+        public Criteria andEquipmentTypeNameGreaterThanOrEqualTo(String value) {
             addCriterion("equipment_type_name >=", value, "equipmentTypeName");
             return (Criteria) this;
         }
 
-        public Criteria andEquipmentTypeNameLessThan(Integer value) {
+        public Criteria andEquipmentTypeNameLessThan(String value) {
             addCriterion("equipment_type_name <", value, "equipmentTypeName");
             return (Criteria) this;
         }
 
-        public Criteria andEquipmentTypeNameLessThanOrEqualTo(Integer value) {
+        public Criteria andEquipmentTypeNameLessThanOrEqualTo(String value) {
             addCriterion("equipment_type_name <=", value, "equipmentTypeName");
             return (Criteria) this;
         }
 
-        public Criteria andEquipmentTypeNameIn(List<Integer> values) {
+        public Criteria andEquipmentTypeNameLike(String value) {
+            addCriterion("equipment_type_name like", value, "equipmentTypeName");
+            return (Criteria) this;
+        }
+
+        public Criteria andEquipmentTypeNameNotLike(String value) {
+            addCriterion("equipment_type_name not like", value, "equipmentTypeName");
+            return (Criteria) this;
+        }
+
+        public Criteria andEquipmentTypeNameIn(List<String> values) {
             addCriterion("equipment_type_name in", values, "equipmentTypeName");
             return (Criteria) this;
         }
 
-        public Criteria andEquipmentTypeNameNotIn(List<Integer> values) {
+        public Criteria andEquipmentTypeNameNotIn(List<String> values) {
             addCriterion("equipment_type_name not in", values, "equipmentTypeName");
             return (Criteria) this;
         }
 
-        public Criteria andEquipmentTypeNameBetween(Integer value1, Integer value2) {
+        public Criteria andEquipmentTypeNameBetween(String value1, String value2) {
             addCriterion("equipment_type_name between", value1, value2, "equipmentTypeName");
             return (Criteria) this;
         }
 
-        public Criteria andEquipmentTypeNameNotBetween(Integer value1, Integer value2) {
+        public Criteria andEquipmentTypeNameNotBetween(String value1, String value2) {
             addCriterion("equipment_type_name not between", value1, value2, "equipmentTypeName");
             return (Criteria) this;
         }
