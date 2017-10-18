@@ -3,9 +3,9 @@ package com.shanshan.service;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.shanshan.bean.EquipmentTypeBean;
 import com.shanshan.bean.EquipmentTypeBeanExample;
@@ -13,6 +13,7 @@ import com.shanshan.bean.EquipmentTypeBeanExample.Criteria;
 import com.shanshan.common.model.JsonResult;
 import com.shanshan.dao.EquipmentTypeBeanMapper;
 
+@Service
 public class EquipmentTypeService {
 	
 	@Autowired
