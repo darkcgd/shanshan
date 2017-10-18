@@ -2,11 +2,21 @@ package com.shanshan.bean;
 
 import java.util.Date;
 
+import javax.persistence.Transient;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class EquipmentInfoBean {
     private Integer equipmentId;
 
+    @DateTimeFormat(pattern="yyyy-MM-dd")
+	@JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     private Date createTime;
 
+    @DateTimeFormat(pattern="yyyy-MM-dd")
+	@JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     private Date updateTime;
 
     private String remark;
@@ -27,7 +37,7 @@ public class EquipmentInfoBean {
 
     private Integer relatePermissionUserType;
 
-    public Integer getEquipmentId() {
+	public Integer getEquipmentId() {
         return equipmentId;
     }
 
