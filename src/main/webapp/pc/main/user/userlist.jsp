@@ -152,7 +152,7 @@ td.fenye{ padding:10px 0 0 0; text-align:right;}
 				        "<td align='center' valign='middle' class='borderright borderbottom'>"+status+"</td>"+
 				        "<td align='center' valign='middle' class='borderright borderbottom'>"+email+"</td>"+
 				        "<td align='center' valign='middle' class='borderbottom'>"+
-				        "<a name='"+data[i].userId+"' jj='"+data[i].status+"' target='mainFrame' onFocus='this.blur()' onclick='aaa()' class='add'>"+status+"</a></td></tr>"); 
+				        "<a name='"+data[i].userId+"'  target='mainFrame' onFocus='this.blur()'  class='add'>"+status+"</a></td></tr>"); 
 			}
 			   var endPageNumber=msg.data.totalPage;//尾页
 	           var totalCount=msg.data.totalCount;//多少条记录
@@ -161,11 +161,33 @@ td.fenye{ padding:10px 0 0 0; text-align:right;}
 	           $(".fenye a:nth-child(3)").attr({value:pagerNumber});
 	           $(".fenye a:nth-child(4)").attr({value:pagerNumber});
 	           $(".fenye a:nth-child(5)").attr({value:endPageNumber});
-	           $(".fenye span").text(totalCount+"条数据   "+pagerNumber+"/"+totalPage+"页");  
+	           $(".fenye span").text(totalCount+"条数据   "+pagerNumber+"/"+totalPage+"页");
+	           $.ajax({
+					type : "GET", //用GET方式传输
+					dataType : "json", //数据格式:JSON
+					url : 'user/getUserInfo', //目标地址
+					//data : "dealType=" + dealType + "&uid=" + uid + "&code=" + code,
+					data : {userId:userId,token:token},
+					success : function(msg) {	
+						if(msg.code==100){
+							if(msg.msg=="登录信息失效,请重新登录"){
+								alert(msg.msg);
+								window.location.href="pc/login.jsp";
+							}
+						}
+						if(msg.code==200){
+							//跳转地址区分
+							 $(".ss a").each(function(){
+					   		var verifyUserId=$(this).attr("name");
+					   		$(this).attr({href:"pc/main/user/userlist1.jsp?verifyUserId="+verifyUserId});
+							 });
+						}
+					}
+			 });  
 		}
      })
 }); 
-
+		
 	//分页功能
 	    function pageChange(val){
 	    	 var userId= sessionStorage.getItem("userId");
@@ -248,7 +270,7 @@ td.fenye{ padding:10px 0 0 0; text-align:right;}
 		    				        "<td align='center' valign='middle' class='borderright borderbottom'>"+status+"</td>"+
 		    				        "<td align='center' valign='middle' class='borderright borderbottom'>"+email+"</td>"+
 		    				        "<td align='center' valign='middle' class='borderbottom'>"+
-		    				        "<a name='"+data[i].userId+"' jj='"+data[i].status+"' target='mainFrame' onFocus='this.blur()' onclick='aaa()' class='add'>"+status+"</a></td></tr>"); 
+		    				        "<a name='"+data[i].userId+"'    target='mainFrame' onFocus='this.blur()'  class='add'>"+status+"</a></td></tr>"); 
 		    			}
 		    	           var endPageNumber=msg.data.totalPage;//尾页
 		    	           var totalCount=msg.data.totalCount;//多少条记录
@@ -257,47 +279,32 @@ td.fenye{ padding:10px 0 0 0; text-align:right;}
 		    	           $(".fenye a:nth-child(3)").attr({value:pagerNumber});
 		    	           $(".fenye a:nth-child(4)").attr({value:pagerNumber});
 		    	           $(".fenye a:nth-child(5)").attr({value:endPageNumber});
-		    	           $(".fenye span").text(totalCount+"条数据   "+pagerNumber+"/"+totalPage+"页");   
+		    	           $(".fenye span").text(totalCount+"条数据   "+pagerNumber+"/"+totalPage+"页");
+		    	           $.ajax({
+		    					type : "GET", //用GET方式传输
+		    					dataType : "json", //数据格式:JSON
+		    					url : 'user/getUserInfo', //目标地址
+		    					//data : "dealType=" + dealType + "&uid=" + uid + "&code=" + code,
+		    					data : {userId:userId,token:token},
+		    					success : function(msg) {	
+		    						if(msg.code==100){
+		    							if(msg.msg=="登录信息失效,请重新登录"){
+		    								alert(msg.msg);
+		    								window.location.href="pc/login.jsp";
+		    							}
+		    						}
+		    						if(msg.code==200){
+		    							//跳转地址区分
+		    							 $(".ss a").each(function(){
+		    					   		var verifyUserId=$(this).attr("name");
+		    					   		$(this).attr({href:"pc/main/user/userlist1.jsp?verifyUserId="+verifyUserId});
+		    							 });
+		    						}
+		    					}
+		    			 });  
 		    		}
 		    	   }); 
-			 
 		 }
 	
-	   
-	</script>
-	<script type="text/javascript">
-	 function aaa(){
-		 $(".ss a").each(function(){
-		 var verifyUserId=$(this).attr("name");
-		 var status=$(this).attr("jj");
-		 var userId= sessionStorage.getItem("userId");
-		 var token= sessionStorage.getItem("c_token");
-		 if(status==2){
-			 alert("该用户已审核了");
-		 }
-		 if(status==1){
-		 $.ajax({
-			type : "GET", //用GET方式传输
-			dataType : "json", //数据格式:JSON
-			url : 'user/verifyUser', //目标地址
-			data : {
-				userId:userId,
-				token:token,
-				verifyUserId:verifyUserId
-				},
-			success : function(msg) {
-				if(msg.code==100){
-					alert("审核失败");
-			    	  $('#myModal').modal('show');
-					  $(".modal-body").text(msg.msg);
-				}
-				if(msg.code==200){
-					  alert("审核成功");
-					window.location.href = "<%=path%>/pc/main/user/userlist.jsp";
-	    }} 
-	});
-	 }
-   });
-}
 	</script>
 </html>
