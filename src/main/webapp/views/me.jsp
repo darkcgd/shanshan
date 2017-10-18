@@ -75,7 +75,20 @@
 			data : {userId:userId,token:token},
 			success : function(msg) {
 				var datas=msg.data;
-					$(".section").append("<div class='photo'><img src='img/05.jpg'/></div><span>用户名-"+datas.userName+"</span>");				 
+				var a="";
+				if(datas.userType==1){
+					 a="A等级会员";
+				}if(datas.userType==2){
+					 a="B等级会员";
+				}if(datas.userType==3){
+					 a="C等级会员";
+				}if(datas.userType==4){
+					 a="客服";
+				}if(datas.userType==5){
+					 a="技术专家";
+				}
+				var userType=a;
+					$(".section").append("<div class='photo'><img src='img/05.jpg'/></div><span>"+userType+"-"+datas.userName+"</span>");				 
 			}
 		});
 	}); 
