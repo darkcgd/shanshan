@@ -3,7 +3,7 @@
     <display-name>shanshan</display-name>
 
     <welcome-file-list>
-        <welcome-file>/views/login.jsp</welcome-file>
+        <welcome-file>/index.jsp</welcome-file>
     </welcome-file-list>
 
     <context-param>
