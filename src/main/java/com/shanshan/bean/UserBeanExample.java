@@ -2104,6 +2104,10 @@ public class UserBeanExample {
             addCriterion("is_shanshan_user not between", value1, value2, "isShanshanUser");
             return (Criteria) this;
         }
+        public Criteria andGetShanshanService(Integer value){
+        	addCriterion("user_type =", value, "userType");
+        	  return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

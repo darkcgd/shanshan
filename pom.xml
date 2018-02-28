@@ -213,7 +213,18 @@
 		    <artifactId>mapper</artifactId>
 		    <version>3.3.9</version>
 		</dependency>
-
+		<!-- 环信聊天 -->
+        <dependency>
+            <groupId>com.easemob</groupId>
+            <artifactId>rest-java-sdk</artifactId>
+            <version>1.0.5</version>
+        </dependency>
+        <!--环信服务器集成日志包 -->
+         <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.2.1</version>
+        </dependency>
 
     </dependencies>
 

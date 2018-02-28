@@ -31,7 +31,6 @@ public class SmsCodeService {
         if(smsCodeBean!=null){
             smsCodeBean.setPhone(phone);
             smsCodeBean.setSmsCode(smsCode);
-
             smsCodeBean.setUpdateTime(date);
             smsCodeBean.setExpireTime(new Date(time));
             smsCodeBeanMapper.updateByPrimaryKeySelective(smsCodeBean);
@@ -39,7 +38,6 @@ public class SmsCodeService {
             SmsCodeBean SmsCodeBean=new SmsCodeBean();
             SmsCodeBean.setPhone(phone);
             SmsCodeBean.setSmsCode(smsCode);
-
             SmsCodeBean.setCreateTime(date);
             SmsCodeBean.setUpdateTime(date);
             SmsCodeBean.setExpireTime(new Date(time));
@@ -78,7 +76,6 @@ public class SmsCodeService {
         SmsCodeBeanExample.Criteria criteria=example.createCriteria();
         criteria.andPhoneEqualTo(phone);
         criteria.andExpireTimeGreaterThan(new Date());
-
         List<SmsCodeBean> smsCodeBeans = smsCodeBeanMapper.selectByExample(example);
         if(smsCodeBeans!=null&&smsCodeBeans.size()>0){
             return smsCodeBeans.get(0);

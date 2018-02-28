@@ -4,11 +4,14 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.shanshan.base.BaseController;
 import com.shanshan.bean.*;
+import com.shanshan.chatapi.IMUserApi;
+import com.shanshan.chatapi.impl.IMUserApiImpl;
 import com.shanshan.service.SmsCodeService;
 import com.shanshan.service.TokenService;
 import com.shanshan.service.UserService;
 import com.shanshan.util.BaseUtil;
 import com.shanshan.util.Constant;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +19,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import io.swagger.client.model.RegisterUsers;
+import io.swagger.client.model.User;
+
 import javax.servlet.http.HttpServletRequest;
+
 import java.util.*;
 
 @Controller
@@ -28,6 +35,7 @@ public class UserController extends BaseController{
 	SmsCodeService smsCodeService;
 	@Autowired
 	TokenService tokenService;
+	
 
 	/**
 	 * 用户保存(注册)
@@ -52,15 +60,15 @@ public class UserController extends BaseController{
 		if(BaseUtil.isEmpty(smsCode)){
 			return MsgSimpleBean.fail("请输入验证码");
 		}
-		if(BaseUtil.isEmpty(userId)){
-			return MsgSimpleBean.fail("请先微信授权");
-		}
+		//if(BaseUtil.isEmpty(userId)){
+			//return MsgSimpleBean.fail("请先微信授权");
+		//}
 
-		UserBean userById = userService.getUserById(userId);
-		if(userById==null){
-			return MsgSimpleBean.fail("该授权用户不存在");
-		}
-
+		//UserBean userById = userService.getUserById(userId);
+		//if(userById==null){
+			//return MsgSimpleBean.fail("该授权用户不存在");
+		//}
+         UserBean userById=new UserBean();
 
 		UserBean registedUserBean = userService.isRegisted(phone);
 		if(registedUserBean!=null){
@@ -83,7 +91,8 @@ public class UserController extends BaseController{
 		if(BaseUtil.isNotEmpty(company)){
 			userById.setCompany(company);
 		}
-		userService.updateUserInfo(userById);
+		//userService.updateUserInfo(userById);
+		userService.saveUser(userById);//本地测试
 		UserBean userByName = userService.isRegisted(phone);
 		if(userByName!=null){
 			String token = tokenService.generateToken(userByName.getUserId(),0);
@@ -427,5 +436,33 @@ public class UserController extends BaseController{
 	public void sendCode(){
 
 	}
+	/**
+	 * 查询空闲客服
+	 */
+	@ResponseBody
+	@RequestMapping(value="/user/getServiceList",method=RequestMethod.GET)
+	public MsgBean getServiceList(){		
+		UserBean userByType =userService.getUserByType();
+		IMUserApi imUserApi=new IMUserApiImpl();
+		if(userByType!=null){
+			String username=userByType.getPhone();
+			Object result=imUserApi.getIMUserByUserName(username);
+			if(result==null){
+				 RegisterUsers users = new RegisterUsers();
+				 User user = new User().username(username).password("123456");
+				 users.add(user);
+				 Object imResult=imUserApi.createNewIMUserSingle(users);
+				 System.out.println(imResult);
+			}
+			//System.out.println(result);
+			MsgBean msg = MsgBean.success("获取成功");
+			Map<String, Object> data = msg.getData();
+			hanlderResponseData(data,userByType);
+			return msg;
+		}else{
+			return MsgBean.fail("暂无客服，请稍后");
+		}
+	}
+	
 
 }

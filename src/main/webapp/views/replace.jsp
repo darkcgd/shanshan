@@ -454,7 +454,7 @@
 			dataType : "json", //数据格式:JSON
 			url : 'user/updateUserInfo', //目标地址
 			data : {
-				 userId : userId,
+				userId : userId,
 		        token : token,
 		        isShanshanUser : isShanshanUser,
 		        userType : userType,

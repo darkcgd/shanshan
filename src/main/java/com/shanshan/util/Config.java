@@ -22,7 +22,7 @@ public class Config {
 
     //public static final String Sms_Acount="18211555413";
     //public static final String Sms_Acount_Pwd="hao111";
-    public static final String Sms_Acount="longgkj_vV4r68";
-    public static final String Sms_Acount_Pwd="Cjsms654321";
+    public static final String Sms_Acount="C29926681";
+    public static final String Sms_Acount_Pwd="bd3468194354d80088a66130bc91d1d1";
 
 }

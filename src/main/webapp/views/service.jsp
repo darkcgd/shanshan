@@ -17,6 +17,10 @@
 		<link rel="stylesheet" type="text/css" href="css/header.css"/>
 		<link rel="stylesheet" type="text/css" href="css/service.css"/>
 		<script src="js/jquery-1.7.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="pc/js/webim.config.js" type="text/javascript" charset="utf-8"></script>
+		<script src="pc/js/strophe-1.2.8.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="pc/js/websdk-1.4.11.js" type="text/javascript" charset="utf-8"></script>
+		
 	</head>
 	<script type="text/javascript">
 		    (function (doc, win) {
@@ -36,6 +40,45 @@
         win.addEventListener(resizeEvt, recalc, false);
         doc.addEventListener('DOMContentLoaded', recalc, false);
     })(document, window);
+    $(document).ready(function(){
+    	var token= localStorage.getItem("c_token")
+		var userId= localStorage.getItem("userId");	
+    	if(userId!=null||""){
+    		$.ajax({
+    			type : "GET", //用GET方式传输
+				dataType : "json", //数据格式:JSON
+				url : 'user/getUserInfo', //目标地址
+			    data : {userId:userId,token:token},
+				success : function(msg) {
+					if(msg.code==200){
+						var datas=msg.data;
+				        localStorage.setItem("Name_nick",datas.userName);
+				        localStorage.setItem("phone",datas.phone);				        
+						console.log(datas.userName);
+					}
+					}	
+    		})
+    		
+    		//查询客服
+    		$.ajax({
+    			type : "GET", //用GET方式传输
+				dataType : "json", //数据格式:JSON
+				url : 'user/getServiceList', //目标地址
+			    data : {userId:userId,token:token},
+				success : function(msg) {			
+					if(msg.code==200){						
+					var datas=msg.data;
+				    localStorage.setItem("Name_User",datas.userName);
+				    var phone=datas.phone==null?"nameisnot":datas.phone;
+				    localStorage.setItem("Name_nick",phone);
+				    console.log(datas.userName);
+				    $("#serviceUser").text("客服"+datas.userName);
+					}
+					}	
+    		})
+    	}
+    	
+    })
 
 	</script>
 	<body>
@@ -48,42 +91,168 @@
 		</header>
 		
 		<div class="cont">
-			<p class="time">2017-04-24 09:38</p>
+			<p class="time" id="nowTime"></p>
 			
 			<div class="people">
 				<nav class="hh">
 						<img src="img/05.jpg"/>					
 				</nav>
-				<p class="name">
-					重蹈覆辙
-				</p>
-				
+				<p class="name" id="serviceUser">
+				</p>				
 				<div class="pll">
-					<p>噢，再来一条</p>
+					<p>请问有什么需要帮您？</p>
 				</div>
 			</div>
-	        <div class="replay">
-				<nav class="hh">
+	       <div class="replay">
+				<!--  <nav class="hh">
 						<img src="img/05.jpg"/>					
 				</nav>
 				<p class="name">重蹈覆辙</p>
 				
 				<div class="pll">
-					<p>噢，再来一条</p>
-				</div>
-			</div>
+					<p></p>
+				</div>-->
+			</div> 
 			<div class="kb">
 				<div class="picc">
 					<input type="file" class="upFile">
 				</div>
 			<div class="write">
-    			<input type="text" name="content"  placeholder="在这里写说什么吧" class="upWrite"/>
-				<!--<button onclick="reply_to(this);">发送</button>-->
+    			<input type="text" id="content" name="content"  placeholder="在这里写说什么吧" class="upWrite"/>
+				<!-- <button onclick="reply_to(this);">发送</button> -->
     		</div>
-    		<img class="send" src="img/send.png" alt="" onclick="reply_to(this)">
+    		<img class="send" src="img/send.png" alt="" onclick="replyto()">
 			</div>
-    	</div>
-
-		
+    	</div>		
 	</body>
+	<script type="text/javascript">	
+	 var  Name= localStorage.getItem("phone");
+	 var  nickName=localStorage.getItem("Name_nick");
+	 function  getNowtime(){
+		var date = new Date();
+		Y = date.getFullYear() + '-';
+		M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+		D = date.getDate() + ' ';
+		h = date.getHours() + ':';
+		m = date.getMinutes() ;
+	    if(m<10){
+	    	m="0"+m;
+	    }
+	    NowTime=Y+M+D+h+m;
+	    return NowTime;
+	}
+     $("#nowTime").text(getNowtime());
+	
+	//连接
+	var conn = new WebIM.connection({
+	    isMultiLoginSessions: WebIM.config.isMultiLoginSessions,
+	    https: typeof WebIM.config.https === 'boolean' ? WebIM.config.https : location.protocol === 'https:',
+	    url: WebIM.config.xmppURL,
+	    heartBeatWait: WebIM.config.heartBeatWait,
+	    autoReconnectNumMax: WebIM.config.autoReconnectNumMax,
+	    autoReconnectInterval: WebIM.config.autoReconnectInterval,
+	    apiUrl: WebIM.config.apiURL,
+	    isAutoLogin: true,
+	    isDebug: true
+	});
+	conn.listen({
+	    onOpened: function ( message ) {          //连接成功回调
+	        // 如果isAutoLogin设置为false，那么必须手动设置上线，否则无法收消息
+	        // 手动上线指的是调用conn.setPresence(); 如果conn初始化时已将isAutoLogin设置为true
+	        // 则无需调用conn.setPresence();             
+	    },  
+	    onClosed: function ( message ) {},         //连接关闭回调
+	    onTextMessage: function ( message ) {
+	    	$(".replay").append("<nav class='hh'>"+
+	    			"<img src='img/05.jpg'/></nav>"+
+	    			"<p class='name'>"+nickName+"</p>"+
+					"<div class='pll'>"+
+						"<p></p>"+
+				    "</div>");		
+	    },    //收到文本消息
+	    onEmojiMessage: function ( message ) {},   //收到表情消息
+	    onPictureMessage: function ( message ) {}, //收到图片消息
+	    onCmdMessage: function ( message ) {},     //收到命令消息
+	    onAudioMessage: function ( message ) {},   //收到音频消息
+	    onLocationMessage: function ( message ) {},//收到位置消息
+	    onFileMessage: function ( message ) {},    //收到文件消息
+	    onVideoMessage: function (message) {
+	        var node = document.getElementById('privateVideo');
+	        var option = {
+	            url: message.url,
+	            headers: {
+	              'Accept': 'audio/mp4'
+	            },
+	            onFileDownloadComplete: function (response) {
+	                var objectURL = WebIM.utils.parseDownloadResponse.call(conn, response);
+	                node.src = objectURL;
+	            },
+	            onFileDownloadError: function () {
+	                console.log('File down load error.')
+	            }
+	        };
+	        WebIM.utils.download.call(conn, option);
+	    },   //收到视频消息
+	    onPresence: function ( message ) {},       //处理“广播”或“发布-订阅”消息，如联系人订阅请求、处理群组、聊天室被踢解散等消息
+	    onRoster: function ( message ) {},         //处理好友申请
+	    onInviteMessage: function ( message ) {},  //处理群组邀请
+	    onOnline: function () {},                  //本机网络连接成功
+	    onOffline: function () {},                 //本机网络掉线
+	    onError: function ( message ) {},          //失败回调
+	    onBlacklistUpdate: function (list) {       //黑名单变动
+	        // 查询黑名单，将好友拉黑，将好友从黑名单移除都会回调这个函数，list则是黑名单现有的所有好友信息
+	        console.log(list);
+	    },
+	    onReceivedMessage: function(message){},    //收到消息送达服务器回执
+	    onDeliveredMessage: function(message){},   //收到消息送达客户端回执
+	    onReadMessage: function(message){},        //收到消息已读回执
+	    onCreateGroup: function(message){},        //创建群组成功回执（需调用createGroupNew）
+	    onMutedMessage: function(message){}        //如果用户在A群组被禁言，在A群发消息会走这个回调并且消息不会传递给群其它成员
+	});
+	//注册
+	
+			var options = { 
+		    username: Name,
+		    password: Name,
+		    nickname: nickName,
+		    appKey: WebIM.config.appkey,
+		    success: function () {
+		    	  	
+		    },  
+		    error: function () {
+		    }, 
+		    apiUrl: WebIM.config.apiURL
+		  }; 
+		  conn.registerUser(options);
+		  //登陆
+		  var options = { 
+				  apiUrl: WebIM.config.apiURL,
+				  user: Name,
+				  pwd: Name,
+				  appKey: WebIM.config.appkey
+				};
+				conn.open(options);
+		  
+		// 单聊发送文本消息
+		 function replyto(){
+			  var txt=$("#content").attr("value");
+		      var sendPrivateText = function () {
+		      var id = conn.getUniqueId();                 // 生成本地消息id
+		      var msg = new WebIM.message('txt', id);      // 创建文本消息
+		      msg.set({
+		          msg: txt,                  // 消息内容
+		          to:"" ,                    // 接收消息对象（用户id）
+		          roomType: false,
+		          success: function (id, serverMsgId) {
+		              console.log('send private text Success');
+		          },
+		          fail: function(e){
+		              console.log("Send private text error");
+		          }
+		      });
+		      msg.body.chatType = 'singleChat';
+		      conn.send(msg.body);
+		  };
+		}
+	</script>
 </html>

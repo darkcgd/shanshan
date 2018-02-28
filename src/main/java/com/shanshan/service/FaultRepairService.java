@@ -52,7 +52,6 @@ public class FaultRepairService {
 		FaultRepairBeanExample example = new FaultRepairBeanExample();
 		Criteria criteria = example.createCriteria();
 		criteria.andUserIdEqualTo(Integer.parseInt(userId));
-
 		example.setOrderByClause("create_time");
 		return faultRepairBeanMapper.selectByExample(example);
 	}

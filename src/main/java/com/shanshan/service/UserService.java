@@ -172,7 +172,23 @@ NOT IN - 指相关的列必须不在传入的方法参数的list中.
 	 * 发送验证码
 	 */
 	public void sendCode(){
-
+     
 	}
+	/**
+	 *获取客服信息
+	 */
+    public UserBean getUserByType(){
+	 UserBeanExample userBeanExample = new UserBeanExample();
+		//通过Criteria构造查询条件
+		UserBeanExample.Criteria criteria=userBeanExample.createCriteria();
+		List<Integer> list=new ArrayList<>();
+		list.add(4);
+		criteria.andUserTypeIn(list);
+		List<UserBean> list2=userBeanMapper.selectByExample(userBeanExample);
+		if(list2.size()>0){
+			return list2.get(0);
+		}
+		return null;
+ }
 
 }

@@ -27,4 +27,6 @@ public interface UserBeanMapper {
     int updateByPrimaryKeySelective(UserBean record);
 
     int updateByPrimaryKey(UserBean record);
+    
+    List<UserBean> selectByUserType(Integer value);
 }
