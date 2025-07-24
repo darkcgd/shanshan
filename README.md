@@ -52,3 +52,28 @@ Geth (Go Ethereum) 是以太坊官方三大客户端之一（另两个是Rust实
 			
 			eth_miner模块动态调整最低Gas Price阈值
 
+   2.3 EVM执行环境构建
+
+   <img width="737" height="200" alt="image" src="https://github.com/user-attachments/assets/1c08cec0-17ec-4a43-9397-39fba6f96728" />
+
+   构建要素：
+
+		区块上下文：block.number、block.timestamp
+		
+		世界状态：合约账户的存储树
+		
+		交易上下文：tx.origin、msg.sender、value
+	
+	         Gas管理：初始化Gas Limit，按操作码扣减
+
+    执行流程：
+		
+		从状态数据库加载合约字节码
+		
+		解析并执行EVM操作码
+		
+		更新内存和存储状态
+		
+		生成执行日志和Gas消耗记录
+
+
