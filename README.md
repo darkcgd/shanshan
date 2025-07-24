@@ -33,13 +33,14 @@ Geth (Go Ethereum) 是以太坊官方三大客户端之一（另两个是Rust实
    2.2 交易池管理与Gas机制
 
    <img width="721" height="559" alt="image" src="https://github.com/user-attachments/assets/a581af91-de49-4e11-97bb-507bf820990d" />
-	 交易池结构：
+	
+       交易池结构：
 
 			Pending Queue：符合当前Gas Price的交易（准备打包）
 			
 			Queued：未来可能生效的交易（nonce不连续或Gas不足）
 			
-			Gas机制工作流：
+       Gas机制工作流：
 			
 			用户发送交易时指定 Gas Price 和 Gas Limit
 			
