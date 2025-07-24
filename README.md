@@ -31,6 +31,7 @@ Geth (Go Ethereum) 是以太坊官方三大客户端之一（另两个是Rust实
 			
 			关键创新：同步最新状态时跳过历史交易执行，直接下载Merkle Patricia Trie的状态快照
    2.2 交易池管理与Gas机制
+
    <img width="721" height="559" alt="image" src="https://github.com/user-attachments/assets/a581af91-de49-4e11-97bb-507bf820990d" />
 	 交易池结构：
 
